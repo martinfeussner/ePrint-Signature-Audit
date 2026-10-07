@@ -14,7 +14,7 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 2 |
+| Schemes identified | 4 |
 | Known attacks excluded | 1 |
 | Schemes audited | 1 |
 | No practical attack found | 1 |
@@ -36,5 +36,12 @@ scalar-verifier, canonical-encoding, derived-key, and deterministic-stream
 surfaces found no practical full-parameter signing compromise. The exact
 implementation remains private, so source-specific decoder and serializer
 checks are reserved for a release-time recheck.
+
+ASTRA-Sign (ePrint 2026/1290 v2) and UFOs (ePrint 2026/1607 v1) are queued for
+technical audit after target-specific searches located no public attacks
+against those exact parameterized schemes. UFOs keeps the publicly attacked
+Frobenius-UOV construction but replaces the exponent schedules used by the
+known forgery; its catalog entry preserves that lineage rather than describing
+the construction as previously unattacked.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

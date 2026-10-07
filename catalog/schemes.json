@@ -24,5 +24,29 @@
     "attack_history_note": "No public attack against exact ECLIPSE was located; related attacks against weakened PRISM, PRISM-id, and auxiliary-isogeny constructions do not target this exact scheme.",
     "audit_completed_at": "2026-10-07",
     "audit_note": "A scoped paper-level audit tested structured-composite primality, the scalar verifier, canonical response encoding, derived-key adaptation, and deterministic-stream framing without finding a practical full-parameter signing compromise. The cited ECLIPSE source remains private, so exact decoder and serializer checks are deferred until release."
+  },
+  {
+    "scheme": "ASTRA-Sign",
+    "aliases": ["ASTRA", "QC-MDGM full-distance signature"],
+    "eprint_id": "2026/1290",
+    "eprint_version": "v2",
+    "eprint_date": "2026-09-21",
+    "family": "QC-MDGM code-based hash-and-sign signature",
+    "status": "QUEUED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/1290",
+    "attack_history_note": "No public attack against exact ASTRA-Sign was located. Published attacks on earlier QC-LDGM, QC-LDPC, and HWQCS signatures concern materially different signing equations."
+  },
+  {
+    "scheme": "UFOs",
+    "aliases": ["hardened Frobenius-UOV", "F-UOV with hardened exponent schedules"],
+    "eprint_id": "2026/1607",
+    "eprint_version": "v1",
+    "eprint_date": "2026-08-04",
+    "family": "structured multivariate UOV signature over extension fields",
+    "status": "QUEUED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/1607",
+    "attack_history_note": "UFOs retains the Frobenius-UOV construction and interface but replaces the exponent schedules used by the published predecessor forgery. The original schedules are known-broken; no public attack against the fixed UFOs v1 replacement schedules was located."
   }
 ]
