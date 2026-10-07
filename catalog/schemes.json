@@ -62,5 +62,17 @@
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/1790",
     "attack_history_note": "No public attack against exact Lithium v1 was located. Babayev's DSD work is related cryptanalysis of small overstretched NTWE instances and explicitly does not appear to threaten Gartner's instantiations; it is method-transfer evidence rather than an attack on Lithium."
+  },
+  {
+    "scheme": "miniMEDS",
+    "aliases": ["MiniMEDS", "miniMEDS-L1", "miniMEDS-L3", "miniMEDS-L5"],
+    "eprint_id": "2026/1323",
+    "eprint_version": "v1",
+    "eprint_date": "2026-06-26",
+    "family": "tensor and matrix-code isomorphism GMW signature with corank-1 hints",
+    "status": "QUEUED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/1323",
+    "attack_history_note": "No public attack against exact miniMEDS v1 was located. MEDS has a fixed malformed-response verifier attack and later corank-1, rare-key, and matrix-code-equivalence cryptanalysis; miniMEDS is a distinct hint-response design, so these are mandatory method-transfer evidence rather than exact-target attacks."
   }
 ]

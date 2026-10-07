@@ -14,7 +14,7 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 5 |
+| Schemes identified | 6 |
 | Known attacks excluded | 1 |
 | Schemes audited | 2 |
 | No practical attack found | 2 |
@@ -37,9 +37,13 @@ surfaces found no practical full-parameter signing compromise. The exact
 implementation remains private, so source-specific decoder and serializer
 checks are reserved for a release-time recheck.
 
-ASTRA-Sign (ePrint 2026/1290 v2) and Lithium (ePrint 2026/1790 v1) are under
-technical audit after target-specific searches located no public attacks
-against those exact parameterized schemes.
+ASTRA-Sign (ePrint 2026/1290 v2), Lithium (ePrint 2026/1790 v1), and miniMEDS
+(ePrint 2026/1323 v1) are under technical audit after target-specific searches
+located no public attacks against those exact parameterized schemes. miniMEDS
+is distinct from its publicly cryptanalyzed MEDS predecessor: it replaces the
+old response with a corank-1 hint and a different verification path. The audit
+therefore carries the MEDS, Bermuda-triangle, and general matrix-code
+equivalence methods forward rather than treating that lineage as unattacked.
 
 UFOs (ePrint 2026/1607 v1) keeps the publicly attacked Frobenius-UOV
 construction but replaces the exponent schedules used by the known forgery.
