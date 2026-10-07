@@ -32,10 +32,12 @@
     "eprint_version": "v2",
     "eprint_date": "2026-09-21",
     "family": "QC-MDGM code-based hash-and-sign signature",
-    "status": "QUEUED",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/1290",
-    "attack_history_note": "No public attack against exact ASTRA-Sign was located. Published attacks on earlier QC-LDGM, QC-LDPC, and HWQCS signatures concern materially different signing equations."
+    "attack_history_note": "No public attack against exact ASTRA-Sign was located. Published attacks on earlier QC-LDGM, QC-LDPC, and HWQCS signatures concern materially different signing equations.",
+    "audit_completed_at": "2026-10-07",
+    "audit_note": "A scoped audit tested QC-pooled transcript statistics, sparse-factor and CRT recovery, exact public-key coordinate descent, and refined q-ary PGE/GBA/dissection estimates. No practical signing compromise was found. The sole nominal sub-128 list-work point requires about 2^126.90 stored entries; even a looser 2^40-entry cap leaves more than 2^132.85 elementary work."
   },
   {
     "scheme": "UFOs",

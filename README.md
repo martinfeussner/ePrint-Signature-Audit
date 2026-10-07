@@ -16,8 +16,8 @@ unreported.
 |---|---:|
 | Schemes identified | 7 |
 | Known attacks excluded | 1 |
-| Schemes audited | 3 |
-| No practical attack found | 3 |
+| Schemes audited | 4 |
+| No practical attack found | 4 |
 | Verified practical design attacks | 0 |
 | Independently reproduced attacks | 0 |
 
@@ -37,13 +37,20 @@ surfaces found no practical full-parameter signing compromise. The exact
 implementation remains private, so source-specific decoder and serializer
 checks are reserved for a release-time recheck.
 
-ASTRA-Sign (ePrint 2026/1290 v2), miniMEDS (ePrint 2026/1323 v1), and
-Miraidon-S (ePrint 2026/997 v4) are under technical audit after target-specific
-searches located no public attacks against those exact parameterized schemes.
-miniMEDS is distinct from its publicly cryptanalyzed MEDS predecessor, while
-Miraidon-S already accounts for the known fixed-weight five-pass forgery
-methods used against related protocols. The audit carries those lineage
-attacks forward without treating them as attacks on the exact targets.
+ASTRA-Sign (ePrint 2026/1290 v2) completed a scoped audit with no practical
+signing compromise. QC-pooled transcript statistics, sparse-ratio and CRT
+recovery, exact coordinate descent, and refined q-ary PGE/GBA/dissection
+estimates all screened negative under the project gate. Its only nominal
+sub-128 list-work point requires about `2^126.90` stored entries, and
+memory-feasible variants remain above `2^132.85` elementary work.
+
+miniMEDS (ePrint 2026/1323 v1) and Miraidon-S (ePrint 2026/997 v4) remain under
+technical audit after target-specific searches located no public attacks
+against those exact parameterized schemes. miniMEDS is distinct from its
+publicly cryptanalyzed MEDS predecessor, while Miraidon-S already accounts for
+the known fixed-weight five-pass forgery methods used against related
+protocols. The audit carries those lineage attacks forward without treating
+them as attacks on the exact targets.
 
 Lithium (ePrint 2026/1790 v1) completed a scoped audit with no practical
 signing compromise. Its mode-260 challenge sampler uses one-byte indices at
