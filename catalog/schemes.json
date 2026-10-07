@@ -74,5 +74,17 @@
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/1323",
     "attack_history_note": "No public attack against exact miniMEDS v1 was located. MEDS has a fixed malformed-response verifier attack and later corank-1, rare-key, and matrix-code-equivalence cryptanalysis; miniMEDS is a distinct hint-response design, so these are mandatory method-transfer evidence rather than exact-target attacks."
+  },
+  {
+    "scheme": "Miraidon-S",
+    "aliases": ["Miraidon signature", "ordinary Miraidon signature"],
+    "eprint_id": "2026/997",
+    "eprint_version": "v4",
+    "eprint_date": "2026-06-02",
+    "family": "MinRank identification Fiat-Shamir signature",
+    "status": "QUEUED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/997",
+    "attack_history_note": "No public attack against exact Miraidon-S v4 was located. Generic MinRank and fixed-weight five-pass attacks are required prior art; v4 explicitly models the latter, while CROSS, MR-DSS, and Mirath are distinct schemes."
   }
 ]
