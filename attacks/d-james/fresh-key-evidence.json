@@ -1,0 +1,80 @@
+{
+  "aggregate": {
+    "all_executed_keys_succeeded": true,
+    "fresh_key_successes": 2,
+    "fresh_key_trials": 2,
+    "primary_plus_fresh_successes": 3,
+    "primary_plus_fresh_trials": 3
+  },
+  "generated_key_trials": [
+    {
+      "artifacts": {
+        "attack_transcript_sha256": "a4f856f439619465c6344c2278965a3c17dd5738a5796c3fe098f5520ed76ef3",
+        "forgery_sha256": "c953b3e40ce6d5093015cdd2a2236c2f6453a264eca81123adc6b0cd78661159",
+        "public_input_sha256": "68a358ce0c20fbe7788319d379a6038f79421875a6c690837ccb771aef168401",
+        "public_verification_sha256": "0d9837f4f6635febb80df4451932f4d5c175b9653b64de29c4b93804a156a905",
+        "recovered_basis_sha256": "20f3da3d0c702e066cf1a8c0d5c777003056c030afc6a32d513fbb4cccfbf792",
+        "recovery_transcript_sha256": "65ec50f1d42bd2275595a2c53ee4f5be936971a8684c888edbd9854cc22b40e6"
+      },
+      "outcome": {
+        "changed_message_accepting_salts": 0,
+        "changed_message_salts_checked": 256,
+        "fresh_public_equations_accepted": 73,
+        "fresh_public_equations_total": 73,
+        "fresh_salt": 0,
+        "public_fixed_rhs_accept": true,
+        "root_attempts": 14,
+        "signature_nonzero": true
+      },
+      "timings": {
+        "forge_cpu_seconds": 257.23,
+        "post_recovery_cpu_seconds": 391.33,
+        "post_recovery_wall_seconds": 391.871265311,
+        "recovery_magma_memory_mb": 224.28,
+        "recovery_magma_seconds": 98.329,
+        "verification_wall_seconds": 37.86
+      },
+      "trial": "fresh-key-A"
+    },
+    {
+      "artifacts": {
+        "attack_transcript_sha256": "c9bbfa834cef6ff80da670ea10bf5d5626cd7d81a54900a611ae5d7a9145a9ed",
+        "forgery_sha256": "b66231eff856b1d1e8596504eff58ec9e1e1df9d16ef4d46d6dcbe0b7b192bdd",
+        "handoff_sha256": "fcaf0f0a59af29f3050c97f633c1865e37dfbf6d05faaffdc858c01fe2e571eb",
+        "leak_audit_sha256": "41757d83afc975fc7618912a9d5b3d7c2c792ccbbd6b07b18e1f0426a87430ff",
+        "public_input_sha256": "96810a4a5548a6a04aa8e176df12b51e137a6588e475293c5a8d68080ea1da47",
+        "public_verification_sha256": "b5b52e501c2e9781fecfb3037f837023153b579792f1b64a61e3c47867701692",
+        "recovered_basis_sha256": "1e7e9461df877554e2bb10a0aa89acad28a2b19dcc08e00140899b64977edc93",
+        "sealed_manifest_sha256": "3535642cdf020d4928ac8d126782c0c17795a4b18f52a2304cc289d45bcdc989"
+      },
+      "outcome": {
+        "changed_message_accepting_salts": 0,
+        "changed_message_salts_checked": 256,
+        "fresh_public_equations_accepted": 73,
+        "fresh_public_equations_total": 73,
+        "fresh_salt": 2,
+        "public_fixed_rhs_accept": true,
+        "root_attempts": 63,
+        "signature_nonzero": true
+      },
+      "timings": {
+        "forge_cpu_seconds": 259.83,
+        "interpolation_wall_seconds": [
+          19.55,
+          19.56,
+          19.65
+        ],
+        "post_recovery_cpu_seconds": 390.8,
+        "post_recovery_peak_rss_kib": 104960,
+        "post_recovery_wall_seconds": 391.36,
+        "resultant_stage_peak_rss_kib": 217088,
+        "resultant_stage_wall_seconds": 39.37,
+        "verification_wall_seconds": 0.55
+      },
+      "trial": "fresh-key-B"
+    }
+  ],
+  "schema": "djames-q5-128-fresh-key-evidence-v1",
+  "scope": "Public-artifact hashes, public attack transcripts, independent public verification, and resource measurements only; key-generation metadata and secret-derived fixtures are excluded.",
+  "target": "D-James v5 q5/128"
+}

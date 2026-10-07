@@ -1,0 +1,33 @@
+{
+  "attack": {
+    "fresh_message_hex": "442d4a616d6573204d6972616e6461207472616e73666572206672657368206d657373616765",
+    "fresh_salt": 0,
+    "parameter_row": "D-James q5/128",
+    "signing_queries": 0
+  },
+  "checks": {
+    "advertised_parameter_row": true,
+    "changed_message_rejects_all_256_salts": true,
+    "fresh_signature_satisfies_all_73_public_equations": true,
+    "public_input_contains_no_secret_metadata": true,
+    "signature_is_nonzero_and_has_94_symbols": true,
+    "stored_hash_vectors_match_recomputed_shake256": true
+  },
+  "digests": {
+    "forgery_sha256": "ac6d0e18c5ecde819ebac5e470c1f7921d7f9575271837c98bcbe742ba641ede",
+    "public_key_sha256": "51c295dbf1ecd9ce77a890b5436391365f919505971f5a1b19e8f17341dc1e3a"
+  },
+  "environment": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "workers": 1
+  },
+  "metrics": {
+    "changed_message_accepting_salts": [],
+    "elapsed_seconds": 1.340612,
+    "public_equations_checked": 73,
+    "salts_checked": 512
+  },
+  "result": "PASS",
+  "schema": "djames-q5-128-public-verification-v1"
+}

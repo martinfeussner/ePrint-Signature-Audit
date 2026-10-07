@@ -14,17 +14,18 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 7 |
+| Schemes identified | 8 |
 | Known attacks excluded | 1 |
-| Schemes audited | 6 |
+| Schemes audited | 7 |
 | No practical attack found | 5 |
-| Practical design attacks | 1 |
-| Independently reproduced attacks | 1 |
+| Practical design attacks | 2 |
+| Independently reproduced attacks | 2 |
 
 ## Practical design attacks
 
 | Scheme | ePrint | Family | Result | Technique | Parameters | Cost | Status |
 |---|---|---|---|---|---|---|---|
+| [D-James](attacks/d-james/) | 2026/1650 v5 | HFE-minus-IP with Dragon bilinear terms | Equivalent signing-key recovery with fresh signing | Hidden matrix-Gabidulin recovery and rank-metric completion | q5/128 | about 490 s, 224.28 MB, 1 worker | AI-reproduced; human review pending |
 | [Miraidon-S](attacks/miraidon-s/) | 2026/997 v4 | MinRank identification | Universal fresh-message forgery | Zero witness and rank-zero factors | Levels I, III, V | 0.49 s Level-I forge | AI-reproduced; human review pending |
 
 The first catalog record is ATLAS (ePrint 2026/2323), excluded because it is
@@ -52,6 +53,18 @@ walks that paper Algorithm 6 rejects, but full-dimension controls retained
 key-dependent canonical forms and supplied no dual response or fresh-message
 forgery. Direct transfers of the public MEDS and tensor/MCE attacks remained
 impractical at the exact parameter sets.
+
+[D-James](attacks/d-james/) (ePrint 2026/1650 v5) exposes an expanded
+two-dimensional generalized Gabidulin code in its public Dragon cross tensor.
+A public three-column pencil recovers the hidden field basis; rank decoding
+and linear completion then recover an equivalent HFE-IP/Dragon signer for the
+advertised q5/128 row. The primary execution and two independently generated
+fresh keys each produced a nonzero fresh-message signature accepted by all 73
+public equations, while the same signature failed all 256 salts of a changed
+message. A full run takes about 490 seconds on one worker and at most 224.28 MB
+in the recorded executions. The result is scoped to the literal v5 algebra and
+all-ones target under a pinned nonnormative transcript interface because no
+conforming v5 implementation or byte format is public.
 
 [Miraidon-S](attacks/miraidon-s/) (ePrint 2026/997 v4) admits a
 public-key-only universal fresh-message forgery because verification accepts

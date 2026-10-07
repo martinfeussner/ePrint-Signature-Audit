@@ -1,0 +1,21 @@
+{
+  "all_rows_pass": true,
+  "environment": {
+    "machine": "x86_64",
+    "python": "3.12.3",
+    "workers": 1
+  },
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "changed_message_accepting_salts": [],
+      "fresh_accepts": true,
+      "parameter_row": "D-James q5/128",
+      "public_key_sha256": "51c295dbf1ecd9ce77a890b5436391365f919505971f5a1b19e8f17341dc1e3a",
+      "signature_nonzero": true,
+      "stored_hash_vectors_match": true
+    }
+  ],
+  "runtime_seconds": 37.189576,
+  "schema": "djames-claimed-rows-independent-verification-v1"
+}

@@ -1,0 +1,33 @@
+{
+  "artifacts": {
+    "completion_time_sha256": "f7b5cf0b1eaea0a86e51876b1c19e999acd4f9ddc5ea0146d5fb414712bdd217",
+    "full_attack_transcript_sha256": "3dcc65e699643b96aee610b6146289f397bc96c83aee7318c5e5c81f10267864",
+    "generated_replay_witness_sha256": "ac6d0e18c5ecde819ebac5e470c1f7921d7f9575271837c98bcbe742ba641ede",
+    "public_verification_sha256": "e8ac9dc6d861d024d54829d05225b7770bd1265571f2992323c7c13c4a7de631",
+    "recovered_basis_sha256": "54e38e2a14c8ba1eca5fa3b9d021e565551d6a289a2dcad6ec4be5c5ca1120ab",
+    "recovery_log_sha256": "239ddabff2d3dbb4024bee71436c8a5f48cf7d91ac876eb590d83ca0c0f2dc58",
+    "recovery_time_sha256": "2fa822f9e338f3963e263f39091f716355030103b3218e55b5f979a06684149e"
+  },
+  "checks": {
+    "changed_message_accepting_salts": 0,
+    "completion_and_sign_pass": true,
+    "fresh_public_equations_accepted": 73,
+    "fresh_public_equations_total": 73,
+    "generated_replay_witness_matches_published_bytes": true,
+    "public_verifier_pass": true,
+    "recovery_pass": true
+  },
+  "environment": {
+    "cpu": "AMD EPYC Processor under KVM",
+    "magma": "V2.29-1",
+    "workers": 1
+  },
+  "public_key_sha256": "51c295dbf1ecd9ce77a890b5436391365f919505971f5a1b19e8f17341dc1e3a",
+  "schema": "djames-q5-128-full-replay-evidence-v1",
+  "timings": {
+    "completion_peak_rss_kib": 105472,
+    "completion_wall_seconds": 382.89,
+    "recovery_peak_rss_kib": 214528,
+    "recovery_wall_seconds": 98.04
+  }
+}

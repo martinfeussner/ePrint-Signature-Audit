@@ -26,6 +26,23 @@
     "audit_note": "A scoped paper-level audit tested structured-composite primality, the scalar verifier, canonical response encoding, derived-key adaptation, and deterministic-stream framing without finding a practical full-parameter signing compromise. The cited ECLIPSE source remains private, so exact decoder and serializer checks are deferred until release."
   },
   {
+    "scheme": "D-James",
+    "aliases": ["Dragon-James"],
+    "eprint_id": "2026/1650",
+    "eprint_version": "v5",
+    "eprint_date": "2026-09-24",
+    "family": "Multivariate HFE-minus-IP signature with Dragon bilinear terms",
+    "status": "AI_REPRODUCED_HUMAN_PENDING",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/1650",
+    "attack_history_note": "No previous public attack against exact D-James was located in the searches performed as of 2026-10-07. Hidden-Gabidulin recovery for Miranda and EGMC is credited prior method evidence, not an exact-target D-James attack.",
+    "audit_completed_at": "2026-10-07",
+    "attack_result": "Public-key-only equivalent signing-key recovery with fresh signing",
+    "attack_path": "attacks/d-james/",
+    "independent_reproduction": true,
+    "human_verification": false
+  },
+  {
     "scheme": "ASTRA-Sign",
     "aliases": ["ASTRA", "QC-MDGM full-distance signature"],
     "eprint_id": "2026/1290",
