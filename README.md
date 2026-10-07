@@ -16,8 +16,8 @@ unreported.
 |---|---:|
 | Schemes identified | 7 |
 | Known attacks excluded | 1 |
-| Schemes audited | 4 |
-| No practical attack found | 4 |
+| Schemes audited | 5 |
+| No practical attack found | 5 |
 | Verified practical design attacks | 0 |
 | Independently reproduced attacks | 0 |
 
@@ -44,13 +44,17 @@ estimates all screened negative under the project gate. Its only nominal
 sub-128 list-work point requires about `2^126.90` stored entries, and
 memory-feasible variants remain above `2^132.85` elementary work.
 
-miniMEDS (ePrint 2026/1323 v1) and Miraidon-S (ePrint 2026/997 v4) remain under
-technical audit after target-specific searches located no public attacks
-against those exact parameterized schemes. miniMEDS is distinct from its
-publicly cryptanalyzed MEDS predecessor, while Miraidon-S already accounts for
-the known fixed-weight five-pass forgery methods used against related
-protocols. The audit carries those lineage attacks forward without treating
-them as attacks on the exact targets.
+miniMEDS (ePrint 2026/1323 v1) completed a scoped audit with no practical
+signing compromise. Its source accepts internally dependent, Scale-compatible
+walks that paper Algorithm 6 rejects, but full-dimension controls retained
+key-dependent canonical forms and supplied no dual response or fresh-message
+forgery. Direct transfers of the public MEDS and tensor/MCE attacks remained
+impractical at the exact parameter sets.
+
+Miraidon-S (ePrint 2026/997 v4) remains under technical audit after a
+target-specific search located no public attack against that exact scheme. Its
+parameters already account for known fixed-weight five-pass forgery methods
+used against related protocols.
 
 Lithium (ePrint 2026/1790 v1) completed a scoped audit with no practical
 signing compromise. Its mode-260 challenge sampler uses one-byte indices at
