@@ -18,9 +18,11 @@
     "eprint_version": "v1",
     "eprint_date": "2026-10-02",
     "family": "supersingular-isogeny hash-and-sign signature",
-    "status": "QUEUED",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/2312",
-    "attack_history_note": "No public attack against exact ECLIPSE was located; related attacks against weakened PRISM, PRISM-id, and auxiliary-isogeny constructions do not target this exact scheme."
+    "attack_history_note": "No public attack against exact ECLIPSE was located; related attacks against weakened PRISM, PRISM-id, and auxiliary-isogeny constructions do not target this exact scheme.",
+    "audit_completed_at": "2026-10-07",
+    "audit_note": "A scoped paper-level audit tested structured-composite primality, the scalar verifier, canonical response encoding, derived-key adaptation, and deterministic-stream framing without finding a practical full-parameter signing compromise. The cited ECLIPSE source remains private, so exact decoder and serializer checks are deferred until release."
   }
 ]
