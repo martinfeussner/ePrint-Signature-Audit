@@ -16,8 +16,8 @@ unreported.
 |---|---:|
 | Schemes identified | 7 |
 | Known attacks excluded | 1 |
-| Schemes audited | 2 |
-| No practical attack found | 2 |
+| Schemes audited | 3 |
+| No practical attack found | 3 |
 | Verified practical design attacks | 0 |
 | Independently reproduced attacks | 0 |
 
@@ -37,14 +37,20 @@ surfaces found no practical full-parameter signing compromise. The exact
 implementation remains private, so source-specific decoder and serializer
 checks are reserved for a release-time recheck.
 
-ASTRA-Sign (ePrint 2026/1290 v2), Lithium (ePrint 2026/1790 v1), miniMEDS
-(ePrint 2026/1323 v1), and Miraidon-S (ePrint 2026/997 v4) are under technical
-audit after target-specific searches located no public attacks against those
-exact parameterized schemes. miniMEDS is distinct from its publicly
-cryptanalyzed MEDS predecessor, while Miraidon-S already accounts for the
-known fixed-weight five-pass forgery methods used against related protocols.
-The audit carries those lineage attacks forward without treating them as
-attacks on the exact targets.
+ASTRA-Sign (ePrint 2026/1290 v2), miniMEDS (ePrint 2026/1323 v1), and
+Miraidon-S (ePrint 2026/997 v4) are under technical audit after target-specific
+searches located no public attacks against those exact parameterized schemes.
+miniMEDS is distinct from its publicly cryptanalyzed MEDS predecessor, while
+Miraidon-S already accounts for the known fixed-weight five-pass forgery
+methods used against related protocols. The audit carries those lineage
+attacks forward without treating them as attacks on the exact targets.
+
+Lithium (ePrint 2026/1790 v1) completed a scoped audit with no practical
+signing compromise. Its mode-260 challenge sampler uses one-byte indices at
+degree 512, making 198 challenge positions unreachable and lowering a generic
+zero-response target-preimage forgery to about `2^203.66` message trials. This
+is a specification-level claim-margin failure, but it remains computationally
+infeasible and is not classified as a successful attack by this project.
 
 UFOs (ePrint 2026/1607 v1) keeps the publicly attacked Frobenius-UOV
 construction but replaces the exponent schedules used by the known forgery.

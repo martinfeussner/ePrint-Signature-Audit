@@ -58,10 +58,12 @@
     "eprint_version": "v1",
     "eprint_date": "2026-08-24",
     "family": "lattice Fiat-Shamir signature with iterative rejection sampling",
-    "status": "QUEUED",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/1790",
-    "attack_history_note": "No public attack against exact Lithium v1 was located. Babayev's DSD work is related cryptanalysis of small overstretched NTWE instances and explicitly does not appear to threaten Gartner's instantiations; it is method-transfer evidence rather than an attack on Lithium."
+    "attack_history_note": "No public attack against exact Lithium v1 was located. Babayev's DSD work is related cryptanalysis of small overstretched NTWE instances and explicitly does not appear to threaten Gartner's instantiations; it is method-transfer evidence rather than an attack on Lithium.",
+    "audit_completed_at": "2026-10-07",
+    "audit_note": "The IRS, fixed-key transcript, exact-parameter DSD transfer, and canonical encoding paths produced no practical signing compromise. Paper Algorithm 9 and all source backends use an 8-bit challenge index at n=512, so Lithium-260 positions 256 through 453 are unreachable and a canonical zero-response target-preimage forgery costs about 2^203.66 message trials. This undercuts the claimed margin but is computationally infeasible under the project criterion."
   },
   {
     "scheme": "miniMEDS",
