@@ -10,5 +10,17 @@
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/2323",
     "exclusion_basis": "Exact identity with MORNING-ATLAS/NGCC sign-15; a public full-parameter ATLAS-128 design attack recovers an equivalent signing key and produces fresh-message forgeries."
+  },
+  {
+    "scheme": "ECLIPSE",
+    "aliases": ["prime-degree PRISM", "salted prime-degree Section 5 PRISM"],
+    "eprint_id": "2026/2312",
+    "eprint_version": "v1",
+    "eprint_date": "2026-10-02",
+    "family": "supersingular-isogeny hash-and-sign signature",
+    "status": "QUEUED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/2312",
+    "attack_history_note": "No public attack against exact ECLIPSE was located; related attacks against weakened PRISM, PRISM-id, and auxiliary-isogeny constructions do not target this exact scheme."
   }
 ]

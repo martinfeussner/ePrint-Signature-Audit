@@ -1,2 +1,3 @@
 scheme,eprint_id,eprint_version,eprint_date,family,status,attack_history_checked_at,url
 ATLAS,2026/2323,initial listing,2026-10-03,module-LWR Fiat-Shamir-with-aborts signature,KNOWN_ATTACK_EXCLUDED,2026-10-07,https://eprint.iacr.org/2026/2323
+ECLIPSE,2026/2312,v1,2026-10-02,supersingular-isogeny hash-and-sign signature,QUEUED,2026-10-07,https://eprint.iacr.org/2026/2312
