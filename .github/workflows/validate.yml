@@ -10,9 +10,11 @@ permissions:
 jobs:
   metadata:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python3 scripts/validate-metadata.py
+      - name: Validate catalog and published attacks
+        run: python3 -B scripts/validate-metadata.py

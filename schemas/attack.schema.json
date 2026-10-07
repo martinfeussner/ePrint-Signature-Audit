@@ -3,7 +3,7 @@
   "$id": "https://github.com/martinfeussner/ePrint-Signature-Audit/schemas/attack.schema.json",
   "title": "Published attack record",
   "type": "object",
-  "required": ["scheme", "eprint_id", "eprint_version", "attack_history_checked_at", "prior_public_attack_located", "attack_result", "attack_technique", "layer", "affected_parameters", "full_scale", "runtime_seconds", "peak_ram_mb", "workers", "independent_reproduction", "human_verification"],
+  "required": ["scheme", "eprint_id", "eprint_version", "attack_history_checked_at", "prior_public_attack_located", "attack_result", "attack_technique", "layer", "affected_parameters", "full_scale", "runtime_seconds", "peak_ram_mb", "workers", "independent_reproduction", "human_verification", "reproducer_sha256", "independent_reproducer_sha256", "reference_output_sha256", "all_rows_reference_output_sha256", "attack_paper_sha256", "attack_paper_source_sha256", "attack_paper_makefile_sha256"],
   "properties": {
     "scheme": {"type": "string", "minLength": 1},
     "eprint_id": {"type": "string", "pattern": "^[0-9]{4}/[0-9]+$"},
@@ -20,7 +20,14 @@
     "peak_ram_mb": {"type": "number", "minimum": 0},
     "workers": {"type": "integer", "minimum": 1},
     "independent_reproduction": {"const": true},
-    "human_verification": {"type": "boolean"}
+    "human_verification": {"type": "boolean"},
+    "reproducer_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "independent_reproducer_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reference_output_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "all_rows_reference_output_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "attack_paper_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "attack_paper_source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "attack_paper_makefile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
   },
   "additionalProperties": true
 }

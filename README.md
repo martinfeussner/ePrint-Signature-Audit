@@ -16,14 +16,16 @@ unreported.
 |---|---:|
 | Schemes identified | 7 |
 | Known attacks excluded | 1 |
-| Schemes audited | 5 |
+| Schemes audited | 6 |
 | No practical attack found | 5 |
-| Verified practical design attacks | 0 |
-| Independently reproduced attacks | 0 |
+| Practical design attacks | 1 |
+| Independently reproduced attacks | 1 |
 
-## Verified attacks
+## Practical design attacks
 
-No attack has passed the publication gate yet.
+| Scheme | ePrint | Family | Result | Technique | Parameters | Cost | Status |
+|---|---|---|---|---|---|---|---|
+| [Miraidon-S](attacks/miraidon-s/) | 2026/997 v4 | MinRank identification | Universal fresh-message forgery | Zero witness and rank-zero factors | Levels I, III, V | 0.49 s Level-I forge | AI-reproduced; human review pending |
 
 The first catalog record is ATLAS (ePrint 2026/2323), excluded because it is
 the published form of MORNING-ATLAS/NGCC sign-15 and a practical ATLAS-128
@@ -51,10 +53,12 @@ key-dependent canonical forms and supplied no dual response or fresh-message
 forgery. Direct transfers of the public MEDS and tensor/MCE attacks remained
 impractical at the exact parameter sets.
 
-Miraidon-S (ePrint 2026/997 v4) remains under technical audit after a
-target-specific search located no public attack against that exact scheme. Its
-parameters already account for known fixed-weight five-pass forgery methods
-used against related protocols.
+[Miraidon-S](attacks/miraidon-s/) (ePrint 2026/997 v4) admits a
+public-key-only universal fresh-message forgery because verification accepts
+the zero MinRank witness and rank-zero factors without enforcing the stated
+nonzero, exact-rank relation. Independent implementations reproduced the
+attack at Levels I, III, and V. The result is independently AI-reproduced;
+independent human verification is pending.
 
 Lithium (ePrint 2026/1790 v1) completed a scoped audit with no practical
 signing compromise. Its mode-260 challenge sampler uses one-byte indices at

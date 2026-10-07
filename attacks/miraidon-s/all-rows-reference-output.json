@@ -1,0 +1,298 @@
+{
+  "all_rows_pass": true,
+  "description": "zero-witness universal fresh-message forgery against natural corrected Algorithm 6",
+  "experiment_id": "MIR-EXP-004",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "attack_inputs": [
+        "public parameter row",
+        "fresh message",
+        "attacker nonce"
+      ],
+      "changed_message_detail": {
+        "reason": "ValueError: seed path reveals the wrong leaf set"
+      },
+      "elapsed_seconds": 2.68606847000774,
+      "forged_branch_detail": {
+        "b0_rounds": 59,
+        "b1_rounds": 121,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 32,
+        "opened_Q_ranks": [
+          0
+        ],
+        "salt_bytes": 32,
+        "xi_nonzero": true
+      },
+      "forged_signature_accepts": true,
+      "honest_detail": {
+        "b0_rounds": 59,
+        "b1_rounds": 121,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 32,
+        "opened_Q_ranks": [
+          4
+        ],
+        "salt_bytes": 32,
+        "xi_nonzero": true
+      },
+      "honest_signature_accepts": true,
+      "honest_strict_detail": {
+        "b0_rounds": 59,
+        "b1_rounds": 121,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 32,
+        "opened_Q_ranks": [
+          4
+        ],
+        "salt_bytes": 32,
+        "xi_nonzero": true
+      },
+      "honest_strict_exact_rank_accepts": true,
+      "independently_forged_second_fresh_message_accepts": true,
+      "parameter_row": "L1",
+      "parameters": {
+        "k": 44,
+        "lambda": 128,
+        "m": 10,
+        "n": 10,
+        "q": 127,
+        "r": 4,
+        "t": 180,
+        "w": 121
+      },
+      "public_matrices_read_by_attacker": false,
+      "same_signature_changed_message_accepts": false,
+      "second_forge_branch_detail": {
+        "b0_rounds": 59,
+        "b1_rounds": 121,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 32,
+        "opened_Q_ranks": [
+          0
+        ],
+        "salt_bytes": 32,
+        "xi_nonzero": true
+      },
+      "secret_key_passed_to_attacker": false,
+      "strict_detail": {
+        "rank": 0,
+        "reason": "non-exact Q rank",
+        "round": 0
+      },
+      "strict_exact_rank_verifier_accepts_forgery": false,
+      "valid_key_relation_rank": 4
+    },
+    {
+      "all_expected_checks_pass": true,
+      "attack_inputs": [
+        "public parameter row",
+        "fresh message",
+        "attacker nonce"
+      ],
+      "changed_message_detail": {
+        "reason": "ValueError: seed path reveals the wrong leaf set"
+      },
+      "elapsed_seconds": 7.2631360199302435,
+      "forged_branch_detail": {
+        "b0_rounds": 69,
+        "b1_rounds": 248,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 48,
+        "opened_Q_ranks": [
+          0
+        ],
+        "salt_bytes": 48,
+        "xi_nonzero": true
+      },
+      "forged_signature_accepts": true,
+      "honest_detail": {
+        "b0_rounds": 69,
+        "b1_rounds": 248,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 48,
+        "opened_Q_ranks": [
+          6
+        ],
+        "salt_bytes": 48,
+        "xi_nonzero": true
+      },
+      "honest_signature_accepts": true,
+      "honest_strict_detail": {
+        "b0_rounds": 69,
+        "b1_rounds": 248,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 48,
+        "opened_Q_ranks": [
+          6
+        ],
+        "salt_bytes": 48,
+        "xi_nonzero": true
+      },
+      "honest_strict_exact_rank_accepts": true,
+      "independently_forged_second_fresh_message_accepts": true,
+      "parameter_row": "L3",
+      "parameters": {
+        "k": 45,
+        "lambda": 192,
+        "m": 12,
+        "n": 12,
+        "q": 257,
+        "r": 6,
+        "t": 317,
+        "w": 248
+      },
+      "public_matrices_read_by_attacker": false,
+      "same_signature_changed_message_accepts": false,
+      "second_forge_branch_detail": {
+        "b0_rounds": 69,
+        "b1_rounds": 248,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 48,
+        "opened_Q_ranks": [
+          0
+        ],
+        "salt_bytes": 48,
+        "xi_nonzero": true
+      },
+      "secret_key_passed_to_attacker": false,
+      "strict_detail": {
+        "rank": 0,
+        "reason": "non-exact Q rank",
+        "round": 18
+      },
+      "strict_exact_rank_verifier_accepts_forgery": false,
+      "valid_key_relation_rank": 6
+    },
+    {
+      "all_expected_checks_pass": true,
+      "attack_inputs": [
+        "public parameter row",
+        "fresh message",
+        "attacker nonce"
+      ],
+      "changed_message_detail": {
+        "reason": "ValueError: seed path reveals the wrong leaf set"
+      },
+      "elapsed_seconds": 17.16064497199841,
+      "forged_branch_detail": {
+        "b0_rounds": 77,
+        "b1_rounds": 435,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 64,
+        "opened_Q_ranks": [
+          0
+        ],
+        "salt_bytes": 64,
+        "xi_nonzero": true
+      },
+      "forged_signature_accepts": true,
+      "honest_detail": {
+        "b0_rounds": 77,
+        "b1_rounds": 435,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 64,
+        "opened_Q_ranks": [
+          7
+        ],
+        "salt_bytes": 64,
+        "xi_nonzero": true
+      },
+      "honest_signature_accepts": true,
+      "honest_strict_detail": {
+        "b0_rounds": 77,
+        "b1_rounds": 435,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 64,
+        "opened_Q_ranks": [
+          7
+        ],
+        "salt_bytes": 64,
+        "xi_nonzero": true
+      },
+      "honest_strict_exact_rank_accepts": true,
+      "independently_forged_second_fresh_message_accepts": true,
+      "parameter_row": "L5",
+      "parameters": {
+        "k": 50,
+        "lambda": 256,
+        "m": 13,
+        "n": 13,
+        "q": 509,
+        "r": 7,
+        "t": 512,
+        "w": 435
+      },
+      "public_matrices_read_by_attacker": false,
+      "same_signature_changed_message_accepts": false,
+      "second_forge_branch_detail": {
+        "b0_rounds": 77,
+        "b1_rounds": 435,
+        "checks": {
+          "Y_aggregate": true,
+          "c0_merkle": true,
+          "c1_aggregate": true
+        },
+        "commitment_bytes": 64,
+        "opened_Q_ranks": [
+          0
+        ],
+        "salt_bytes": 64,
+        "xi_nonzero": true
+      },
+      "secret_key_passed_to_attacker": false,
+      "strict_detail": {
+        "rank": 0,
+        "reason": "non-exact Q rank",
+        "round": 28
+      },
+      "strict_exact_rank_verifier_accepts_forgery": false,
+      "valid_key_relation_rank": 7
+    }
+  ]
+}

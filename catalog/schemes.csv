@@ -5,4 +5,4 @@ ASTRA-Sign,2026/1290,v2,2026-09-21,QC-MDGM code-based hash-and-sign signature,AU
 UFOs,2026/1607,v1,2026-08-04,structured multivariate UOV signature over extension fields,AUDITED_NO_PRACTICAL_ATTACK,2026-10-07,https://eprint.iacr.org/2026/1607
 Lithium,2026/1790,v1,2026-08-24,lattice Fiat-Shamir signature with iterative rejection sampling,AUDITED_NO_PRACTICAL_ATTACK,2026-10-07,https://eprint.iacr.org/2026/1790
 miniMEDS,2026/1323,v1,2026-06-26,tensor and matrix-code isomorphism GMW signature with corank-1 hints,AUDITED_NO_PRACTICAL_ATTACK,2026-10-07,https://eprint.iacr.org/2026/1323
-Miraidon-S,2026/997,v4,2026-06-02,MinRank identification Fiat-Shamir signature,QUEUED,2026-10-07,https://eprint.iacr.org/2026/997
+Miraidon-S,2026/997,v4,2026-06-02,MinRank identification Fiat-Shamir signature,AI_REPRODUCED_HUMAN_PENDING,2026-10-07,https://eprint.iacr.org/2026/997

@@ -1,0 +1,74 @@
+{
+  "attack": {
+    "E": "0",
+    "expected_work": "polynomial; one ordinary signing pass",
+    "inputs": [
+      "public matrices",
+      "fresh message",
+      "attacker randomness"
+    ],
+    "per_round": "Q=0, L=0, R=0, v=u",
+    "secret_key_material_passed": false,
+    "signing_queries": 0,
+    "success_probability": 1,
+    "witness": "a=0"
+  },
+  "checks": {
+    "attack_uses_no_signing_query": true,
+    "attack_witness_is_all_zero": true,
+    "forged_message_was_not_honestly_signed": true,
+    "honest_signature_accepts": true,
+    "honest_signature_accepts_hardened_rank_check": true,
+    "legitimate_key_has_rank_r_witness": true,
+    "mutated_message_rejects": true,
+    "zero_witness_forgery_accepts": true,
+    "zero_witness_forgery_rejected_by_hardened_rank_check": true
+  },
+  "digests": {
+    "forged_message_sha256": "bc6ec77e49810c233beeaf7d66a3525d2084204370b52cfcd673421e734e4f6b",
+    "forged_signature_sha256": "0251e8b897f81413dc415b2f5cb21d14d879ce2f9d991e3d7be657ddb6262660",
+    "honest_message_sha256": "25735a87a7c1728f85c8d8dbfd4923c78df7f8dec322848e5cf9d92e6b68f63f",
+    "honest_signature_sha256": "f8e91b63f9f2c10efd9c7926efbd6a882c41decaf034c29bf07a2efef14ab8b2",
+    "public_key_sha256": "cd3a41c690f11f4bc906543cc1e8d782263bef87dd3dc0825c34cd6702e00f80"
+  },
+  "environment": {
+    "python": "3.12.3",
+    "workers": 1
+  },
+  "experiment_id": "MIR-EXP-004",
+  "keygen": {
+    "algorithm_5_attempts": 199,
+    "compressed_tail_elements": 16,
+    "seconds": 3.2157931410474703
+  },
+  "model": {
+    "algorithm_6_correction": "Merkle-verify c0 leaves; flat-aggregate c1 leaves",
+    "commitment_and_fiat_shamir": "SHAKE256, length-prefixed, domain-labelled",
+    "merkle_proof": "ordinary binary multiproof",
+    "seed_path": "direct revealed leaf seeds implementing abstract FormTree semantics",
+    "wire_compatibility": "paper supplies no concrete wire encoding or full implementation"
+  },
+  "parameters": {
+    "k": 44,
+    "lam": 128,
+    "m": 10,
+    "n": 10,
+    "name": "Miraidon-S-L1",
+    "q": 127,
+    "r": 4,
+    "t": 180,
+    "w": 121
+  },
+  "result": "FULL_PARAMETER_PUBLIC_KEY_ONLY_FRESH_MESSAGE_FORGERY",
+  "target": "Miraidon-S ePrint 2026/997 v4",
+  "timing": {
+    "forge_seconds": 0.4887730310438201,
+    "honest_sign_seconds": 0.5114248159807175,
+    "total_seconds": 4.80758906097617
+  },
+  "trials": {
+    "accepted": 1,
+    "forgeries": 1,
+    "keys": 1
+  }
+}

@@ -11,4 +11,3 @@ __pycache__/
 *.out
 *.synctex.gz
 *.toc
-attacks/**/paper/*.pdf

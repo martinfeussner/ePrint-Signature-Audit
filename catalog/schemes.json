@@ -88,9 +88,14 @@
     "eprint_version": "v4",
     "eprint_date": "2026-06-02",
     "family": "MinRank identification Fiat-Shamir signature",
-    "status": "QUEUED",
+    "status": "AI_REPRODUCED_HUMAN_PENDING",
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/997",
-    "attack_history_note": "No public attack against exact Miraidon-S v4 was located. Generic MinRank and fixed-weight five-pass attacks are required prior art; v4 explicitly models the latter, while CROSS, MR-DSS, and Mirath are distinct schemes."
+    "attack_history_note": "No public attack against exact Miraidon-S v4 was located. Generic MinRank and fixed-weight five-pass attacks are required prior art; v4 explicitly models the latter, while CROSS, MR-DSS, and Mirath are distinct schemes.",
+    "audit_completed_at": "2026-10-07",
+    "attack_result": "Public-key-only universal fresh-message forgery",
+    "attack_path": "attacks/miraidon-s/",
+    "independent_reproduction": true,
+    "human_verification": false
   }
 ]
