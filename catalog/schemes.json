@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "scheme": "ATLAS",
+    "aliases": ["MORNING-ATLAS", "NGCC sign-15"],
+    "eprint_id": "2026/2323",
+    "eprint_version": "initial listing",
+    "eprint_date": "2026-10-03",
+    "family": "module-LWR Fiat-Shamir-with-aborts signature",
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/2323",
+    "exclusion_basis": "Exact identity with MORNING-ATLAS/NGCC sign-15; a public full-parameter ATLAS-128 design attack recovers an equivalent signing key and produces fresh-message forgeries."
+  }
+]

@@ -14,8 +14,8 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 0 |
-| Known attacks excluded | 0 |
+| Schemes identified | 1 |
+| Known attacks excluded | 1 |
 | Schemes audited | 0 |
 | No practical attack found | 0 |
 | Verified practical design attacks | 0 |
@@ -24,5 +24,9 @@ unreported.
 ## Verified attacks
 
 No attack has passed the publication gate yet.
+
+The first catalog record is ATLAS (ePrint 2026/2323), excluded because it is
+the published form of MORNING-ATLAS/NGCC sign-15 and a practical ATLAS-128
+equivalent-key recovery with fresh-message forgery is already public.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).
