@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 4 |
+| Schemes identified | 5 |
 | Known attacks excluded | 1 |
-| Schemes audited | 1 |
-| No practical attack found | 1 |
+| Schemes audited | 2 |
+| No practical attack found | 2 |
 | Verified practical design attacks | 0 |
 | Independently reproduced attacks | 0 |
 
@@ -37,11 +37,16 @@ surfaces found no practical full-parameter signing compromise. The exact
 implementation remains private, so source-specific decoder and serializer
 checks are reserved for a release-time recheck.
 
-ASTRA-Sign (ePrint 2026/1290 v2) and UFOs (ePrint 2026/1607 v1) are queued for
+ASTRA-Sign (ePrint 2026/1290 v2) and Lithium (ePrint 2026/1790 v1) are under
 technical audit after target-specific searches located no public attacks
-against those exact parameterized schemes. UFOs keeps the publicly attacked
-Frobenius-UOV construction but replaces the exponent schedules used by the
-known forgery; its catalog entry preserves that lineage rather than describing
-the construction as previously unattacked.
+against those exact parameterized schemes.
+
+UFOs (ePrint 2026/1607 v1) keeps the publicly attacked Frobenius-UOV
+construction but replaces the exponent schedules used by the known forgery.
+The predecessor attack was reproduced at reduced characteristic, then the
+replacement Level-I schedule was exhaustively screened under the published
+attack model. No practical full-parameter signing compromise was found. The
+catalog preserves the attacked lineage and a narrow recheck for the unpublished
+hardening analysis.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

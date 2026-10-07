@@ -44,9 +44,23 @@
     "eprint_version": "v1",
     "eprint_date": "2026-08-04",
     "family": "structured multivariate UOV signature over extension fields",
-    "status": "QUEUED",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
     "attack_history_checked_at": "2026-10-07",
     "url": "https://eprint.iacr.org/2026/1607",
-    "attack_history_note": "UFOs retains the Frobenius-UOV construction and interface but replaces the exponent schedules used by the published predecessor forgery. The original schedules are known-broken; no public attack against the fixed UFOs v1 replacement schedules was located."
+    "attack_history_note": "UFOs retains the Frobenius-UOV construction and interface but replaces the exponent schedules used by the published predecessor forgery. The original schedules are known-broken; no public attack against the fixed UFOs v1 replacement schedules was located.",
+    "audit_completed_at": "2026-10-07",
+    "audit_note": "The published predecessor forgery was reproduced at reduced characteristic. Exhaustive Level-I cancellation, anchor, shift, and orientation screening found no practical transfer to the replacement schedules. A literal public-model R=48 family differs from the paper's R=49 table but still has a raw scale near 2^237.8 and yields no full-parameter forgery; the unpublished hardening analysis remains a source recheck."
+  },
+  {
+    "scheme": "Lithium",
+    "aliases": ["LITHIUM", "Lithium-Code", "Gartner-lineage iterative rejection signature"],
+    "eprint_id": "2026/1790",
+    "eprint_version": "v1",
+    "eprint_date": "2026-08-24",
+    "family": "lattice Fiat-Shamir signature with iterative rejection sampling",
+    "status": "QUEUED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/1790",
+    "attack_history_note": "No public attack against exact Lithium v1 was located. Babayev's DSD work is related cryptanalysis of small overstretched NTWE instances and explicitly does not appear to threaten Gartner's instantiations; it is method-transfer evidence rather than an attack on Lithium."
   }
 ]
