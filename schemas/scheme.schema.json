@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/martinfeussner/ePrint-Signature-Audit/schemas/scheme.schema.json",
+  "title": "ePrint signature scheme record",
+  "type": "object",
+  "required": ["scheme", "eprint_id", "eprint_version", "family", "status", "url"],
+  "properties": {
+    "scheme": {"type": "string", "minLength": 1},
+    "eprint_id": {"type": "string", "pattern": "^[0-9]{4}/[0-9]+$"},
+    "eprint_version": {"type": "string", "minLength": 1},
+    "eprint_date": {"type": "string", "format": "date"},
+    "family": {"type": "string", "minLength": 1},
+    "status": {
+      "enum": ["VERIFIED_ATTACK", "AI_REPRODUCED_HUMAN_PENDING", "AUDITED_NO_PRACTICAL_ATTACK", "QUEUED", "KNOWN_ATTACK_EXCLUDED", "IMPRACTICAL", "DUPLICATE_ACTIVE_AUDIT"]
+    },
+    "attack_history_checked_at": {"type": ["string", "null"], "format": "date"},
+    "url": {"type": "string", "format": "uri"}
+  },
+  "additionalProperties": true
+}

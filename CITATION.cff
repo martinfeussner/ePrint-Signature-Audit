@@ -1,0 +1,6 @@
+cff-version: 1.2.0
+title: ePrint Signature Audit
+message: "If you use this repository, cite the repository and the scheme-specific attack paper."
+type: software
+license: CC-BY-4.0
+repository-code: "https://github.com/martinfeussner/ePrint-Signature-Audit"
