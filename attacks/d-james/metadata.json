@@ -6,8 +6,8 @@
   "attack_history_checked_at": "2026-10-07",
   "attack_paper_makefile_sha256": "53a788a21e13d1bee115776edcc78a79fa0e224fadb66a7d6d52f6bcc4928192",
   "attack_paper_pages": 8,
-  "attack_paper_sha256": "0df1c60de4d0f656cf1b0af1a873109d70465a13b07ff3d07a3218931a8a9dc7",
-  "attack_paper_source_sha256": "cd12fd29b1481e1e5f8de043329ff437eeab4a7583dc48d5ccd6f22d86df9868",
+  "attack_paper_sha256": "1506d5094fe34b6771139bd398aa7cf86c67e3b1c4f97edce4e60d8ea7c9c861",
+  "attack_paper_source_sha256": "b53c7bc1eeff6a66e230c7a77c2eaf57bfb071023f03fd9cdf87632d538ddb72",
   "attack_result": "Public-key-only equivalent signing-key recovery with fresh signing",
   "attack_technique": "Recover the hidden two-dimensional matrix-Gabidulin parent from the public Dragon tensor, rank-decode the public HFE-IP adjoints, and complete an equivalent projected signer.",
   "authors": [
