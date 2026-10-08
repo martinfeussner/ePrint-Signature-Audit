@@ -1,0 +1,6 @@
+--only-binary=:all:
+
+cysignals==1.12.6 \
+    --hash=sha256:26a79edceeee7d74609b0cc73b4c3d93301e488dca28b166b3667049a2ee559c
+fpylll==0.6.4 \
+    --hash=sha256:05f43362f2803207a8a6dfe5bad41c64df2479cded1338490bad773ca78b5ba1

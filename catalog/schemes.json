@@ -114,5 +114,22 @@
     "attack_path": "attacks/miraidon-s/",
     "independent_reproduction": true,
     "human_verification": false
+  },
+  {
+    "scheme": "Bittersweet",
+    "aliases": ["Bittersweet Signatures"],
+    "eprint_id": "2026/397",
+    "eprint_version": "v1",
+    "eprint_date": "2026-03-01",
+    "family": "LWR-based MPC-in-the-head signature with Fiat--Shamir with aborts",
+    "status": "AI_REPRODUCED_HUMAN_PENDING",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/397",
+    "attack_history_note": "No prior public attack against Bittersweet Signatures was located in the searches performed as of 2026-10-07. ePrint 2026/250 is credited as generic prior power-of-two-LWR technique, not an exact-target Bittersweet attack.",
+    "audit_completed_at": "2026-10-08",
+    "attack_result": "Exact Level-I d=32 secret-key recovery with fresh signing",
+    "attack_path": "attacks/bittersweet/",
+    "independent_reproduction": true,
+    "human_verification": false
   }
 ]

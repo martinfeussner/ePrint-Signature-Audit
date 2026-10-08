@@ -1,0 +1,23 @@
+{
+  "canonical_model": "Bittersweet ePrint 2026/397 v1; no public implementation or normative wire encoding was available",
+  "dependency_artifacts": {
+    "cysignals": {
+      "filename": "cysignals-1.12.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl",
+      "sha256": "26a79edceeee7d74609b0cc73b4c3d93301e488dca28b166b3667049a2ee559c",
+      "url": "https://files.pythonhosted.org/packages/fc/4c/ef1a4d2a0383a3b258ee2d2c67acc3a31f57ea7ff219354f4d920aecd5c3/cysignals-1.12.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+    },
+    "fpylll": {
+      "filename": "fpylll-0.6.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+      "sha256": "05f43362f2803207a8a6dfe5bad41c64df2479cded1338490bad773ca78b5ba1",
+      "url": "https://files.pythonhosted.org/packages/11/15/164e96e1ee21e48d6c58cc5562d5bb3d72963ecdfb85b8fb158b6395a89f/fpylll-0.6.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+    }
+  },
+  "dependency_lock_scope": "CPython 3.12 on Linux x86_64 with glibc >= 2.17; binary wheels only; source builds are unverified",
+  "dependency_lock_test": "pip --require-hashes install from the two downloaded official wheels in a fresh CPython 3.12.3 venv; imports and LLL smoke test passed",
+  "model_pdf_sha256": "eefe27b903cb61fa50fecc33eef3fa99b121bece1c9831a4b3cab7bdebba5dbb",
+  "reviewed_aggregator_sha256": "d2ee9ee5ad4a9cc176cc8eaf8e839bb360486ce16647dfa7627de29331ee4629",
+  "reviewed_signer_sha256": "1d229cab3737413e73bdf173b5d31869cd6a1d710ec16246a95296ba85ff1a85",
+  "reviewed_solver_sha256": "6818f6b036da6d3ab525c1166d607e189b9b422b4d2d8e4206b48ab26c1d8d67",
+  "reviewed_strict_verifier_sha256": "2809bf7fb79d1b8df643d8e816a5132f1ae220204b1a471b76bcfadfcdc2ba1d",
+  "schema": "bittersweet-public-reproducer-source-pins-v1"
+}

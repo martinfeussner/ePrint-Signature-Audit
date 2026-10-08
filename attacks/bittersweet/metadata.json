@@ -1,0 +1,350 @@
+{
+  "affected_parameters": [
+    "Level I d=32: (lambda,q,p',alpha,p,n,m,d,t)=(128,96,3,90,93,11,747,32,26)"
+  ],
+  "all_rows_reference_output_sha256": "fbbc3e32ed31974a685fa7ce92dae3d847654b873405aba9b9e7bdbdb6050226",
+  "attack_history_checked_at": "2026-10-07",
+  "attack_paper_makefile_sha256": "aebaec694d98efb6925d12ee1d2087fe8b50b4513709724c1cd60016c1ac44dd",
+  "attack_paper_pages": 7,
+  "attack_paper_sha256": "4b20c070bbbb64174bdd304c5fc3fcefeb15468b5557537e508a728f864697e9",
+  "attack_paper_source_sha256": "dec3768e10ee85f8bed3c09982bcb5f0d3cfc3882193adec3585e67468bcd32d",
+  "attack_result": "Exact Level-I secret-key recovery from 16 accepted signatures with fresh signing on one untouched S16 key and one independently generated fresh-context S16 key",
+  "attack_runtime_scope": "Run-005 public verification, aggregation, recovery, and candidate-freeze pipeline; complete run-005 stage sum is recorded separately.",
+  "attack_technique": "Turn each optimized response's opened aggregate and one-bit reconstruction error into a strict comparison with a fixed 90-bit product buffer, intersect 416 comparisons per row into modular intervals, and solve a 160-row weighted modular CVP with plain LLL and Babai.",
+  "authors": [
+    "Brieuc Balon",
+    "Gianluca Brian",
+    "Sebastian Faust",
+    "Carmit Hazay",
+    "Elena Micheli",
+    "Fran\u00e7ois-Xavier Standaert"
+  ],
+  "conditions": "Exact ePrint 2026/397 v1 Level-I d=32 paper arithmetic under the frozen canonical SHAKE/SHA3 realization; no author implementation, normative wire format, test vectors, or XOF-to-matrix encoding is public.",
+  "cpu": "AMD EPYC Processor",
+  "dependency_lock": {
+    "artifacts": {
+      "cysignals-1.12.6-cp312-manylinux-x86_64": {
+        "sha256": "26a79edceeee7d74609b0cc73b4c3d93301e488dca28b166b3667049a2ee559c",
+        "url": "https://files.pythonhosted.org/packages/fc/4c/ef1a4d2a0383a3b258ee2d2c67acc3a31f57ea7ff219354f4d920aecd5c3/cysignals-1.12.6-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+      },
+      "fpylll-0.6.4-cp312-manylinux-x86_64": {
+        "sha256": "05f43362f2803207a8a6dfe5bad41c64df2479cded1338490bad773ca78b5ba1",
+        "url": "https://files.pythonhosted.org/packages/11/15/164e96e1ee21e48d6c58cc5562d5bb3d72963ecdfb85b8fb158b6395a89f/fpylll-0.6.4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+      }
+    },
+    "requirements_sha256": "5af9306e2f3ce879e87e57a48e35e946ef4e02f5916fc9a9e3f541a5d4ea243d",
+    "scope": "CPython 3.12 on Linux x86_64 with glibc >= 2.17; official binary wheels only; source builds and other platforms unverified",
+    "source_pins_sha256": "60b23fb9374c7d4acb29138f54ad1e1c672b6fc8d43e2bbf8d6c1407a951cce0",
+    "tested_install": "fresh CPython 3.12.3 venv, pip --require-hashes, imports and LLL smoke test"
+  },
+  "development_evidence": {
+    "fresh_adaptive_s8": {
+      "configurations": 2,
+      "outcomes": [
+        "r112 failure",
+        "adaptive r160 success with fresh signing"
+      ],
+      "scope": "development only",
+      "unique_keys": 1
+    },
+    "original_deterministic_projected": {
+      "configurations": [
+        "S4/r120 schedule",
+        "independently frozen S8"
+      ],
+      "documented_successful_configurations": 2,
+      "scope": "adaptive projected development on one tuned/training key; earlier tuning attempts are not exhaustively enumerated",
+      "unique_keys": 1
+    },
+    "robust_s16": {
+      "families_c_d": {
+        "keys": 0,
+        "successes": 0,
+        "trials": 0
+      },
+      "family_a": {
+        "bkz24_required": 2,
+        "blind_or_held_out": false,
+        "role": "development after Family-B truth opened",
+        "successes": 6,
+        "trials": 6
+      },
+      "family_b": {
+        "complete_signature_keys": 2,
+        "projected_marginal_keys": 4,
+        "role": "selected configuration",
+        "successes": 6,
+        "trials": 6
+      },
+      "pre_solver_environment_stops": 2,
+      "shared_unique_keys": 6,
+      "subtotal": {
+        "environment_stops": 2,
+        "substantive_trials": 12,
+        "successes": 12,
+        "unique_keys": 6
+      }
+    }
+  },
+  "eprint_date": "2026-03-01",
+  "eprint_id": "2026/397",
+  "eprint_version": "v1",
+  "evidence_digests": {
+    "development_adversarial_review": "8f0d6915f76c6ca4059fe100231606c20c0572e65102dd3b765ba8e4fb4261fd",
+    "development_primary_handoff": "9046156582f336a8ba108f405c1c2bed7f231e3344700d2f32170e2ba4bbb302",
+    "final_attack_history_checksum_manifest": "5dfd540a31ec6c6377383c5e1768990d1a0eeb8313fade6c93f42973f253eb48",
+    "final_attack_history_handoff": "1c0b648b3fe6d97edfcc51974ace70bee5c98b7df2220d786a46df5880453358",
+    "final_attack_history_json": "73664d85af055a06ba4b328985e3d09eff6e1d0d3a29ee0063d0f0eb830d1a29",
+    "run002_s8_adversarial_review": "00cb524125348ff860e347bac184e8b54eb61638330103d319a8d3b07bd4f7b1",
+    "run003_final_adversarial_review": "fee5bc8d9284e0aabd813b49adaede090fd83f64f7f2cb55247f5ee7468c5e7e",
+    "run003_final_boundary_audit": "1612926d8a3e00c366ad9a8ceb1f64c156a875b96d727d133aaec2bf95949f6d",
+    "run003_public_adversarial_review": "b78fee81ec01e92f367f2d0dc91071ed41feb6dd300168f77e9d11fee1c27fdd",
+    "run003_public_freeze": "a7be776d356ba05b29ba88557032dafc3906ac5b51e081ef922d2c58f98c4c93",
+    "run003_public_intervals": "e79d4eedd5ad8dfa76a98d122b438205f2fa01d6bf98334ff58b2aa58a346a27",
+    "run003_truth_comparison": "acf914e999bf5ce2ba5516be2e8148a0971efe10598cffa5475ffe0289138a3f",
+    "run004_failure_handoff": "fbdd4981875e7076a8265e6012a7d9e10a5de0c4218e4e4c32ca61cbd344027c",
+    "run004_independent_failure_handoff": "14a227c9d832c7191b2aa12dfbbcef499dc1ea808741f2774ac3a7fcf5255123",
+    "run005_independent_reproduction_handoff": "b498f60bf6f5e821bba4f94c5d8c7de5268986fd095755d11998d96afd670b01",
+    "run005_public_summary": "7818701b1b0b78ee51505943885e0deeb0783f408ebce99b8a1c4321f001ae08",
+    "run005_result_review": "21d8d33dadd43f47b00fb4ed2cd94b3cbf52e8cebd2b81b47727cc6d4a9bc28b",
+    "run005_source_manifest": "71d0fab3fe7c3ab94b3bee570d7205185be3fa3730c092ce1066b7005fd813d1",
+    "run005_source_reaudit": "4c272c73dcaea1fcc6f6d23281cd1aaca542c3bc56bdfea12763c8f54dd84e06"
+  },
+  "family": "LWR-based MPC-in-the-head signature with Fiat--Shamir with aborts",
+  "forge_seconds": 2.25,
+  "fresh_message_digests": {
+    "run003": "22fd90f30a746ab8dbffa4041b2ceba0e2c2988241d624fcc664bbd53ae09f2e",
+    "run005": "00e047a068069375376ff8b812ea98098f89ec9a8f0ee7937e818b4ba14ab9d4"
+  },
+  "full_scale": true,
+  "historical_trial_accounting": {
+    "aggregate_success_probability_claimed": false,
+    "categories": [
+      {
+        "campaign": false,
+        "category": "original_deterministic_projected_development",
+        "documented_successful_configurations": 2,
+        "earlier_tuning_exhaustive": false,
+        "unique_keys": 1
+      },
+      {
+        "campaign": false,
+        "category": "fresh_adaptive_s8_development",
+        "configurations": 2,
+        "sequence": "r112 failure then adaptive r160 success",
+        "successes": 1,
+        "unique_keys": 1
+      },
+      {
+        "category": "run002_first_driver_environment_stop",
+        "new_keys": 0,
+        "substantive_trials": 0,
+        "successes": 0
+      },
+      {
+        "category": "run002_quarantined_cross_agent_retry",
+        "classification": "non-result; nonzero exit and no candidate",
+        "new_keys": 0,
+        "solver_stage_established": false,
+        "successes": 0,
+        "trial_count_status": "not_counted_quarantined"
+      },
+      {
+        "campaign_evidence": true,
+        "category": "run002_untouched_s8",
+        "successes": 0,
+        "trials": 1,
+        "truth_opened": false,
+        "unique_keys": 1
+      },
+      {
+        "campaign": false,
+        "category": "robust_family_b",
+        "shared_unique_keys": 6,
+        "successes": 6,
+        "trials": 6
+      },
+      {
+        "blind_or_held_out": false,
+        "campaign": false,
+        "category": "robust_family_a",
+        "shared_unique_keys": 6,
+        "successes": 6,
+        "trials": 6
+      },
+      {
+        "category": "robust_environment_stops",
+        "new_keys": 0,
+        "stops": 2,
+        "substantive_trials": 0
+      },
+      {
+        "category": "robust_families_c_d",
+        "keys": 0,
+        "successes": 0,
+        "trials": 0
+      },
+      {
+        "campaign": true,
+        "category": "run003_final_s16",
+        "successes": 1,
+        "trials": 1,
+        "unique_keys": 1
+      },
+      {
+        "campaign_attempts": 1,
+        "category": "run004_terminal_preseed_infrastructure",
+        "keys": 0,
+        "successes": 0,
+        "trials": 0
+      },
+      {
+        "category": "run005_initial_source_veto",
+        "keys": 0,
+        "successes": 0,
+        "trials": 0
+      },
+      {
+        "campaign": true,
+        "category": "run005_final_s16",
+        "successes": 1,
+        "trials": 1,
+        "unique_keys": 1
+      }
+    ],
+    "final_campaign_s16": {
+      "successes": 2,
+      "trials": 2,
+      "unique_keys": 2
+    },
+    "robust_development_subtotal": {
+      "pre_solver_environment_stops": 2,
+      "shared_unique_keys": 6,
+      "successes": 12,
+      "trials": 12
+    }
+  },
+  "human_verification": false,
+  "independent_reproducer_sha256": "5dd764977e8e118731d57c6886789713315bb381e5fd549827aca5003ebb4183",
+  "independent_reproduction": true,
+  "independent_reproduction_peak_ram_mb": 231.21,
+  "independent_reproduction_scope": "One fresh OS-random key; 16 complete signatures; one fixed S16 pipeline invocation; 747/747 intervals and rounded outputs; 11/11 words; distinct fresh message accepted; controls rejected; no tuning or retry.",
+  "independent_reproduction_seconds": 379.82,
+  "layer": "design",
+  "negative_controls_rejected": {
+    "public_reproducer_exact_final_fresh_signature": 10,
+    "public_reproducer_exact_final_query": 25,
+    "run003_fresh_signature": 10,
+    "run003_query_signatures": 171,
+    "run005_fresh_signature": 10,
+    "run005_query_signatures": 169
+  },
+  "paper_build_environment": {
+    "byte_reproducibility_scope": "This exact environment; the prebuilt PDF SHA-256 is authoritative. Other TeX distributions are unverified for byte identity.",
+    "distribution": "TeX Live 2023/Debian",
+    "engine": "pdfTeX 3.141592653-2.6-1.40.25",
+    "kpathsea": "6.3.5"
+  },
+  "paper_sha256": "eefe27b903cb61fa50fecc33eef3fa99b121bece1c9831a4b3cab7bdebba5dbb",
+  "paper_url": "https://eprint.iacr.org/2026/397",
+  "peak_ram_kib": 236760,
+  "peak_ram_mb": 231.21,
+  "prior_public_attack_located": false,
+  "public_all_rows_reproducer_peak_ram_mb": 81.05078125,
+  "public_all_rows_reproducer_seconds": 65.27,
+  "public_full_reproducer_external_seconds": 184.71,
+  "public_full_reproducer_peak_ram_mb": 81.3828125,
+  "public_full_reproducer_seconds": 184.47,
+  "public_interval_instance_sha256": "a45b63145c113df534eb553ef3c4df6ae4d83d4181eed923d101be25f4a94092",
+  "public_quick_reproducer_external_seconds": 66.21,
+  "public_quick_reproducer_peak_ram_mb": 79.765625,
+  "public_quick_reproducer_seconds": 65.98,
+  "public_reproducer_trial_accounting": {
+    "campaign_cryptanalytic_trials_added": 0,
+    "corrected_full_invocations": {
+      "cryptanalytic_retuning": false,
+      "failed_local_cryptanalytic_trials": 0,
+      "fresh_keys": 5,
+      "local_cryptanalytic_recoveries": 5,
+      "local_cryptanalytic_trials": 5,
+      "solver_retries": 0,
+      "source_scope": "fixed cryptanalytic configuration with noncryptanalytic harness, validation, and reporting changes between snapshots"
+    },
+    "earlier_harness_attempt": {
+      "evidence_limit": "contemporaneous execution record; no failed result/time log survived",
+      "fresh_keys": 1,
+      "local_cryptanalytic_recoveries": 0,
+      "local_cryptanalytic_trials": 0,
+      "stop_point": "changed-message control harness before lattice recovery"
+    },
+    "exact_final_source_invocation": {
+      "comparisons": 310752,
+      "exact_words": "11/11",
+      "external_seconds": 184.71,
+      "fresh_controls": "10/10 applicable",
+      "fresh_keys": 1,
+      "internal_seconds": 184.47,
+      "local_cryptanalytic_recoveries": 1,
+      "local_cryptanalytic_trials": 1,
+      "peak_rss_kib": 83336,
+      "public_intervals": "747/747",
+      "public_outputs": "747/747",
+      "query_controls": "25/25 applicable",
+      "selected_intervals": "160/160",
+      "signatures": 16,
+      "signing_aborts": 0
+    },
+    "independent_all_rows_replay": {
+      "fresh_keys": 0,
+      "local_cryptanalytic_recoveries": 0,
+      "local_cryptanalytic_trials": 0,
+      "public_replay_attempts": 1,
+      "public_replay_recoveries": 1
+    },
+    "quick_public_replay": {
+      "fresh_keys": 0,
+      "local_cryptanalytic_recoveries": 0,
+      "local_cryptanalytic_trials": 0,
+      "public_replay_attempts": 1,
+      "public_replay_recoveries": 1
+    }
+  },
+  "reference_output_sha256": "977f1d9d604346291013126bcbceaa0edc0f5146e08bb4cb5796039fac33ad15",
+  "related_prior_techniques": [
+    "LLL lattice basis reduction",
+    "Babai nearest-plane CVP approximation",
+    "modular interval and hidden-number lattice recovery",
+    "generic power-of-two LWR cryptanalysis, including ePrint 2026/250",
+    "accepted-transcript carry and abort leakage"
+  ],
+  "reproducer_core_sha256": "d53b5b8bbf47224919d0e4b8ffc331745770b871421429ee78205d15d0cebe40",
+  "reproducer_runner_sha256": "130ee8cff95db40a0b75c01781c9316b0fb083083c99f545e192154f8039e1d6",
+  "reproducer_sha256": "ea4f2fb18a4cfd71a1dd8bd94c8d52e1ef40b21f6bb25a5c74e6567a7cc483d9",
+  "reproducer_wrapper_sha256": "db722aa63501e537fafe0ea32517abf01c1a9b43d9aaefde22599caeeff84c34",
+  "runtime_breakdown_seconds": {
+    "run003": {
+      "complete_solver": 45.674,
+      "public_pipeline": 320.47
+    },
+    "run005": {
+      "fresh_signing": 2.25,
+      "fresh_verification_and_controls": 15.2,
+      "key_and_sixteen_signature_generation": 42.8,
+      "main_precommit": 2.6,
+      "public_pipeline": 313.95,
+      "seed_and_commitment_generation": 2.82,
+      "stage_sum": 379.82,
+      "truth_comparison": 0.2
+    }
+  },
+  "runtime_seconds": 313.95,
+  "scheme": "Bittersweet",
+  "security_property": "EUF-CMA",
+  "signing_queries": 16,
+  "strict_verifier_sha256": "c9f8c76d184094697984907cca9b1e1eaee769199448e9f41cbfbbf189bc0b17",
+  "successes": 2,
+  "technique_originality_claimed": false,
+  "trial_scope": "Final frozen S16 procedure on one untouched held-out key and one independent fresh-context key; development and S8 evidence excluded.",
+  "trials": 2,
+  "workers": 1
+}

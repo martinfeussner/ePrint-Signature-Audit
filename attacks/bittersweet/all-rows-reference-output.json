@@ -1,0 +1,51 @@
+{
+  "all_rows_pass": true,
+  "description": "independent fixed S16/r160/plain-LLL/Babai evaluator for every affected row",
+  "experiment_id": "BTS-PUBLIC-INDEPENDENT-REPRODUCER-V1",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "candidate_words_emitted": false,
+      "counts": {
+        "comparisons_per_row": 416,
+        "fresh_negative_controls_rejected": 10,
+        "fresh_negative_controls_total": 10,
+        "public_intervals_satisfied": 747,
+        "public_outputs_satisfied": 747,
+        "selected_intervals_satisfied": 160,
+        "total_comparisons": 310752
+      },
+      "digests": {
+        "candidate_key_sha256": "079b7a4c398d13f7a654f0e6362e2788e1005dd97020c3e5f7f69d921465829d",
+        "fresh_message_sha256": "06992c31579d019754f6621c65faf74f1805599a93313288b510556b57e63a30",
+        "fresh_signature_sha256": "d0d4f2344763018a9b739fb70844e30646adc49cbfd4dba353f6ab17e29a7689",
+        "public_interval_instance_sha256": "a45b63145c113df534eb553ef3c4df6ae4d83d4181eed923d101be25f4a94092",
+        "selected_rows_sha256": "aff6e8867c51ea3e0a6d4e27151e0e7ee273bf4e7d0c95c011027338602e3972"
+      },
+      "fresh_message_signature_accepted": true,
+      "fresh_message_was_not_a_query": true,
+      "negative_controls_pass": true,
+      "parameter_row": "Level-I-d32",
+      "parameters": {
+        "alpha": 90,
+        "d": 32,
+        "m": 747,
+        "n": 11,
+        "name": "Bittersweet-L1-d32",
+        "p": 93,
+        "p_prime": 3,
+        "q": 96,
+        "t": 26
+      },
+      "public_only_recovery": true
+    }
+  ],
+  "trials": {
+    "campaign_cryptanalytic_trials_added": 0,
+    "fresh_keys": 0,
+    "local_cryptanalytic_recoveries": 0,
+    "local_cryptanalytic_trials": 0,
+    "public_replay_attempts": 1,
+    "public_replay_recoveries": 1
+  }
+}
