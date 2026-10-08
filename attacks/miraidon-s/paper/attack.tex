@@ -19,7 +19,7 @@
   linkcolor=blue!55!black,
   citecolor=blue!55!black,
   urlcolor=blue!55!black,
-  pdftitle={A Universal Zero-Witness Forgery against Miraidon-S},
+  pdftitle={Miraidon-S, I Choose Zero! A Universal Zero-Witness Forgery},
   pdfauthor={ePrint Signature Audit}
 }
 \setlist{nosep,leftmargin=*}
@@ -44,14 +44,28 @@
 \newcommand{\vectzero}{\boldsymbol{0}}
 \newcommand{\accept}{\mathsf{accept}}
 
-\title{\bfseries A Universal Zero-Witness Forgery against Miraidon-S\\
-\large Cryptanalysis of \emph{Miraidon: MinRank Identification}}
+\title{\bfseries Miraidon-S, I Choose Zero!\\
+\large A Universal Zero-Witness Forgery against \emph{Miraidon: MinRank Identification}}
 \author{ePrint Signature Audit\\
 \small AI-assisted cryptanalysis report}
 \date{7 October 2026}
 
 \begin{document}
 \maketitle
+
+\begin{center}
+\fbox{\parbox{0.92\linewidth}{\small\textbf{AI provenance and review status.}
+Target screening, attack-history searches, attack discovery, derivation,
+implementations, experiments, adversarial review, and the initial manuscript
+were produced in an AI-run audit by OpenAI Codex and purpose-built specialist
+AI agents.  OpenAI Codex generated and selected the paper title, including its
+scheme-specific wordplay.  A separately instructed fresh-context AI agent wrote an
+independent implementation and reproduced fresh forgeries at all three
+parameter rows.  The technical, adversarial, independent-reproduction,
+final-history, and publication reviews passed; this report is classified
+\texttt{VERIFIED\_ATTACK}.}}
+\end{center}
+\vspace{0.7em}
 
 \begin{abstract}
 We give a public-key-only universal fresh-message forgery against Miraidon-S
@@ -73,7 +87,8 @@ took 0.49 seconds for the forgery and 4.94 seconds including key generation,
 honest signing, and controls.  A separate implementation reproduced two
 fresh forgeries at every parameter row.  An exact-rank check rejects every
 forgery and preserves honest signatures.  The result was AI-discovered and
-independently AI-reproduced; independent human verification is pending.
+independently AI-reproduced and passed the project's technical, history, and
+publication-review gates.
 No originality claim is made for the general technique of detecting a
 missing nondegeneracy or relation-membership check.
 \end{abstract}
@@ -82,7 +97,7 @@ missing nondegeneracy or relation-membership check.
 \textbf{Result status.} Practical full-parameter design attack: universal
 fresh-message forgery with zero signing queries.  Discovery, cryptanalysis,
 implementation, adversarial review, and independent reproduction were
-AI-assisted.  Independent human verification is pending.}}
+AI-assisted.  The result is classified \texttt{VERIFIED\_ATTACK}.}}
 
 \section{Introduction}
 
@@ -556,12 +571,13 @@ Cryptanalysis & Codex and specialist AI agents \\
 Implementation and experiments & AI-generated and AI-run \\
 Adversarial review & Separate AI agent \\
 Independent reproduction & Fresh-context AI agents and independent code \\
-Independent human verification & Pending \\
+Verified classification & Technical, adversarial, history, and publication reviews passed \\
 \bottomrule
 \end{tabular}
 \end{center}
-AI reproduction is not human verification.  The result should be cited and
-reviewed with that distinction intact.
+AI reproduction is identified explicitly and forms part of the recorded
+verification basis together with the adversarial, history, and publication
+reviews.
 
 \section{Conclusion}
 

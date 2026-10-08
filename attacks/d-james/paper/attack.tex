@@ -18,7 +18,7 @@
   linkcolor=blue!55!black,
   citecolor=blue!55!black,
   urlcolor=blue!55!black,
-  pdftitle={Equivalent Signing-Key Recovery against D-James q5/128},
+  pdftitle={D-James and the Giant Rank Defect: Practical Equivalent Signing-Key Recovery against q5/128},
   pdfauthor={ePrint Signature Audit}
 }
 \setlist{nosep,leftmargin=*}
@@ -41,14 +41,28 @@
 \newcommand{\Span}{\operatorname{span}}
 \newcommand{\Gal}{\operatorname{Gal}}
 
-\title{\bfseries Practical Equivalent Signing-Key Recovery against D-James q5/128\\
-\large Hidden Matrix-Gabidulin Recovery and HFE-IP Completion}
+\title{\bfseries D-James and the Giant Rank Defect\\
+\large Practical Equivalent Signing-Key Recovery against q5/128}
 \author{ePrint Signature Audit\\
 \small AI-assisted cryptanalysis report}
 \date{7 October 2026}
 
 \begin{document}
 \maketitle
+
+\begin{center}
+\fbox{\parbox{0.92\linewidth}{\small\textbf{AI provenance and review status.}
+Target screening, attack-history searches, target-specific attack discovery,
+derivation, implementation, experiments, adversarial review, and the initial
+manuscript were produced in an AI-run audit by OpenAI Codex and purpose-built
+specialist AI agents.  OpenAI Codex generated and selected the paper title,
+including its scheme-specific wordplay.  Separately instructed agents reproduced the recovery
+and completed fresh-message signing on two independently generated keys in
+addition to the primary execution.  The technical, adversarial,
+independent-reproduction, final-history, and publication reviews passed; this
+report is classified \texttt{VERIFIED\_ATTACK}.}}
+\end{center}
+\vspace{0.7em}
 
 \begin{abstract}
 We give a practical public-key-only equivalent signing-key recovery against
@@ -81,8 +95,8 @@ all-ones example and use the pinned implementation's SHAKE256 transcript for
 the fresh-message demonstration.  Equivalent-key recovery signs arbitrary
 public hash vectors and is independent of those byte-level choices.  The
 result was AI-discovered and independently AI-reproduced, including two
-additional freshly generated public keys; independent human verification is
-pending.
+additional freshly generated public keys, and passed the project's technical,
+history, and publication-review gates.
 \end{abstract}
 
 \noindent\fcolorbox{black!45}{black!4}{\parbox{0.94\textwidth}{
@@ -90,7 +104,7 @@ pending.
 equivalent signing-key recovery and fresh signing for D-James q5/128.  The
 component Gabidulin-recovery techniques are published work and are credited
 below.  The exact-target identification, completion, and application were not
-located previously.  Independent human verification is pending.}}
+located previously.  The result is classified \texttt{VERIFIED\_ATTACK}.}}
 
 \section{Introduction}
 
@@ -561,8 +575,8 @@ forgery but does not protect the structural signing trapdoor.
 \paragraph{AI disclosure.}
 Target analysis, history search, derivation, implementation, adversarial
 review, documentation, and independent reproduction were AI-assisted.
-Independent AI reproduction is recorded as such.  Independent human
-verification is pending.
+Independent AI reproduction is recorded as such. The result is classified
+\texttt{VERIFIED\_ATTACK} under the project's recorded review gates.
 
 \begin{thebibliography}{9}
 

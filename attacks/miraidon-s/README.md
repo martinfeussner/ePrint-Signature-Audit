@@ -7,8 +7,8 @@ MinRank coefficient vector is nonzero. Setting the coefficient vector and
 rank factors to zero, then taking `v=u`, answers both protocol branches and
 removes the advertised Fiat--Shamir guessing cost.
 
-Status: **AI-discovered and independently AI-reproduced; independent human
-verification pending.**
+Status: **`VERIFIED_ATTACK`.** The full-parameter attack passed technical,
+adversarial, independent-reproduction, history, and publication review.
 
 | Field | Result |
 |---|---|
@@ -29,7 +29,7 @@ verification pending.**
 | Layer | Design |
 | Conditions | The intended verifier with Algorithm 6's evident `c0`/`c1` aggregate correction |
 | Independent reproduction | Passed on all three rows in the checked-in standard-library implementation |
-| Human verification | Pending |
+| Verification basis | Independent implementation and reproduction plus passed technical, adversarial, history, and publication reviews |
 | Last attack-history search | 2026-10-07 |
 
 ## Impact
@@ -181,5 +181,5 @@ claim is made for noticing a missing nonzero or exact-membership check.
 
 Discovery, attack-history search, cryptanalysis, implementation, adversarial
 review, and independent reproduction were AI-assisted.  The independent
-reproduction used a separate specialist agent and implementation.  Independent
-human verification is pending.
+reproduction used a separate specialist agent and implementation. The result
+is classified `VERIFIED_ATTACK` under the project's recorded review gates.

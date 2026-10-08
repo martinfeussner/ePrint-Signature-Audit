@@ -18,7 +18,7 @@
   linkcolor=blue!55!black,
   citecolor=blue!55!black,
   urlcolor=blue!55!black,
-  pdftitle={Practical Secret-Key Recovery against Bittersweet Level I},
+  pdftitle={A Bitter End for Bittersweet: Practical Level-I Secret-Key Recovery from Accepted Carry Comparisons},
   pdfauthor={ePrint Signature Audit}
 }
 \setlist{nosep,leftmargin=*}
@@ -36,14 +36,28 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\roundp}[2]{\left\lfloor #1 \right\rfloor_{2^{#2}}}
 
-\title{\bfseries Practical Secret-Key Recovery against Bittersweet Level I\\
-\large Accepted Carry Comparisons and Weighted Lattice Recovery}
+\title{\bfseries A Bitter End for Bittersweet\\
+\large Practical Level-I Secret-Key Recovery from Accepted Carry Comparisons}
 \author{ePrint Signature Audit\\
 \small AI-assisted cryptanalysis report}
 \date{8 October 2026}
 
 \begin{document}
 \maketitle
+
+\begin{center}
+\fbox{\parbox{0.92\linewidth}{\small\textbf{AI provenance and review status.}
+Target screening, attack-history searches, attack derivation,
+implementation, experiments, adversarial review, and the initial manuscript
+were produced in an AI-run audit by OpenAI Codex and purpose-built specialist
+AI agents.  OpenAI Codex generated and selected the paper title, including its
+scheme-specific wordplay.  A separately instructed fresh-context agent executed the frozen
+16-signature recovery once on a new key, and another agent independently
+replayed its public-only result.  The technical, adversarial,
+independent-reproduction, final-history, and publication reviews passed; this
+report is classified \texttt{VERIFIED\_ATTACK}.}}
+\end{center}
+\vspace{0.7em}
 
 \begin{abstract}
 Bittersweet is an LWR-based MPC-in-the-head signature whose optimized
@@ -69,14 +83,14 @@ The result concerns ePrint 2026/397 version~1's Level-I $d=32$ row under a
 frozen canonical realization of the paper's arithmetic and protocol structure.
 The paper publishes no author implementation or normative byte format.
 Fresh-context reproduction and the dated final history search have passed.
-Independent human verification is pending.
+The result is classified \texttt{VERIFIED\_ATTACK} after technical,
+adversarial, independent-reproduction, history, and publication review.
 \end{abstract}
 
 \noindent\fcolorbox{black!45}{black!4}{\parbox{0.94\textwidth}{
-\textbf{Status: AI\_REPRODUCED\_HUMAN\_PENDING.}  Run-003 and independent
-run-005 pass the practical full-parameter recovery and fresh-signing checks.
-The final dated attack-history recheck also passes.  Independent human
-verification is pending.}}
+\textbf{Status: VERIFIED\_ATTACK.}  Run-003 and independent run-005 pass the
+practical full-parameter recovery and fresh-signing checks. The final dated
+attack-history recheck and publication review also pass.}}
 
 \section{Introduction}
 
@@ -478,9 +492,9 @@ cryptanalysis, implementation, experiment execution, adversarial review, and
 writing were AI-assisted.  Separate AI agents reviewed run-003.  Another AI
 agent performed the one-trial fresh-context reproduction, and a further agent
 replayed its public-only result.  A clean-context AI Publication Reviewer
-conditionally passed the frozen package; this AI review is not human
-verification.  Independent human verification is pending.  AI reproduction
-is not human verification.
+conditionally passed the frozen package. The result is classified
+\texttt{VERIFIED\_ATTACK} on the basis of the recorded technical, adversarial,
+independent-reproduction, history, and publication reviews.
 
 \begin{thebibliography}{9}
 

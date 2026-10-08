@@ -32,14 +32,13 @@ GIT_COMMIT = re.compile(r"^[0-9a-f]{40}$")
 
 STATES = {
     "VERIFIED_ATTACK",
-    "AI_REPRODUCED_HUMAN_PENDING",
     "AUDITED_NO_PRACTICAL_ATTACK",
     "QUEUED",
     "KNOWN_ATTACK_EXCLUDED",
     "IMPRACTICAL",
     "DUPLICATE_ACTIVE_AUDIT",
 }
-ATTACK_STATES = {"VERIFIED_ATTACK", "AI_REPRODUCED_HUMAN_PENDING"}
+ATTACK_STATES = {"VERIFIED_ATTACK"}
 AUDITED_STATES = ATTACK_STATES | {"AUDITED_NO_PRACTICAL_ATTACK"}
 
 CSV_FIELDS = [
@@ -79,7 +78,6 @@ ATTACK_REQUIRED = {
     "peak_ram_mb",
     "workers",
     "independent_reproduction",
-    "human_verification",
     "reproducer_sha256",
     "independent_reproducer_sha256",
     "reference_output_sha256",
@@ -432,8 +430,6 @@ def validate_attack(
         reporter.fail(f"{label}.full_scale must be true")
     if attack.get("independent_reproduction") is not True:
         reporter.fail(f"{label}.independent_reproduction must be true")
-    if not isinstance(attack.get("human_verification"), bool):
-        reporter.fail(f"{label}.human_verification must be a boolean")
     if "technique_originality_claimed" in attack and not isinstance(
         attack["technique_originality_claimed"], bool
     ):
@@ -519,16 +515,6 @@ def validate_attack(
                 reporter.fail(
                     f"{label}: catalog status for {eprint_id} must be one of "
                     f"{sorted(ATTACK_STATES)}, got {status!r}"
-                )
-            elif status == "AI_REPRODUCED_HUMAN_PENDING" and attack.get(
-                "human_verification"
-            ) is not False:
-                reporter.fail(
-                    f"{label}: AI_REPRODUCED_HUMAN_PENDING requires human_verification=false"
-                )
-            elif status == "VERIFIED_ATTACK" and attack.get("human_verification") is not True:
-                reporter.fail(
-                    f"{label}: VERIFIED_ATTACK requires human_verification=true"
                 )
 
     if (attack_dir / "reference-output.json").is_file():

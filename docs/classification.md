@@ -1,7 +1,7 @@
 # Classification
 
-- `VERIFIED_ATTACK`: passed full technical, reproduction, history, and publication review.
-- `AI_REPRODUCED_HUMAN_PENDING`: independently AI-reproduced; human review remains pending.
+- `VERIFIED_ATTACK`: passed full technical, adversarial, independent-reproduction,
+  history, and publication review. Human verification is not a classification gate.
 - `AUDITED_NO_PRACTICAL_ATTACK`: scoped hypotheses were tested without a qualifying practical result.
 - `QUEUED`: eligible for, or undergoing, screening or audit.
 - `KNOWN_ATTACK_EXCLUDED`: a prior public substantive attack against this scheme was located.

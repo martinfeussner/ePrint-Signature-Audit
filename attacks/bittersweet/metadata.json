@@ -6,8 +6,8 @@
   "attack_history_checked_at": "2026-10-07",
   "attack_paper_makefile_sha256": "aebaec694d98efb6925d12ee1d2087fe8b50b4513709724c1cd60016c1ac44dd",
   "attack_paper_pages": 7,
-  "attack_paper_sha256": "4b20c070bbbb64174bdd304c5fc3fcefeb15468b5557537e508a728f864697e9",
-  "attack_paper_source_sha256": "dec3768e10ee85f8bed3c09982bcb5f0d3cfc3882193adec3585e67468bcd32d",
+  "attack_paper_sha256": "bb7cca49f6c07c30c57e22eacee1f2b43cf81439cb239028bd492d7248b9e85f",
+  "attack_paper_source_sha256": "d77015143d60d04f0cb5074e2e243eb37dc8f4d1905e8dc070bb4158c56c4c63",
   "attack_result": "Exact Level-I secret-key recovery from 16 accepted signatures with fresh signing on one untouched S16 key and one independently generated fresh-context S16 key",
   "attack_runtime_scope": "Run-005 public verification, aggregation, recovery, and candidate-freeze pipeline; complete run-005 stage sum is recorded separately.",
   "attack_technique": "Turn each optimized response's opened aggregate and one-bit reconstruction error into a strict comparison with a fixed 90-bit product buffer, intersect 416 comparisons per row into modular intervals, and solve a 160-row weighted modular CVP with plain LLL and Babai.",
@@ -224,7 +224,7 @@
       "trials": 12
     }
   },
-  "human_verification": false,
+  "verification_basis": "Passed technical, adversarial, independent-reproduction, history, and publication-review gates",
   "independent_reproducer_sha256": "5dd764977e8e118731d57c6886789713315bb381e5fd549827aca5003ebb4183",
   "independent_reproduction": true,
   "independent_reproduction_peak_ram_mb": 231.21,

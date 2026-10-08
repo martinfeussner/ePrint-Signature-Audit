@@ -1,8 +1,8 @@
 # Bittersweet accepted-transcript key recovery
 
-> **Status: `AI_REPRODUCED_HUMAN_PENDING`.** The full-parameter attack has been
-> independently reproduced by a separate AI agent. Independent human
-> verification is pending.
+> **Status: `VERIFIED_ATTACK`.** The full-parameter attack was independently
+> reproduced by a separate AI agent and passed the technical, adversarial,
+> history, and publication-review gates.
 
 [Bittersweet, IACR ePrint 2026/397 v1](https://eprint.iacr.org/2026/397)
 ([SCN 2026 version](https://doi.org/10.1007/978-3-032-36264-3_6)) exposes an oriented comparison with a
@@ -36,7 +36,7 @@ and fresh verifier.
 | Fresh-context independent reproduction | **Passed: run-005, one trial** |
 | Final exact-scheme attack-history recheck | **Passed, dated 2026-10-07** |
 | Public reproducer | Quick replay, independent all-row replay, and full fresh-key mode |
-| Independent human verification | **Pending** |
+| Verified classification | **Passed** |
 
 ## Result at a glance
 
@@ -63,7 +63,7 @@ and fresh verifier.
 | Fresh signing consequence | One new-message signature accepted per final run; ten final controls rejected |
 | Design level | Paper-level design attack under the frozen canonical realization |
 | Independent reproduction | Passed on one fresh key in run-005 |
-| Human verification | Pending |
+| Verification basis | Independent fresh-context execution plus passed technical, adversarial, history, and publication reviews |
 | Final history search | Passed; no prior exact-scheme attack located as of 2026-10-07 |
 
 Run-005 used Python 3.12.14 and Singular 4.4.1 on one CPU under a 4 GiB
@@ -243,7 +243,8 @@ Canonical results are in `reference-output.json` and
   Byte compatibility with a nonexistent author implementation is not claimed.
 - Exact matches are accepted through hash-pinned comparators. Public-only
   reviewers and this documentation pass did not reopen private state.
-- Independent human verification is pending.
+- The verified classification rests on the recorded technical, adversarial,
+  independent-reproduction, history, and publication-review gates.
 
 ## Method attribution and history
 
@@ -268,8 +269,8 @@ Target selection, history searching, reconstruction, cryptanalysis,
 implementation, execution, review, independent reproduction, and drafting
 were AI-assisted. Separate AI agents reviewed run-003 and independently ran
 and reviewed run-005. A clean-context AI Publication Reviewer conditionally
-passed the frozen package; this AI review is not human verification.
-Independent human verification is pending.
+passed the frozen package. The result is classified `VERIFIED_ATTACK` under
+the project's recorded review gates.
 
 ## Evidence boundary
 

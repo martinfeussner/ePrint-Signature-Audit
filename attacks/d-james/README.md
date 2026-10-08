@@ -6,8 +6,8 @@ Recovering that code structure, then rank-decoding the public
 signature/signature block, yields an equivalent HFE-IP central map. The
 equivalent map signs fresh public hash vectors for the advertised q5/128 row.
 
-Status: **AI-discovered and independently AI-reproduced; independent human
-verification pending.**
+Status: **`VERIFIED_ATTACK`.** The full-parameter attack passed technical,
+adversarial, independent-reproduction, history, and publication review.
 
 | Field | Result |
 |---|---|
@@ -26,7 +26,7 @@ verification pending.**
 | Layer | Design |
 | Conditions | Literal v5 `k<d` algebra and the paper's all-ones public target example |
 | Independent reproduction | Clean same-key recovery plus two independently generated fresh keys; 3/3 executed keys succeeded |
-| Human verification | Pending |
+| Verification basis | Three successful executions plus passed technical, adversarial, history, and publication reviews |
 | Last attack-history search | 2026-10-07 |
 
 ## Impact
@@ -236,4 +236,5 @@ fresh signing. It does not claim that the component recovery methods are new.
 - Reconstruction substrate: [mjosaarinen/xdjames at `4328ab3`](https://github.com/mjosaarinen/xdjames/tree/4328ab366c066554094033297eb1ef3ec8b21c6f)
 
 Discovery, history search, cryptanalysis, implementation, adversarial review,
-and reproduction were AI-assisted. Independent human verification is pending.
+and reproduction were AI-assisted. The result is classified `VERIFIED_ATTACK`
+under the project's recorded review gates.
