@@ -1,0 +1,129 @@
+{
+  "attack": {
+    "R": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "fresh_message_E": [
+      0,
+      0,
+      0,
+      2
+    ],
+    "result": "public-key-only zero-query fresh-message forgery",
+    "signing_queries": 0
+  },
+  "checks": {
+    "all_four_challenge_classes_accept": true,
+    "forgery_accepts": true,
+    "hidden_domain_conditions_hold": true,
+    "honest_same_message_accepts": true,
+    "legacy_g1_correctness_defect_reproduced": true,
+    "negative_controls_rejected": true,
+    "public_coefficient_count_is_2240": true,
+    "public_secret_cross_checks_pass": true,
+    "zero_signing_queries": true
+  },
+  "digests": {
+    "primary_core_sha256": "c2b99169930855b39ad3285f936c3f3482523c3e48e9fbb7e5334db3acbaa3c0",
+    "target_pdf_sha256": "37ad500d8c0442173422d1976f9185b45302de819825624bdfa862de3ec5f9b9"
+  },
+  "environment": {
+    "language": "Python 3.12.3 standard library",
+    "workers": 1
+  },
+  "measurements": {
+    "attack_seconds": 0.0010816889989655465,
+    "elapsed_seconds": 111.29970646799484,
+    "parameter_row": "q=1048609, d=2, r=3, m=448, s=13",
+    "peak_rss_kib": 19456
+  },
+  "raw_result": {
+    "R": [
+      0,
+      1,
+      0,
+      0
+    ],
+    "all_p_residue_classes": 4,
+    "attack_seconds": 0.0010816889989655465,
+    "composed_public_key_sha256": "14a8d13f29d285638f3c0d38515354447c6cba8febc47c43d840af0bbed92e98",
+    "control_results": {
+      "changed_message_to_2j": false,
+      "extra_x0_13": false,
+      "extra_x1_13": false,
+      "remove_perturbation": false,
+      "wrong_x0_13_only": false,
+      "wrong_x1_13_only": false,
+      "wrong_x3_13_only": false
+    },
+    "domain_audit": {
+      "R_commuting_secret_constants": 0,
+      "R_noncommuting_with_message": true,
+      "message_commuting_secret_constants": 0,
+      "random_key_failure_union_bound": 8.148555743646802e-10
+    },
+    "elapsed_seconds": 111.29970646799484,
+    "eprint": "2010/352",
+    "forged_signature_T_sha256": "656154385287f8445f17f1e184dd5e7d6b0d1eff5475afdcc9b20e6ea7c3234c",
+    "forgery_accepts": 80,
+    "forgery_trials": 80,
+    "fresh_message": [
+      0,
+      0,
+      0,
+      2
+    ],
+    "honest_accepts": 80,
+    "honest_signature_T_sha256": "54bea69be598c4b4dc96ead09b58d3a534585db657407248a86fb25a92bdcd3a",
+    "honest_trials": 80,
+    "legacy_g1_regression": {
+      "forgery_all_p": true,
+      "honest_output_all_p": false
+    },
+    "negative_controls": 7,
+    "negative_controls_rejected": 7,
+    "parameters": {
+      "d": 2,
+      "m": 448,
+      "q": 1048609,
+      "q_bits": 21,
+      "r": 3,
+      "s": 13
+    },
+    "peak_rss_kib": 19456,
+    "perturbation": {
+      "coefficient": 1,
+      "monomial": [
+        0,
+        0,
+        13,
+        0
+      ],
+      "output_coordinate": 0
+    },
+    "public_coefficients": 2240,
+    "public_composition_cross_checks": 8,
+    "public_key_sha256": "913281d14869095eb29d4a33c72e3c265364de7ee27ca4f0478f5fde998da160",
+    "public_secret_cross_checks": 8,
+    "python": "3.12.3",
+    "quaternion_identity": {
+      "i_order": 4,
+      "i_times_2k": [
+        0,
+        0,
+        1048607,
+        0
+      ]
+    },
+    "sampled_p_sha256": "15b682192a35221e36087a9c11e03beaa7d5a113cd565a6e6452e74876ca55f1",
+    "scheme": "Yagisawa quaternion signature",
+    "signing_queries": 0,
+    "status": "PASS",
+    "target_pdf_sha256": "37ad500d8c0442173422d1976f9185b45302de819825624bdfa862de3ec5f9b9",
+    "workers": 1
+  },
+  "result": "PASS: zero-query fresh-message forgery accepted at full parameters"
+}

@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 10 |
+| Schemes identified | 11 |
 | Known attacks excluded | 1 |
-| Schemes audited | 9 |
+| Schemes audited | 10 |
 | No practical attack found | 5 |
-| Practical design attacks | 4 |
-| Verified practical design attacks | 4 |
-| Independently reproduced attacks | 4 |
+| Practical design attacks | 5 |
+| Verified practical design attacks | 5 |
+| Independently reproduced attacks | 5 |
 
 ## Practical design attacks
 
@@ -30,6 +30,7 @@ unreported.
 | [Miraidon-S](attacks/miraidon-s/) | 2026/997 v4 | MinRank identification | Universal fresh-message forgery | Zero witness and rank-zero factors | Levels I, III, V | 0.49 s Level-I forge | Verified; independently AI-reproduced |
 | [Bittersweet](attacks/bittersweet/) | 2026/397 v1 | LWR-based MPC-in-the-head | Exact secret-key recovery with fresh signing | Accepted carry comparisons, interval intersection, and weighted LLL/Babai CVP | Level I `d=32` | 313.95 s public pipeline, 236,760 KiB, 1 worker | Verified; independently AI-reproduced |
 | [Poulakis--Rolland v2](attacks/poulakis-rolland-v2/) | 2012/134 v2 | Composite-order pairing signature | One-query universal fresh-message forgery | Public-scalar point transport with pairing-factor compensation | 2046-bit group order, 2048-bit field | 2.35 s transport, 17.5 MB peak, 1 worker | Verified; independently AI-reproduced |
+| [Yagisawa quaternion signature](attacks/yagisawa-order-four/) | 2010/352 final | Multivariate quaternion-ring signature | Zero-query fresh-message forgery | Order-four challenge orbit and a vanishing homogeneous perturbation | `d=2`, `r=3`, `m=448`, 21-bit `q` | 1.79 ms forge; 113 s full setup/control; 19.5 MiB, 1 worker | Verified; independently AI-reproduced |
 
 The first catalog record is ATLAS (ePrint 2026/2323), excluded because it is
 the published form of MORNING-ATLAS/NGCC sign-15 and a practical ATLAS-128
@@ -98,6 +99,21 @@ group-order and 2048-bit-field endpoint, including an independent fresh-key
 reproduction; strict mutation and subgroup controls rejected. The generic
 public-scalar BLS rescaling technique is credited to prior work, and no exact
 v2 attack was located in the searches performed as of 2026-10-09.
+
+[Yagisawa's quaternion signature](attacks/yagisawa-order-four/) (ePrint
+2010/352, revision `20100627:124304`) lets a signature choose the quaternion
+`R` that generates the verifier's challenge points. Setting `R=i` confines
+every challenge to the four-point orbit `{1,i,-1,-i}`. For the fresh message
+`E=2k`, an attacker publicly composes the public polynomial with left
+multiplication by `i` and adds the nonzero homogeneous perturbation
+`(x2^13,0,0,0)`, which vanishes on that orbit but makes the verifier's
+preliminary inequality pass at `RE=-2j`. Two independent standard-library
+implementations generated all 2,240 public coefficients at the claimed
+`d=2`, `r=3`, `m=448` row, accepted the zero-query forgery for every challenge
+class, accepted an honest signature on the same message, and rejected strict
+controls. The report claims no novelty for the general vanishing-polynomial
+principle; no exact-target attack was located in searches completed as of
+2026-10-09.
 
 Lithium (ePrint 2026/1790 v1) completed a scoped audit with no practical
 signing compromise. Its mode-260 challenge sampler uses one-byte indices at

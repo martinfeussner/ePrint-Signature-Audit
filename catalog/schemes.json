@@ -152,5 +152,22 @@
     "attack_path": "attacks/poulakis-rolland-v2/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, adversarial, independent-reproduction, history, and publication-review gates"
+  },
+  {
+    "scheme": "Yagisawa quaternion signature",
+    "aliases": ["A Digital Signature Using Multivariate Functions on Quaternion Ring"],
+    "eprint_id": "2010/352",
+    "eprint_version": "final revision 20100627:124304",
+    "eprint_date": "2010-06-18",
+    "family": "Multivariate signature over a noncommutative quaternion ring",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-09",
+    "url": "https://eprint.iacr.org/2010/352",
+    "attack_history_note": "No prior public attack against the exact Yagisawa 2010/352 construction was located in the searches performed as of 2026-10-09. Attacks on Satoh--Araki and other quaternion systems concern distinct schemes.",
+    "audit_completed_at": "2026-10-09",
+    "attack_result": "Public-key-only zero-query fresh-message forgery",
+    "attack_path": "attacks/yagisawa-order-four/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical, adversarial, independent-reproduction, history, and publication-review gates"
   }
 ]

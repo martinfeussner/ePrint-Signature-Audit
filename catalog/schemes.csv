@@ -9,3 +9,4 @@ miniMEDS,2026/1323,v1,2026-06-26,tensor and matrix-code isomorphism GMW signatur
 Miraidon-S,2026/997,v4,2026-06-02,MinRank identification Fiat-Shamir signature,VERIFIED_ATTACK,2026-10-07,https://eprint.iacr.org/2026/997
 Bittersweet,2026/397,v1,2026-03-01,LWR-based MPC-in-the-head signature with Fiat--Shamir with aborts,VERIFIED_ATTACK,2026-10-07,https://eprint.iacr.org/2026/397
 Poulakis--Rolland v2,2012/134,v2 (20150430:055329),2012-03-09,Composite-order pairing signature combining factoring and elliptic-curve discrete logarithms,VERIFIED_ATTACK,2026-10-09,https://eprint.iacr.org/2012/134
+Yagisawa quaternion signature,2010/352,final revision 20100627:124304,2010-06-18,Multivariate signature over a noncommutative quaternion ring,VERIFIED_ATTACK,2026-10-09,https://eprint.iacr.org/2010/352

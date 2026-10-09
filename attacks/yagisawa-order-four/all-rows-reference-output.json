@@ -1,0 +1,30 @@
+{
+  "all_rows_pass": true,
+  "digests": {
+    "independent_core_sha256": "27be188c8bd8042b43c243f9aa2f5977ab1b7266ad5ff49629e17bc6fe8ecb5a",
+    "public_forger_core_sha256": "d6898781f9bb8a1e1a327978392a834e25e245e363755bdcea9da94d419cef03",
+    "target_pdf_sha256": "37ad500d8c0442173422d1976f9185b45302de819825624bdfa862de3ec5f9b9"
+  },
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_four_challenge_classes_accept": true,
+        "equations_11_and_12_match_direct_evaluation": true,
+        "forger_is_public_only_isolated_process": true,
+        "forgery_accepted": true,
+        "fresh_same_message_honest_signature_accepts_after_forgery": true,
+        "hidden_domain_conditions_hold": true,
+        "negative_controls_rejected": true,
+        "public_coefficient_count_is_2240": true,
+        "zero_signing_queries": true
+      },
+      "measurements": {
+        "elapsed_seconds": 53.04924587200367,
+        "parameter_row": "q=1048583, d=2, r=3, m=448, s=13"
+      },
+      "parameter_row": "claimed d=2, r=3, m=448 row over a conforming 21-bit prime",
+      "signing_queries": 0
+    }
+  ]
+}

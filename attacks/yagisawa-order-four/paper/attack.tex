@@ -1,0 +1,540 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={A Quarter Turn Is All It Takes: A Zero-Query Forgery against Yagisawa's Quaternion Signature},
+  pdfauthor={ePrint Signature Audit}
+}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{A Quarter Turn Is All It Takes}
+\fancyhead[R]{9 October 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Hq}{\mathbb{H}_{q}}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\title{\bfseries A Quarter Turn Is All It Takes: A Zero-Query Forgery against Yagisawa's Quaternion Signature}
+\author{ePrint Signature Audit\\
+\small AI-assisted cryptanalysis report}
+\date{9 October 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\fcolorbox{black!50}{black!4}{\parbox{0.94\textwidth}{
+\textbf{AI disclosure and review status.}
+This paper documents this audit's AI-assisted reconstruction of the attack.
+OpenAI Codex performed exact-version pinning, attack-history searching, scheme
+reconstruction, cryptanalysis, proof development, implementation, experiment
+generation, and technical writing.  Specialist AI agents were used for
+technical, adversarial, reproducibility, and publication review.  Independent
+AI reproduction is identified as AI reproduction and is not described as
+human verification.  OpenAI Codex generated and selected the title and
+intentionally chose ``A Quarter Turn Is All It Takes'' as wordplay on the
+quaternion/order-four mechanism: multiplication by the basis element $i$ is a
+quarter turn, and its four-point power orbit defeats the verifier.  The
+technical, adversarial, independent-reproduction, final-history, and
+publication-review gates passed; this result is classified
+\texttt{VERIFIED\_ATTACK}.  No claim of independent human verification is
+made.}}
+
+\begin{abstract}
+We give a public-key-only, zero-query forgery against Masahiro Yagisawa's
+\emph{A Digital Signature Using Multivariate Functions on Quaternion Ring},
+IACR ePrint 2010/352, final revision \texttt{20100627:124304}.  For the paper's
+claimed row $d=2$, $r=3$, and $m=448$, the public quaternion-valued polynomial
+has homogeneous degree $s=13$ and 2,240 field coefficients.  From those public
+coefficients alone, the adversary chooses $R=i$ and the fresh message $E=2k$,
+so $g=2$, and transmits
+\[
+  T^*(X)=F(iX)+(x_2^{13},0,0,0).
+\]
+The composition $F(iX)$ is only a signed permutation of public coefficients.
+The added monomial vanishes on every verifier challenge point
+$R^{p+1}\in\{1,i,-1,-i\}$, while it is nonzero at the verifier's separate
+inequality point $RE=-2j$.  The ordinary verifier therefore accepts for every
+integer challenge $p$.
+
+At $q=1{,}048{,}609$, a full-row reference implementation generated a
+legitimate key, forged in 0.001789767 seconds, and completed key generation and
+all checks in 112.834013369 seconds.  External timing was 1:53.69 with
+19,968~KiB peak resident memory.  Honest and forged signatures on the same
+message each passed 80/80 sampled challenges, all four challenge residue
+classes passed exactly, and 7/7 negative controls rejected.  The forger made
+no signing query.  We located no previous public attack against this exact
+construction in the searches performed as of 2026-10-09.  We make no novelty
+claim for the general vanishing-polynomial or small-evaluation-set principle.
+\end{abstract}
+
+\section{Introduction}
+
+Yagisawa proposes a signature construction over a quaternion ring over a
+finite field~\cite{yagisawa}.  The public key is a four-coordinate homogeneous
+polynomial $F$.  A signature carries a second four-coordinate polynomial $T$,
+a quaternion $R$, and a message quaternion $E$.  Verification does not check
+that $T$ was derived from the secret key.  It instead evaluates $F$ and $T$ at
+one message-dependent point and one random power of $R$.
+
+The paper already observes that an adversary can publicly form the shifted
+polynomial $F(R^{g-1}X)$.  Its preliminary inequality is intended to reject
+that construction.  The check has only one point, however.  We add a
+homogeneous polynomial that is zero on every random-challenge point but
+nonzero at the preliminary point.  Choosing the order-four quaternion $i$
+makes both the construction and its proof especially simple.
+
+Our concrete result has the following properties:
+\begin{itemize}
+  \item it attacks the final ePrint revision and the paper's complete claimed
+  parameter row, without weakening $q,d,r$, or $m$;
+  \item it uses the ordinary two-stage verifier and a normally signable
+  message, confirmed by an honest signature on that same message;
+  \item it transforms public coefficients only and makes zero signing queries;
+  \item its randomized verification equality holds for every challenge $p$;
+  \item it is a direct fresh-message forgery, rather than key recovery; and
+  \item its online work is a permutation and sign change of 2,240 field
+  coefficients followed by one field addition.
+\end{itemize}
+
+\paragraph{Attack-history statement.}
+We located no previous public attack against this exact Yagisawa construction
+in the searches performed as of 2026-10-09.  This is a dated statement about
+the searches conducted, not an absolute priority claim.  Published attacks on
+other quaternion signatures concern different constructions.
+
+\paragraph{Technique attribution.}
+The broad fact that a nonzero polynomial can evade evaluation on a small or
+structured test set underlies classical polynomial identity testing, including
+the work of Zippel~\cite{zippel} and Schwartz~\cite{schwartz}.  Our attack is
+an elementary, exact vanishing-polynomial construction on the verifier's
+four-point orbit.  We claim an application to this target, not novelty for the
+technique.
+
+\section{The target construction}
+
+\subsection{Quaternion convention}
+
+Let $q$ be an odd prime and write an element of $\Hq$ as
+$A=(a_0,a_1,a_2,a_3)=a_0+a_1i+a_2j+a_3k$.  The paper defines the product of
+$A$ and $B=(b_0,b_1,b_2,b_3)$ by
+\[
+AB=\left(\begin{array}{l}
+a_0b_0-a_1b_1-a_2b_2-a_3b_3,\\
+a_0b_1+a_1b_0+a_2b_3-a_3b_2,\\
+a_0b_2-a_1b_3+a_2b_0+a_3b_1,\\
+a_0b_3+a_1b_2-a_2b_1+a_3b_0
+\end{array}\right) \pmod q.
+\]
+Thus $i^2=j^2=k^2=-1$, $ij=k$, $ik=-j$, and $ki=j$.
+
+\subsection{Keys, signatures, and verification}
+
+For secret $k_1,\ldots,k_m\in\F_q$ and
+$A_1,\ldots,A_m\in\Hq$, the public polynomial is
+\begin{equation}
+ F(X)=\sum_{h=1}^{m} k_h
+       \prod_{\ell=0}^{d}\left(A_h^{r^\ell}X^{r^\ell}\right),
+ \label{eq:F}
+\end{equation}
+where the noncommutative product is taken in increasing $\ell$.  If
+\[
+ s=1+r+\cdots+r^d,
+\]
+then each coordinate of $F$ is published as a homogeneous commutative
+polynomial
+\[
+ f_u(x_0,x_1,x_2,x_3)
+ =\sum_{e_0+e_1+e_2+e_3=s}
+ f_{u,e_0,e_1,e_2,e_3}
+ x_0^{e_0}x_1^{e_1}x_2^{e_2}x_3^{e_3}.
+\]
+
+For a message $E=(E_0,E_1,E_2,E_3)$, set
+$g=E_0+E_1+E_2+E_3$.  An honest signer selects $R$ and forms
+\begin{equation}
+ T(X)=\sum_{h=1}^{m} k_h
+       \prod_{\ell=0}^{d}
+       \left(A_h^{r^\ell}R^{(g-1)r^\ell}X^{r^\ell}\right).
+ \label{eq:T}
+\end{equation}
+The target paper writes the transmitted signed object as the coefficients of
+$T$, together with $R$ and $E$.
+
+The ordinary verifier first requires
+\begin{equation}
+ F(R^gE)\ne T(RE),
+ \label{eq:inequality}
+\end{equation}
+then samples an integer $p$ and accepts if
+\begin{equation}
+ F(R^{g+p})=T(R^{p+1}).
+ \label{eq:challenge}
+\end{equation}
+The recommended row is
+\[
+  d=2,\qquad r=3,\qquad m=448,
+\]
+so $s=1+3+9=13$.  Each coordinate has
+$\binom{s+3}{3}=560$ coefficients and the complete public key has
+$4\binom{16}{3}=2{,}240$ coefficients.  The paper requires an odd $q$ larger
+than 20 bits.
+
+\paragraph{Claimed security.}
+For this row, Yagisawa models recovery of the hidden $k_h$ and $A_h$ values as
+2,240 degree-14 multivariate equations in 2,240 secret variables.  Using a
+degree of regularity 15 and matrix exponent 2.39, the paper estimates the
+Gr\"obner-basis work at about $2^{302}$, compares it with a $2^{80}$ security
+target, and claims resistance to Gr\"obner-basis and differential attacks.
+It also requires $q$ to exceed 20 bits so that the value space for the
+verification evaluations exceeds $2^{80}$.  These are the target paper's
+claims, not estimates validated here.  The forgery below bypasses recovery of
+all 2,240 secret variables and therefore does not test those estimates.
+
+\section{The zero-query forgery}
+
+Set
+\[
+ R=i=(0,1,0,0),\qquad E=2k=(0,0,0,2),\qquad g=2.
+\]
+These values do not commute because
+\[
+ i(2k)=-2j,\qquad (2k)i=2j.
+\]
+For $X=(x_0,x_1,x_2,x_3)$, left multiplication by $i$ is the linear map
+\begin{equation}
+ iX=(-x_1,x_0,-x_3,x_2).
+ \label{eq:left-i}
+\end{equation}
+The attacker computes from the public key
+\begin{equation}
+ T^*(X)=F(iX)+D(X),
+ \qquad D(X)=(x_2^{13},0,0,0).
+ \label{eq:forgery}
+\end{equation}
+Both summands are homogeneous of degree 13, so $T^*$ has exactly the required
+signature format.
+
+\subsection{Public coefficient transformation}
+
+Equation~\eqref{eq:left-i} maps a public monomial by
+\begin{align*}
+ x_0^{e_0}x_1^{e_1}x_2^{e_2}x_3^{e_3}
+ &\longmapsto
+ (-x_1)^{e_0}x_0^{e_1}(-x_3)^{e_2}x_2^{e_3}\\
+ &=(-1)^{e_0+e_2}
+ x_0^{e_1}x_1^{e_0}x_2^{e_3}x_3^{e_2}.
+\end{align*}
+Thus every exponent tuple
+\[
+ (e_0,e_1,e_2,e_3)
+ \longmapsto (e_1,e_0,e_3,e_2)
+\]
+with sign $(-1)^{e_0+e_2}$.  Constructing $F(iX)$ is a signed permutation of
+the public coefficient array.  The attacker then adds one modulo $q$ to output
+coordinate zero at exponent tuple $(0,0,13,0)$.  No secret quantity or oracle
+response appears in this computation.
+
+\subsection{Proof of acceptance}
+
+\begin{theorem}
+For every odd prime $q$ and every public polynomial $F$ in the claimed
+degree-13 format, the signed object defined in~\eqref{eq:forgery} is accepted
+for every integer verifier challenge $p$.
+\end{theorem}
+
+\begin{proof}
+Because $q$ is odd, $i^2=-1\ne1$ and $i^4=1$, so $R=i$ has exact order four.
+For every integer $p$,
+\[
+ R^{p+1}\in\{1,i,-1,-i\}.
+\]
+All four points have zero $x_2$ coordinate, hence
+$D(R^{p+1})=0$.  Since $g=2$ and $i$ commutes with its powers,
+\begin{align*}
+ T^*(R^{p+1})
+ &=F(iR^{p+1})+D(R^{p+1})\\
+ &=F(R^{p+2})\\
+ &=F(R^{g+p}).
+\end{align*}
+The randomized equality~\eqref{eq:challenge} therefore holds for every $p$.
+
+For the preliminary inequality,
+\[
+ RE=i(2k)=-2j,
+ \qquad i(RE)=-2k=R^2E.
+\]
+Consequently the shifted part agrees with the left side,
+\[
+ F(i(RE))=F(R^2E),
+\]
+but
+\[
+ D(RE)=((-2)^{13},0,0,0)\ne0
+\]
+over every odd prime field.  Hence
+$T^*(RE)\ne F(R^2E)$, so~\eqref{eq:inequality} also passes.
+\end{proof}
+
+\paragraph{Freshness and attack model.}
+The attacker chooses $E=2k$ and produces $(T^*,R,E)$ from the public
+coefficient representation of $F$.  It requests no signature, making $E$
+fresh by construction.  Verification uses the two equations printed in the
+paper, with no attack-specific acceptance rule.
+
+\section{Message-domain conditions}
+
+The paper asks that $R$ not commute with any hidden $A_h$, and that $E$ not
+commute with $R$ or any $A_h$.  The public verifier cannot evaluate the
+conditions involving the hidden $A_h$.  They nevertheless hold exactly for
+the reproduced key.
+
+For completeness, let $A=(a_0,a_1,a_2,a_3)$.  Direct multiplication shows
+\[
+ Ai=iA \iff a_2=a_3=0,
+ \qquad
+ Ak=kA \iff a_1=a_2=0.
+\]
+The centralizers of $i$ and $k$ therefore each contain $q^2$ elements and
+intersect in the $q$ scalar quaternions.  Multiplication by the nonzero scalar
+2 does not change the centralizer of $k$.  For a uniform $A$,
+\[
+ \Pr[A\text{ commutes with }i\text{ or }2k]
+ =\frac{2}{q^2}-\frac{1}{q^3}.
+\]
+For $m$ independently sampled constants, the exact failure probability is
+\[
+ 1-\left(1-\frac{2}{q^2}+\frac{1}{q^3}\right)^m,
+\]
+and the union bound is
+$m(2/q^2-1/q^3)$.  At $q=1{,}048{,}609$ and $m=448$, this is less than
+$8.15\times10^{-10}$.  The attack is therefore overwhelmingly applicable
+under the natural uniform-key interpretation, and a test instance can audit
+the hidden conditions exactly.
+
+\section{Full-parameter reproduction}
+
+The reference implementation uses only Python's standard library.  It first
+generates $m=448$ secret terms and expands Equation~\eqref{eq:F} into all
+2,240 public coefficients.  Secret-factorized and public-coefficient
+evaluations are cross-checked before the secret state is excluded from the
+forger interface.  The forger receives only $F$, returns $T^*,R,E$, and
+finishes before the honest same-message control is generated.
+
+The retained primary execution used Python~3.12.3 and its standard library on
+an AMD EPYC Processor, with one worker.  The independent execution used the
+same language/runtime class and worker count, but a separate polynomial
+implementation, deterministic context, and conforming prime.
+
+The same run then constructs Equation~\eqref{eq:T} honestly for $E=2k$ and
+$R=i$.  This honest signature and the forgery both pass all four challenge
+classes and 80 large sampled challenges.  The same-message control matters:
+it demonstrates that the primary forged message lies in a working honest
+message domain and was not selected only because honest signing fails there.
+
+\begin{table}[ht]
+\centering
+\caption{Primary full-parameter measurements.}
+\begin{tabular}{@{}ll@{}}
+\toprule
+Item & Measurement \\
+\midrule
+Parameters & $q=1{,}048{,}609$, $d=2$, $r=3$, $m=448$, $s=13$ \\
+Public coefficients & 2,240 \\
+Signing queries & 0 \\
+Public forger time & 0.001789767 s \\
+Complete in-program time & 112.834013369 s \\
+External wall time & 1:53.69 \\
+Peak resident memory & 19,968 KiB \\
+Workers & 1 \\
+Honest same-message trials & 80/80 accepted \\
+Forged fresh-message trials & 80/80 accepted \\
+Exact challenge classes & 4/4 accepted \\
+Negative controls & 7/7 rejected \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The pinned target and primary coefficient digests are:
+\begin{quote}
+\small
+Target PDF:\\
+\texttt{37ad500d8c0442173422d1976f9185b45302de819825624bdfa862de3ec5f9b9}\\
+Public $F$:\\
+\texttt{913281d14869095eb29d4a33c72e3c265364de7ee27ca4f0478f5fde998da160}\\
+Forged $T^*$:\\
+\texttt{656154385287f8445f17f1e184dd5e7d6b0d1eff5475afdcc9b20e6ea7c3234c}
+\end{quote}
+
+\subsection{Controls}
+
+The seven negative controls remove the perturbation, replace it by each of
+three wrong coordinate monomials, add two orbit-visible monomials to the valid
+forgery, and reuse the forged signature on the changed message $E'=2j$.  Each
+control either restores equality in the preliminary check or breaks the
+challenge equality, and all seven reject.  Eight public-versus-secret
+evaluation checks and eight checks of the public signed permutation also pass.
+
+\subsection{Independent AI reproduction}
+
+A separately written implementation reconstructed Equations~\eqref{eq:F} and
+\eqref{eq:T} from the pinned target and used the different conforming prime
+$q=1{,}048{,}583$.  It generated all 2,240 public coefficients, then invoked
+the forger as an isolated process whose sole input was serialized public $F$.
+That process had no signing-oracle or secret-material interface and recorded
+zero queries.  The $g=2$ forgery passed all four challenge classes.  Only
+after that acceptance, the implementation generated an honest signature on
+the same $E=2k$; it also passed all four classes.  Omitting the perturbation,
+using an orbit-visible perturbation, and changing the message to $E'=2j$ all
+caused rejection.  The implementation also cross-checked both public
+polynomials against separate direct evaluations of the paper's factored
+equations.
+
+The isolated public forger took 4.716746141 seconds, including JSON parsing
+and serialization.  The complete run took 60.009294720 seconds internally
+and 61.05 seconds externally, with 22,528~KiB peak resident memory and one
+worker.  Its canonical coefficient digests are
+\begin{quote}
+\small
+Public $F$:\\
+\texttt{213ae3663e6cf2599d81c5141382bcc951699b8c6aee41712e10d66ce614441a}\\
+Forged $T^*$:\\
+\texttt{4a1350707a4bc3a043d5ab2d436b6214c826c3004994a06e2da08fab9b9cc633}\\
+Honest same-message $T$:\\
+\texttt{a00eefe7e020a573c1c11ee6ddaa9660f788b081bdea0f386c4f92c4e2db1d33}.
+\end{quote}
+The retained independent source, public-only forger, and 19-entry manifest
+have SHA-256 digests, respectively,
+\begin{center}
+\small\ttfamily
+4a82384994684fdc25f1240f0990f9aeb78a9826a629783f767fa31673f6580b\\
+d6898781f9bb8a1e1a327978392a834e25e245e363755bdcea9da94d419cef03\\
+2fb137a850f32d75334a0bcbcc848b1ffd59edf1390c8698cc622b601b917f7c.
+\end{center}
+The standalone public adaptation of the independent source has digest
+\begin{center}
+\small\ttfamily
+27be188c8bd8042b43c243f9aa2f5977ab1b7266ad5ff49629e17bc6fe8ecb5a.
+\end{center}
+
+\section{Why the verifier fails}
+
+The random challenge is much less random algebraically than its integer $p$
+suggests.  With $R=i$, every challenge lies in a four-point set.  The
+degree-13 monomial $x_2^{13}$ vanishes identically there.  The preliminary
+check evaluates at $RE=-2j$, which is outside that set and has nonzero
+$x_2$.  One coefficient therefore separates the two checks exactly.
+
+Merely banning order-four $R$ is not a complete repair.  Every quaternion
+$R$ satisfies a quadratic relation over its scalar field, so all powers of
+$R$ lie in the at-most-two-dimensional commutative subalgebra
+$\operatorname{span}_{\F_q}\{1,R\}$.  The challenge points consequently
+remain in a predictable low-dimensional algebraic set even when $R$ has
+large order.  The order-four choice gives the cleanest concrete full-row
+forgery, but the structural issue is the restricted evaluation locus.
+
+\section{Limitations and repair}
+
+Our empirical claim is for the final revision and its explicit
+$d=2,r=3,m=448$ row.  The proof is independent of the secret coefficients and
+uses any odd 21-bit-or-larger prime, but we do not report measurements for
+other rows.  The attack produces a direct forgery; it does not recover the
+nominal secret key.  The paper gives no production implementation or complete
+wire format, so the reproducer implements the mathematical coefficient
+interface exactly as specified.  The key-sampling distribution is not fully
+formalized; we both audit the hidden noncommutativity conditions on the test
+key and give their probability under independent uniform sampling.  Finally,
+the dated attack-history search cannot establish an absolute absence of
+unindexed or private work.
+
+A repair must replace the verification mechanism, rather than only blacklist
+$i$.  In particular:
+\begin{itemize}
+  \item do not authenticate an attacker-supplied polynomial from evaluations
+  confined to powers of an attacker-supplied quaternion;
+  \item bind the signature to the message with a standard, analyzed signature
+  transform and require evidence that the transmitted object was derived from
+  the signing key;
+  \item if polynomial identity testing remains part of verification, sample
+  from a domain not contained in a predictable low-degree variety and prove a
+  soundness bound for the actual polynomial class; and
+  \item make all message-domain conditions publicly checkable and require
+  honest signing correctness for every admitted message.
+\end{itemize}
+The single inequality~\eqref{eq:inequality} cannot provide these properties.
+
+\section{Secondary correctness observation}
+
+There is a simpler but weaker presentation of the same verifier flaw.  Taking
+$E=k$ gives $g=1$, and
+\[
+ T^*(X)=F(X)+(x_2^{13},0,0,0)
+\]
+again passes every verifier challenge.  An honest signer on such a message,
+however, computes $T=F$, which the preliminary inequality then rejects.
+Thus the $g=1$ case also exposes a correctness defect in the stated message
+domain.  We do not use it as the primary attack: the $g=2$ construction above
+has an accepted honest signature and an accepted forgery on the same message.
+
+\section{Conclusion}
+
+For the claimed full parameter row, a zero-query adversary can turn the
+public polynomial $F$ by one quaternion quarter turn and add one degree-13
+coefficient.  The resulting $T^*$ passes Yagisawa's ordinary verifier for
+every challenge while signing the fresh, honestly signable message $E=2k$.
+The online attack takes about 1.8 milliseconds and requires no secret or
+signature oracle.  The failure comes from testing an attacker-supplied
+polynomial only on a structured power orbit and at one separately patched
+point.
+
+\section*{Acknowledgements}
+The computations were performed on the Norwegian Research and Education Cloud (NREC), using resources provided by the University of Bergen and the University of Oslo.
+
+\begin{thebibliography}{9}
+
+\bibitem{yagisawa}
+M.~Yagisawa.
+\newblock A Digital Signature Using Multivariate Functions on Quaternion Ring.
+\newblock IACR Cryptology ePrint Archive, Report 2010/352, final revision
+\texttt{20100627:124304}, 2010.
+\newblock \url{https://eprint.iacr.org/2010/352}.
+
+\bibitem{zippel}
+R.~Zippel.
+\newblock Probabilistic algorithms for sparse polynomials.
+\newblock In \emph{EUROSAM 1979}, Lecture Notes in Computer Science, vol.~72,
+pp.~216--226. Springer, 1979.
+\newblock \url{https://doi.org/10.1007/3-540-09519-5_73}.
+
+\bibitem{schwartz}
+J.~T.~Schwartz.
+\newblock Fast probabilistic algorithms for verification of polynomial
+identities.
+\newblock \emph{Journal of the ACM}, 27(4):701--717, 1980.
+\newblock \url{https://doi.org/10.1145/322217.322225}.
+
+\end{thebibliography}
+
+\end{document}
