@@ -1,0 +1,66 @@
+{
+  "attack": {
+    "message_scope": "fresh attacker-chosen raw z tuple in Algorithms 5-6",
+    "result": "zero-query existential forgery for the literal raw-z interface",
+    "signing_queries": 0
+  },
+  "checks": {
+    "all_format_controls_reject": true,
+    "all_four_forgery_variants_accept": true,
+    "all_four_invalid_block_controls_reject": true,
+    "both_full_printed_rows_pass": true,
+    "positive_blocks_checked_is_2550": true,
+    "zero_signing_queries": true
+  },
+  "digests": {
+    "primary_core_sha256": "c3eac5c274ff64af9d9389acaaf8e64d9129095f17af31b9c58423fd748e87ad",
+    "target_pdf_sha256": "b2bdf97bcef5dfec9928749d0d3fad0a97956494fc81989c52cd4472dec5755e",
+    "target_text_sha256": "69fafe4ab6f7bb2fad7dfd6687f66dd19c5d86e738163ac5bdf75cb7fbd06d6f"
+  },
+  "environment": {
+    "language": "Python 3 standard library",
+    "workers": 1
+  },
+  "result": "PASS: both full rows accept zero- and nonzero-sigma raw-z forgeries",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "algorithm3_count_matches": true,
+        "both_forgery_variants_accept": true,
+        "complete_valid_split_set_covered": true,
+        "format_controls_reject": true,
+        "one_invalid_block_controls_reject": true,
+        "public_only_zero_query_boundary": true,
+        "separate_signer_correctness_witness_rejects": true
+      },
+      "fresh_raw_message_sha256": {
+        "fixed_nonzero_sigma": "ba897dc73d33bbd58815fba0728921590125b263a456315c9c330cc1eac58302",
+        "zero_sigma": "ce5a9ce32256a691fcc30e5ee365a31c067937559564958bc1a6ae49af1a5dec"
+      },
+      "parameter_row": "PS1: n=2142, k=465, ell=3, s=2",
+      "public_key_sha256": "acd7e4e548d9f260ca576a6099de2b8769df8a17ecbcdb5602617f6d97c1a204",
+      "valid_error_splits": 24
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "algorithm3_count_matches": true,
+        "both_forgery_variants_accept": true,
+        "complete_valid_split_set_covered": true,
+        "format_controls_reject": true,
+        "one_invalid_block_controls_reject": true,
+        "public_only_zero_query_boundary": true,
+        "separate_signer_correctness_witness_rejects": true
+      },
+      "fresh_raw_message_sha256": {
+        "fixed_nonzero_sigma": "6a6be7afc7072fb97182d79cb44bbca054a9bc4a77923a81ed8b291d4786a9c7",
+        "zero_sigma": "b2ece1784a373ce4ad0e29db0f4bb87952f5f67c9eb72a11198df0fcf8ae718d"
+      },
+      "parameter_row": "PS2: n=2244, k=508, ell=4, s=2",
+      "public_key_sha256": "507407a2c18a5e9f8e4118c0ade7b8944e9f14b89e1e62795f0b6a04916c462c",
+      "valid_error_splits": 40
+    }
+  ],
+  "scope_exclusion": "No claim is made for arbitrary documents or for an unspecified external document-to-z hash wrapper."
+}

@@ -1,0 +1,57 @@
+{
+  "all_rows_pass": true,
+  "attack": {
+    "message_scope": "fresh attacker-chosen raw z tuple in Algorithms 5-6",
+    "result": "zero-query existential forgery for the literal raw-z interface",
+    "signing_queries": 0
+  },
+  "digests": {
+    "independent_core_sha256": "3f1603d4bba3ab53434a8cd42f36f3ee447b248de8d17e8125e4d15392726f0e",
+    "target_pdf_sha256": "b2bdf97bcef5dfec9928749d0d3fad0a97956494fc81989c52cd4472dec5755e",
+    "target_text_sha256": "69fafe4ab6f7bb2fad7dfd6687f66dd19c5d86e738163ac5bdf75cb7fbd06d6f"
+  },
+  "environment": {
+    "language": "Python 3 standard library",
+    "workers": 1
+  },
+  "result": "PASS: independent deterministic reproduction passes both full rows",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "algorithm3_count_matches": true,
+        "both_forgery_variants_accept": true,
+        "changed_signature_controls_reject": true,
+        "format_controls_reject": true,
+        "invalid_block_controls_reject": true,
+        "public_only_zero_query_boundary": true
+      },
+      "message_sha256": {
+        "deterministic_nonzero_sigma": "f238b518b355c47d7fcdcaea61b9f3022f177c6bcff50061cb28978554512b56",
+        "zero_sigma": "ce5a9ce32256a691fcc30e5ee365a31c067937559564958bc1a6ae49af1a5dec"
+      },
+      "parameter_row": "PS1: n=2142, k=465, ell=3, s=2",
+      "public_key_sha256": "324f3826c63ef899cad5fb640732a02b5c15b105ffeca55688c4d9749306bcd0",
+      "valid_error_splits": 24
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "algorithm3_count_matches": true,
+        "both_forgery_variants_accept": true,
+        "changed_signature_controls_reject": true,
+        "format_controls_reject": true,
+        "invalid_block_controls_reject": true,
+        "public_only_zero_query_boundary": true
+      },
+      "message_sha256": {
+        "deterministic_nonzero_sigma": "6391422b8587a89ff68a6233decd482db72df9c2ba0d16c3767ba366674df3cf",
+        "zero_sigma": "b2ece1784a373ce4ad0e29db0f4bb87952f5f67c9eb72a11198df0fcf8ae718d"
+      },
+      "parameter_row": "PS2: n=2244, k=508, ell=4, s=2",
+      "public_key_sha256": "b9ce84ad31eb8a7c4608d531516ba19ef20837b03c5340ce1d4b7ff34af6bc5a",
+      "valid_error_splits": 40
+    }
+  ],
+  "scope_exclusion": "No arbitrary-document claim and no claim against an unspecified external document-to-z hash wrapper."
+}

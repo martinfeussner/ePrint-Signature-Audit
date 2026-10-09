@@ -169,5 +169,25 @@
     "attack_path": "attacks/yagisawa-order-four/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, adversarial, independent-reproduction, history, and publication-review gates"
+  },
+  {
+    "scheme": "Random-split St-Gen signature",
+    "aliases": [
+      "A Digital Signature Scheme Based on Random Split of St-Gen Codes",
+      "random-split St-Gen"
+    ],
+    "eprint_id": "2016/391",
+    "eprint_version": "content-hash-pinned 2016-04-19 object",
+    "eprint_date": "2016-04-19",
+    "family": "Code-based signature from a random split of Staircase-Generator codes",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-09",
+    "url": "https://eprint.iacr.org/2016/391",
+    "attack_history_note": "No prior public attack against the exact random-split St-Gen signature was located in the searches performed as of 2026-10-09. Moody--Perlner attacks the unsplit predecessor; verification-first existential forgery is credited as a classical technique.",
+    "audit_completed_at": "2026-10-09",
+    "attack_result": "Public-key-only zero-query existential fresh-message forgery against the intended raw binary-vector interface",
+    "attack_path": "attacks/random-split-stgen/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical, adversarial, intended-scope, independent-reproduction, exact-history, and publication-review gates"
   }
 ]

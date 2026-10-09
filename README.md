@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 11 |
+| Schemes identified | 12 |
 | Known attacks excluded | 1 |
-| Schemes audited | 10 |
+| Schemes audited | 11 |
 | No practical attack found | 5 |
-| Practical design attacks | 5 |
-| Verified practical design attacks | 5 |
-| Independently reproduced attacks | 5 |
+| Practical design attacks | 6 |
+| Verified practical design attacks | 6 |
+| Independently reproduced attacks | 6 |
 
 ## Practical design attacks
 
@@ -31,6 +31,7 @@ unreported.
 | [Bittersweet](attacks/bittersweet/) | 2026/397 v1 | LWR-based MPC-in-the-head | Exact secret-key recovery with fresh signing | Accepted carry comparisons, interval intersection, and weighted LLL/Babai CVP | Level I `d=32` | 313.95 s public pipeline, 236,760 KiB, 1 worker | Verified; independently AI-reproduced |
 | [Poulakis--Rolland v2](attacks/poulakis-rolland-v2/) | 2012/134 v2 | Composite-order pairing signature | One-query universal fresh-message forgery | Public-scalar point transport with pairing-factor compensation | 2046-bit group order, 2048-bit field | 2.35 s transport, 17.5 MB peak, 1 worker | Verified; independently AI-reproduced |
 | [Yagisawa quaternion signature](attacks/yagisawa-order-four/) | 2010/352 final | Multivariate quaternion-ring signature | Zero-query fresh-message forgery | Order-four challenge orbit and a vanishing homogeneous perturbation | `d=2`, `r=3`, `m=448`, 21-bit `q` | 1.79 ms forge; 113 s full setup/control; 19.5 MiB, 1 worker | Verified; independently AI-reproduced |
+| [Random-split St-Gen](attacks/random-split-stgen/) | 2016/391 | Random-split Staircase-Generator code signature | Zero-query existential fresh-message forgery | Verification-first affine cancellation in the public valid-error relation | PS1 and PS2 | At most 1.867 ms forge; 20.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
 
 The first catalog record is ATLAS (ePrint 2026/2323), excluded because it is
 the published form of MORNING-ATLAS/NGCC sign-15 and a practical ATLAS-128
@@ -114,6 +115,18 @@ class, accepted an honest signature on the same message, and rejected strict
 controls. The report claims no novelty for the general vanishing-polynomial
 principle; no exact-target attack was located in searches completed as of
 2026-10-09.
+
+[Random-split St-Gen](attacks/random-split-stgen/) (ePrint 2016/391) signs a
+raw binary-vector tuple $z=(z_1,z_2)$ and accepts when
+$e_i=\sigma G_{i,\mathrm{pub}}+z_i$ belongs blockwise to a public valid-error
+relation. A zero-query attacker chooses public valid errors and any $\sigma$,
+then solves the same equation for $z$. Characteristic-two cancellation makes
+both printed full rows accept, including nonzero-$\sigma$ controls. A 2017
+NTNU thesis supervised by target coauthor Danilo Gligoroski confirms that the
+raw vectors are the scheme's intended signing and verification interface; the
+claim excludes any separately added document-hashing wrapper. The report
+credits verification-first existential forgery as a classical technique, and
+no exact-target attack was located in searches completed as of 2026-10-09.
 
 Lithium (ePrint 2026/1790 v1) completed a scoped audit with no practical
 signing compromise. Its mode-260 challenge sampler uses one-byte indices at
