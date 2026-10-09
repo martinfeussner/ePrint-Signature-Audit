@@ -11,3 +11,11 @@ Bittersweet,2026/397,v1,2026-03-01,LWR-based MPC-in-the-head signature with Fiat
 Poulakis--Rolland v2,2012/134,v2 (20150430:055329),2012-03-09,Composite-order pairing signature combining factoring and elliptic-curve discrete logarithms,VERIFIED_ATTACK,2026-10-09,https://eprint.iacr.org/2012/134
 Yagisawa quaternion signature,2010/352,final revision 20100627:124304,2010-06-18,Multivariate signature over a noncommutative quaternion ring,VERIFIED_ATTACK,2026-10-09,https://eprint.iacr.org/2010/352
 Random-split St-Gen signature,2016/391,content-hash-pinned 2016-04-19 object,2016-04-19,Code-based signature from a random split of Staircase-Generator codes,VERIFIED_ATTACK,2026-10-09,https://eprint.iacr.org/2016/391
+FALCON++,2026/2226,v1,2026-09-26,NTRU GPV hash-and-sign with rejection-corrected sampler,AUDITED_NO_PRACTICAL_ATTACK,2026-10-07,https://eprint.iacr.org/2026/2226
+SOLMAE,2026/817,v1,2026-04-25,NTRU GPV hash-and-sign with hybrid Gaussian sampling,AUDITED_NO_PRACTICAL_ATTACK,2026-10-07,https://eprint.iacr.org/2026/817
+HFE-IP-minus,2024/1706,v2,2024-10-21,"HFE signature with Internal Perturbation, minus, and Feistel-Patarin iteration",AUDITED_NO_PRACTICAL_ATTACK,2026-10-07,https://eprint.iacr.org/2024/1706
+Plover,2024/401,v1 (operational pin),2024-03-05,lattice hash-and-sign with noise flooding; RLWE and NTRU variants,AUDITED_NO_PRACTICAL_ATTACK,2026-10-08,https://eprint.iacr.org/2024/401
+KuMQuat,2024/490,v3,2024-03-27,MQ-preimage VOLE-in-the-Head signature with QuickSilver and batched all-but-one vector commitments,AUDITED_NO_PRACTICAL_ATTACK,2026-10-08,https://eprint.iacr.org/2024/490
+MandaRain,2024/490,v3,2024-03-27,Rain-preimage VOLE-in-the-Head signature with QuickSilver and batched all-but-one vector commitments,AUDITED_NO_PRACTICAL_ATTACK,2026-10-08,https://eprint.iacr.org/2024/490
+SPECK,2025/923,v2,2025-05-22,Fiat-Shamir signature from permutation equivalence of self-dual codes and kernels,AUDITED_NO_PRACTICAL_ATTACK,2026-10-09,https://eprint.iacr.org/2025/923
+Loquat,2024/868,v1,2024-06-01,"Legendre-PRF key-identification signature using polynomial commitments, univariate sumcheck, FRI-style low-degree testing, and the BCS transform",AUDITED_NO_PRACTICAL_ATTACK,2026-10-09,https://eprint.iacr.org/2024/868

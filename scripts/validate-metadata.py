@@ -361,7 +361,7 @@ def validate_all_rows_output(attack_dir: pathlib.Path, reporter: Reporter) -> No
 
 def validate_attack(
     attack_dir: pathlib.Path,
-    catalog_by_id: dict[str, dict[str, Any]],
+    catalog_by_id: dict[str, list[dict[str, Any]]],
     reporter: Reporter,
 ) -> tuple[str | None, dict[str, Any] | None]:
     relative_dir = attack_dir.relative_to(ROOT)
@@ -503,19 +503,31 @@ def validate_attack(
                 )
 
     if eprint_id is not None:
-        catalog_item = catalog_by_id.get(eprint_id)
-        if catalog_item is None:
+        catalog_candidates = catalog_by_id.get(eprint_id, [])
+        if not catalog_candidates:
             reporter.fail(f"{label}: ePrint {eprint_id} is absent from the catalog")
         else:
-            for field in ("scheme", "eprint_version", "eprint_date", "family"):
-                if field in attack and attack[field] != catalog_item.get(field):
-                    reporter.fail(f"{label}.{field} disagrees with the catalog")
-            status = catalog_item.get("status")
-            if status not in ATTACK_STATES:
+            matching_candidates = [
+                item
+                for item in catalog_candidates
+                if item.get("scheme") == attack.get("scheme")
+            ]
+            if len(matching_candidates) != 1:
                 reporter.fail(
-                    f"{label}: catalog status for {eprint_id} must be one of "
-                    f"{sorted(ATTACK_STATES)}, got {status!r}"
+                    f"{label}: ePrint {eprint_id} must have exactly one catalog "
+                    f"entry for scheme {attack.get('scheme')!r}"
                 )
+            else:
+                catalog_item = matching_candidates[0]
+                for field in ("scheme", "eprint_version", "eprint_date", "family"):
+                    if field in attack and attack[field] != catalog_item.get(field):
+                        reporter.fail(f"{label}.{field} disagrees with the catalog")
+                status = catalog_item.get("status")
+                if status not in ATTACK_STATES:
+                    reporter.fail(
+                        f"{label}: catalog status for {eprint_id} must be one of "
+                        f"{sorted(ATTACK_STATES)}, got {status!r}"
+                    )
 
     if (attack_dir / "reference-output.json").is_file():
         validate_reference_output(attack_dir, attack, reporter)
@@ -611,7 +623,6 @@ def main() -> int:
 
     catalog: list[dict[str, Any]] = []
     seen_schemes: set[str] = set()
-    seen_eprints: set[str] = set()
     for index, item in enumerate(catalog_value):
         identity = validate_catalog_entry(item, index, reporter)
         if isinstance(item, dict):
@@ -622,19 +633,16 @@ def main() -> int:
         if scheme in seen_schemes:
             reporter.fail(f"catalog/schemes.json has duplicate scheme {scheme!r}")
         seen_schemes.add(scheme)
-        if eprint_id in seen_eprints:
-            reporter.fail(f"catalog/schemes.json has duplicate eprint_id {eprint_id!r}")
-        seen_eprints.add(eprint_id)
 
     validate_catalog_csv(catalog_value, reporter)
-    catalog_by_id = {
-        item["eprint_id"]: item
-        for item in catalog
-        if isinstance(item.get("eprint_id"), str)
-    }
+    catalog_by_id: dict[str, list[dict[str, Any]]] = {}
+    for item in catalog:
+        eprint_id = item.get("eprint_id")
+        if isinstance(eprint_id, str):
+            catalog_by_id.setdefault(eprint_id, []).append(item)
 
     attack_records: list[dict[str, Any]] = []
-    attacks_by_eprint: dict[str, pathlib.Path] = {}
+    attacks_by_identity: dict[tuple[str, str], pathlib.Path] = {}
     if not ATTACKS.is_dir():
         reporter.fail("attacks/ directory is missing")
     else:
@@ -642,18 +650,20 @@ def main() -> int:
             eprint_id, attack = validate_attack(attack_dir, catalog_by_id, reporter)
             if attack is not None:
                 attack_records.append(attack)
-            if eprint_id is not None:
-                if eprint_id in attacks_by_eprint:
+            if eprint_id is not None and attack is not None:
+                identity = (eprint_id, str(attack.get("scheme")))
+                if identity in attacks_by_identity:
                     reporter.fail(
-                        f"multiple attack directories claim ePrint {eprint_id}: "
-                        f"{attacks_by_eprint[eprint_id].name!r} and {attack_dir.name!r}"
+                        f"multiple attack directories claim {identity!r}: "
+                        f"{attacks_by_identity[identity].name!r} and {attack_dir.name!r}"
                     )
-                attacks_by_eprint[eprint_id] = attack_dir
+                attacks_by_identity[identity] = attack_dir
 
     for item in catalog:
         if (
             item.get("status") in ATTACK_STATES
-            and item.get("eprint_id") not in attacks_by_eprint
+            and (str(item.get("eprint_id")), str(item.get("scheme")))
+            not in attacks_by_identity
         ):
             reporter.fail(
                 f"catalog entry {item.get('scheme')!r} has attack status but no attack directory"

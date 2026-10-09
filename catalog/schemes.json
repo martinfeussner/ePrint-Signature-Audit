@@ -189,5 +189,140 @@
     "attack_path": "attacks/random-split-stgen/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, adversarial, intended-scope, independent-reproduction, exact-history, and publication-review gates"
+  },
+  {
+    "scheme": "FALCON++",
+    "aliases": [
+      "FalconPP"
+    ],
+    "eprint_id": "2026/2226",
+    "eprint_version": "v1",
+    "eprint_date": "2026-09-26",
+    "family": "NTRU GPV hash-and-sign with rejection-corrected sampler",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/2226",
+    "attack_history_note": "No public attack against exact FALCON++ ePrint 2026/2226 v1 was located in the searches performed as of 2026-10-07; Falcon and Peregrine results were treated as method-transfer evidence.",
+    "audit_completed_at": "2026-10-07",
+    "audit_note": "Both advertised rows were reconstructed. Two of 16 ordinary V-117 keys falsified the stated support-wide tau_B <= 1 premise and showed near-total correction clipping, but independent full-row moment and recovery studies found no practical basis recovery, equivalent signer, or fresh-message forgery."
+  },
+  {
+    "scheme": "SOLMAE",
+    "eprint_id": "2026/817",
+    "eprint_version": "v1",
+    "eprint_date": "2026-04-25",
+    "family": "NTRU GPV hash-and-sign with hybrid Gaussian sampling",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/817",
+    "attack_history_note": "No public qualifying attack against the exact current SOLMAE design was located in the searches performed as of 2026-10-07; NTRUSign, Peregrine, Mitaka, and Falcon results were treated as transfer evidence.",
+    "audit_completed_at": "2026-10-07",
+    "audit_note": "Both full parameter rows were reconstructed. A 20,480-signature sampler study, current-design verifier analysis, and an 8,192-completed-key NTRU recovery screen found no practical secret recovery, publicly constructible equivalent signer, or efficient fresh-message forgery."
+  },
+  {
+    "scheme": "HFE-IP-minus",
+    "aliases": [
+      "HFE IP-",
+      "HFEIP-",
+      "HFEfIP-",
+      "HFEsIP-"
+    ],
+    "eprint_id": "2024/1706",
+    "eprint_version": "v2",
+    "eprint_date": "2024-10-21",
+    "family": "HFE signature with Internal Perturbation, minus, and Feistel-Patarin iteration",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2024/1706",
+    "attack_history_note": "No public attack against exact HFE-IP-minus v2 was located in the searches performed as of 2026-10-07; attacks on related HFE constructions were treated as method-transfer evidence.",
+    "audit_completed_at": "2026-10-08",
+    "audit_note": "The primary HFEfIP-128 row was audited under a reviewed research-profile completion. Public polar, DGS, MinRank, residual, radical, pencil, and related-HFE transfer routes produced no practical signer. No exact author implementation or known-answer test was available, so this is a bounded row-level conclusion rather than an exhaustive result for all eight rows."
+  },
+  {
+    "scheme": "Plover",
+    "aliases": [
+      "Plover-RLWE",
+      "Plover-NTRU"
+    ],
+    "eprint_id": "2024/401",
+    "eprint_version": "v1 (operational pin)",
+    "eprint_date": "2024-03-05",
+    "family": "lattice hash-and-sign with noise flooding; RLWE and NTRU variants",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-08",
+    "url": "https://eprint.iacr.org/2024/401",
+    "attack_history_note": "No public practical full-parameter attack against exact Plover-RLWE or Plover-NTRU was located in the searches performed as of 2026-10-08; a public Plover-RLWE proof caveat was retained as non-attack evidence.",
+    "audit_completed_at": "2026-10-08",
+    "audit_note": "The implemented row of both variants was reconstructed with material proof and conformance caveats. Bounded RLWE completion and verifier routes closed negative; a 2^20-signature NTRU study found reproducible public joint moments but no practical phase recovery, short affine completion, equivalent signer, or fresh-message forgery."
+  },
+  {
+    "scheme": "KuMQuat",
+    "aliases": [
+      "KuMQuat-2^1",
+      "KuMQuat-2^8"
+    ],
+    "eprint_id": "2024/490",
+    "eprint_version": "v3",
+    "eprint_date": "2024-03-27",
+    "family": "MQ-preimage VOLE-in-the-Head signature with QuickSilver and batched all-but-one vector commitments",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-08",
+    "url": "https://eprint.iacr.org/2024/490",
+    "attack_history_note": "No public practical attack against exact KuMQuat v3 was located in the searches performed as of 2026-10-08; related MQ, VOLE-in-the-Head, and FAEST-family work was treated as lineage evidence.",
+    "audit_completed_at": "2026-10-09",
+    "audit_note": "Paper-level binding and the four size-matched Level-I source profiles were reviewed. Direct hidden-seed routes remained above 2^121 work, the tested MQOM and grouping transfers did not apply, and no MQ preimage, equivalent signing witness, or efficient fresh-message forgery was obtained. The observed source predates v3, so source-to-v3 conformance remains a stated caveat."
+  },
+  {
+    "scheme": "MandaRain",
+    "aliases": [
+      "MandaRain-3",
+      "MandaRain-4"
+    ],
+    "eprint_id": "2024/490",
+    "eprint_version": "v3",
+    "eprint_date": "2024-03-27",
+    "family": "Rain-preimage VOLE-in-the-Head signature with QuickSilver and batched all-but-one vector commitments",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-08",
+    "url": "https://eprint.iacr.org/2024/490",
+    "attack_history_note": "No public practical attack against exact MandaRain v3 was located in the searches performed as of 2026-10-08; related Rain cryptanalysis and physical or fault results did not attack its ordinary signing interface.",
+    "audit_completed_at": "2026-10-09",
+    "audit_note": "The reviewed Rain-3 and Rain-4 relations bind an accepted witness to an actual key preimage, and no transcript route removed the fresh VOLE mask. The best located Rain-3 route cost about 2^160.6 equivalent Rain evaluations, no located Rain-4 method beat exhaustive search, and no practical key recovery, equivalent signer, or fresh-message forgery was obtained."
+  },
+  {
+    "scheme": "SPECK",
+    "aliases": [
+      "SPECK-Signature",
+      "Permutation Equivalence of Codes and Kernels",
+      "PECK"
+    ],
+    "eprint_id": "2025/923",
+    "eprint_version": "v2",
+    "eprint_date": "2025-05-22",
+    "family": "Fiat-Shamir signature from permutation equivalence of self-dual codes and kernels",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-09",
+    "url": "https://eprint.iacr.org/2025/923",
+    "attack_history_note": "No public attack against exact SPECK v2 was located in the searches performed as of 2026-10-09; the unrelated NSA Speck cipher was excluded from identity searches.",
+    "audit_completed_at": "2026-10-09",
+    "audit_note": "All five source-supported Low profiles and the paper-only High family were screened. The most optimistic generic code-equivalence transfer remained about 2^120.12 modeled operations for Low with prohibitive storage, and PECK/PKP and transcript routes yielded no practical secret permutation, reusable signer, or fresh-message forgery."
+  },
+  {
+    "scheme": "Loquat",
+    "aliases": [
+      "Loquat*",
+      "Loquat-128",
+      "Loquat*-128"
+    ],
+    "eprint_id": "2024/868",
+    "eprint_version": "v1",
+    "eprint_date": "2024-06-01",
+    "family": "Legendre-PRF key-identification signature using polynomial commitments, univariate sumcheck, FRI-style low-degree testing, and the BCS transform",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-09",
+    "url": "https://eprint.iacr.org/2024/868",
+    "attack_history_note": "No public practical full-parameter attack against exact Loquat or Loquat* was located in the searches performed as of 2026-10-09; Legendre, FRI/BCS, and Griffin results were treated as transfer evidence.",
+    "audit_completed_at": "2026-10-09",
+    "audit_note": "Review of the intended cumulative transcript and all-fold verifier closed the fixed-random-point Legendre, FRI/BCS, binding, and Griffin routes without a practical endpoint. The strongest retained findings were proof-margin caveats and infeasible transfers; no secret, equivalent signer, or efficient faithful-paper-verifier forgery was obtained. The pinned proof of concept materially differs from the paper and does not establish the design result."
   }
 ]
