@@ -1,0 +1,109 @@
+{
+  "all_rows_pass": true,
+  "digests": {
+    "independent_core_sha256": "49bf7d87a5904550f2f0cef911c56fa93827aafb83cb7b5c86206825cb5bcb3a",
+    "target_pdf_sha256": "a8b4eae608a28baf86e585fb19056a43881d3c386eae6f7fb6b2cf1d2d49c65f",
+    "target_source_archive_sha256": "d67435736b459ef85c705dd726763204ac6400b3c3c9058ac2a2b2e25011ae86"
+  },
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "fixed_target_same_s_forgery_accepted": true,
+        "fresh_key_material": true,
+        "honest_signature_accepted": true,
+        "messages_distinct": true,
+        "negative_controls_rejected": true,
+        "prime_checks_pass": true,
+        "range_sampled_forgery_accepted": true,
+        "range_sampled_scalar_in_phi_range": true,
+        "result_pass": true
+      },
+      "parameter_row": "published 1023/1024-bit factors; 2046-bit n; 2048-bit field",
+      "raw_result": {
+        "attack": "one-query fresh-message existential forgery",
+        "endpoint": {
+          "curve": "y^2=x^3+x over F_p, p=4n-1",
+          "factor_bits": [
+            1023,
+            1024
+          ],
+          "field_bits": 2048,
+          "fresh_key_material": true,
+          "generator_search_counter": 0,
+          "n_bits": 2046,
+          "pairing": "modified reduced Tate via distortion (-x, i*y)"
+        },
+        "forgery_range_sampled": {
+          "accepted": true,
+          "attempts": 1,
+          "c_bits": 2041,
+          "c_sign": 1,
+          "kappa0_invertible": true,
+          "reason": "pairing-equality",
+          "s_in_actual_phi_range_observer_check": true
+        },
+        "forgery_same_s": {
+          "accepted": true,
+          "kappa0_invertible": true,
+          "reason": "pairing-equality",
+          "s_reused_exactly": true,
+          "target_sampling_attempts": 0,
+          "works_for_fixed_target": true
+        },
+        "honest_signature": {
+          "accepted": true,
+          "reason": "pairing-equality"
+        },
+        "messages_distinct": true,
+        "negative_controls": {
+          "altered_point": {
+            "accepted": false,
+            "reason": "pairing-mismatch"
+          },
+          "altered_scalar": {
+            "accepted": false,
+            "reason": "pairing-mismatch"
+          },
+          "changed_message": {
+            "accepted": false,
+            "reason": "pairing-mismatch"
+          },
+          "flipped_point_sign": {
+            "accepted": false,
+            "reason": "pairing-mismatch"
+          },
+          "identity": {
+            "accepted": false,
+            "reason": "identity-encoding"
+          },
+          "non_subgroup_order_2": {
+            "accepted": false,
+            "reason": "non-subgroup"
+          }
+        },
+        "parameter_probable_prime_checks": {
+          "field_p": true,
+          "p1": true,
+          "p2": true
+        },
+        "peak_rss_kib": 17920,
+        "python": "3.12.3",
+        "query_count": 1,
+        "result": "PASS",
+        "timings": {
+          "forged_verify_s": 18.827425,
+          "honest_verify_s": 18.716045,
+          "keygen_s": 9.190703,
+          "negative_controls_s": 74.684381,
+          "parameter_checks_s": 0.487913,
+          "range_sampled_attack_only_s": 4.540469,
+          "range_sampled_verify_s": 18.808017,
+          "same_s_attack_only_s": 2.34946,
+          "total_s": 156.743833
+        }
+      },
+      "signing_queries": 1
+    }
+  ]
+}

@@ -131,5 +131,26 @@
     "attack_path": "attacks/bittersweet/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, adversarial, independent-reproduction, history, and publication-review gates"
+  },
+  {
+    "scheme": "Poulakis--Rolland v2",
+    "aliases": [
+      "Poulakis-Rolland v2",
+      "A Digital Signature Scheme for Long-Term Security",
+      "A Digital Signature Scheme Based on Two Hard Problems"
+    ],
+    "eprint_id": "2012/134",
+    "eprint_version": "v2 (20150430:055329)",
+    "eprint_date": "2012-03-09",
+    "family": "Composite-order pairing signature combining factoring and elliptic-curve discrete logarithms",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-09",
+    "url": "https://eprint.iacr.org/2012/134",
+    "attack_history_note": "No prior exact-target Poulakis--Rolland v2 attack was located in the searches performed as of 2026-10-09. Public-scalar BLS rescaling is credited generic prior art, not an exact-target attack.",
+    "audit_completed_at": "2026-10-09",
+    "attack_result": "One-query universal fresh-message forgery with the queried scalar response reused unchanged",
+    "attack_path": "attacks/poulakis-rolland-v2/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical, adversarial, independent-reproduction, history, and publication-review gates"
   }
 ]

@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 9 |
+| Schemes identified | 10 |
 | Known attacks excluded | 1 |
-| Schemes audited | 8 |
+| Schemes audited | 9 |
 | No practical attack found | 5 |
-| Practical design attacks | 3 |
-| Verified practical design attacks | 3 |
-| Independently reproduced attacks | 3 |
+| Practical design attacks | 4 |
+| Verified practical design attacks | 4 |
+| Independently reproduced attacks | 4 |
 
 ## Practical design attacks
 
@@ -29,6 +29,7 @@ unreported.
 | [D-James](attacks/d-james/) | 2026/1650 v5 | HFE-minus-IP with Dragon bilinear terms | Equivalent signing-key recovery with fresh signing | Hidden matrix-Gabidulin recovery and rank-metric completion | q5/128 | about 490 s, 224.28 MB, 1 worker | Verified; independently AI-reproduced |
 | [Miraidon-S](attacks/miraidon-s/) | 2026/997 v4 | MinRank identification | Universal fresh-message forgery | Zero witness and rank-zero factors | Levels I, III, V | 0.49 s Level-I forge | Verified; independently AI-reproduced |
 | [Bittersweet](attacks/bittersweet/) | 2026/397 v1 | LWR-based MPC-in-the-head | Exact secret-key recovery with fresh signing | Accepted carry comparisons, interval intersection, and weighted LLL/Babai CVP | Level I `d=32` | 313.95 s public pipeline, 236,760 KiB, 1 worker | Verified; independently AI-reproduced |
+| [Poulakis--Rolland v2](attacks/poulakis-rolland-v2/) | 2012/134 v2 | Composite-order pairing signature | One-query universal fresh-message forgery | Public-scalar point transport with pairing-factor compensation | 2046-bit group order, 2048-bit field | 2.35 s transport, 17.5 MB peak, 1 worker | Verified; independently AI-reproduced |
 
 The first catalog record is ATLAS (ePrint 2026/2323), excluded because it is
 the published form of MORNING-ATLAS/NGCC sign-15 and a practical ATLAS-128
@@ -86,6 +87,17 @@ rounded-output checks, and ordinary fresh-signature verification. The result
 uses a pinned canonical paper-level realization because no author byte format
 or implementation is public. It passed the technical, history,
 independent-reproduction, and publication-review gates and is verified.
+
+[Poulakis--Rolland v2](attacks/poulakis-rolland-v2/) (ePrint 2012/134,
+revision `20150430:055329`) publishes the scalar representation of every
+hash-to-group output. From one ordinary signature, an attacker rescales its
+point by a public ratio and a message-dependent power of `g`, while copying
+the scalar response unchanged. Full-parameter modified Tate-pairing
+implementations accepted fresh-message forgeries at the published 2046-bit
+group-order and 2048-bit-field endpoint, including an independent fresh-key
+reproduction; strict mutation and subgroup controls rejected. The generic
+public-scalar BLS rescaling technique is credited to prior work, and no exact
+v2 attack was located in the searches performed as of 2026-10-09.
 
 Lithium (ePrint 2026/1790 v1) completed a scoped audit with no practical
 signing compromise. Its mode-260 challenge sampler uses one-byte indices at
