@@ -244,7 +244,7 @@ also verifies for every $p$. However, honest signing then produces $T=F$, which 
 
 ## Repair
 
-Banning order-four $R$ is insufficient. Every quaternion satisfies a quadratic relation over its scalar field, so all powers of any $R$ lie in the at-most-two-dimensional subalgebra $\operatorname{span}_{\mathbb F_q}\{1,R\}$. The verifier therefore samples from a predictable low-dimensional algebraic set even when $R$ has large order.
+Banning order-four $R$ is insufficient. Every quaternion satisfies a quadratic relation over its scalar field, so all powers of any $R$ lie in the linear span of $1$ and $R$ over $\mathbb F_q$. The verifier therefore samples from a predictable low-dimensional algebraic set even when $R$ has large order.
 
 A repair must replace the verification design:
 
