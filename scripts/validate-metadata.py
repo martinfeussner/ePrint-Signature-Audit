@@ -93,6 +93,9 @@ ATTACK_REQUIRED = {
 ATTACK_PAPER_AUTHOR = "Martin Feussner"
 ATTACK_PAPER_AFFILIATION = "Selmer Center, University of Bergen"
 ATTACK_PAPER_CONTACT = "martin.feussner@uib.no"
+ATTACK_PAPER_AI_ENVIRONMENT = (
+    "This audit used the OpenAI model Daybreak Blue at the ultra reasoning level."
+)
 ATTACK_PAPER_TEX_BYLINE = (
     r"\author{Martin Feussner\\" "\n"
     r"\small Selmer Center, University of Bergen\\" "\n"
@@ -553,6 +556,11 @@ def validate_attack(
                 reporter.fail(
                     f"{attack_tex.relative_to(ROOT)} must contain exactly the standard "
                     "Martin Feussner author block once"
+                )
+            if tex_source.count(ATTACK_PAPER_AI_ENVIRONMENT) != 1:
+                reporter.fail(
+                    f"{attack_tex.relative_to(ROOT)} must contain the exact "
+                    "Daybreak Blue model and ultra-reasoning disclosure once"
                 )
 
     attack_pdf = attack_dir / "paper" / "attack.pdf"

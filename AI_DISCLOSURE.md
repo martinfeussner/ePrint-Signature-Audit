@@ -1,9 +1,10 @@
 # AI disclosure
 
-This is an AI-assisted cryptanalysis project. AI agents may perform target discovery,
+This is an AI-assisted cryptanalysis project. The published audits used the
+OpenAI model Daybreak Blue at the ultra reasoning level. AI agents may perform target discovery,
 attack-history searches, scheme reconstruction, cryptanalytic derivations,
-experiments, implementation, adversarial review, documentation, and fresh-context
-reproduction.
+experiments, implementation, adversarial review, documentation, and
+fresh-context reproduction.
 
 Published attack papers list Martin Feussner as author, with the affiliation
 Selmer Center, University of Bergen. That human byline is presented alongside

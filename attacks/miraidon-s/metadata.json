@@ -45,8 +45,8 @@
   "independent_reproducer_sha256": "21aa8d134f129edc59e6efd4fcd16aba0a66abf3b5343bf63c293c4bfc667a17",
   "reference_output_sha256": "aa05739ff91006b830578f6a26285f0f76cc731f79f67a1d2eda6803efbd1535",
   "all_rows_reference_output_sha256": "be1b03e8d130e6fea8929c5ed2896ce9c9c18fa5b531bc9e8282929aa8c140d6",
-  "attack_paper_sha256": "dcc3bd5d8390453a37b3c9aa490f683622fd4b64b220253a31c3d94a020dd4fa",
-  "attack_paper_source_sha256": "96b4f2b7007b876c141a9c6a28b5ed15c234b3c43dbfc02aef0537766c320d40",
+  "attack_paper_sha256": "c15682def9db638fddbe05ba1eac394345b9551fc6af6434c9f67ba97f16d15b",
+  "attack_paper_source_sha256": "e23c1c2f0b7c1b7a7e145e027e448dee943b0db5122e1220c6a0600bb299f706",
   "attack_paper_makefile_sha256": "53a788a21e13d1bee115776edcc78a79fa0e224fadb66a7d6d52f6bcc4928192",
   "attack_paper_affiliation": "Selmer Center, University of Bergen",
   "attack_paper_authors": [
