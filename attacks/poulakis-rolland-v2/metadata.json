@@ -5,9 +5,14 @@
   "all_rows_reference_output_sha256": "bdb96cca35a1719864d8308bbd044dac177e3febf368793d62f7c75489123246",
   "attack_history_checked_at": "2026-10-09",
   "attack_paper_makefile_sha256": "a42e1f17b2763d2103d0d18e99a0510c2409643632cddfbba7b26e05d0495a7c",
+  "attack_paper_affiliation": "Selmer Center, University of Bergen",
+  "attack_paper_authors": [
+    "Martin Feussner"
+  ],
+  "attack_paper_contact": "martin.feussner@uib.no",
   "attack_paper_pages": 6,
-  "attack_paper_sha256": "99ad909d14ff505517fdfb46b7d83308864f0dec9708f8c53452583db77c4978",
-  "attack_paper_source_sha256": "3dc149c7f6064021f243e5d06e4450ca3616f8829f9c1513aa8e4ad313241dc3",
+  "attack_paper_sha256": "24675cc45ead08778034fa5572b239ebd26e9d7d62c38f8add827aa64de7e44c",
+  "attack_paper_source_sha256": "3b3d9cc70eb91467bd41cad8ec19b0991045fffe0afa4824c89d44b9c0ad6160",
   "attack_result": "One-query universal fresh-message forgery accepted by the ordinary full-parameter pairing verifier",
   "attack_runtime_scope": "Independent fresh-key same-s point transport only; pairing verification and the complete execution are recorded separately.",
   "attack_technique": "Exploit the public scalar kappa_m in H(m)=[kappa_m]G_H to scale one queried signature point by (kappa_target/kappa_source)*g^(h_target-h_source), while reusing the queried scalar response exactly.",

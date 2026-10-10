@@ -5,9 +5,14 @@
   "all_rows_reference_output_sha256": "11188ebb78b18af4d570ab1fff4a54fb619a13ee48d2e1c1c32b3e47f93c7334",
   "attack_history_checked_at": "2026-10-07",
   "attack_paper_makefile_sha256": "53a788a21e13d1bee115776edcc78a79fa0e224fadb66a7d6d52f6bcc4928192",
+  "attack_paper_affiliation": "Selmer Center, University of Bergen",
+  "attack_paper_authors": [
+    "Martin Feussner"
+  ],
+  "attack_paper_contact": "martin.feussner@uib.no",
   "attack_paper_pages": 8,
-  "attack_paper_sha256": "1506d5094fe34b6771139bd398aa7cf86c67e3b1c4f97edce4e60d8ea7c9c861",
-  "attack_paper_source_sha256": "b53c7bc1eeff6a66e230c7a77c2eaf57bfb071023f03fd9cdf87632d538ddb72",
+  "attack_paper_sha256": "a4869fe49d66f530406c82e83799ca7f260d6dccba37a93a2a5d5660a0bff110",
+  "attack_paper_source_sha256": "78d63ed9878be651c87fc79319878d7c8115ae4da6ec5fbd373d013c8234b740",
   "attack_result": "Public-key-only equivalent signing-key recovery with fresh signing",
   "attack_technique": "Recover the hidden two-dimensional matrix-Gabidulin parent from the public Dragon tensor, rank-decode the public HFE-IP adjoints, and complete an equivalent projected signer.",
   "authors": [

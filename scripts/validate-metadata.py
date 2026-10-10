@@ -82,10 +82,34 @@ ATTACK_REQUIRED = {
     "independent_reproducer_sha256",
     "reference_output_sha256",
     "all_rows_reference_output_sha256",
+    "attack_paper_authors",
+    "attack_paper_affiliation",
+    "attack_paper_contact",
     "attack_paper_sha256",
     "attack_paper_source_sha256",
     "attack_paper_makefile_sha256",
 }
+
+ATTACK_PAPER_AUTHOR = "Martin Feussner"
+ATTACK_PAPER_AFFILIATION = "Selmer Center, University of Bergen"
+ATTACK_PAPER_CONTACT = "martin.feussner@uib.no"
+ATTACK_PAPER_TEX_BYLINE = (
+    r"\author{Martin Feussner\\" "\n"
+    r"\small Selmer Center, University of Bergen\\" "\n"
+    r"\small \texttt{martin.feussner@uib.no}}"
+)
+ATTACK_PAPER_PDF_AUTHOR_BYTES = ("\ufeff" + ATTACK_PAPER_AUTHOR).encode("utf-16-be")
+ATTACK_PAPER_PDF_AUTHORS = (
+    b"/Author<" + ATTACK_PAPER_PDF_AUTHOR_BYTES.hex().upper().encode("ascii") + b">",
+    b"/Author("
+    + b"".join(
+        bytes([value])
+        if 33 <= value <= 126 and value not in b"()\\"
+        else f"\\{value:03o}".encode("ascii")
+        for value in ATTACK_PAPER_PDF_AUTHOR_BYTES
+    )
+    + b")",
+)
 
 
 class DuplicateKeyError(ValueError):
@@ -446,6 +470,20 @@ def validate_attack(
             f"{label}.affected_parameters must be a nonempty list of unique strings"
         )
 
+    paper_authors = attack.get("attack_paper_authors")
+    if paper_authors != [ATTACK_PAPER_AUTHOR]:
+        reporter.fail(
+            f"{label}.attack_paper_authors must be exactly [{ATTACK_PAPER_AUTHOR!r}]"
+        )
+    if attack.get("attack_paper_affiliation") != ATTACK_PAPER_AFFILIATION:
+        reporter.fail(
+            f"{label}.attack_paper_affiliation must be {ATTACK_PAPER_AFFILIATION!r}"
+        )
+    if attack.get("attack_paper_contact") != ATTACK_PAPER_CONTACT:
+        reporter.fail(
+            f"{label}.attack_paper_contact must be {ATTACK_PAPER_CONTACT!r}"
+        )
+
     for field in ("runtime_seconds", "peak_ram_mb"):
         value = attack.get(field)
         if not is_number(value) or value < 0:
@@ -493,6 +531,45 @@ def validate_attack(
         "attack_paper_source_sha256": attack_dir / "paper" / "attack.tex",
         "attack_paper_makefile_sha256": attack_dir / "paper" / "Makefile",
     }
+
+    attack_tex = attack_dir / "paper" / "attack.tex"
+    if attack_tex.is_file():
+        try:
+            tex_source = attack_tex.read_text(encoding="utf-8")
+        except (OSError, UnicodeError) as exc:
+            reporter.fail(f"{attack_tex.relative_to(ROOT)}: {exc}")
+        else:
+            pdf_author_marker = f"pdfauthor={{{ATTACK_PAPER_AUTHOR}}}"
+            if tex_source.count(pdf_author_marker) != 1 or len(
+                re.findall(r"\bpdfauthor\s*=", tex_source)
+            ) != 1:
+                reporter.fail(
+                    f"{attack_tex.relative_to(ROOT)} must contain exactly one "
+                    f"{pdf_author_marker!r} setting"
+                )
+            if tex_source.count(ATTACK_PAPER_TEX_BYLINE) != 1 or len(
+                re.findall(r"\\author\s*\{", tex_source)
+            ) != 1:
+                reporter.fail(
+                    f"{attack_tex.relative_to(ROOT)} must contain exactly the standard "
+                    "Martin Feussner author block once"
+                )
+
+    attack_pdf = attack_dir / "paper" / "attack.pdf"
+    if attack_pdf.is_file():
+        try:
+            pdf_bytes = attack_pdf.read_bytes()
+        except OSError as exc:
+            reporter.fail(f"{attack_pdf.relative_to(ROOT)}: {exc}")
+        else:
+            encoded_author_count = sum(
+                pdf_bytes.count(marker) for marker in ATTACK_PAPER_PDF_AUTHORS
+            )
+            if pdf_bytes.count(b"/Author") != 1 or encoded_author_count != 1:
+                reporter.fail(
+                    f"{attack_pdf.relative_to(ROOT)} must contain exactly one PDF "
+                    f"Author metadata value for {ATTACK_PAPER_AUTHOR!r}"
+                )
     for field, path in pinned_files.items():
         expected = attack.get(field)
         if path.is_file() and check_sha256(expected, f"{label}.{field}", reporter):

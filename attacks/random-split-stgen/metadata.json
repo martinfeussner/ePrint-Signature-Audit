@@ -6,9 +6,14 @@
   "all_rows_reference_output_sha256": "479bb73e8cfebb356d195f5ca495f9a30a767612c312bd1bced9c2f8fc44863b",
   "attack_history_checked_at": "2026-10-09",
   "attack_paper_makefile_sha256": "a42e1f17b2763d2103d0d18e99a0510c2409643632cddfbba7b26e05d0495a7c",
+  "attack_paper_affiliation": "Selmer Center, University of Bergen",
+  "attack_paper_authors": [
+    "Martin Feussner"
+  ],
+  "attack_paper_contact": "martin.feussner@uib.no",
   "attack_paper_pages": 6,
-  "attack_paper_sha256": "728ecd104041cc7757c6a8b40e232292a204b1cfce67fd4258b1673b603646df",
-  "attack_paper_source_sha256": "7d3106e9e7acbe46a2bf7aae339fe5854903a5b6395933814bafd7c8ae440b5e",
+  "attack_paper_sha256": "70285c5c8a76b372c06bf8be7f19596dff9ca7861bbaaa9a3bda06342cecb218",
+  "attack_paper_source_sha256": "4860dfe27b5d3eb424ab1c9a200e94ced4d32aa7b9914797c20f0dc63acefe7e",
   "attack_result": "Public-key-only zero-query existential forgery for a fresh attacker-chosen raw z tuple under the literal Algorithms 5-6 interface",
   "attack_runtime_scope": "Choose public valid error blocks and solve z_i=sigma*G_i,pub+e_i; sealed maximum attack-only time 1.866641 ms",
   "attack_technique": "Verification-first construction: select any sigma and public blockwise-valid e, then solve the affine verifier equation for the literal raw message z",

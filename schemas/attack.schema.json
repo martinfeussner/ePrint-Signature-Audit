@@ -3,7 +3,7 @@
   "$id": "https://github.com/martinfeussner/ePrint-Signature-Audit/schemas/attack.schema.json",
   "title": "Published attack record",
   "type": "object",
-  "required": ["scheme", "eprint_id", "eprint_version", "attack_history_checked_at", "prior_public_attack_located", "attack_result", "attack_technique", "layer", "affected_parameters", "full_scale", "runtime_seconds", "peak_ram_mb", "workers", "independent_reproduction", "reproducer_sha256", "independent_reproducer_sha256", "reference_output_sha256", "all_rows_reference_output_sha256", "attack_paper_sha256", "attack_paper_source_sha256", "attack_paper_makefile_sha256"],
+  "required": ["scheme", "eprint_id", "eprint_version", "attack_history_checked_at", "prior_public_attack_located", "attack_result", "attack_technique", "layer", "affected_parameters", "full_scale", "runtime_seconds", "peak_ram_mb", "workers", "independent_reproduction", "reproducer_sha256", "independent_reproducer_sha256", "reference_output_sha256", "all_rows_reference_output_sha256", "attack_paper_authors", "attack_paper_affiliation", "attack_paper_contact", "attack_paper_sha256", "attack_paper_source_sha256", "attack_paper_makefile_sha256"],
   "properties": {
     "scheme": {"type": "string", "minLength": 1},
     "eprint_id": {"type": "string", "pattern": "^[0-9]{4}/[0-9]+$"},
@@ -24,6 +24,9 @@
     "independent_reproducer_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "reference_output_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "all_rows_reference_output_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "attack_paper_authors": {"const": ["Martin Feussner"]},
+    "attack_paper_affiliation": {"const": "Selmer Center, University of Bergen"},
+    "attack_paper_contact": {"const": "martin.feussner@uib.no"},
     "attack_paper_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "attack_paper_source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "attack_paper_makefile_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}

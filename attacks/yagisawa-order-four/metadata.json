@@ -5,9 +5,14 @@
   "all_rows_reference_output_sha256": "720940bd6623da126f408ae986916e64d2817cf58bdb88582de97d876c562339",
   "attack_history_checked_at": "2026-10-09",
   "attack_paper_makefile_sha256": "a42e1f17b2763d2103d0d18e99a0510c2409643632cddfbba7b26e05d0495a7c",
+  "attack_paper_affiliation": "Selmer Center, University of Bergen",
+  "attack_paper_authors": [
+    "Martin Feussner"
+  ],
+  "attack_paper_contact": "martin.feussner@uib.no",
   "attack_paper_pages": 7,
-  "attack_paper_sha256": "a12c6e8c22b04a32906b43ed2d77108caa1da38abce29f67ad1a6cd752427f1c",
-  "attack_paper_source_sha256": "9955de20f4205658aa605d34b7d65e020edc58e9713204ff6974f98c0fe8e9c0",
+  "attack_paper_sha256": "85f09a3372ef3c6e637ac84f8d849c38915ec93d5a11ae72415791471f8b4703",
+  "attack_paper_source_sha256": "7a608a97cb1e40fa5d239f65cf225fe29e60761bedf3bac3915cdc3e5dc99684",
   "attack_result": "Public-key-only zero-query fresh-message forgery accepted for every verifier challenge",
   "attack_runtime_scope": "Signed permutation of the 2,240 public coefficients plus one field addition; complete key generation and controls are measured separately.",
   "attack_technique": "Choose the order-four quaternion R=i, publicly compose F with left multiplication by i, and add a nonzero degree-13 monomial that vanishes on the complete challenge orbit but not at the preliminary-check point.",

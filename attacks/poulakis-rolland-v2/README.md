@@ -144,4 +144,4 @@ AI reproduction and is not described as human verification.
 - Independent raw output: `9d019f15e0335c350507a5078f3fb5cbcbcb754f73f977b5131b3f8a6ec32d08`
 - Canonical primary reference output: `8eeb6cdf998db293840e3bdb93f4fdadcebf13500a69ea627a37acb708a3f4aa`
 - Canonical independent reference output: `bdb96cca35a1719864d8308bbd044dac177e3febf368793d62f7c75489123246`
-- Attack paper PDF: `99ad909d14ff505517fdfb46b7d83308864f0dec9708f8c53452583db77c4978`
+- Attack paper PDF: `24675cc45ead08778034fa5572b239ebd26e9d7d62c38f8add827aa64de7e44c`

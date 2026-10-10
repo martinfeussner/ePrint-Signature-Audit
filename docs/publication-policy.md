@@ -13,6 +13,10 @@ wordplay followed by a descriptive subtitle stating the result and scope.
 Every attack paper places a prominent AI provenance and review-status disclosure
 immediately after the title and before the abstract. The disclosure states when
 OpenAI Codex generated and selected the title and its scheme-related wordplay.
+The paper byline and PDF author metadata identify Martin Feussner, with the
+affiliation `Selmer Center, University of Bergen` and contact address
+`martin.feussner@uib.no`, matching the presentation used in the NGCC Signature
+Audit. The human byline and the AI provenance disclosure are both retained.
 
 Implementation-only flaws, side channels, faults, toy parameters, proof gaps, generic
 distinguishers, or infeasible extrapolations are not promoted as successful attacks.

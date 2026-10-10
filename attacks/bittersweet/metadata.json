@@ -5,9 +5,14 @@
   "all_rows_reference_output_sha256": "fbbc3e32ed31974a685fa7ce92dae3d847654b873405aba9b9e7bdbdb6050226",
   "attack_history_checked_at": "2026-10-07",
   "attack_paper_makefile_sha256": "aebaec694d98efb6925d12ee1d2087fe8b50b4513709724c1cd60016c1ac44dd",
+  "attack_paper_affiliation": "Selmer Center, University of Bergen",
+  "attack_paper_authors": [
+    "Martin Feussner"
+  ],
+  "attack_paper_contact": "martin.feussner@uib.no",
   "attack_paper_pages": 7,
-  "attack_paper_sha256": "305c07cfed1d8d4be8ef185736a2e87d22448e8cfa11f899e56c44a4ccb5699b",
-  "attack_paper_source_sha256": "551a36ec7606f2da3bf20e7574f89438ca9a7f0aa8871f785734b23e2ed6d7bc",
+  "attack_paper_sha256": "be2b04b527720448e43728568d0433b29dcee81440284fbee2640720bf80c2e0",
+  "attack_paper_source_sha256": "b904a09a875bac3f41cd501f625e15a01da07c0ba1a88ed4a67fff83cfb6ca32",
   "attack_result": "Exact Level-I secret-key recovery from 16 accepted signatures with fresh signing on one untouched S16 key and one independently generated fresh-context S16 key",
   "attack_runtime_scope": "Run-005 public verification, aggregation, recovery, and candidate-freeze pipeline; complete run-005 stage sum is recorded separately.",
   "attack_technique": "Turn each optimized response's opened aggregate and one-bit reconstruction error into a strict comparison with a fixed 90-bit product buffer, intersect 416 comparisons per row into modular intervals, and solve a 160-row weighted modular CVP with plain LLL and Babai.",

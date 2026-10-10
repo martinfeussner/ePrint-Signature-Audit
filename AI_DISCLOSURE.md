@@ -5,6 +5,11 @@ attack-history searches, scheme reconstruction, cryptanalytic derivations,
 experiments, implementation, adversarial review, documentation, and fresh-context
 reproduction.
 
+Published attack papers list Martin Feussner as author, with the affiliation
+Selmer Center, University of Bergen. That human byline is presented alongside
+the paper-specific AI provenance disclosure; it does not replace or narrow the
+disclosure of work performed by OpenAI Codex and specialist AI agents.
+
 Independent AI reproduction is labeled as such and is not described as human
 verification. A published attack is classified `VERIFIED_ATTACK` after its recorded
 technical, adversarial, independent-reproduction, history, and publication-review
