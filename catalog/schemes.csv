@@ -20,3 +20,4 @@ MandaRain,2024/490,v3,2024-03-27,Rain-preimage VOLE-in-the-Head signature with Q
 SPECK,2025/923,v2,2025-05-22,Fiat-Shamir signature from permutation equivalence of self-dual codes and kernels,AUDITED_NO_PRACTICAL_ATTACK,2026-10-09,https://eprint.iacr.org/2025/923
 Loquat,2024/868,v1,2024-06-01,"Legendre-PRF key-identification signature using polynomial commitments, univariate sumcheck, FRI-style low-degree testing, and the BCS transform",AUDITED_NO_PRACTICAL_ATTACK,2026-10-09,https://eprint.iacr.org/2024/868
 GLYPH,2017/766,final v3 (2018-06-07; SHA-256 pinned),2017-08-08,Ring-LWE/GLP lattice signature with K-floor compression,VERIFIED_ATTACK,2026-10-13,https://eprint.iacr.org/2017/766
+TOT,2013/771,sole exposed revision (2013-11-25; SHA-256 pinned),2013-11-25,Multivariate quadratic trapdoor-inversion signature over an extension field,VERIFIED_ATTACK,2026-10-13,https://eprint.iacr.org/2013/771

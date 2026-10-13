@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 21 |
+| Schemes identified | 22 |
 | Known attacks excluded | 1 |
-| Schemes audited | 20 |
+| Schemes audited | 21 |
 | No practical attack found | 13 |
-| Practical design attacks | 7 |
-| Verified practical design attacks | 7 |
-| Independently reproduced attacks | 7 |
+| Practical design attacks | 8 |
+| Verified practical design attacks | 8 |
+| Independently reproduced attacks | 8 |
 
 ## Practical design attacks
 
@@ -33,6 +33,7 @@ unreported.
 | [Yagisawa quaternion signature](attacks/yagisawa-order-four/) | 2010/352 final | Multivariate quaternion-ring signature | Zero-query fresh-message forgery | Order-four challenge orbit and a vanishing homogeneous perturbation | `d=2`, `r=3`, `m=448`, 21-bit `q` | 1.79 ms forge; 113 s full setup/control; 19.5 MiB, 1 worker | Verified; independently AI-reproduced |
 | [Random-split St-Gen](attacks/random-split-stgen/) | 2016/391 | Random-split Staircase-Generator code signature | Zero-query existential fresh-message forgery | Verification-first affine cancellation in the public valid-error relation | PS1 and PS2 | At most 1.867 ms forge; 20.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [GLYPH](attacks/glyph/) | 2017/766 final v3 | Ring-LWE/GLP lattice signature with K-floor compression | Zero-query fresh-message forgery | Strict-interior K-floor fixed point | `m=2048`, `n=1024`, `q=59393`, `B=16383`, `omega=16` | 0.077 ms median forge; 52.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
+| [TOT](attacks/tot/) | 2013/771 | Multivariate quadratic trapdoor-inversion signature | Zero-query existential raw-vector forgery | Classical signature-first/no-message public-map evaluation | `q=2`, `n=128`, `d=6`, `t=64` | 5.36 ms forge; 19.0 MiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -242,5 +243,18 @@ signature wire format. The report makes no general technique-novelty claim
 and distinguishes original GLP12's prior same-message malleability. No prior
 public substantive attack against final-v3 GLYPH was located in searches
 completed through 2026-10-13.
+
+[TOT](attacks/tot/) (ePrint 2013/771, sole publicly exposed revision) signs a
+raw vector $M\in\mathbb F_2^{128}$ and accepts exactly when the public
+quadratic map satisfies $P(\sigma)=M$. A zero-query adversary chooses a
+nonzero signature vector, computes $M=P(\sigma)$, and outputs the resulting
+fresh pair. The message lies in the public map's image and is therefore
+honestly signable. Primary and separately written fresh-context
+implementations passed at the same-inventors recommended
+`q=2,n=128,d=6,t=64` row, with all controls rejecting. The claim excludes
+preselected vectors and any separately added document-hashing wrapper. The
+signature-first/no-message technique is classical and no novelty is claimed;
+no prior public attack specifically against TOT was located in searches
+performed through 2026-10-13.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

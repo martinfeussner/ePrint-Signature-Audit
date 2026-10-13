@@ -343,5 +343,24 @@
     "attack_path": "attacks/glyph/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, adversarial, fresh-context independent-reproduction, final-history, and publication-review gates"
+  },
+  {
+    "scheme": "TOT",
+    "aliases": [
+      "TOT, a Fast Multivariate Public Key Cryptosystem with Basic Secure Trapdoor"
+    ],
+    "eprint_id": "2013/771",
+    "eprint_version": "sole exposed revision (2013-11-25; SHA-256 pinned)",
+    "eprint_date": "2013-11-25",
+    "family": "Multivariate quadratic trapdoor-inversion signature over an extension field",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-13",
+    "url": "https://eprint.iacr.org/2013/771",
+    "attack_history_note": "No prior public attack specifically against Shen and Tang's TOT was located in the searches performed through 2026-10-13. The signature-first/no-message mechanism is classical generic prior art and no technique novelty is claimed.",
+    "audit_completed_at": "2026-10-13",
+    "attack_result": "Public-key-only zero-query existential forgery for a fresh honestly signable raw F_2^128 message vector",
+    "attack_path": "attacks/tot/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical, hostile adversarial, intended-message-scope, fresh-context independent-reproduction, final-history, and publication-review gates"
   }
 ]

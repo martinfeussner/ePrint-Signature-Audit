@@ -1,0 +1,31 @@
+{
+  "attack": {
+    "fresh_message": true,
+    "public_key_only": true,
+    "signing_queries": 0
+  },
+  "checks": {
+    "all_four_negative_controls_reject": true,
+    "canonical_full_quadratic_public_key": true,
+    "exact_recommended_row": true,
+    "fresh_raw_vector": true,
+    "no_private_material_serialized": true,
+    "ordinary_verifier_accepts": true,
+    "patent_toy_vector_accepts": true,
+    "zero_signing_queries": true
+  },
+  "controls_rejected": 4,
+  "digests": {
+    "primary_public_map_source_sha256": "f40b66c5d5276271ebb6fcd8997dee878527b6f7cea7d09342a7a742901e1202",
+    "target_pdf_sha256": "8ee1200e43b60123cf02f0261bee8e381b1229fde8c7722df086d95e6b7784bc"
+  },
+  "environment": {
+    "workers": 1
+  },
+  "full_scale": true,
+  "parameter_row": "q=2,n=128,d=6,t=64",
+  "result": "VERIFIED_ATTACK",
+  "scope": "literal raw F_2^128 message-vector interface",
+  "successes": 1,
+  "trials": 1
+}

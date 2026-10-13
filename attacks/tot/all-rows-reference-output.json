@@ -1,0 +1,26 @@
+{
+  "all_rows_pass": true,
+  "implementation_sha256": "219aac6c71cdf182af9d6acb5bc427c6390248d8ca4cfe977a85e524166c8c6c",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "changed_message_rejects": true,
+        "changed_signature_rejects": true,
+        "document_hash_scope_control_rejects": true,
+        "fresh_raw_vector_forgery_accepts": true,
+        "nonzero_signature": true,
+        "truncated_signature_rejects": true,
+        "zero_secret_reads": true,
+        "zero_signing_queries": true
+      },
+      "controls_rejected": 4,
+      "parameter_row": "q=2,n=128,d=6,t=64",
+      "public_key_only": true,
+      "secret_reads": 0,
+      "signing_queries": 0,
+      "successes": 1,
+      "trials": 1
+    }
+  ]
+}
