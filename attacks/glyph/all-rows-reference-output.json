@@ -1,0 +1,43 @@
+{
+  "all_rows_pass": true,
+  "attack": {
+    "message_scope": "fresh attacker-chosen message bytes",
+    "result": "public-key-only fresh-message forgery",
+    "signing_queries": 0
+  },
+  "digests": {
+    "public_forger_source_sha256": "96e01a5f04faec6ac904a0d6300dad3c28ddee7d8c495854ebf5ca78d7f0c7a8",
+    "target_pdf_sha256": "ff0eeaea3a9fcb830197ea954472869a08adbf42e64e727470fa8e0038c6682a",
+    "upstream_glp_source_sha256": "59c2fa2d9a6930f605e08e48f545179f5c589db760431c067b137bfebffb8cde",
+    "upstream_source_manifest_sha256": "4dd762d16074a6503bd402129c4fc9e4e16a481bc7239e0766c5af7229e411d5"
+  },
+  "environment": {
+    "language": "GNU11 C with a Python 3 standard-library wrapper",
+    "workers": 1
+  },
+  "result": "PASS: the complete advertised GLYPH row accepts 64/64 zero-query forgeries",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_fresh_full_parameter_forgeries_accept": true,
+        "all_negative_controls_reject": true,
+        "byte_exact_upstream_verifier_source": true,
+        "exhaustive_all_residue_selector_check": true,
+        "fresh_os_random_keys_and_messages": true,
+        "ordinary_upstream_verifier_accepts": true,
+        "public_only_forging_api": true,
+        "secret_keys_absent_from_retained_output": true,
+        "strict_interior_response_bound": true,
+        "zero_signing_queries": true
+      },
+      "controls_rejected": 512,
+      "controls_tested": 512,
+      "forgeries_accepted": 64,
+      "forgery_trials": 64,
+      "parameter_row": "GLYPH recommended: m=2048, n=1024, q=59393, B=16383, omega=16",
+      "residues_exhausted": 59393
+    }
+  ],
+  "scope": "The numerical paper/source (z1,z2,c) and message/hash interface; the target specifies no portable external signature wire format."
+}

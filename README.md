@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 20 |
+| Schemes identified | 21 |
 | Known attacks excluded | 1 |
-| Schemes audited | 19 |
+| Schemes audited | 20 |
 | No practical attack found | 13 |
-| Practical design attacks | 6 |
-| Verified practical design attacks | 6 |
-| Independently reproduced attacks | 6 |
+| Practical design attacks | 7 |
+| Verified practical design attacks | 7 |
+| Independently reproduced attacks | 7 |
 
 ## Practical design attacks
 
@@ -32,6 +32,7 @@ unreported.
 | [Poulakis--Rolland v2](attacks/poulakis-rolland-v2/) | 2012/134 v2 | Composite-order pairing signature | One-query universal fresh-message forgery | Public-scalar point transport with pairing-factor compensation | 2046-bit group order, 2048-bit field | 2.35 s transport, 17.5 MB peak, 1 worker | Verified; independently AI-reproduced |
 | [Yagisawa quaternion signature](attacks/yagisawa-order-four/) | 2010/352 final | Multivariate quaternion-ring signature | Zero-query fresh-message forgery | Order-four challenge orbit and a vanishing homogeneous perturbation | `d=2`, `r=3`, `m=448`, 21-bit `q` | 1.79 ms forge; 113 s full setup/control; 19.5 MiB, 1 worker | Verified; independently AI-reproduced |
 | [Random-split St-Gen](attacks/random-split-stgen/) | 2016/391 | Random-split Staircase-Generator code signature | Zero-query existential fresh-message forgery | Verification-first affine cancellation in the public valid-error relation | PS1 and PS2 | At most 1.867 ms forge; 20.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
+| [GLYPH](attacks/glyph/) | 2017/766 final v3 | Ring-LWE/GLP lattice signature with K-floor compression | Zero-query fresh-message forgery | Strict-interior K-floor fixed point | `m=2048`, `n=1024`, `q=59393`, `B=16383`, `omega=16` | 0.077 ms median forge; 52.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -227,5 +228,19 @@ raw vectors are the scheme's intended signing and verification interface; the
 claim excludes any separately added document-hashing wrapper. The report
 credits verification-first existential forgery as a classical technique, and
 no exact-target attack was located in searches completed as of 2026-10-09.
+
+[GLYPH](attacks/glyph/) (ePrint 2017/766, final v3) admits a
+public-key-only zero-query fresh-message forgery at its complete recommended
+row. The attacker sets `z1=0`, hashes the all-zero verifier floor with the
+chosen message to obtain `c`, and selects each strictly bounded `z2`
+coefficient from `{0,-(K-1),K-1}` so that `K-floor(z2-t*c)=0`. The primary
+implementation accepted 64/64 fresh-key forgeries and rejected 512/512
+controls; a fresh-context independent implementation accepted another 64/64
+and rejected 256/256 controls. The claim covers the final-v3 numerical
+paper/source interface because the target defines no portable external
+signature wire format. The report makes no general technique-novelty claim
+and distinguishes original GLP12's prior same-message malleability. No prior
+public substantive attack against final-v3 GLYPH was located in searches
+completed through 2026-10-13.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

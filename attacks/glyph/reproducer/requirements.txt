@@ -1,0 +1,8 @@
+# No Python packages are required.
+#
+# System requirements used by reproduce.sh:
+# - a little-endian Linux/POSIX environment
+# - Bash, GNU Make, GNU coreutils (sha256sum), GNU time, and binutils (nm)
+# - a GNU11 C compiler (tested with GCC 13.3.0)
+# - OpenSSL 3 development headers and libcrypto (tested with 3.0.13)
+# - Python 3 (standard library only) for the repository-facing wrappers

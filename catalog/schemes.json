@@ -324,5 +324,24 @@
     "attack_history_note": "No public practical full-parameter attack against exact Loquat or Loquat* was located in the searches performed as of 2026-10-09; Legendre, FRI/BCS, and Griffin results were treated as transfer evidence.",
     "audit_completed_at": "2026-10-09",
     "audit_note": "Review of the intended cumulative transcript and all-fold verifier closed the fixed-random-point Legendre, FRI/BCS, binding, and Griffin routes without a practical endpoint. The strongest retained findings were proof-margin caveats and infeasible transfers; no secret, equivalent signer, or efficient faithful-paper-verifier forgery was obtained. The pinned proof of concept materially differs from the paper and does not establish the design result."
+  },
+  {
+    "scheme": "GLYPH",
+    "aliases": [
+      "GLYPH: A New Instantiation of the GLP Digital Signature Scheme"
+    ],
+    "eprint_id": "2017/766",
+    "eprint_version": "final v3 (2018-06-07; SHA-256 pinned)",
+    "eprint_date": "2017-08-08",
+    "family": "Ring-LWE/GLP lattice signature with K-floor compression",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-13",
+    "url": "https://eprint.iacr.org/2017/766",
+    "attack_history_note": "No prior public substantive attack against final-v3 GLYPH was located in the searches performed through 2026-10-13. The original GLP12 same-message strong-unforgeability malleability requires an existing signature and predates GLYPH's Compress2/K-floor construction.",
+    "audit_completed_at": "2026-10-13",
+    "attack_result": "Public-key-only zero-query fresh-message forgery",
+    "attack_path": "attacks/glyph/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical, adversarial, fresh-context independent-reproduction, final-history, and publication-review gates"
   }
 ]

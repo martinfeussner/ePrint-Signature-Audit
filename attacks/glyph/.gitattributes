@@ -1,0 +1,2 @@
+# Preserve the byte-exact pinned upstream snapshot, including its whitespace.
+reproducer/vendor/glyph/** -whitespace
