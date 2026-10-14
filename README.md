@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 22 |
+| Schemes identified | 23 |
 | Known attacks excluded | 1 |
-| Schemes audited | 21 |
-| No practical attack found | 13 |
+| Schemes audited | 22 |
+| No practical attack found | 14 |
 | Practical design attacks | 8 |
 | Verified practical design attacks | 8 |
 | Independently reproduced attacks | 8 |
@@ -58,6 +58,7 @@ equivalent-key recovery with fresh-message forgery is already public.
 | MandaRain | 2024/490 v3 | Rain-3/Rain-4 relations and transcript routes | No practical key recovery or forgery |
 | SPECK | 2025/923 v2 | Five Low source profiles and the paper-only High family | No practical secret permutation or forgery |
 | Loquat / Loquat* | 2024/868 v1 | Intended paper design across Legendre, FRI/BCS, binding, and Griffin routes | No practical faithful-design signing compromise |
+| BPORS-C+BFP | 2026/2374 v1 | Complete Section 3.5 standard-128f profile | No practical complete-profile signer or forgery |
 
 ### Audit summaries
 
@@ -158,6 +159,16 @@ strongest retained paper findings are proof-margin caveats and infeasible
 transfers; no secret, equivalent signer, or efficient faithful-paper-verifier
 forgery was obtained. The pinned proof of concept materially differs from the
 paper and does not establish the design result.
+
+BPORS-C+BFP (ePrint 2026/2374 v1) completed a bounded audit of its complete
+Section 3.5 standard-128f profile. Exact coverage, counter and address
+grinding, disclosure accumulation, pruning and proof binding, and composition
+routes yielded no practical secret key, equivalent signer, or fresh-message
+forgery. Joint address/encoding sampling prevents fixed-instance screening
+from carrying into the complete profile, and the addressed WOTS+/hypertree
+wrapper authenticates the reconstructed bottom key. No author implementation
+or concrete primitive suite is available, so implementation conformance
+remains a reopening condition.
 
 ## Verified attack summaries
 

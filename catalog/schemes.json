@@ -362,5 +362,22 @@
     "attack_path": "attacks/tot/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, hostile adversarial, intended-message-scope, fresh-context independent-reproduction, final-history, and publication-review gates"
+  },
+  {
+    "scheme": "BPORS-C+BFP",
+    "aliases": [
+      "BPORS-C",
+      "BPORS with hash chains and blockwise forced pruning"
+    ],
+    "eprint_id": "2026/2374",
+    "eprint_version": "v1",
+    "eprint_date": "2026-10-06",
+    "family": "Hash-chain few-time signature with bucketed and blockwise forced pruning, composed into a SPHINCS+-style hypertree",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-09",
+    "url": "https://eprint.iacr.org/2026/2374",
+    "attack_history_note": "No public attack against the exact BPORS-C+BFP construction was located in the searches completed as of 2026-10-09; related PORS, BPORS, FORS, FlexTree, CEDRUS, and SPHINCS+ work was treated as lineage evidence.",
+    "audit_completed_at": "2026-10-14",
+    "audit_note": "The complete Section 3.5 standard-128f profile was reconstructed and screened for exact coverage, counter and address grinding, disclosure accumulation, pruning and proof binding, and composition attacks. Joint address/encoding sampling and the addressed WOTS+/hypertree wrapper left no practical secret recovery, equivalent signer, or fresh-message forgery. The result is bounded by the absence of an author implementation and concrete primitive suite."
   }
 ]
