@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 30 |
+| Schemes identified | 31 |
 | Known attacks excluded | 3 |
-| Schemes audited | 27 |
+| Schemes audited | 28 |
 | No practical attack found | 16 |
-| Practical design attacks | 11 |
-| Verified practical design attacks | 11 |
-| Independently reproduced attacks | 11 |
+| Practical design attacks | 12 |
+| Verified practical design attacks | 12 |
+| Independently reproduced attacks | 12 |
 
 ## Practical design attacks
 
@@ -37,6 +37,7 @@ unreported.
 | [Full-Distance Syndrome Decoding](attacks/full-distance-syndrome-decoding/) | 2023/1956 | Structured binary syndrome-decoding signature | One-query fresh-message forgery | Public preserved-column recovery and 25-bit weight correction | Level I `(1600,400,125,5,25,343)` | 0.627 s primary attack; 19 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [Higher-Bit Approximate-ISIS](attacks/higher-bit-approx-isis/) | 2022/1144 | Lattice hash-and-sign with higher-bit approximate trapdoors | Universal zero-query fresh-message forgery | Zero signature vector covered by the Section 6.4 verifier radius | All three Figure 3 “This work” rows | 11.40 s, 61,072 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [SSD](attacks/ssd/) | 2022/1698 | Binary syndrome-decoding signature | Zero-query existential fresh-message forgery | Public systematic completion into the accepted weight interval | Standard SSD1760 `(1760,242,502,484,11,440)` | at most 0.054 s attack per key; 24,576 KiB peak, 1 worker | Verified; independently AI-reproduced |
+| [HPPK DS](attacks/hppk-ds/) | 2023/1768 | Polynomial/multivariate signature over dual hidden rings | Zero-query universal fresh-message forgery | Four all-zero `(F,H)` pairs annihilate Equation (28) | All 3 target rows and all 15 benchmark rows | 0.34 s source run; 7,680 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -364,5 +365,21 @@ behaving as required. The result does not claim a universal or fixed-message
 forgery, LVK coverage, or rank-deficient-key coverage. No previous public
 attack against the exact SSD scheme was located in searches completed on
 2026-10-14.
+
+[HPPK DS](attacks/hppk-ds/) (ePrint 2023/1768) accepts a complete
+all-zero signature for every message and structurally valid public key under
+the ordinary Equation (28) verifier. Each complete SHA-256, SHA-384, or
+SHA-512 hash is split into four field-sized segments, so the forgery contains
+four `(F,H)=(0,0)` pairs. Direct substitution makes every derived `U_ij(H)`
+and `V_ij(F)` coefficient zero and reduces each verifier comparison to `0=0`.
+The paper-level reproducer covered all three target rows and all fifteen
+benchmark rows; fresh-context evidence covered 72/72 complete paper
+forgeries and 192/192 pinned-Go attacker checks, with zero signing queries.
+The Go source is separate source-specific corroboration and is not an exact
+implementation of an advertised row. A September 2026 public-key-only
+forgery was found against a materially divergent HPPK-labelled implementation
+whose signature supplies `{F,H,U,V}`. That related result does not execute the
+paper's `{F,H}`-only verifier, and the bounded no-prior-attack conclusion is
+limited to the exact Equation (28) construction.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

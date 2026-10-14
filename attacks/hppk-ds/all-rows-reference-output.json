@@ -1,0 +1,982 @@
+{
+  "affected_rows_tested": 18,
+  "all_rows_pass": true,
+  "attack": {
+    "accepted_fresh_messages": 72,
+    "classification": "zero-signing-query universal all-zero forgery",
+    "complete_signature_pairs_per_hash": 4,
+    "fresh_message_trials": 72,
+    "ordinary_verifier_accepted": true,
+    "secret_information_used": false,
+    "signing_queries": 0
+  },
+  "banner": "ATTACK REPRODUCTION: PASS",
+  "checks": {
+    "all_controls_pass": true,
+    "all_fresh_messages_accept": true,
+    "complete_hash_uses_four_zero_pairs": true,
+    "fifteen_benchmark_rows_covered": true,
+    "no_row_exact_source_claim": true,
+    "three_target_rows_covered": true,
+    "zero_signing_queries": true
+  },
+  "digests": {
+    "benchmark_pdf_sha256": "1ee259abede8b393f26e021fccbd41774b212146717a63f646aee282273198a7",
+    "target_pdf_sha256": "faa261feaf9e1f030273d311bfe642504a82d9f0759524446f9c86afbbc269c1"
+  },
+  "environment": {
+    "dependencies": "Python standard library",
+    "workers": 1
+  },
+  "mode": "full",
+  "result": "PASS: complete four-pair all-zero fresh-message forgery accepted for all 3 target and 15 benchmark rows at the published equation level",
+  "results": [
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 160,
+        "L": 128,
+        "dimension_status": "contextual inference; not an exact table tuple",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 64,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "level": "I",
+      "message_trials": 4,
+      "parameter_row": "target-v2-I",
+      "prime_expression": null,
+      "probe_prime": "18446744073709551557",
+      "probe_prime_status": "audit arithmetic fixture; Table 1 does not publish a prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2023/1768 Table 1"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 224,
+        "L": 192,
+        "dimension_status": "contextual inference; not an exact table tuple",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 96,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "level": "III",
+      "message_trials": 4,
+      "parameter_row": "target-v2-III",
+      "prime_expression": null,
+      "probe_prime": "79228162514264337593543950319",
+      "probe_prime_status": "audit arithmetic fixture; Table 1 does not publish a prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2023/1768 Table 1"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 288,
+        "L": 256,
+        "dimension_status": "contextual inference; not an exact table tuple",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 128,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "level": "V",
+      "message_trials": 4,
+      "parameter_row": "target-v2-V",
+      "prime_expression": null,
+      "probe_prime": "340282366920938463463374607431768211297",
+      "probe_prime_status": "audit arithmetic fixture; Table 1 does not publish a prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2023/1768 Table 1"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 288,
+        "L": 144,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 64,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "level": "I",
+      "message_trials": 4,
+      "parameter_row": "bench-I-1",
+      "prime_expression": "2^64-59",
+      "probe_prime": "18446744073709551557",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 208,
+        "L": 144,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 64,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "level": "I",
+      "message_trials": 4,
+      "parameter_row": "bench-I-2",
+      "prime_expression": "2^64-59",
+      "probe_prime": "18446744073709551557",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 176,
+        "L": 144,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 64,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "level": "I",
+      "message_trials": 4,
+      "parameter_row": "bench-I-3",
+      "prime_expression": "2^64-59",
+      "probe_prime": "18446744073709551557",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 208,
+        "L": 144,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 1,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 64,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "level": "I",
+      "message_trials": 4,
+      "parameter_row": "bench-I-4",
+      "prime_expression": "2^64-59",
+      "probe_prime": "18446744073709551557",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 176,
+        "L": 144,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 1,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 64,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "level": "I",
+      "message_trials": 4,
+      "parameter_row": "bench-I-5",
+      "prime_expression": "2^64-59",
+      "probe_prime": "18446744073709551557",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 416,
+        "L": 208,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 96,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "level": "III",
+      "message_trials": 4,
+      "parameter_row": "bench-III-1",
+      "prime_expression": "2^96-17",
+      "probe_prime": "79228162514264337593543950319",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 272,
+        "L": 208,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 96,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "level": "III",
+      "message_trials": 4,
+      "parameter_row": "bench-III-2",
+      "prime_expression": "2^96-17",
+      "probe_prime": "79228162514264337593543950319",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 240,
+        "L": 208,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 96,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "level": "III",
+      "message_trials": 4,
+      "parameter_row": "bench-III-3",
+      "prime_expression": "2^96-17",
+      "probe_prime": "79228162514264337593543950319",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 272,
+        "L": 208,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 1,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 96,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "level": "III",
+      "message_trials": 4,
+      "parameter_row": "bench-III-4",
+      "prime_expression": "2^96-17",
+      "probe_prime": "79228162514264337593543950319",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 240,
+        "L": 208,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 1,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 96,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "level": "III",
+      "message_trials": 4,
+      "parameter_row": "bench-III-5",
+      "prime_expression": "2^96-17",
+      "probe_prime": "79228162514264337593543950319",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 544,
+        "L": 272,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 128,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "level": "V",
+      "message_trials": 4,
+      "parameter_row": "bench-V-1",
+      "prime_expression": "2^128-159",
+      "probe_prime": "340282366920938463463374607431768211297",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 336,
+        "L": 272,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 128,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "level": "V",
+      "message_trials": 4,
+      "parameter_row": "bench-V-2",
+      "prime_expression": "2^128-159",
+      "probe_prime": "340282366920938463463374607431768211297",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 304,
+        "L": 272,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 2,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 128,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "level": "V",
+      "message_trials": 4,
+      "parameter_row": "bench-V-3",
+      "prime_expression": "2^128-159",
+      "probe_prime": "340282366920938463463374607431768211297",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 336,
+        "L": 272,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 1,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 128,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "level": "V",
+      "message_trials": 4,
+      "parameter_row": "bench-V-4",
+      "prime_expression": "2^128-159",
+      "probe_prime": "340282366920938463463374607431768211297",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "accepted_fresh_messages": 4,
+      "all_expected_checks_pass": true,
+      "attack_signing_queries": 0,
+      "complete_hash_segments": 4,
+      "configuration": {
+        "K": 304,
+        "L": 272,
+        "dimension_status": "exact Table 2 transcription",
+        "lambda": 1,
+        "m": 1,
+        "n": 1
+      },
+      "controls": {
+        "f_only_nonzero_rejects": true,
+        "five_pair_extension_rejects": true,
+        "four_pair_zero_signature_accepts": true,
+        "h_only_nonzero_rejects": true,
+        "test_only_repair_accepts_balanced_nonzero_fixture": true,
+        "test_only_repair_rejects_zero_pair": true,
+        "three_pair_truncation_rejects": true
+      },
+      "field_bits": 128,
+      "forged_signature_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "level": "V",
+      "message_trials": 4,
+      "parameter_row": "bench-V-5",
+      "prime_expression": "2^128-159",
+      "probe_prime": "340282366920938463463374607431768211297",
+      "probe_prime_status": "exact Table 2 prime",
+      "row_exact_implementation_claimed": false,
+      "secret_information_used": false,
+      "source": "ePrint 2024/019 Table 2"
+    }
+  ],
+  "schema": "eprint-audit.hppk-ds.paper-reproduction.v1",
+  "scheme": "HPPK DS / IACR ePrint 2023/1768",
+  "scope": {
+    "benchmark_claim": "Eq. (8) and all 15 Table 2 rows, with printed pseudocode ambiguities disclosed",
+    "implementation_claim": "none; the separate pinned Go evidence is not row-exact",
+    "paper_claim": "Eq. (28), Section 5.3, and four independently signed hash segments",
+    "wire_format_claim": "none; the paper does not define a canonical encoding"
+  },
+  "seed_source": "public_reference_fixture",
+  "status": "PASS",
+  "workers": 1
+}

@@ -1,0 +1,646 @@
+{
+  "benchmark": "IACR ePrint 2024/019",
+  "benchmark_sha256": "1ee259abede8b393f26e021fccbd41774b212146717a63f646aee282273198a7",
+  "counts": {
+    "benchmark_table_2": 15,
+    "target_table_1": 3,
+    "total": 18
+  },
+  "eprint_id": "2023/1768",
+  "implementation_boundary": "No row-exact implementation or canonical paper wire format is available; pinned Go evidence is separate source-specific corroboration.",
+  "paper": "Homomorphic Polynomial Public Key Cryptography for Quantum-secure Digital Signature",
+  "paper_sha256": "faa261feaf9e1f030273d311bfe642504a82d9f0759524446f9c86afbbc269c1",
+  "rows": [
+    {
+      "K": 160,
+      "L": 128,
+      "complete_hash_segments": 4,
+      "field_bits": 64,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "id": "target-v2-I",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "I",
+      "parameter_status": "contextual inference; not an exact table tuple",
+      "prime": null,
+      "row_exact_executable_available": false,
+      "signature_bytes": 128,
+      "source": "ePrint 2023/1768 Table 1"
+    },
+    {
+      "K": 224,
+      "L": 192,
+      "complete_hash_segments": 4,
+      "field_bits": 96,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "id": "target-v2-III",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "III",
+      "parameter_status": "contextual inference; not an exact table tuple",
+      "prime": null,
+      "row_exact_executable_available": false,
+      "signature_bytes": 192,
+      "source": "ePrint 2023/1768 Table 1"
+    },
+    {
+      "K": 288,
+      "L": 256,
+      "complete_hash_segments": 4,
+      "field_bits": 128,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "id": "target-v2-V",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "V",
+      "parameter_status": "contextual inference; not an exact table tuple",
+      "prime": null,
+      "row_exact_executable_available": false,
+      "signature_bytes": 256,
+      "source": "ePrint 2023/1768 Table 1"
+    },
+    {
+      "K": 288,
+      "L": 144,
+      "complete_hash_segments": 4,
+      "field_bits": 64,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "id": "bench-I-1",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "I",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^64-59",
+      "row_exact_executable_available": false,
+      "signature_bytes": 144,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 208,
+      "L": 144,
+      "complete_hash_segments": 4,
+      "field_bits": 64,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "id": "bench-I-2",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "I",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^64-59",
+      "row_exact_executable_available": false,
+      "signature_bytes": 144,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 176,
+      "L": 144,
+      "complete_hash_segments": 4,
+      "field_bits": 64,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "id": "bench-I-3",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "I",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^64-59",
+      "row_exact_executable_available": false,
+      "signature_bytes": 144,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 208,
+      "L": 144,
+      "complete_hash_segments": 4,
+      "field_bits": 64,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "id": "bench-I-4",
+      "lambda": 1,
+      "m": 1,
+      "n": 1,
+      "nist_level": "I",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^64-59",
+      "row_exact_executable_available": false,
+      "signature_bytes": 144,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 176,
+      "L": 144,
+      "complete_hash_segments": 4,
+      "field_bits": 64,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-256",
+      "id": "bench-I-5",
+      "lambda": 1,
+      "m": 1,
+      "n": 1,
+      "nist_level": "I",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^64-59",
+      "row_exact_executable_available": false,
+      "signature_bytes": 144,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 416,
+      "L": 208,
+      "complete_hash_segments": 4,
+      "field_bits": 96,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "id": "bench-III-1",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "III",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^96-17",
+      "row_exact_executable_available": false,
+      "signature_bytes": 208,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 272,
+      "L": 208,
+      "complete_hash_segments": 4,
+      "field_bits": 96,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "id": "bench-III-2",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "III",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^96-17",
+      "row_exact_executable_available": false,
+      "signature_bytes": 208,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 240,
+      "L": 208,
+      "complete_hash_segments": 4,
+      "field_bits": 96,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "id": "bench-III-3",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "III",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^96-17",
+      "row_exact_executable_available": false,
+      "signature_bytes": 208,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 272,
+      "L": 208,
+      "complete_hash_segments": 4,
+      "field_bits": 96,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "id": "bench-III-4",
+      "lambda": 1,
+      "m": 1,
+      "n": 1,
+      "nist_level": "III",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^96-17",
+      "row_exact_executable_available": false,
+      "signature_bytes": 208,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 240,
+      "L": 208,
+      "complete_hash_segments": 4,
+      "field_bits": 96,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-384",
+      "id": "bench-III-5",
+      "lambda": 1,
+      "m": 1,
+      "n": 1,
+      "nist_level": "III",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^96-17",
+      "row_exact_executable_available": false,
+      "signature_bytes": 208,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 544,
+      "L": 272,
+      "complete_hash_segments": 4,
+      "field_bits": 128,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "id": "bench-V-1",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "V",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^128-159",
+      "row_exact_executable_available": false,
+      "signature_bytes": 272,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 336,
+      "L": 272,
+      "complete_hash_segments": 4,
+      "field_bits": 128,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "id": "bench-V-2",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "V",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^128-159",
+      "row_exact_executable_available": false,
+      "signature_bytes": 272,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 304,
+      "L": 272,
+      "complete_hash_segments": 4,
+      "field_bits": 128,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "id": "bench-V-3",
+      "lambda": 1,
+      "m": 2,
+      "n": 1,
+      "nist_level": "V",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^128-159",
+      "row_exact_executable_available": false,
+      "signature_bytes": 272,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 336,
+      "L": 272,
+      "complete_hash_segments": 4,
+      "field_bits": 128,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "id": "bench-V-4",
+      "lambda": 1,
+      "m": 1,
+      "n": 1,
+      "nist_level": "V",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^128-159",
+      "row_exact_executable_available": false,
+      "signature_bytes": 272,
+      "source": "ePrint 2024/019 Table 2"
+    },
+    {
+      "K": 304,
+      "L": 272,
+      "complete_hash_segments": 4,
+      "field_bits": 128,
+      "forged_pairs": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "hash": "SHA-512",
+      "id": "bench-V-5",
+      "lambda": 1,
+      "m": 1,
+      "n": 1,
+      "nist_level": "V",
+      "parameter_status": "exact Table 2 transcription",
+      "prime": "2^128-159",
+      "row_exact_executable_available": false,
+      "signature_bytes": 272,
+      "source": "ePrint 2024/019 Table 2"
+    }
+  ],
+  "scope": "Parameter-independent Eq. (28) all-zero identity; complete hash uses four independently verified zero pairs"
+}

@@ -536,5 +536,25 @@
     "attack_path": "attacks/ssd/",
     "independent_reproduction": true,
     "verification_basis": "Passed primary reproduction, hostile adversarial review, five-key fresh-context independent reproduction, final exact-target history, and independent publication-review gates"
+  },
+  {
+    "scheme": "Homomorphic Polynomial Public Key Cryptography for Quantum-secure Digital Signature (HPPK DS)",
+    "aliases": [
+      "HPPK DS",
+      "Homomorphic Polynomial Public Key Cryptography for Quantum-secure Digital Signature"
+    ],
+    "eprint_id": "2023/1768",
+    "eprint_version": "Current ePrint PDF observed 2026-10-14; official record received 2023-11-15 and revised 2023-11-17; body matches arXiv 2311.08967v2",
+    "eprint_date": "2023-11-15",
+    "family": "Polynomial/multivariate signature over dual hidden rings with Barrett-transformed verification",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2023/1768",
+    "attack_history_note": "No prior practical attack against the exact Equation (28) HPPK DS paper construction was located in bounded searches completed through 2026-10-14. A September 2026 public-key-only forgery against sergelen02/HPPK_2 uses attacker-supplied {F,H,U,V}; it is recorded as an attack on a materially divergent implementation, so the no-prior-attack claim is limited to the paper's {F,H}-only Equation (28) construction.",
+    "audit_completed_at": "2026-10-14",
+    "attack_result": "Public-key-only zero-signing-query universal fresh-message forgery using four all-zero (F,H) pairs per complete hash",
+    "attack_path": "attacks/hppk-ds/",
+    "independent_reproduction": true,
+    "verification_basis": "Primary reproduction, hostile adversarial review, fresh-context independent reproduction, final exact-target history recheck, and independent Publication Reviewer review passed"
   }
 ]
