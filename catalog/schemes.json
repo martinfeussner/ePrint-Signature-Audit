@@ -515,5 +515,26 @@
     "attack_path": "attacks/higher-bit-approx-isis/",
     "independent_reproduction": true,
     "verification_basis": "Passed primary reproduction, adversarial review, fresh-context independent reproduction, final exact-target history, and independent publication-review gates"
+  },
+  {
+    "scheme": "Signature from Syndrome Decoding (SSD), standard mode",
+    "aliases": [
+      "Digital Signature from Syndrome Decoding Problem",
+      "SSD1760",
+      "SSD signature"
+    ],
+    "eprint_id": "2022/1698",
+    "eprint_version": "Pinned current 458702-byte, 14-page PDF observed 2026-10-14; official record showed receipt 2022-12-07 and approval 2022-12-10",
+    "eprint_date": "2022-12-07",
+    "family": "Binary syndrome-decoding signature with structured public matrices",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2022/1698",
+    "attack_history_note": "No previous public attack against Abdelhaliem Babiker's exact SSD scheme in ePrint 2022/1698 was located in the searches completed on 2026-10-14. This is a bounded moderate-high-confidence negative result.",
+    "audit_completed_at": "2026-10-14",
+    "attack_result": "Public-key-only zero-signing-query existential fresh-message forgery by distinct-message search against valid full-rank standard SSD1760 keys",
+    "attack_path": "attacks/ssd/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed primary reproduction, hostile adversarial review, five-key fresh-context independent reproduction, final exact-target history, and independent publication-review gates"
   }
 ]

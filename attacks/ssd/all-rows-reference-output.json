@@ -1,0 +1,216 @@
+{
+  "affected_rows_tested": 1,
+  "all_rows_pass": true,
+  "attack": {
+    "accepted_pivot_weight_interval": [
+      110,
+      150
+    ],
+    "classification": "zero-signing-query existential fresh-message forgery",
+    "distinct_candidate_messages": 1,
+    "fixed_free_weight": 363,
+    "free_variables": 1518,
+    "message_sha256": "b404d0f0da6dea2ed2ac71483dc5d471c0c1095931b701994034681ffde1b646",
+    "ordinary_verifier_accepted": true,
+    "pivot_weight": 111,
+    "pivots": 242,
+    "public_hash_queries": 1,
+    "random_oracle_probability": {
+      "decimal": "0.9303737782253141",
+      "denominator": 7067388259113537318333190002971674063309935587502475832486424805170479104,
+      "expected_message_queries": "1.0748368273",
+      "numerator": 6575312716816686842758027307073044279391868491250129737919261488600123712
+    },
+    "rref_and_pivot_inverse_agree": true,
+    "secret_key_used": false,
+    "signature_sha256": "fe9ee4b09eaf2915c1c4c2a143eb4145e5a9f4e181896bd56b3c83295d4e0049",
+    "signature_weight": 474,
+    "signing_queries": 0,
+    "timer_end_semantics": "after ordinary verifier accepts the first candidate",
+    "timer_start_semantics": "immediately before prepare_public_solve/RREF",
+    "uses_only_public_key_and_message_hashes": true
+  },
+  "banner": "ATTACK REPRODUCTION: PASS",
+  "checks": {
+    "all_negative_controls_reject": true,
+    "equation_valid_weight_endpoints_match": true,
+    "full_parameter_standard_ssd1760": true,
+    "honest_signature_accepts": true,
+    "ordinary_verifier_accepts_forgery": true,
+    "public_completion_crosscheck": true,
+    "public_key_has_required_ranks": true,
+    "secret_key_not_used": true,
+    "zero_signing_queries": true
+  },
+  "claim_scope": {
+    "not_claimed": [
+      "universal forgery",
+      "forgery for every fixed preselected message",
+      "LVK mode",
+      "rank-deficient or malformed keys",
+      "an unconditional property of SHAKE256"
+    ],
+    "proved_in_random_oracle_model": "constant-probability existential forgery by distinct-message search",
+    "valid_key_condition": "rank(H)=rank(Y)=242"
+  },
+  "control_details": {
+    "changed_signature_bit": 0,
+    "changed_signature_weight": 475,
+    "equation_valid_weight_endpoints": {
+      "472": {
+        "equation_holds": true,
+        "free_weight": 351,
+        "message_sha256": "876543944be1ce8f435e3bedf24b0b94542a9197a991e1375b525a628dae3c9e",
+        "message_trials": 4,
+        "ordinary_verifier_accepts": false,
+        "pivot_weight": 121,
+        "signature_weight": 472
+      },
+      "473": {
+        "equation_holds": true,
+        "free_weight": 352,
+        "message_sha256": "f0a78d9f721c09ceb34897b9cff1bbb5a2f0944c8f0acbf3a4fd8eddce6e6c0f",
+        "message_trials": 17,
+        "ordinary_verifier_accepts": true,
+        "pivot_weight": 121,
+        "signature_weight": 473
+      },
+      "513": {
+        "equation_holds": true,
+        "free_weight": 392,
+        "message_sha256": "ebc5e313d16e515987365ca975b3b9b56758dc18bdd859ac8381e23667f181f2",
+        "message_trials": 99,
+        "ordinary_verifier_accepts": true,
+        "pivot_weight": 121,
+        "signature_weight": 513
+      },
+      "514": {
+        "equation_holds": true,
+        "free_weight": 393,
+        "message_sha256": "d471c2a6877790ac1b6c25641094a33218f2536a8dbb0453cb47fe702ea5f54a",
+        "message_trials": 15,
+        "ordinary_verifier_accepts": false,
+        "pivot_weight": 121,
+        "signature_weight": 514
+      }
+    }
+  },
+  "controls": {
+    "changed_in_range_signature_rejected": true,
+    "changed_message_rejected": true,
+    "independent_wrong_key_rejected": true,
+    "zero_signature_rejected": true
+  },
+  "digests": {
+    "forgery_signature_sha256": "fe9ee4b09eaf2915c1c4c2a143eb4145e5a9f4e181896bd56b3c83295d4e0049",
+    "public_H_sha256": "111f7be8b6019f2c91550b2c9880bb3979ffb4b8780ba3faa7fe2a0c0553c170",
+    "public_Y_sha256": "271a16bff9de1bb5b7dbb7ed8fc2606eccc645c3c114534c99d79d33f5616c9c",
+    "target_pdf_sha256": "619903383e40bed6320d1fc0a17c61553073d11545eb12302cafe6a84cfbd80e"
+  },
+  "environment": {
+    "dependencies": "Python standard library",
+    "workers": 1
+  },
+  "honest_conformance": {
+    "message_sha256": "104664b2142512f4f4936ea146ee7f31264e4058da8f4bfb40ab1625cf7bc795",
+    "message_trials": 3,
+    "ordinary_verifier_accepted": true,
+    "satisfies_both_algorithm_3_lower_bound_readings": true,
+    "separate_from_attack_stage": true,
+    "signature_weight": 509
+  },
+  "key_generation": {
+    "D_second_variant_blocks": 102,
+    "F_full_rank_draws": 6,
+    "Gen1_rank_draws": 1,
+    "H_rank": 242,
+    "H_sha256": "111f7be8b6019f2c91550b2c9880bb3979ffb4b8780ba3faa7fe2a0c0553c170",
+    "R_full_rank_draws": 1,
+    "Y_after_fold_rank": 242,
+    "Y_rank": 242,
+    "Y_sha256": "271a16bff9de1bb5b7dbb7ed8fc2606eccc645c3c114534c99d79d33f5616c9c",
+    "alpha0": 21,
+    "consecutive_odd_alphas": [
+      9,
+      11,
+      13,
+      15
+    ],
+    "construction": "independent reconstruction of printed standard-mode Gen1/Gen2",
+    "fold_rank": 440,
+    "hash_instantiation": "SHAKE256 with explicit message bytes, 1760-bit output",
+    "wrong_H_sha256": "2b5df54445d99776a6703c020c89f1bed06fe926f787a0fbd10956e8692dcd1a"
+  },
+  "parameter_set": "SSD1760 standard mode",
+  "parameters": {
+    "d": 502,
+    "gamma": 4,
+    "k": 440,
+    "k_prime": 242,
+    "mu": 11,
+    "n": 1760,
+    "omega": 484,
+    "ordinary_verifier_weight_interval": [
+      473,
+      513
+    ]
+  },
+  "public_linear_algebra": {
+    "free_coordinates": 1518,
+    "pivots": 242,
+    "technique": "Gaussian elimination/systematic-form affine completion",
+    "technique_novelty_claimed": false
+  },
+  "result": "PASS: zero-signing-query existential fresh-message forgery accepted at full standard SSD1760 parameters",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_negative_controls_reject": true,
+        "equation_valid_weight_endpoints_match": true,
+        "full_parameter_standard_ssd1760": true,
+        "honest_signature_accepts": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "public_completion_crosscheck": true,
+        "public_key_has_required_ranks": true,
+        "secret_key_not_used": true,
+        "zero_signing_queries": true
+      },
+      "ordinary_verifier_accepted": true,
+      "parameter_row": "SSD1760 standard mode",
+      "public_hash_queries": 1,
+      "signing_queries": 0
+    }
+  ],
+  "schema": "eprint-audit.ssd1760.public-reproduction.v1",
+  "scheme": "SSD / IACR ePrint 2022/1698",
+  "seed_source": "public_reference_fixture",
+  "seeds": {
+    "independent_wrong_key": 1698202212,
+    "primary_structured_key": 1698202211
+  },
+  "specification_diagnostics": {
+    "algorithm_3_lower_bound": "printed while-condition uses both omega-mu and d-mu; prose discusses omega-mu",
+    "author_implementation_available": false,
+    "concrete_hash_unspecified": true,
+    "gen1_alpha0_equals_r": {
+      "allowed_alpha0": 15,
+      "candidate_rank": 198,
+      "cannot_supply_required_rows": true,
+      "diagnostic_full_rank_draws": 4,
+      "rank_upper_bound": 198,
+      "required_rank": 242
+    },
+    "ssd2744_table_inconsistency": "k_prime is printed as both 377 and 337"
+  },
+  "status": "PASS",
+  "target_pdf_sha256": "619903383e40bed6320d1fc0a17c61553073d11545eb12302cafe6a84cfbd80e",
+  "timer_semantics": {
+    "attack_stage": "start immediately before public RREF; stop after the first candidate passes ordinary verification",
+    "committed_json_contains_wall_clock_values": false,
+    "complete_process": "includes structured primary key, honest conformance, public attack, independent wrong key, and equation-valid endpoint controls",
+    "reason": "external timing keeps reference output deterministic"
+  },
+  "workers": 1,
+  "wrapper": "all affected advertised rows (SSD1760 standard mode only)"
+}

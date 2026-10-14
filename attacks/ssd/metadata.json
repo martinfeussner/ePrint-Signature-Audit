@@ -1,0 +1,197 @@
+{
+  "adversarial_evidence": {
+    "attack_cpu_seconds_including_rref": 0.19,
+    "attack_message_queries": 1,
+    "attack_pivot_weight": 110,
+    "attack_signature_weight": 473,
+    "complete_process_wall_seconds": 1.29,
+    "handoff_sha256": "38256bf5e7be0ae8c2af8831fcb6de578fa3fe5c54c40d08fa0003eb81610749",
+    "honest_signature_weight": 501,
+    "manifest_sha256": "5ec0d69308ebfb2f6ebe108c405c7c10de2515c0890a330f455595a1b7452912",
+    "peak_rss_kib": 23552,
+    "run_adjudication_sha256": "569b767f893ec81186fb8c52218fdfe3440bdbf3ba61be447a28a8d9ab67bd13",
+    "signing_queries": 0,
+    "source_sha256": "145d28c510234e76459598b917dc4c55aade5156a68038f019d1196685b431b1",
+    "stderr_bytes": 0,
+    "workers": 1
+  },
+  "affected_parameters": [
+    "Standard SSD1760: n=1760, gamma=4, k=440, k'=242, d=502, omega=484, mu=11; valid full-rank public keys only"
+  ],
+  "ai_provenance": {
+    "adversarial_review": "separately tasked hostile AI reviewer",
+    "cryptanalysis": "AI-assisted",
+    "environment_statement": "This audit used the OpenAI model Daybreak Blue at the ultra reasoning level.",
+    "implementation": "AI-assisted",
+    "independent_reproduction": "fresh-context AI agent; 5/5 wholly fresh full-rank keys",
+    "model": "OpenAI model Daybreak Blue",
+    "reasoning_level": "ultra",
+    "technical_writing": "AI-assisted"
+  },
+  "all_rows_reference_output_sha256": "7767037409f7d94e4e8244f166211cc8aec09c264c11cf8ea398512265bddb40",
+  "attack_history_checked_at": "2026-10-14",
+  "attack_history_status": "PASS_FINAL_EXACT_TARGET_RECHECK",
+  "attack_paper_affiliation": "Selmer Center, University of Bergen",
+  "attack_paper_authors": [
+    "Martin Feussner"
+  ],
+  "attack_paper_contact": "martin.feussner@uib.no",
+  "attack_paper_makefile_sha256": "def3e7eecad19272b3dc3c4a96ee5ad4a64c55c99232193b87e3f3923d928ec0",
+  "attack_paper_pages": 6,
+  "attack_paper_sha256": "35f6bb4481eeafbea46d7faaecd1644fa9ac9559abc5efa19507dfb747fbe03c",
+  "attack_paper_source_sha256": "7ad543581fc8495bace97c9bfa13a39c3a162bb41d725db924832ed046854147",
+  "attack_result": "Public-key-only zero-signing-query existential fresh-message forgery by distinct-message search against valid full-rank standard SSD1760 keys in the random-oracle model",
+  "attack_runtime_scope": "Hostile adversarial public attack stage, timed in CPU seconds from immediately before RREF through the first accepted ordinary-verifier candidate",
+  "attack_technique": "Put public H in systematic form, fix 363 free coordinates to one, solve 242 pivots for each public message target, and retain the first completion whose pivot weight lies in [110,150]",
+  "attack_title": "Syndromes Solved Directly: A Zero-Signing-Query Forgery against SSD",
+  "authors": [
+    "Abdelhaliem Babiker"
+  ],
+  "conditions": "Standard mode, SSD1760, rank(H)=rank(Y)=242, paper random-oracle model, existential attacker-chosen fresh message; no LVK, malformed-key, universal, fixed-message, or unconditional-SHAKE256 claim",
+  "cpu": "AMD EPYC Processor",
+  "eprint_date": "2022-12-07",
+  "eprint_id": "2022/1698",
+  "eprint_version": "Pinned current 458702-byte, 14-page PDF observed 2026-10-14; official record showed receipt 2022-12-07 and approval 2022-12-10",
+  "expected_public_hash_queries": 1.0748368273,
+  "family": "Binary syndrome-decoding signature with structured public matrices",
+  "full_scale": true,
+  "history_evidence": {
+    "confidence": "moderate-high bounded negative search",
+    "exact_target_result": "We located no previous public attack against Abdelhaliem Babiker's exact SSD scheme in ePrint 2022/1698 in the searches completed on 14 October 2026.",
+    "final_history_handoff_sha256": "b9d961b3b4b4589eea231ffeb0adb511b3bea918c55e1e56a1a3ddbf58544759",
+    "final_recheck_sha256": "3adf914d2f612105f79d3b03b0e67fa08aae6eadbaf5c7e2271256aa0990950d",
+    "new_target_revision_located": false,
+    "prior_art_manifest_sha256": "835a0f80192ea92793008b226b25f2100dd356db4135397b32d77df06b601a0a",
+    "priority_claimed": false,
+    "version_limitation": "The official all-versions endpoint could not be independently enumerated; the claim is pinned to current bytes."
+  },
+  "honest_conformance": {
+    "adversarial_signature_weight": 501,
+    "ordinary_verifier_accepted": true,
+    "primary_signature_weight": 499,
+    "satisfies_both_algorithm_3_lower_bound_readings": true
+  },
+  "human_verification": false,
+  "human_verification_required": false,
+  "independent_reproducer_sha256": "34fee86741dc48cd82e931bc91376515615571ba1ee5a70f78df25d20303a72e",
+  "independent_reproduction": true,
+  "independent_reproduction_evidence": {
+    "attack_seconds_from_before_rref_range": [
+      0.052984,
+      0.053914
+    ],
+    "attack_seconds_from_before_rref_total": 0.267922,
+    "central_public_hash_queries": [
+      1,
+      2,
+      1,
+      1,
+      1
+    ],
+    "complete_wall_seconds": 14.76,
+    "conclusion_sha256": "39475f86c59410913225d5dd0430f318e37a421b5dae1fa37fb4215de016ee72",
+    "experiment": "experiments/ssd-independent-reproduction-20261014T125359Z",
+    "failures": 0,
+    "fresh_keys": 5,
+    "peak_rss_kib": 24576,
+    "public_validator_sha256": "d563099ec1e2e6288e9e6c7ee056e596096add90f51274ef4f13ef2c7a3ea846",
+    "reproducer_core_sha256": "ed319ba012aab018124b81da335570662265227c98aabba5d26ab94f1153bba4",
+    "result_sha256": "9b9843dfca266117d3d0a098953816feabb9ce1b19e225cadc79ded93989a878",
+    "sealed_handoff_sha256": "38848b3de4067a082485d81519c0216635082ca7f65e142e822263bdc90bd3df",
+    "sealed_manifest_sha256": "2608c672de46fd87302c8a8b6d5f3c08b3fb1ffbde39be599e4c8a7facf1abb6",
+    "successes": 5,
+    "system_cpu_seconds": 0.07,
+    "total_central_public_hash_queries": 6,
+    "total_central_signing_queries": 0,
+    "user_cpu_seconds": 10.66,
+    "workers": 1
+  },
+  "independent_reproduction_scope": "Fresh-context paper-level reconstruction on five independently generated OS-random full-rank standard SSD1760 keys; unchanged ordinary verifier; zero signing queries for every central forgery",
+  "independent_reproduction_status": "PASS_5_OF_5_FRESH_KEYS",
+  "layer": "design",
+  "limitations": [
+    "The exact probability statement is in the paper's random-oracle model; the concrete SHAKE256 runs do not prove success for every fixed message.",
+    "The attack is existential message search, not a universal or fixed-preselected-message forgery.",
+    "The claim covers standard SSD1760 only and excludes LVK, SSD2744, SSD3728, malformed keys, and rank-deficient Gen1 draws.",
+    "No concrete hash, message encoding, signature serialization, or author implementation was available.",
+    "The exact-target history result is a bounded public search and cannot exclude private, deleted, unpublished, or unindexed work."
+  ],
+  "ordinary_verifier": {
+    "equation": "H*s = Y*hbar",
+    "weight_interval_inclusive": [
+      473,
+      513
+    ]
+  },
+  "paper_url": "https://eprint.iacr.org/2022/1698",
+  "peak_ram_mb": 23.0,
+  "primary_evidence": {
+    "attack_message_queries": 1,
+    "attack_pivot_weight": 116,
+    "attack_signature_weight": 479,
+    "controls_rejected": 4,
+    "handoff_sha256": "51687bf703339e2d2a8b4b7409e11d136c22055fb0d89bcd0a59715279e7e3d9",
+    "honest_signature_weight": 499,
+    "manifest_sha256": "c9ce90770e8f4b17ca4d56c67bf53c980a6c8c9c83463de61e869c642322fdea",
+    "peak_rss_kib": 19968,
+    "result_sha256": "87a78f23b8189f27f2339f56a871b4e3871c5128a6f8551953eddaf49b22089d",
+    "signing_queries": 0,
+    "source_sha256": "770716e5bc4a739c96e0be5d7900ef662adfe5a30a0caa9159ff58ea0e39ec5b",
+    "wall_seconds": 4.87,
+    "weight_control_sha256": "a1c4b94764441873b61ebf8a76903bbe68cc1e0a685be0af4c7c74983eab948b",
+    "workers": 1
+  },
+  "prior_public_attack_located": false,
+  "probability": {
+    "accepted_pivot_weight_interval": [
+      110,
+      150
+    ],
+    "distribution": "Binomial(242,1/2)",
+    "expected_message_queries": "1.0748368273",
+    "per_message_decimal": "0.9303737782253141"
+  },
+  "public_report_core_sha256": "c9b77356951218b26694c5c291fb601cafb83f2a5bf01706c420f00bba04b4c4",
+  "public_reproducer_core_sha256": "6a7d410c64e65338c5b7faeca357fee390760f6ec6034d6aa2f12c6e5f5b2b12",
+  "publication_gates": {
+    "adversarial_review": "PASS",
+    "exact_target_history": "PASS",
+    "independent_publication_review": "PASS",
+    "independent_reproduction": "PASS_5_OF_5_FRESH_KEYS",
+    "primary_reproduction": "PASS"
+  },
+  "publication_status": "VERIFIED_ATTACK",
+  "reference_output_sha256": "f231374e2dd8f295eb0372d5abf89e42282a691ae026c7bfb1000f71edad4967",
+  "repair_guidance": "Redesign the public relation, dimensions, and response constraint so a public affine representative does not land in the accepted distribution with constant probability; publish a complete hash and encoding profile and repeat correctness, proof, and full-parameter analysis. No drop-in patch is validated here.",
+  "reproducer_sha256": "bbbb0f83a592570b8a539a1779be8fe838ff3c52b791001b4daeff2c4d13175c",
+  "runtime_seconds": 0.19,
+  "runtime_type": "CPU seconds",
+  "schema_compatibility_status": "PASS_PUBLIC_VALIDATE_METADATA",
+  "scheme": "Signature from Syndrome Decoding (SSD), standard mode",
+  "security_property": "Existential unforgeability under chosen-message attack; zero-signing-query attacker-chosen fresh-message forgery",
+  "signing_queries": 0,
+  "source_status": "Independent paper-level Python and Magma reconstructions; no author implementation located",
+  "specification_issues": [
+    "At allowed alpha_0=r=15, Gen1 rank is at most 198 and cannot provide 242 rows to Gen2.",
+    "Algorithm 3's printed while-condition and prose disagree on the lower signing threshold.",
+    "SSD2744 k' is printed as both 377 and 337.",
+    "The concrete hash and serialization are unspecified.",
+    "The primary seconds_including_rref field starts after RREF and measures candidate completion only."
+  ],
+  "successes": 5,
+  "target_pdf_sha256": "619903383e40bed6320d1fc0a17c61553073d11545eb12302cafe6a84cfbd80e",
+  "target_text_sha256": "f2962618bf752d315aac0759e286491e6afffccf6d5764bd2c4c89f654c4a62b",
+  "technique_attribution": [
+    "Standard Gaussian elimination and systematic-form affine completion",
+    "Elementary binomial weight analysis",
+    "Concrete application to standard SSD1760"
+  ],
+  "technique_originality_claimed": false,
+  "title_ai_generated": true,
+  "title_wordplay_ai_decision": "OpenAI Codex generated and selected the title and intentionally chose 'Syndromes Solved Directly' because its initials spell SSD and it describes the direct public syndrome solve.",
+  "title_wordplay_selected_by_codex": true,
+  "trials": 5,
+  "verification_basis": "Primary reproduction, hostile adversarial review, fresh-context five-key independent reproduction, final exact-target history recheck, and independent Publication Reviewer review passed",
+  "verified_attack": true,
+  "workers": 1
+}

@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 29 |
+| Schemes identified | 30 |
 | Known attacks excluded | 3 |
-| Schemes audited | 26 |
+| Schemes audited | 27 |
 | No practical attack found | 16 |
-| Practical design attacks | 10 |
-| Verified practical design attacks | 10 |
-| Independently reproduced attacks | 10 |
+| Practical design attacks | 11 |
+| Verified practical design attacks | 11 |
+| Independently reproduced attacks | 11 |
 
 ## Practical design attacks
 
@@ -36,6 +36,7 @@ unreported.
 | [TOT](attacks/tot/) | 2013/771 | Multivariate quadratic trapdoor-inversion signature | Zero-query existential raw-vector forgery | Classical signature-first/no-message public-map evaluation | `q=2`, `n=128`, `d=6`, `t=64` | 5.36 ms forge; 19.0 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [Full-Distance Syndrome Decoding](attacks/full-distance-syndrome-decoding/) | 2023/1956 | Structured binary syndrome-decoding signature | One-query fresh-message forgery | Public preserved-column recovery and 25-bit weight correction | Level I `(1600,400,125,5,25,343)` | 0.627 s primary attack; 19 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [Higher-Bit Approximate-ISIS](attacks/higher-bit-approx-isis/) | 2022/1144 | Lattice hash-and-sign with higher-bit approximate trapdoors | Universal zero-query fresh-message forgery | Zero signature vector covered by the Section 6.4 verifier radius | All three Figure 3 “This work” rows | 11.40 s, 61,072 KiB peak, 1 worker | Verified; independently AI-reproduced |
+| [SSD](attacks/ssd/) | 2022/1698 | Binary syndrome-decoding signature | Zero-query existential fresh-message forgery | Public systematic completion into the accepted weight interval | Standard SSD1760 `(1760,242,502,484,11,440)` | at most 0.054 s attack per key; 24,576 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -346,5 +347,22 @@ thresholds, serialization, and a public author implementation. The report
 credits the generic zero-vector Approximate-ISIS boundary to
 Chen--Genise--Mukherjee and claims no technique novelty. No prior public attack
 against this exact signature was located in searches completed on 2026-10-14.
+
+[SSD](attacks/ssd/) (ePrint 2022/1698, standard SSD1760 mode) publishes a
+242-by-1760 binary verification matrix but accepts any response of weight 473
+through 513 satisfying the public syndrome equation. The attacker row-reduces
+that matrix, fixes 363 of its 1,518 free coordinates to one, and solves the 242
+pivot coordinates for each fresh public message target. In the paper's
+random-oracle model, the resulting pivot weight lies in the accepted interval
+with exact probability about 0.93037 per distinct message, so the attack is an
+efficient existential message-search forgery with zero signing queries. The
+primary and hostile adversarial runs passed on full-size fresh keys. A
+separately written implementation then forged 5/5 independently generated
+full-rank keys using six public hash queries in total, with all honest,
+changed-message, mutation, wrong-key, and exact weight-boundary controls
+behaving as required. The result does not claim a universal or fixed-message
+forgery, LVK coverage, or rank-deficient-key coverage. No previous public
+attack against the exact SSD scheme was located in searches completed on
+2026-10-14.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

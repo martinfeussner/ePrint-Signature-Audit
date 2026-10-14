@@ -1,0 +1,34 @@
+{
+  "paper": "IACR ePrint 2022/1698",
+  "paper_sha256": "619903383e40bed6320d1fc0a17c61553073d11545eb12302cafe6a84cfbd80e",
+  "scope": "Standard-mode SSD1760 with a valid full-row-rank public key",
+  "rows": [
+    {
+      "id": "SSD1760-standard",
+      "advertised_security_bits": 128,
+      "n": 1760,
+      "gamma": 4,
+      "k": 440,
+      "k_prime": 242,
+      "d": 502,
+      "omega": 484,
+      "mu": 11,
+      "ordinary_verifier_weight_interval": [
+        473,
+        513
+      ],
+      "attack_fixed_free_weight": 363,
+      "attack_accepted_pivot_weight_interval": [
+        110,
+        150
+      ]
+    }
+  ],
+  "explicitly_unclaimed": [
+    "standard SSD2744",
+    "standard SSD3728",
+    "LVK mode",
+    "rank-deficient or malformed public keys"
+  ]
+}
+

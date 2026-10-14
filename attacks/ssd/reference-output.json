@@ -1,0 +1,194 @@
+{
+  "attack": {
+    "accepted_pivot_weight_interval": [
+      110,
+      150
+    ],
+    "classification": "zero-signing-query existential fresh-message forgery",
+    "distinct_candidate_messages": 1,
+    "fixed_free_weight": 363,
+    "free_variables": 1518,
+    "message_sha256": "b404d0f0da6dea2ed2ac71483dc5d471c0c1095931b701994034681ffde1b646",
+    "ordinary_verifier_accepted": true,
+    "pivot_weight": 115,
+    "pivots": 242,
+    "public_hash_queries": 1,
+    "random_oracle_probability": {
+      "decimal": "0.9303737782253141",
+      "denominator": 7067388259113537318333190002971674063309935587502475832486424805170479104,
+      "expected_message_queries": "1.0748368273",
+      "numerator": 6575312716816686842758027307073044279391868491250129737919261488600123712
+    },
+    "rref_and_pivot_inverse_agree": true,
+    "secret_key_used": false,
+    "signature_sha256": "eb1ac33fa9dda7626b899a1bb70870593ed8e0147ad4894ac4dbfd6f0373f200",
+    "signature_weight": 478,
+    "signing_queries": 0,
+    "timer_end_semantics": "after ordinary verifier accepts the first candidate",
+    "timer_start_semantics": "immediately before prepare_public_solve/RREF",
+    "uses_only_public_key_and_message_hashes": true
+  },
+  "banner": "ATTACK REPRODUCTION: PASS",
+  "checks": {
+    "all_negative_controls_reject": true,
+    "equation_valid_weight_endpoints_match": true,
+    "full_parameter_standard_ssd1760": true,
+    "honest_signature_accepts": true,
+    "ordinary_verifier_accepts_forgery": true,
+    "public_completion_crosscheck": true,
+    "public_key_has_required_ranks": true,
+    "secret_key_not_used": true,
+    "zero_signing_queries": true
+  },
+  "claim_scope": {
+    "not_claimed": [
+      "universal forgery",
+      "forgery for every fixed preselected message",
+      "LVK mode",
+      "rank-deficient or malformed keys",
+      "an unconditional property of SHAKE256"
+    ],
+    "proved_in_random_oracle_model": "constant-probability existential forgery by distinct-message search",
+    "valid_key_condition": "rank(H)=rank(Y)=242"
+  },
+  "control_details": {
+    "changed_signature_bit": 0,
+    "changed_signature_weight": 477,
+    "equation_valid_weight_endpoints": {
+      "472": {
+        "equation_holds": true,
+        "free_weight": 351,
+        "message_sha256": "299c7336c717dde8f3b331ec23c0e25b996e6330249908a77a6d1e656d0b0456",
+        "message_trials": 28,
+        "ordinary_verifier_accepts": false,
+        "pivot_weight": 121,
+        "signature_weight": 472
+      },
+      "473": {
+        "equation_holds": true,
+        "free_weight": 352,
+        "message_sha256": "469b8ce92bb422f37078174ca5115d0e13f6e4e8ad47148c71b11039ee596cfa",
+        "message_trials": 7,
+        "ordinary_verifier_accepts": true,
+        "pivot_weight": 121,
+        "signature_weight": 473
+      },
+      "513": {
+        "equation_holds": true,
+        "free_weight": 392,
+        "message_sha256": "7f880c73f716cf0c54945841bea9d126d5d76845e990ad4f24e3ea67f1ee8c82",
+        "message_trials": 1,
+        "ordinary_verifier_accepts": true,
+        "pivot_weight": 121,
+        "signature_weight": 513
+      },
+      "514": {
+        "equation_holds": true,
+        "free_weight": 393,
+        "message_sha256": "4573ed311c7b45b6f41a7632eb3184f0604524155fa9add9cf8ace0760762ace",
+        "message_trials": 19,
+        "ordinary_verifier_accepts": false,
+        "pivot_weight": 121,
+        "signature_weight": 514
+      }
+    }
+  },
+  "controls": {
+    "changed_in_range_signature_rejected": true,
+    "changed_message_rejected": true,
+    "independent_wrong_key_rejected": true,
+    "zero_signature_rejected": true
+  },
+  "digests": {
+    "forgery_signature_sha256": "eb1ac33fa9dda7626b899a1bb70870593ed8e0147ad4894ac4dbfd6f0373f200",
+    "public_H_sha256": "5156c62a11ce3e820ec782b922a4ba021dc7e1862570182beac0eabc06ee8cc8",
+    "public_Y_sha256": "b15285b388b69a277e25266b4f07b365c34dc0f54eeac30472b645d653eda10b",
+    "target_pdf_sha256": "619903383e40bed6320d1fc0a17c61553073d11545eb12302cafe6a84cfbd80e"
+  },
+  "environment": {
+    "dependencies": "Python standard library",
+    "workers": 1
+  },
+  "honest_conformance": {
+    "message_sha256": "9a71fdfdcc8c768397328acb04ca500b4d766901bcef14287070a94a7e7d7983",
+    "message_trials": 1,
+    "ordinary_verifier_accepted": true,
+    "satisfies_both_algorithm_3_lower_bound_readings": true,
+    "separate_from_attack_stage": true,
+    "signature_weight": 491
+  },
+  "key_generation": {
+    "D_second_variant_blocks": 85,
+    "F_full_rank_draws": 8,
+    "Gen1_rank_draws": 1,
+    "H_rank": 242,
+    "H_sha256": "5156c62a11ce3e820ec782b922a4ba021dc7e1862570182beac0eabc06ee8cc8",
+    "R_full_rank_draws": 12,
+    "Y_after_fold_rank": 242,
+    "Y_rank": 242,
+    "Y_sha256": "b15285b388b69a277e25266b4f07b365c34dc0f54eeac30472b645d653eda10b",
+    "alpha0": 25,
+    "consecutive_odd_alphas": [
+      3,
+      5,
+      7,
+      9
+    ],
+    "construction": "independent reconstruction of printed standard-mode Gen1/Gen2",
+    "fold_rank": 440,
+    "hash_instantiation": "SHAKE256 with explicit message bytes, 1760-bit output",
+    "wrong_H_sha256": "9b773371be15744b616634b2c63c7c2df8f57b7057f919e18bcdca7c310de755"
+  },
+  "parameter_set": "SSD1760 standard mode",
+  "parameters": {
+    "d": 502,
+    "gamma": 4,
+    "k": 440,
+    "k_prime": 242,
+    "mu": 11,
+    "n": 1760,
+    "omega": 484,
+    "ordinary_verifier_weight_interval": [
+      473,
+      513
+    ]
+  },
+  "public_linear_algebra": {
+    "free_coordinates": 1518,
+    "pivots": 242,
+    "technique": "Gaussian elimination/systematic-form affine completion",
+    "technique_novelty_claimed": false
+  },
+  "result": "PASS: zero-signing-query existential fresh-message forgery accepted at full standard SSD1760 parameters",
+  "schema": "eprint-audit.ssd1760.public-reproduction.v1",
+  "scheme": "SSD / IACR ePrint 2022/1698",
+  "seed_source": "public_reference_fixture",
+  "seeds": {
+    "independent_wrong_key": 20221699,
+    "primary_structured_key": 20221698
+  },
+  "specification_diagnostics": {
+    "algorithm_3_lower_bound": "printed while-condition uses both omega-mu and d-mu; prose discusses omega-mu",
+    "author_implementation_available": false,
+    "concrete_hash_unspecified": true,
+    "gen1_alpha0_equals_r": {
+      "allowed_alpha0": 15,
+      "candidate_rank": 198,
+      "cannot_supply_required_rows": true,
+      "diagnostic_full_rank_draws": 2,
+      "rank_upper_bound": 198,
+      "required_rank": 242
+    },
+    "ssd2744_table_inconsistency": "k_prime is printed as both 377 and 337"
+  },
+  "status": "PASS",
+  "target_pdf_sha256": "619903383e40bed6320d1fc0a17c61553073d11545eb12302cafe6a84cfbd80e",
+  "timer_semantics": {
+    "attack_stage": "start immediately before public RREF; stop after the first candidate passes ordinary verification",
+    "committed_json_contains_wall_clock_values": false,
+    "complete_process": "includes structured primary key, honest conformance, public attack, independent wrong key, and equation-valid endpoint controls",
+    "reason": "external timing keeps reference output deterministic"
+  },
+  "workers": 1,
+  "wrapper": "single affected full-parameter row"
+}
