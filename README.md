@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 23 |
+| Schemes identified | 24 |
 | Known attacks excluded | 1 |
-| Schemes audited | 22 |
-| No practical attack found | 14 |
+| Schemes audited | 23 |
+| No practical attack found | 15 |
 | Practical design attacks | 8 |
 | Verified practical design attacks | 8 |
 | Independently reproduced attacks | 8 |
@@ -59,6 +59,7 @@ equivalent-key recovery with fresh-message forgery is already public.
 | SPECK | 2025/923 v2 | Five Low source profiles and the paper-only High family | No practical secret permutation or forgery |
 | Loquat / Loquat* | 2024/868 v1 | Intended paper design across Legendre, FRI/BCS, binding, and Griffin routes | No practical faithful-design signing compromise |
 | BPORS-C+BFP | 2026/2374 v1 | Complete Section 3.5 standard-128f profile | No practical complete-profile signer or forgery |
+| CAPSS-Poseidon-3 Default | 2025/061 current | Exact current Poseidon-3 Default row; proof algebra, transcript binding, and primitive transfer | No practical secret, equivalent witness, or fresh-message forgery |
 
 ### Audit summaries
 
@@ -169,6 +170,22 @@ from carrying into the complete profile, and the addressed WOTS+/hypertree
 wrapper authenticates the reconstructed bottom key. No author implementation
 or concrete primitive suite is available, so implementation conformance
 remains a reopening condition.
+
+CAPSS-Poseidon-3 Default (ePrint 2025/061, current 2026-09-10 revision)
+completed a bounded audit of the exact 19,616-byte Default row. Current-paper
+SmallWood algebra, message and transcript binding, the truncated Poseidon OWF,
+and XOF/Jive mode separation produced no practical secret, reusable signing
+witness, or ordinary-verifier fresh-message forgery. The strongest intended
+selective-opening route costs at least `2^128.332` by the paper's theorem, or
+about `2^129.258` raw XOF trials with exact challenge acceptance. The paper's
+two capacity definitions disagree: the operational one-field digest has a
+generic collision boundary near `2^126.798`, but that does not give a practical
+fresh-message endpoint. Figure 7 also states an underdetermined interpolation
+line; the signature supplies no values or rule for its two missing
+coefficients, so the defect is undefined pseudocode rather than an executable
+bypass. The result is a bounded audit, not a security proof, and should be
+revisited if an authoritative current-row implementation or material revision
+resolves the specification gaps or changes the verifier algebra.
 
 ## Verified attack summaries
 

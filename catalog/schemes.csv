@@ -22,3 +22,4 @@ Loquat,2024/868,v1,2024-06-01,"Legendre-PRF key-identification signature using p
 GLYPH,2017/766,final v3 (2018-06-07; SHA-256 pinned),2017-08-08,Ring-LWE/GLP lattice signature with K-floor compression,VERIFIED_ATTACK,2026-10-13,https://eprint.iacr.org/2017/766
 TOT,2013/771,sole exposed revision (2013-11-25; SHA-256 pinned),2013-11-25,Multivariate quadratic trapdoor-inversion signature over an extension field,VERIFIED_ATTACK,2026-10-13,https://eprint.iacr.org/2013/771
 BPORS-C+BFP,2026/2374,v1,2026-10-06,"Hash-chain few-time signature with bucketed and blockwise forced pruning, composed into a SPHINCS+-style hypertree",AUDITED_NO_PRACTICAL_ATTACK,2026-10-09,https://eprint.iacr.org/2026/2374
+CAPSS-Poseidon-3 Default,2025/61,current operational v5 (2026-09-10; last of four revisions),2025-01-14,Fiat-Shamir SmallWood proof-of-knowledge signature from a truncated Poseidon one-way function,AUDITED_NO_PRACTICAL_ATTACK,2026-10-14,https://eprint.iacr.org/2025/61

@@ -379,5 +379,23 @@
     "attack_history_note": "No public attack against the exact BPORS-C+BFP construction was located in the searches completed as of 2026-10-09; related PORS, BPORS, FORS, FlexTree, CEDRUS, and SPHINCS+ work was treated as lineage evidence.",
     "audit_completed_at": "2026-10-14",
     "audit_note": "The complete Section 3.5 standard-128f profile was reconstructed and screened for exact coverage, counter and address grinding, disclosure accumulation, pruning and proof binding, and composition attacks. Joint address/encoding sampling and the addressed WOTS+/hypertree wrapper left no practical secret recovery, equivalent signer, or fresh-message forgery. The result is bounded by the absence of an author implementation and concrete primitive suite."
+  },
+  {
+    "scheme": "CAPSS-Poseidon-3 Default",
+    "aliases": [
+      "CAPSS-Poseidon",
+      "CAPSS Poseidon-3 Default",
+      "CAPSS: A Framework for SNARK-Friendly Post-Quantum Signatures"
+    ],
+    "eprint_id": "2025/61",
+    "eprint_version": "current operational v5 (2026-09-10; last of four revisions)",
+    "eprint_date": "2025-01-14",
+    "family": "Fiat-Shamir SmallWood proof-of-knowledge signature from a truncated Poseidon one-way function",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2025/61",
+    "attack_history_note": "No credible public signing attack against the exact current CAPSS-Poseidon-3 Default instance was located in the searches performed as of 2026-10-14; reduced-round and generic Poseidon analyses were treated as transfer evidence.",
+    "audit_completed_at": "2026-10-14",
+    "audit_note": "The exact current Poseidon-3 Default row received a bounded current-paper audit of SmallWood proof algebra, transcript binding, OWF truncation, XOF/Jive separation, and full-round transfer routes. The strongest intended selective-opening route remained at least 2^128.332 work by the theorem or about 2^129.258 raw XOF trials. A capacity-definition inconsistency gives a generic 2^126.798 collision boundary for the operational one-field digest, and Figure 7 contains underdetermined pseudocode, but neither yielded a practical fresh-message signing endpoint. No secret, reusable signing witness, or ordinary-verifier forgery was obtained."
   }
 ]
