@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 33 |
+| Schemes identified | 34 |
 | Known attacks excluded | 3 |
-| Schemes audited | 30 |
-| No practical attack found | 18 |
+| Schemes audited | 31 |
+| No practical attack found | 19 |
 | Practical design attacks | 12 |
 | Verified practical design attacks | 12 |
 | Independently reproduced attacks | 12 |
@@ -82,6 +82,7 @@ exact-target cryptanalysis:
 | NTRU+Sign-972 | 2025/612 current | Exact 193-bit row; relative norms, CRT/challenge structure, transcript binding, and rejection leakage | No practical secret, equivalent signer, or fresh-message forgery |
 | NIC signature | 2026/1573 v1 | Exact Level-I core relation, wrapper reconstruction, and public structural and solver routes | No practical witness recovery, equivalent signer, or fresh-message forgery |
 | SPHINCS-PE | 2026/1708 v1 | Paper-level, source-independent standard 128f at `q_use=2^8`; advertised source unavailable | No practical signer or forgery; reopen on a material specification/source change or a concrete route within `2^45` work |
+| MR-DSS | 2022/973 current | Ordinary Category-I clean-room profile; systematic MinRank and invariant protocol routes | No practical signer or forgery; optimized response profile remains underspecified |
 
 ### Audit summaries
 
@@ -261,6 +262,21 @@ work; a practical full-parameter primitive or composition break; a change to
 the fixed-count or state semantics that makes additional pooling, rollback,
 cloning, or quota overuse part of ordinary conforming use; or new exact-target
 prior art.
+
+MR-DSS (ePrint 2022/973, current 2022-09-21 revision) completed a bounded
+audit of the ordinary Category-I row
+`(lambda,q,m,n,k,r,tau,s)=(128,16,16,16,142,4,128,256)` under a reviewed
+clean-room profile. The best optimistic generic equivalent-witness estimate
+was about `2^155.61` bit operations, while invariant cut-and-choose routes
+bottomed out at the exact `2^128` soundness boundary. The paper does not fully
+specify the optimized response seed, commitment openings, or wire rules, so
+the review used a conservative beta-independent completion and makes no
+author-implementation compatibility claim. No practical secret recovery,
+equivalent signing witness, or efficient fresh-message forgery was obtained.
+Reopen after an authoritative implementation, test vector, clarification, or
+revision fixes the optimized-response semantics; after a concrete
+full-parameter MinRank recovery or public weak-key route enters the `2^45`
+campaign region; or when new exact-target prior art appears.
 
 ## Verified attack summaries
 

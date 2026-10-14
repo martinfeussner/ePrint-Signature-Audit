@@ -600,5 +600,30 @@
       "The fixed-count or state semantics change so that additional collision pooling, rollback, cloning, or quota overrun becomes part of ordinary conforming use.",
       "New exact-target prior art is located."
     ]
+  },
+  {
+    "scheme": "MR-DSS",
+    "aliases": [
+      "MR DSS",
+      "MR-DSS ordinary signature"
+    ],
+    "eprint_id": "2022/973",
+    "eprint_version": "current revision dated 2022-09-21",
+    "eprint_date": "2022-07-29",
+    "family": "MinRank sigma protocol with helper removal by cut-and-choose and Fiat-Shamir",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL / OPTIMIZED_RESPONSE_PROFILE_REQUIRED",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2022/973",
+    "attack_history_note": "No public attack against the exact ordinary MR-DSS scheme was located in bounded searches completed as of 2026-10-14. Generic MinRank analyses and construction-lineage results were treated as transfer evidence; the Section 5 MRr-DSS ring signature remained outside scope.",
+    "audit_completed_at": "2026-10-14",
+    "selected_parameter_set": "ordinary Category I (lambda,q,m,n,k,r,tau,s)=(128,16,16,16,142,4,128,256)",
+    "source_status": "NO_IMPLEMENTATION_LOCATED",
+    "audit_note": "A bounded audit used a reviewed clean-room profile for ordinary Category I. The best optimistic generic equivalent-witness estimate was about 2^155.61 bit operations, and invariant cut-and-choose routes reached no better than the exact 2^128 soundness boundary. The optimized response seed, commitment openings, and wire rules are underspecified, so the review used a conservative beta-independent completion and makes no author-implementation compatibility claim. No practical secret recovery, equivalent signing witness, or efficient fresh-message forgery was obtained.",
+    "reopen_conditions": [
+      "An authoritative implementation, test vector, clarification, or revision fixes the optimized response seed, opening, transcript, or wire semantics.",
+      "A concrete full-parameter MinRank recovery or publicly detectable non-negligible weak-key route enters the campaign's 2^45-operation region and ends in fresh signing.",
+      "A material target revision or new exact-target prior art changes the audited construction or its history classification."
+    ]
   }
 ]
