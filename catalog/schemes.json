@@ -479,5 +479,21 @@
     "attack_path": "attacks/full-distance-syndrome-decoding/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, practical, adversarial, fresh-context independent-reproduction, final-history, and independent publication-review gates"
+  },
+  {
+    "scheme": "Ye temporary-key lattice signature",
+    "aliases": [
+      "Can Lattice Signature be as Efficient as Lattice Encryption?",
+      "Ye 2021/002",
+      "temporary-public-key structured-y signature"
+    ],
+    "eprint_id": "2021/2",
+    "eprint_version": "sole independently observed 2021 artifact",
+    "eprint_date": "2021-01-02",
+    "family": "Fiat-Shamir RLWE signature with certified temporary keys and structured response masks",
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2021/2",
+    "exclusion_basis": "The target author’s direct successor, ePrint 2022/097 v1, acknowledges that the exact scheme’s structured-response defense against quadratic statistical attacks fails and explains the product-statistic mechanism. No public practical endpoint was located, but the substantive exact-target structural cryptanalysis controls the history gate."
   }
 ]

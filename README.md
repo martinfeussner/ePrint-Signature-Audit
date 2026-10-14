@@ -14,8 +14,8 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 27 |
-| Known attacks excluded | 2 |
+| Schemes identified | 28 |
+| Known attacks excluded | 3 |
 | Schemes audited | 25 |
 | No practical attack found | 16 |
 | Practical design attacks | 9 |
@@ -38,7 +38,8 @@ unreported.
 
 ## Known attack exclusions
 
-Two catalog records are excluded by prior public attacks:
+Three catalog records are excluded by prior public attacks or substantive
+exact-target cryptanalysis:
 
 - ATLAS (ePrint 2026/2323) is the published form of MORNING-ATLAS/NGCC
   sign-15, for which a practical ATLAS-128 equivalent-key recovery with
@@ -49,6 +50,12 @@ Two catalog records are excluded by prior public attacks:
   practical voltage-glitch demonstration was performed on SPHINCS-256, not
   the archived original CMSS implementation; the explicit CMSS analysis still
   controls this campaign's attack-history gate.
+- Ye's temporary-key lattice signature (ePrint 2021/002) has a publicly
+  acknowledged exact-target structural cryptanalytic failure. The target
+  author's direct successor, ePrint 2022/097, states that the structured-response
+  defense against quadratic statistical attacks fails and explains the
+  product-statistic mechanism. No public practical endpoint was located, but
+  this substantive exact-target analysis controls the campaign's history gate.
 
 ## Completed audits without a practical attack
 
