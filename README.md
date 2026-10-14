@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 34 |
+| Schemes identified | 35 |
 | Known attacks excluded | 3 |
-| Schemes audited | 31 |
-| No practical attack found | 19 |
+| Schemes audited | 32 |
+| No practical attack found | 20 |
 | Practical design attacks | 12 |
 | Verified practical design attacks | 12 |
 | Independently reproduced attacks | 12 |
@@ -83,6 +83,7 @@ exact-target cryptanalysis:
 | NIC signature | 2026/1573 v1 | Exact Level-I core relation, wrapper reconstruction, and public structural and solver routes | No practical witness recovery, equivalent signer, or fresh-message forgery |
 | SPHINCS-PE | 2026/1708 v1 | Paper-level, source-independent standard 128f at `q_use=2^8`; advertised source unavailable | No practical signer or forgery; reopen on a material specification/source change or a concrete route within `2^45` work |
 | MR-DSS | 2022/973 current | Ordinary Category-I clean-room profile; systematic MinRank and invariant protocol routes | No practical signer or forgery; optimized response profile remains underspecified |
+| CUTS | 2026/2455 v1 | Standalone base `cuts-128-smallest` under at most two ordinary signing queries; CUTS+C excluded | No practical signer or forgery; independently checked selector bound remains above the `2^45` campaign gate |
 
 ### Audit summaries
 
@@ -277,6 +278,19 @@ Reopen after an authoritative implementation, test vector, clarification, or
 revision fixes the optimized-response semantics; after a concrete
 full-parameter MinRank recovery or public weak-key route enters the `2^45`
 campaign region; or when new exact-target prior art appears.
+
+CUTS (ePrint 2026/2455 v1) completed a bounded audit of standalone base
+`cuts-128-smallest` at `(n,h,w,L,S,r,s)=(16,15,5,88,176,0,0)`, with at most
+two ordinary signing queries; CUTS+C was excluded. Independent exact
+arithmetic proves `lambda_2 > 101.25` and `(2^45+1)p_2 < 2^-56`. The paper's
+stronger 128.6-bit certificate was not independently reproduced. The direct
+two-disclosure, selector, primitive, seed, address, transcript, tree, and
+chain routes yielded no secret-key recovery with fresh signing, equivalent
+signer, or accepted fresh-message forgery. This is a bounded campaign result,
+not a security proof. Reopen on a selector, source, or parameter change; a
+concrete `rho`, transcript, or SHAKE failure; a defect in the independent
+bound; or an exact full-row endpoint within two signing queries and at most
+`2^45` work.
 
 ## Verified attack summaries
 

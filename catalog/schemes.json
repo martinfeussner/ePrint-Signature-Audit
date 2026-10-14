@@ -625,5 +625,32 @@
       "A concrete full-parameter MinRank recovery or publicly detectable non-negligible weak-key route enters the campaign's 2^45-operation region and ends in fresh signing.",
       "A material target revision or new exact-target prior art changes the audited construction or its history classification."
     ]
+  },
+  {
+    "scheme": "CUTS",
+    "aliases": [
+      "Chained Uniform-sum Tree Signatures",
+      "CUTS-cs"
+    ],
+    "eprint_id": "2026/2455",
+    "eprint_version": "v1/current as of the 2026-10-14 cutoff",
+    "eprint_date": "2026-10-12",
+    "family": "Hash-based few-time signature using chained decorated tree frontiers and uniform-sum encodings",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2026/2455",
+    "attack_history_note": "No public practical signing compromise or substantive exact-target cryptanalysis against standalone base CUTS was located in bounded searches completed as of 2026-10-14. CUTS+C and any future many-time composition were treated as separate scope.",
+    "audit_completed_at": "2026-10-14",
+    "selected_parameter_set": "standalone cuts-128-smallest (n,h,w,L,S,r,s)=(16,15,5,88,176,0,0), with at most two ordinary signing queries",
+    "source_status": "AUTHOR_SOURCE_AVAILABLE_AND_PINNED",
+    "source_commit": "9328dfea70b0f352a3bd4e67b33ea1758d6e1c0e",
+    "audit_note": "A bounded audit of the exact standalone base row found no secret-key recovery with fresh signing, equivalent signer, or accepted fresh-message forgery. Independent exact arithmetic proves lambda_2 > 101.25 and (2^45+1)p_2 < 2^-56 at the two-query selector boundary. The paper's stronger 128.6-bit certificate was not independently reproduced. CUTS+C was excluded. This is a bounded campaign result, not a security proof.",
+    "reopen_conditions": [
+      "The selector, source, or selected parameter row changes.",
+      "A concrete failure of rho independence, transcript injectivity, or the assumed full-round SHAKE256 behavior is demonstrated.",
+      "A defect is found in the independently checked lambda_2 > 101.25 bound or its application to adaptive target queries.",
+      "An exact full-row secret-key, equivalent-signer, or accepted fresh-message-forgery endpoint is produced within two ordinary signing queries and at most 2^45 work."
+    ]
   }
 ]
