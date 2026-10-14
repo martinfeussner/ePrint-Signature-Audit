@@ -1,0 +1,467 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={Full Distance, Short Detour: A One-Query Forgery against FDSD},
+  pdfauthor={Martin Feussner}
+}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Full Distance, Short Detour}
+\fancyhead[R]{14 October 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\Col}{\mathsf{Col}}
+\newcommand{\wt}{\mathsf{wt}}
+
+\title{\bfseries Full Distance, Short Detour: A One-Query Forgery against FDSD}
+\author{Martin Feussner\\
+\small Selmer Center, University of Bergen\\
+\small \texttt{martin.feussner@uib.no}}
+\date{14 October 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\fcolorbox{black!50}{black!4}{\parbox{0.94\textwidth}{
+This audit used the OpenAI model Daybreak Blue at the ultra reasoning level.
+OpenAI Codex generated and selected this paper's title and intentionally chose
+``Full Distance, Short Detour'' as wordplay contrasting the scheme's
+full-distance decoding premise with the short public linear detour used by the
+forgery. OpenAI Codex performed AI-assisted target selection, reconstruction,
+cryptanalysis, implementation, experiments, and technical writing. A separate
+AI agent performed adversarial review on the retained key, and a fresh-context
+AI agent independently reproduced the attack on five fresh keys. The final
+exact-target history recheck and independent Publication Reviewer gate also
+passed. All required publication gates passed, and the result is classified as
+\texttt{VERIFIED\_ATTACK}. No independent human verification was performed or
+required.}}
+
+\begin{abstract}
+We describe a public-only, one-signing-query fresh-message forgery against the
+Level-I parameters of Abdelhaliem Babiker's \emph{A Signature Scheme from
+Full-Distance Syndrome Decoding}, IACR ePrint 2023/1956. The ordinary verifier
+accepts a weight-343 vector $\sigma$ when
+\[
+  H^\star\sigma=Rh+R_{[25]}\zeta.
+\]
+The public matrix $H^\star$ retains 125 hidden-support columns spanning
+$\Col(R)$. Testing its 1,600 columns for membership in that public subspace
+therefore recovers the support and a public map $U$ satisfying
+$H^\star U=R$. From one ordinary signature on $h_0$, an attacker transfers the
+syndrome equation to any fresh target $h_1$. A 25-bit affine correction leaves
+only the verifier's exact-weight condition; reflected Gray-code search finds a
+weight-343 representative.
+
+The primary full-parameter run recovered all 125 columns and forged its
+source-frozen unsigned target after 3,657 candidates in 0.627 seconds of
+internal attack time, using one worker and 19,456 KiB peak resident memory.
+An independently written adversarial implementation forged eight additional
+frozen targets on the same retained key, and an exhaustive $2^{25}$ sweep for
+one target found 1,337 accepted exact-weight representatives. A fresh-context
+implementation then succeeded on five of five wholly fresh keys with one
+ordinary query per key; the slowest attack took 13.376 seconds and all controls
+rejected. A final scheme-specific recheck located no previous public attack
+against the exact target. No author code or test vectors were located; all
+experiments use an independently documented mathematical reconstruction of
+the paper. The technical, practical, adversarial, independent-reproduction,
+final-history, and independent-publication-review gates have all passed. The
+result is classified as \texttt{VERIFIED\_ATTACK}.
+\end{abstract}
+
+\section{Introduction}
+
+The Full-Distance Syndrome Decoding (FDSD) signature proposal presents three
+parameter sets intended for 128-, 192-, and 256-bit security~\cite{fdsd}. Its
+verification equation resembles a random syndrome-decoding instance: the
+signer returns a fixed-weight binary vector, and the verifier checks its
+syndrome against a message-dependent public target. The Level-I row is
+\[
+  (n,k,L,\epsilon,\theta,d)=(1600,400,125,5,25,343).
+\]
+The target argues that a forger must solve a full-distance syndrome-decoding
+problem and uses the Syndrome Decoding Estimator as an indicative parameter
+benchmark~\cite{esserbellini}.
+
+The public matrix is not an unstructured decoding instance. Key generation
+preserves a 125-coordinate subset on which $H^\star$ has exactly the public
+column space of $R$. This exposes both the hidden support and an equivalent
+public linear transformation. A queried signature can then be moved to a new
+message syndrome. The only nonlinear obstacle is the prescribed weight, and
+the verifier gives 25 freely adjustable bits with which to restore it.
+
+The resulting attack has the following scope:
+\begin{itemize}
+  \item it targets the complete advertised Level-I row;
+  \item it uses one ordinary signature on a message distinct from the target;
+  \item it reads only the public matrices and that one signature;
+  \item it outputs a weight-343 pair accepted by the ordinary verifier on a
+        fresh attacker-fixed message; and
+  \item it exploits the specified key structure and verification equation,
+        rather than a parser, fault, weak random generator, or side channel.
+\end{itemize}
+
+\paragraph{Technique attribution.}
+We make no novelty claim for Gaussian elimination, public subspace-membership
+tests, affine signature transformation, or Gray-code enumeration. The
+contribution is the concrete observation and full-parameter demonstration
+that FDSD's structured public key exposes the transformation needed to apply
+those standard tools and bypass the advertised decoding problem.
+
+\section{Target, reconstruction, and claim boundary}
+
+\subsection{Pinned target}
+
+The target is Abdelhaliem Babiker's \emph{A Signature Scheme from
+Full-Distance Syndrome Decoding}, IACR ePrint 2023/1956~\cite{fdsd}. The audit
+uses the sole object observed with archive datestamp 24 December 2023. Its
+26-page PDF has SHA-256 digest
+\begin{center}
+\small\ttfamily
+394b7a3e4f8d935cfabffd90e17b4c8cdd5708267a14ede67b39c49ab9ead822.
+\end{center}
+The extracted text has SHA-256 digest
+\begin{center}
+\small\ttfamily
+8763cd064947c50af81e487a9f7abf294b86893d2596cdff94bb199db33e460a.
+\end{center}
+
+No author implementation, source repository, byte format, or test vector was
+located. The paper is therefore authoritative. The audit built an independent
+paper-level adapter and froze the following otherwise unstated conventions:
+the balanced group weights are eighteen 14s followed by seven 13s;
+$\mathsf{Hash}_{125}$ is the first 125 SHAKE256 output bits in MSB-first byte
+order; and mathematical vector coordinates are serialized MSB-first with zero
+padding. The attack depends on the paper's algebra, not on these particular
+byte choices: it accepts the same $h$ that the verifier receives and operates
+entirely over $\F_2$ afterward.
+
+The faithful adapter checked all 125 basic and 800 advanced key identities.
+On one fresh key, 4,096 of 4,096 honest signatures had exact weight 343 and
+were accepted; changed-message, changed-$\sigma$, changed-$\zeta$, and
+changed-public-key controls rejected. The public attack process received only
+$H^\star$, $R$, and one exported ordinary signature.
+
+\subsection{Level-I public relation}
+
+All vectors and matrices below are over $\F_2$. Let
+\[
+ H^\star\in\F_2^{1200\times1600},\qquad
+ R\in\F_2^{1200\times125}.
+\]
+For a message $m$, the reconstructed adapter computes
+$h=\mathsf{Hash}_{125}(m)$. The ordinary verifier accepts
+$(\sigma,\zeta)\in\F_2^{1600}\times\F_2^{25}$ precisely when
+\begin{equation}
+  \wt(\sigma)=343,
+  \qquad
+  H^\star\sigma=Rh+R_{[25]}\zeta,
+  \label{eq:verify}
+\end{equation}
+where $R_{[25]}$ denotes the first 25 columns of $R$.
+
+The claim concerns this mathematical KeyGen/Sign/Verify relation. It does not
+assert conformance to absent author software or an absent external signature
+encoding. It does not claim recovery of the nominal private key.
+
+\subsection{Attack-history status}
+
+We located no previous public attack against Abdelhaliem Babiker's exact
+ePrint 2023/1956 scheme in the searches completed on 14 October 2026. The
+search covered exact and normalized titles, identifier, author, aliases,
+citation indexes, public code and issue surfaces, related work, the distinct
+2022/1698 predecessor, and the specific public-column recovery route. This is
+a bounded negative result: it cannot exclude private, deleted, or unindexed
+work. OpenAlex did not index the target; Semantic Scholar returned HTTP 429;
+unauthenticated GitHub code search returned HTTP 401; and the official
+all-versions endpoint returned HTTP 403.
+
+The official landing page still lists receipt on 24 December 2023 and approval
+on 25 December 2023. A current mirror PDF downloaded on 14 October 2026 was
+byte-for-byte identical to the frozen target, with the SHA-256 digest given
+above; we located no later target revision. The sealed final-history handoff
+has SHA-256
+\begin{center}
+\small\ttfamily
+623f30f514d8095d558b27475dd6fe8cc122b41f84f455f02bbc79f5707d150c,
+\end{center}
+and the sealed prior-art manifest has SHA-256
+\begin{center}
+\small\ttfamily
+5ffc63c382d18d2d3437092c8a0f637b256d1269f8f3120455334cc5947f0a25.
+\end{center}
+
+\section{Public recovery of the hidden signing map}
+
+The basic construction defines a 125-coordinate set $T_e$ and a matrix $U$
+such that
+\begin{equation}
+  HU=R.
+  \label{eq:basic}
+\end{equation}
+The restriction $U_{T_e}$ is a row/column permutation of the nonsingular
+middle block $C_1$, so it is invertible. Consequently,
+\begin{equation}
+  H_{[:,T_e]}U_{T_e}=R,
+  \qquad
+  \Col(H_{[:,T_e]})=\Col(R).
+  \label{eq:span}
+\end{equation}
+
+Advanced key generation changes columns indexed outside $T_e$ and explicitly
+retains $H^\star_{[:,j]}=H_{[:,j]}$ for $j\in T_e$. It follows that every one
+of these 125 public columns lies in $\Col(R)$. The attack computes a basis for
+$R$, reduces all 1,600 columns of $H^\star$ against it, and selects the
+members. On the retained key it obtains exactly 125 members of rank 125; all
+other 1,475 columns lie outside the subspace. For random-looking outside
+columns, accidental membership in a 125-dimensional subspace of
+$\F_2^{1200}$ has probability $2^{-1075}$ per column. The implementation
+nevertheless checks the exact count and rank and aborts on ambiguity.
+
+Let $J$ be the recovered coordinate set. Solving
+\[
+  H^\star_{[:,J]}x_j=R_j
+\]
+for every $0\le j<125$, and embedding each $x_j$ into the 1,600 coordinates,
+gives public columns $u_j$ with
+\begin{equation}
+  H^\star u_j=R_j.
+  \label{eq:recovered}
+\end{equation}
+Writing $U=(u_0,\ldots,u_{124})$ yields the public equivalent transformation
+$H^\star U=R$. This recovers only the capability required to translate
+syndromes; it need not reconstruct the nominal secret-key representation.
+
+\section{One-query fresh-message forgery}
+
+Suppose an ordinary signing query on a non-target message returns
+$(\sigma_0,\zeta_0)$ for hash $h_0$. Then
+\begin{equation}
+  H^\star\sigma_0=Rh_0+R_{[25]}\zeta_0.
+\end{equation}
+Freeze a fresh attacker-chosen target message with hash $h_1$. Split each
+125-bit hash into a 25-bit head and a 100-bit tail. For arbitrary
+$a\in\F_2^{25}$ define
+\begin{align}
+  \delta_{[25]} &= a,\\
+  \delta_{[25,125)} &= h_{0,[25,125)}+h_{1,[25,125)},\\
+  \sigma_1(a) &= \sigma_0+U\delta,\\
+  \zeta_1(a) &= \zeta_0+h_{0,[25]}+h_{1,[25]}+a.
+  \label{eq:transform}
+\end{align}
+
+\begin{theorem}
+For every $a\in\F_2^{25}$, the pair in
+Equation~\eqref{eq:transform} satisfies the syndrome equality in
+Equation~\eqref{eq:verify} for target hash $h_1$.
+\end{theorem}
+
+\begin{proof}
+Using $H^\star U=R$,
+\[
+H^\star\sigma_1
+=Rh_0+R_{[25]}\zeta_0+R\delta.
+\]
+The two copies of $h_{0,[25,125)}$ cancel, while the head contribution is
+$R_{[25]}a$. Regrouping the remaining terms gives
+\[
+H^\star\sigma_1
+=Rh_1+R_{[25]}
+ (\zeta_0+h_{0,[25]}+h_{1,[25]}+a)
+=Rh_1+R_{[25]}\zeta_1.
+\]
+\end{proof}
+
+Thus the public equation holds identically and the attacker must only find an
+$a$ for which $\wt(\sigma_1(a))=343$. The implementation walks the at most
+$2^{25}=33{,}554{,}432$ values in reflected Gray-code order. Consecutive
+candidates differ by one recovered $u_j$, so each update is one XOR and one
+weight test. No syndrome decoding is performed.
+
+\section{Experimental evidence}
+
+\subsection{Primary retained key}
+
+The sealed primary attack fixed its target before reading any public attack
+input. It then opened only four files: public metadata, $H^\star$, $R$, and
+exactly the first 609-byte JSONL signature record. An interpreter audit hook
+enforced that allowlist. No private key, seed, coordinate labels, validation
+summary, second signature, or network input was available.
+
+On the fresh retained Level-I key, $R$ had rank 125; exactly 125 columns of
+$H^\star$ lay in $\Col(R)$ and had rank 125; and all 125 recovered identities
+$H^\star u_j=R_j$ passed. The first exact-weight target representative appeared
+after 3,657 candidates. The forged vector had weight 343 and the ordinary
+verifier accepted. Reusing the queried signature on the target, changing the
+target message, changing $\sigma$, and changing $\zeta$ all rejected.
+
+The attack reported 0.0536 seconds for public recovery, 0.00244 seconds for
+the correction search, and 0.627 seconds total internal time. GNU
+\texttt{time} measured 1.70 seconds wall time and 19,456 KiB peak RSS on one
+worker. A deterministic replay matched every non-timing result field.
+
+\subsection{Adversarial retained-key review}
+
+A separate AI reviewer re-derived and reimplemented the attack with the
+opposite pivot convention and independent row- and column-oriented verifiers.
+Using the same sole query, it accepted forgeries for eight source-frozen,
+previously unsigned targets. First solutions appeared after 6,351 to 88,507
+candidates. Changed-message, unchanged-query, one-bit-$\zeta$, and
+weight-preserving two-coordinate $\sigma$ controls rejected for all eight.
+
+For one target, the review exhausted all $2^{25}$ corrections and found 1,337
+exact-weight representatives, all satisfying the public equation. The random
+affine-space heuristic predicts 1,339.56 for the retained query's 41 selected
+support coordinates. The full sweep and eight-target review took 23.70
+seconds wall time and 19,456 KiB peak RSS on one worker.
+
+\subsection{Independent cross-key reproduction}
+
+A fresh-context AI agent independently implemented the attack without opening
+the primary attack lane before its package was sealed. It generated five
+wholly fresh Level-I keys from separate \texttt{os.urandom(32)} roots. For
+each key it fixed a distinct target before the sole ordinary signing query and
+gave a separate attack process only the public key and that one transcript.
+All five attacks succeeded, with zero target-message queries.
+
+Every key had rank 125 for $R$, the recovered $H^\star$ restriction, and the
+recovered restriction of $U$; every key exposed exactly 125 public columns in
+$\Col(R)$. Candidate counts were 303, 1,014, 3,865, 199,806, and 19,856,417
+(minimum/median/maximum 303/3,865/19,856,417). Per-key attack totals were
+0.828834402, 13.376351877, 0.942027737, 0.835081668, and 0.849683596 seconds.
+Each attack process used at most 18,944 KiB RSS. The sequential wrapper,
+including five fresh key generations, validation, controls, and sealing, took
+41.85 seconds wall time and 22,016 KiB peak RSS on one worker.
+
+For every key the ordinary verifier accepted the weight-343 forgery and the
+original query, while changed-message, changed-$\sigma$, changed-$\zeta$,
+wrong-key, and unchanged-query-on-target controls rejected. The sealed handoff
+has SHA-256
+\begin{center}
+\small\ttfamily
+2c7e621eadd38b5cc1386a64d2398204ac6a7a2afa14f9f7b7933bf3146b0ced,
+\end{center}
+and the independent package manifest has SHA-256
+\begin{center}
+\small\ttfamily
+e6b391d30065fc8958f58514897814caef9a3658e66eba7934834f674d6f130e.
+\end{center}
+
+The public reproducer has also passed an engineering smoke test:
+it generated a new full Level-I key without persisting the seed or secret,
+exported one ordinary signature, ran the isolated public forger, accepted the
+fresh-message forgery under ordinary Verify, and rejected all controls. This
+validates package operation independently of the sealed research artifacts.
+
+\section{Complexity and applicability}
+
+Public recovery performs elimination on 125 public 1,200-bit columns, reduces
+1,600 public columns, and solves 125 public systems. The final enumeration is
+bounded by $2^{25}$ candidates and stores only the public matrices, a basis,
+125 recovered columns, and current vectors. The retained runs used about
+19 MiB peak RSS and one worker.
+
+The syndrome transformation is deterministic once a queried signature and
+target are fixed. Search success depends on the 25-dimensional affine space
+containing a representative with the query's required support weight. The
+retained key exhibited many solutions and the five independent keys all
+yielded a solution, with first hits spanning 303 to 19,856,417 candidates.
+These six keys provide empirical evidence rather than a population bound. The
+attack detects rank loss or extra subspace columns and aborts rather than
+silently misclassifying them.
+
+The route attacks the design structure. It does not depend on the chosen
+SHAKE256 adapter beyond obtaining two distinct 125-bit hashes, and it uses no
+malformed encoding, implementation error, concurrency, fault, leakage, or
+secret state. It presently demonstrates the advertised Level-I row; no claim
+is made here for the Level-III or Level-V rows.
+
+\section{Reproducibility}
+
+The public package uses Python~3.11 or later and only the standard library.
+Running \path{./reproducer/reproduce.sh} performs these steps in separate
+processes:
+\begin{enumerate}
+  \item generate a fresh complete Level-I key from \texttt{os.urandom(32)},
+        sign one non-target message, and persist only public inputs;
+  \item freeze the target in the public forger, recover the 125-column map,
+        search the 25-bit correction space, and write the forgery; and
+  \item load only the public key, query, and result into the ordinary verifier,
+        then check freshness and four negative controls.
+\end{enumerate}
+The successful run ends with the explicit banner
+\texttt{ATTACK REPRODUCTION: PASS}. Common numerical-library thread variables
+are pinned to one even though no numerical package is used. The generator
+never writes its seed, secret key, or coordinate labels. The public package is
+covered by a SHA-256 manifest.
+
+\section{Limitations and status}
+
+The evidence establishes a practical, full-parameter, design-level
+fresh-message forgery on the retained Level-I key, an eight-target adversarial
+review, and a five-of-five fresh-key independent reproduction. The final
+exact-target history recheck and independent Publication Reviewer gate also
+passed. All required gates passed, and the result is classified as
+\texttt{VERIFIED\_ATTACK}.
+No independent human verification is required by the project Charter. The
+paper makes no universal all-key success-probability claim, no claim beyond
+Level I, no claim of nominal secret-key recovery, and no claim that the
+general linear-algebra techniques are new.
+
+\section{Conclusion}
+
+FDSD's advanced public key preserves a hidden 125-column basis for the public
+space $\Col(R)$. Public subspace membership exposes that basis and reconstructs
+a transformation $U$ satisfying $H^\star U=R$. One ordinary signature can then
+be translated to any fresh target syndrome, with 25 free bits left to restore
+the verifier's exact weight. On the retained full Level-I key the attack took
+well under a second internally, a separate adversarial implementation forged
+eight further targets, and an independent fresh-context implementation
+succeeded on five of five new keys. The advertised full-distance decoding
+problem is bypassed by a short public detour through the key's preserved
+column space.
+
+\section*{Acknowledgements}
+The computations were performed on the Norwegian Research and Education Cloud (NREC), using resources provided by the University of Bergen and the University of Oslo.
+
+\begin{thebibliography}{9}
+
+\bibitem{fdsd}
+A.~Babiker.
+\newblock A Signature Scheme from Full-Distance Syndrome Decoding.
+\newblock IACR Cryptology ePrint Archive, Report 2023/1956, 2023.
+\newblock \url{https://eprint.iacr.org/2023/1956}.
+
+\bibitem{esserbellini}
+A.~Esser and E.~Bellini.
+\newblock Syndrome Decoding Estimator.
+\newblock In \emph{Public-Key Cryptography---PKC 2022}, LNCS 13177,
+pp.~112--141. Springer, 2022.
+\newblock \url{https://doi.org/10.1007/978-3-030-97131-1_5}.
+
+\end{thebibliography}
+
+\end{document}

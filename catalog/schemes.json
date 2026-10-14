@@ -1,7 +1,10 @@
 [
   {
     "scheme": "ATLAS",
-    "aliases": ["MORNING-ATLAS", "NGCC sign-15"],
+    "aliases": [
+      "MORNING-ATLAS",
+      "NGCC sign-15"
+    ],
     "eprint_id": "2026/2323",
     "eprint_version": "initial listing",
     "eprint_date": "2026-10-03",
@@ -13,7 +16,10 @@
   },
   {
     "scheme": "CMSS",
-    "aliases": ["CMSS -- An Improved Merkle Signature Scheme", "tree-chaining CMSS"],
+    "aliases": [
+      "CMSS -- An Improved Merkle Signature Scheme",
+      "tree-chaining CMSS"
+    ],
     "eprint_id": "2006/320",
     "eprint_version": "sole exposed revision (2006-09-21)",
     "eprint_date": "2006-09-21",
@@ -25,7 +31,10 @@
   },
   {
     "scheme": "ECLIPSE",
-    "aliases": ["prime-degree PRISM", "salted prime-degree Section 5 PRISM"],
+    "aliases": [
+      "prime-degree PRISM",
+      "salted prime-degree Section 5 PRISM"
+    ],
     "eprint_id": "2026/2312",
     "eprint_version": "v1",
     "eprint_date": "2026-10-02",
@@ -39,7 +48,9 @@
   },
   {
     "scheme": "D-James",
-    "aliases": ["Dragon-James"],
+    "aliases": [
+      "Dragon-James"
+    ],
     "eprint_id": "2026/1650",
     "eprint_version": "v5",
     "eprint_date": "2026-09-24",
@@ -56,7 +67,10 @@
   },
   {
     "scheme": "ASTRA-Sign",
-    "aliases": ["ASTRA", "QC-MDGM full-distance signature"],
+    "aliases": [
+      "ASTRA",
+      "QC-MDGM full-distance signature"
+    ],
     "eprint_id": "2026/1290",
     "eprint_version": "v2",
     "eprint_date": "2026-09-21",
@@ -70,7 +84,10 @@
   },
   {
     "scheme": "UFOs",
-    "aliases": ["hardened Frobenius-UOV", "F-UOV with hardened exponent schedules"],
+    "aliases": [
+      "hardened Frobenius-UOV",
+      "F-UOV with hardened exponent schedules"
+    ],
     "eprint_id": "2026/1607",
     "eprint_version": "v1",
     "eprint_date": "2026-08-04",
@@ -84,7 +101,11 @@
   },
   {
     "scheme": "Lithium",
-    "aliases": ["LITHIUM", "Lithium-Code", "Gartner-lineage iterative rejection signature"],
+    "aliases": [
+      "LITHIUM",
+      "Lithium-Code",
+      "Gartner-lineage iterative rejection signature"
+    ],
     "eprint_id": "2026/1790",
     "eprint_version": "v1",
     "eprint_date": "2026-08-24",
@@ -98,7 +119,12 @@
   },
   {
     "scheme": "miniMEDS",
-    "aliases": ["MiniMEDS", "miniMEDS-L1", "miniMEDS-L3", "miniMEDS-L5"],
+    "aliases": [
+      "MiniMEDS",
+      "miniMEDS-L1",
+      "miniMEDS-L3",
+      "miniMEDS-L5"
+    ],
     "eprint_id": "2026/1323",
     "eprint_version": "v1",
     "eprint_date": "2026-06-26",
@@ -112,7 +138,10 @@
   },
   {
     "scheme": "Miraidon-S",
-    "aliases": ["Miraidon signature", "ordinary Miraidon signature"],
+    "aliases": [
+      "Miraidon signature",
+      "ordinary Miraidon signature"
+    ],
     "eprint_id": "2026/997",
     "eprint_version": "v4",
     "eprint_date": "2026-06-02",
@@ -129,7 +158,9 @@
   },
   {
     "scheme": "Bittersweet",
-    "aliases": ["Bittersweet Signatures"],
+    "aliases": [
+      "Bittersweet Signatures"
+    ],
     "eprint_id": "2026/397",
     "eprint_version": "v1",
     "eprint_date": "2026-03-01",
@@ -167,7 +198,9 @@
   },
   {
     "scheme": "Yagisawa quaternion signature",
-    "aliases": ["A Digital Signature Using Multivariate Functions on Quaternion Ring"],
+    "aliases": [
+      "A Digital Signature Using Multivariate Functions on Quaternion Ring"
+    ],
     "eprint_id": "2010/352",
     "eprint_version": "final revision 20100627:124304",
     "eprint_date": "2010-06-18",
@@ -426,5 +459,25 @@
     "attack_history_note": "No public exact-target key recovery, equivalent signer, or fresh-message forgery against the current NTRU+Sign-972 row was located in searches completed as of 2026-10-14; related NTRU-signature and lattice results were treated as transfer evidence.",
     "audit_completed_at": "2026-10-14",
     "audit_note": "A bounded audit of the exact 193-bit row covered all three order-two relative norms, the order-three descent, CRT and challenge structure, transcript binding, direct-forgery routes, and first-order rejection leakage. The strongest adjusted norm route retains about 2^62 heuristic candidates and lacks a planted-vector recognizer, norm factorization, and short lift. No practical design-level secret recovery, equivalent signer, or ordinary-verifier fresh-message forgery was found."
+  },
+  {
+    "scheme": "Full-Distance Syndrome Decoding signature",
+    "aliases": [
+      "A Signature Scheme from Full-Distance Syndrome Decoding",
+      "FDSD signature"
+    ],
+    "eprint_id": "2023/1956",
+    "eprint_version": "sole 2023-12-24 object observed as of 2026-10-14",
+    "eprint_date": "2023-12-24",
+    "family": "Binary code-based hash-and-sign construction with a structured public parity-check matrix and full-distance syndrome-decoding verification",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2023/1956",
+    "attack_history_note": "No previous public attack against Abdelhaliem Babiker's exact ePrint 2023/1956 scheme was located in searches completed on 2026-10-14; this is a bounded moderate-high-confidence negative result.",
+    "audit_completed_at": "2026-10-14",
+    "attack_result": "Public-only one-query fresh-message forgery against Level I",
+    "attack_path": "attacks/full-distance-syndrome-decoding/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical, practical, adversarial, fresh-context independent-reproduction, final-history, and independent publication-review gates"
   }
 ]

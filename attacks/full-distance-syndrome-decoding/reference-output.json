@@ -1,0 +1,39 @@
+{
+  "attack": {
+    "fresh_message": true,
+    "ordinary_signing_query": true,
+    "public_inputs_only": true,
+    "signing_queries": 1,
+    "target_message_queries": 0
+  },
+  "checks": {
+    "all_four_negative_controls_reject": true,
+    "exact_full_level_i_parameters": true,
+    "exact_weight_343": true,
+    "fresh_key_generated": true,
+    "fresh_message_forgery_accepts": true,
+    "one_ordinary_signing_query": true,
+    "ordinary_query_signature_accepts": true,
+    "public_attack_boundary": true,
+    "public_map_recovery": true,
+    "search_bound_is_2_to_25": true,
+    "secret_material_not_persisted": true,
+    "zero_target_message_queries": true
+  },
+  "controls_rejected": 4,
+  "digests": {
+    "public_attack_source_sha256": "aa2a1e0fb086e4ac682fac135092edf1da2c3cd6a5a59db06354cc2d71390605",
+    "reference_model_source_sha256": "2a91069107134ac6693bce86821b69d45d15a8e2e242cbced77d3b133e5fe27e",
+    "target_pdf_sha256": "394b7a3e4f8d935cfabffd90e17b4c8cdd5708267a14ede67b39c49ab9ead822"
+  },
+  "environment": {
+    "dependencies": "Python standard library",
+    "workers": 1
+  },
+  "full_scale": true,
+  "parameter_row": "n=1600,k=400,L=125,epsilon=5,theta=25,d=343",
+  "result": "ONE_QUERY_FRESH_MESSAGE_FORGERY",
+  "scope": "independent paper-level mathematical reconstruction",
+  "successes": 1,
+  "trials": 1
+}

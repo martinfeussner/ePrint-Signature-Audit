@@ -1,0 +1,17 @@
+{
+  "author_implementation_located": false,
+  "paper": {
+    "eprint_id": "2023/1956",
+    "pdf_sha256": "394b7a3e4f8d935cfabffd90e17b4c8cdd5708267a14ede67b39c49ab9ead822",
+    "text_sha256": "8763cd064947c50af81e487a9f7abf294b86893d2596cdff94bb199db33e460a",
+    "title": "A Signature Scheme from Full-Distance Syndrome Decoding",
+    "url": "https://eprint.iacr.org/2023/1956"
+  },
+  "reconstruction": {
+    "kind": "independent mathematical adapter",
+    "notice": "fdsd_reference.py is audit code derived from the public paper; it is not author code",
+    "profile": "Level I (1600,400,125,5,25,343)"
+  },
+  "schema_version": 1,
+  "test_vectors_located": false
+}

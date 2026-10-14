@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 26 |
+| Schemes identified | 27 |
 | Known attacks excluded | 2 |
-| Schemes audited | 24 |
+| Schemes audited | 25 |
 | No practical attack found | 16 |
-| Practical design attacks | 8 |
-| Verified practical design attacks | 8 |
-| Independently reproduced attacks | 8 |
+| Practical design attacks | 9 |
+| Verified practical design attacks | 9 |
+| Independently reproduced attacks | 9 |
 
 ## Practical design attacks
 
@@ -34,6 +34,7 @@ unreported.
 | [Random-split St-Gen](attacks/random-split-stgen/) | 2016/391 | Random-split Staircase-Generator code signature | Zero-query existential fresh-message forgery | Verification-first affine cancellation in the public valid-error relation | PS1 and PS2 | At most 1.867 ms forge; 20.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [GLYPH](attacks/glyph/) | 2017/766 final v3 | Ring-LWE/GLP lattice signature with K-floor compression | Zero-query fresh-message forgery | Strict-interior K-floor fixed point | `m=2048`, `n=1024`, `q=59393`, `B=16383`, `omega=16` | 0.077 ms median forge; 52.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [TOT](attacks/tot/) | 2013/771 | Multivariate quadratic trapdoor-inversion signature | Zero-query existential raw-vector forgery | Classical signature-first/no-message public-map evaluation | `q=2`, `n=128`, `d=6`, `t=64` | 5.36 ms forge; 19.0 MiB peak, 1 worker | Verified; independently AI-reproduced |
+| [Full-Distance Syndrome Decoding](attacks/full-distance-syndrome-decoding/) | 2023/1956 | Structured binary syndrome-decoding signature | One-query fresh-message forgery | Public preserved-column recovery and 25-bit weight correction | Level I `(1600,400,125,5,25,343)` | 0.627 s primary attack; 19 MiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -306,5 +307,20 @@ preselected vectors and any separately added document-hashing wrapper. The
 signature-first/no-message technique is classical and no novelty is claimed;
 no prior public attack specifically against TOT was located in searches
 performed through 2026-10-13.
+
+[Full-Distance Syndrome Decoding](attacks/full-distance-syndrome-decoding/)
+(ePrint 2023/1956) exposes the 125-coordinate support of its basic signing map:
+the corresponding public `Hstar` columns are exactly those lying in
+`Col(R)`. Public elimination recovers a map `U` with `Hstar*U=R`. From one
+ordinary signature, an attacker transfers the syndrome equation to an unsigned
+target and searches a 25-bit affine correction for the required weight 343.
+The retained full Level-I attack and eight-target adversarial review passed; a
+fresh-context implementation also forged 5/5 wholly fresh keys with one query
+per key, taking at most 13.376 seconds per attack and 22,016 KiB peak RSS in
+the complete sequential run. No author implementation was located, so the
+result is scoped to an independently documented reconstruction of the paper's
+mathematical KeyGen/Sign/Verify relation. No previous public attack against
+the exact ePrint 2023/1956 scheme was located in searches completed on
+2026-10-14; this is a bounded negative result.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

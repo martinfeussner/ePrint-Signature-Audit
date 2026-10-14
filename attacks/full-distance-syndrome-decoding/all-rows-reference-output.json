@@ -1,0 +1,30 @@
+{
+  "all_rows_pass": true,
+  "implementation_sha256": "aa2a1e0fb086e4ac682fac135092edf1da2c3cd6a5a59db06354cc2d71390605",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_four_negative_controls_reject": true,
+        "exact_full_level_i_parameters": true,
+        "exact_weight_343": true,
+        "fresh_key_generated": true,
+        "fresh_message_forgery_accepts": true,
+        "one_ordinary_signing_query": true,
+        "ordinary_query_signature_accepts": true,
+        "public_attack_boundary": true,
+        "public_map_recovery": true,
+        "search_bound_is_2_to_25": true,
+        "secret_material_not_persisted": true,
+        "zero_target_message_queries": true
+      },
+      "controls_rejected": 4,
+      "parameter_row": "n=1600,k=400,L=125,epsilon=5,theta=25,d=343",
+      "public_inputs_only": true,
+      "signing_queries": 1,
+      "successes": 1,
+      "target_message_queries": 0,
+      "trials": 1
+    }
+  ]
+}
