@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 25 |
+| Schemes identified | 26 |
 | Known attacks excluded | 2 |
-| Schemes audited | 23 |
-| No practical attack found | 15 |
+| Schemes audited | 24 |
+| No practical attack found | 16 |
 | Practical design attacks | 8 |
 | Verified practical design attacks | 8 |
 | Independently reproduced attacks | 8 |
@@ -68,6 +68,7 @@ Two catalog records are excluded by prior public attacks:
 | Loquat / Loquat* | 2024/868 v1 | Intended paper design across Legendre, FRI/BCS, binding, and Griffin routes | No practical faithful-design signing compromise |
 | BPORS-C+BFP | 2026/2374 v1 | Complete Section 3.5 standard-128f profile | No practical complete-profile signer or forgery |
 | CAPSS-Poseidon-3 Default | 2025/061 current | Exact current Poseidon-3 Default row; proof algebra, transcript binding, and primitive transfer | No practical secret, equivalent witness, or fresh-message forgery |
+| NTRU+Sign-972 | 2025/612 current | Exact 193-bit row; relative norms, CRT/challenge structure, transcript binding, and rejection leakage | No practical secret, equivalent signer, or fresh-message forgery |
 
 ### Audit summaries
 
@@ -194,6 +195,19 @@ coefficients, so the defect is undefined pseudocode rather than an executable
 bypass. The result is a bounded audit, not a security proof, and should be
 revisited if an authoritative current-row implementation or material revision
 resolves the specification gaps or changes the verifier algebra.
+
+NTRU+Sign-972 (ePrint 2025/612, current 2025-12-17 object) completed a
+bounded audit of its exact `(n,q,sigma,tau,d)=(972,9721,260.96,38,8)` row.
+All three order-two relative norms, the order-three descent, CRT and challenge
+structure, message and transcript binding, direct-forgery routes, and a
+4,096-signature first-order rejection-leakage screen produced no practical
+secret key, equivalent signer, or ordinary-verifier fresh-message forgery.
+The strongest residual norm route, for `x -> -x^-1`, still leaves about `2^62`
+heuristic candidates after the identified mod-4 filter and supplies no planted-
+vector recognizer, norm factorization, or short lift. This is a bounded
+campaign closeout, not a security proof, and should be revisited only when one
+of those missing steps or another complete fresh-signing route becomes
+practical.
 
 ## Verified attack summaries
 

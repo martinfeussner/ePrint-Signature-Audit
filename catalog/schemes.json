@@ -409,5 +409,22 @@
     "attack_history_note": "No credible public signing attack against the exact current CAPSS-Poseidon-3 Default instance was located in the searches performed as of 2026-10-14; reduced-round and generic Poseidon analyses were treated as transfer evidence.",
     "audit_completed_at": "2026-10-14",
     "audit_note": "The exact current Poseidon-3 Default row received a bounded current-paper audit of SmallWood proof algebra, transcript binding, OWF truncation, XOF/Jive separation, and full-round transfer routes. The strongest intended selective-opening route remained at least 2^128.332 work by the theorem or about 2^129.258 raw XOF trials. A capacity-definition inconsistency gives a generic 2^126.798 collision boundary for the operational one-field digest, and Figure 7 contains underdetermined pseudocode, but neither yielded a practical fresh-message signing endpoint. No secret, reusable signing witness, or ordinary-verifier forgery was obtained."
+  },
+  {
+    "scheme": "NTRU+Sign-972",
+    "aliases": [
+      "NTRU+Sign from cyclotomic trinomials",
+      "More NTRU+Sign Signatures from Cyclotomic Trinomials"
+    ],
+    "eprint_id": "2025/612",
+    "eprint_version": "current 2025-12-17 object, last of two revisions (campaign convention v3)",
+    "eprint_date": "2025-04-04",
+    "family": "Fiat-Shamir-with-aborts NTRU signature over a cyclotomic-trinomial quotient ring with bimodal sampling",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2025/612",
+    "attack_history_note": "No public exact-target key recovery, equivalent signer, or fresh-message forgery against the current NTRU+Sign-972 row was located in searches completed as of 2026-10-14; related NTRU-signature and lattice results were treated as transfer evidence.",
+    "audit_completed_at": "2026-10-14",
+    "audit_note": "A bounded audit of the exact 193-bit row covered all three order-two relative norms, the order-three descent, CRT and challenge structure, transcript binding, direct-forgery routes, and first-order rejection leakage. The strongest adjusted norm route retains about 2^62 heuristic candidates and lacks a planted-vector recognizer, norm factorization, and short lift. No practical design-level secret recovery, equivalent signer, or ordinary-verifier fresh-message forgery was found."
   }
 ]
