@@ -1,0 +1,492 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={A Bit Too Approximate: A Universal Zero-Vector Forgery against Higher-Bit Approximate-ISIS},
+  pdfauthor={Martin Feussner},
+  pdfsubject={Verified attack report for IACR ePrint 2022/1144},
+  pdfkeywords={digital signatures, lattices, Approx-ISIS, universal forgery, cryptanalysis}
+}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{A Bit Too Approximate}
+\fancyhead[R]{14 October 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert_2}
+
+\title{\bfseries A Bit Too Approximate:\\
+A Universal Zero-Vector Forgery against Higher-Bit Approximate-ISIS}
+\author{Martin Feussner\\
+\small Selmer Center, University of Bergen\\
+\small \texttt{martin.feussner@uib.no}}
+\date{14 October 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\fcolorbox{black!50}{black!4}{\parbox{0.94\textwidth}{
+This audit used the OpenAI model Daybreak Blue at the ultra reasoning level.
+OpenAI Codex generated and selected this paper's title and intentionally chose
+``A Bit Too Approximate'' as wordplay on the Higher-Bit Approximate-ISIS
+scheme name and on the verifier radius becoming too permissive. OpenAI Codex
+performed AI-assisted cryptanalysis, implementation, experimentation, and
+technical writing. A separately tasked AI agent performed hostile adversarial
+review, and a fresh-context AI agent independently reproduced the result from
+the pinned paper. The final exact-target attack-history recheck and independent
+Publication Reviewer gate passed, and the package is classified as
+\texttt{VERIFIED\_ATTACK}. No independent human verification was performed or
+required.}}
+
+\begin{abstract}
+We analyze Construction~1 of Le Dévéhat, Shizuya, and Hasegawa's higher-bit
+Approximate-ISIS signature proposal, IACR ePrint 2022/1144. Its ordinary
+verifier accepts $x$ when
+\[
+  \norm{x}\leq\beta
+  \quad\text{and}\quad
+  \norm{b^dAx-H(m)}\leq\alpha.
+\]
+Section~6.4 says parameter selection must respect
+$\norm{x}\leq s$ and
+$\norm{e}\leq b^\ell\sigma+\sqrt n\,b^d s$. Hence every threshold completion
+following that prescription has
+$\alpha\geq\sqrt n\,b^d s$. For all three Figure~3 columns labelled
+``This work,'' $b^d s>b^k-1$, while the paper defines
+$k=\lceil\log_bq\rceil$ and therefore $q\leq b^k$. The required error radius
+already exceeds $\sqrt n(q-1)$, an upper bound on the Euclidean norm of every
+canonical vector in $\Z_q^n$. At $x=0$ the public-matrix term vanishes, so the
+same public zero vector is accepted for every message and every public key,
+with no signing query or secret information.
+
+Full-dimension paper-level experiments covered all three advertised rows, 64
+fresh messages per row, and both canonical and centered residue lifts. All
+384 target checks accepted on one worker in 11.40 seconds with 61,072 KiB peak
+resident memory. Precommitted in-domain diagnostics exercised the matrix,
+hash, norm, and comparison paths. The paper does not publish concrete
+$\alpha$, $\beta$, or $\sigma$ values, a lift, hash serialization, complete
+Ring mapping, or its cited private implementation. We therefore claim neither
+an implementation replay nor honest signing. The result is quantified only
+over Construction~1 threshold completions that obey Section~6.4.
+\end{abstract}
+
+\section{Introduction}
+
+Approximate trapdoors permit a hash-and-sign construction to return a short
+preimage whose image is close, rather than equal, to a message-dependent
+target. Chen, Genise, and Mukherjee introduced the Approx-ISIS formulation and
+the corresponding approximate-trapdoor signature framework~\cite{cgm}. Le
+Dévéhat, Shizuya, and Hasegawa later proposed retaining only higher bits of the
+public matrix to reduce key and signature sizes~\cite{hbaisis}. Their
+Construction~1 follows the earlier hash-and-sign pattern while adding a
+$b^d$ approximation factor.
+
+Approximation must remain smaller than the target space. Chen, Genise, and
+Mukherjee explicitly identify the generic zero-vector boundary: once the
+allowed error covers the target, the zero preimage is a trivial solution. We
+make no novelty claim for that observation. The issue here is its concrete
+interaction with the later paper's own parameter prescription. Section~6.4
+adds a term $\sqrt n\,b^d s$ to the required error bound. At every advertised
+``This work'' row, the scalar $b^d s$ alone exceeds the largest canonical
+coordinate $q-1$ by a factor between 3.89 and 67.63.
+
+The resulting attack is a universal fresh-message forgery:
+\begin{itemize}
+  \item choose any message that has not been submitted to a signing oracle;
+  \item output the length-$m$ all-zero vector; and
+  \item make no signing query and use no secret-key information.
+\end{itemize}
+It applies pointwise to every public matrix and every random-oracle output.
+The experiment is useful for confirming the row transcription, full
+dimensions, modular arithmetic, both natural lift conventions, and live
+verification paths; the security conclusion itself is algebraic.
+
+\paragraph{Review status.}
+Primary reproduction, hostile adversarial review, independent fresh-context
+reproduction, the final exact-target attack-history recheck, and independent
+Publication Review passed. All required publication gates are complete, and
+the result is classified as \texttt{VERIFIED\_ATTACK}.
+
+\section{Target and claim boundary}
+
+\subsection{Pinned target}
+
+The target is the PDF of \emph{On the Higher-bit Version of Approximate
+Inhomogeneous Short Integer Solution Problem}, IACR ePrint 2022/1144, by
+Anaëlle Le Dévéhat, Hiroki Shizuya, and Shingo Hasegawa~\cite{hbaisis}. The
+pinned PDF has SHA-256 digest
+\begin{center}
+\small\ttfamily
+cbbbb33cacef911548d52de7990eff74479dbb2e4ab9467974770107458cabeb.
+\end{center}
+Its text extraction has SHA-256 digest
+\begin{center}
+\small\ttfamily
+b5b60db7b57c6a0cee37cd0a49a2a5039d8ed0cb7d7ee9ba3c9a19ae909a5bef.
+\end{center}
+The audit uses the mathematical construction and the three columns marked
+``This work'' in Figure~3.
+
+\subsection{Ordinary verification relation}
+
+Construction~1 models
+$H:\{0,1\}^*\rightarrow\Z_q^n$ as a random oracle. The public key is a matrix
+\[
+  A\in\Z_{q/b^d}^{n\times m},
+\]
+and a signature is a vector $x\in\Z_{q/b^d}^{m}$. The verifier accepts exactly
+when
+\begin{equation}
+  \norm{x}\leq\beta,
+  \qquad
+  \norm{b^dAx-H(m)}\leq\alpha.
+  \label{eq:verify}
+\end{equation}
+The paper uses the Euclidean norm by default. It does not specify which
+integer representative of the second modular vector is normed. We therefore
+analyze both common fixed conventions: canonical representatives in
+$\{0,\ldots,q-1\}$ and centered representatives around zero. Definition~8's
+existential error vector is no stricter than taking a centered representative.
+
+Section~6.4 derives the signing bounds
+\begin{equation}
+  \norm{x}\leq s,
+  \qquad
+  \norm{e}\leq b^\ell\sigma+\sqrt n\,b^d s,
+  \label{eq:bounds}
+\end{equation}
+and immediately states that these bounds must be respected when setting the
+underlying parameters $\alpha$ and $\beta$. We formalize a
+\emph{Section~6.4-compliant completion} as any choice satisfying
+\begin{equation}
+  \beta\geq s,
+  \qquad
+  \alpha\geq b^\ell\sigma+\sqrt n\,b^d s.
+  \label{eq:completion}
+\end{equation}
+The claim in this paper is limited to such completions. It does not silently
+replace $\alpha$ or $\beta$ with empirical norm entries from Figure~3.
+
+\subsection{Unavailable concrete profile}
+
+Figure~3 prints $\tau$, described as the Gaussian width of the trapdoor $R$,
+rather than the $\sigma$ appearing in Equation~\eqref{eq:bounds}. It gives no
+concrete $\alpha$ or $\beta$, threshold-rounding rule, residue lift,
+hash-to-vector mapping, byte order, key encoding, or signature encoding. The
+proof-of-concept source is attributed to private communication. The table
+also relies on a Ring implementation without defining a complete mapping from
+the matrix construction to that structured representation.
+
+These omissions prevent an exact implementation replay. They do not create
+an ambiguity in the quantified claim: increasing either radius preserves
+acceptance, $b^\ell\sigma$ is nonnegative, and the conservative lower term
+$\sqrt n\,b^d s$ already covers the target space.
+
+\section{Universal zero-vector forgery}
+
+\begin{lemma}[Target-space bounds]
+For $u\in\Z_q^n$, the Euclidean norm of its canonical representative is at
+most $\sqrt n(q-1)$. The norm of its centered representative is at most
+$\sqrt n\lfloor q/2\rfloor$.
+\end{lemma}
+
+\begin{proof}
+Every canonical coordinate lies between $0$ and $q-1$, so the sum of squared
+coordinates is at most $n(q-1)^2$. Every centered coordinate has absolute
+value at most $\lfloor q/2\rfloor$. Taking square roots gives the bounds.
+\end{proof}
+
+\begin{theorem}[Universal forgery]
+Suppose Construction~1 uses a Section~6.4-compliant threshold completion and
+a parameter row satisfying $b^d s>b^k-1$, where
+$k=\lceil\log_bq\rceil$. Then the length-$m$ vector $x=0$ is accepted for
+every message and every public matrix under either the canonical or centered
+lift.
+\end{theorem}
+
+\begin{proof}
+The definition of $k$ implies $q\leq b^k$. From
+Equation~\eqref{eq:completion} and $\sigma\geq0$,
+\[
+ \alpha\geq \sqrt n\,b^d s
+          > \sqrt n(b^k-1)
+          \geq \sqrt n(q-1).
+\]
+At $x=0$, $\norm{x}=0\leq\beta$ and $b^dAx=0$ for every $A$. The second
+verification value is therefore the norm of $-H(m)$ in $\Z_q^n$. The lemma
+places its canonical norm at most at $\sqrt n(q-1)$; the centered bound is no
+larger. Both inequalities in Equation~\eqref{eq:verify} hold for every
+$H(m)$.
+\end{proof}
+
+The attack algorithm is constant: output $0^m$. It needs the public parameter
+length $m$ but need not inspect $A$, query a signer, or know a secret key. The
+message may be selected after the public key is generated and can be any
+fresh attacker-chosen string. This is an efficient existential forgery and,
+because the same signature works for every message, a universal forgery.
+
+\section{Affected advertised rows}
+
+Table~\ref{tab:rows} transcribes the three Figure~3 columns marked ``This
+work.'' Algorithm~2 states that its optimization requires $q=b^k$, giving
+$q=65536$ in each executable row. The proof above needs only the weaker
+relation $q\leq b^k$.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}lrrrrrrrr@{}}
+\toprule
+Row & $n$ & $b$ & $k$ & $\ell=d$ & $m$ & $s$ & $b^d s$ & $b^d s/(b^k-1)$\\
+\midrule
+75.0-bit AISIS  & 512  & 2 & 16 & 11 & 3584 & 1453.0 & 2,975,744.0 & 45.4069\\
+155.4-bit AISIS & 1024 & 2 & 16 & 11 & 7168 & 2163.9 & 4,431,667.2 & 67.6229\\
+153.9-bit AISIS & 1024 & 4 & 8  & 3  & 7168 & 3989.3 & 255,315.2 & 3.8959\\
+\bottomrule
+\end{tabular}
+\caption{Every advertised ``This work'' row satisfies the theorem by a wide
+margin. The claimed AISIS bit costs are labels from Figure~3, not security
+estimates produced by this audit.}
+\label{tab:rows}
+\end{table}
+
+The minimum scalar margin is about $3.8959$. Therefore no reasonable rounding
+of the one-decimal $s$ entries can close the inequality. The additive
+$b^\ell\sigma$ term, omitted from the conservative calculation, can only
+increase $\alpha$.
+
+\section{Executable reproduction}
+
+\subsection{Design}
+
+The public reproducer is written solely with the Python standard library. For
+each affected row it:
+\begin{enumerate}
+  \item generates a fresh uniform matrix at the full advertised
+        $n\times m$ dimensions in $\Z_{q/b^d}$;
+  \item derives multiple distinct fresh messages and maps each to
+        $\Z_q^n$ through a domain-separated SHAKE256 random-oracle adapter;
+  \item evaluates $b^dAx$ with a general matrix-vector routine on the
+        length-$m$ zero signature, with no special zero shortcut;
+  \item invokes the two inequalities of the ordinary verifier under both
+        canonical and centered lifts; and
+  \item records machine-readable row parameters, matrix and message-set
+        digests, exact norm comparisons, query counts, and diagnostics.
+\end{enumerate}
+The product for an unchanged matrix and signature is reused across messages.
+This is an optimization of the repeated verifier computation, not an
+algebraic shortcut: the initial product traverses the complete matrix through
+the same general routine also used for the in-domain unit-vector diagnostic.
+
+The SHAKE256 adapter is not presented as an author encoding. Since the proof
+is pointwise for every target vector, no choice of random-oracle serialization
+can turn a Section~6.4-compliant threshold into a rejecting one. Likewise,
+the experiment's uniform public matrices are not trapdoor-certified keys, but
+$A0=0$ for every possible matrix. The reproducer therefore tests the claimed
+ordinary verifier relation without claiming key-generation conformance.
+
+\subsection{Independent full-row result}
+
+A fresh-context agent derived its implementation from the pinned paper before
+reading the primary experiment. It generated three independent full-size
+matrices and 64 messages per row. Table~\ref{tab:results} summarizes the
+result.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Row & Messages & Canonical & Centered & Matrix SHA-256 prefix\\
+\midrule
+TW-512-b2  & 64 & 64/64 & 64/64 & \texttt{f447b22372e1b45e}\ldots\\
+TW-1024-b2 & 64 & 64/64 & 64/64 & \texttt{aa0fa985706fef88}\ldots\\
+TW-1024-b4 & 64 & 64/64 & 64/64 & \texttt{d9fa77d778166b3e}\ldots\\
+\bottomrule
+\end{tabular}
+\caption{Accepted zero-signature checks in the independent reproduction.}
+\label{tab:results}
+\end{table}
+
+All 384 target checks accepted. The sequential run used one worker, 11.40
+seconds wall time, 8.39 CPU seconds, and 61,072 KiB peak resident memory. It
+made zero signing queries and generated no honest signature. The independent
+results file has SHA-256 digest
+\begin{center}
+\small\ttfamily
+c350afc1310567ce31e93cd3b4456744fd8cabbe5ea17c34f105062d60533700.
+\end{center}
+
+\subsection{Precommitted diagnostics}
+
+The experiment does not use an invalid over-$\beta$ vector or a threshold
+chosen from an observed sample. Its matrix-path diagnostic evaluates the
+well-formed in-domain vector $e_0$ and confirms that $Ae_0$ differs from
+$A0$. Distinct-message checks require every oracle vector and multiple
+residual norms to differ.
+
+Figure~3's printed empirical $\norm{e}$ values are preregistered as diagnostic
+radii only, never as $\alpha$. In the independent 64-message run, the same
+well-formed zero signature produced the rejection counts in
+Table~\ref{tab:diagnostics}. These rejections show that the message hashing,
+lift, norm, and comparator paths are capable of rejecting in-domain inputs.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Row & Canonical rejects & Centered rejects\\
+\midrule
+TW-512-b2  & 64/64 & 32/64\\
+TW-1024-b2 & 64/64 & 22/64\\
+TW-1024-b4 & 64/64 & 59/64\\
+\bottomrule
+\end{tabular}
+\caption{In-domain diagnostic rejections at the printed Figure~3 empirical
+$\norm{e}$ radius. These values are not treated as verifier thresholds.}
+\label{tab:diagnostics}
+\end{table}
+
+The polished public reproducer adds a deterministic target-space diagnostic.
+It uses the valid vector
+\[
+  u_{\mathrm{diag}}=(q/2,\ldots,q/2)\in\Z_q^n,
+\]
+which must reject at the same printed diagnostic radius under both lifts. This
+vector and radius are fixed before any sample is drawn. It avoids a flaky or
+post-selected check while exercising the same residual-norm comparison.
+
+\section{Specification inconsistencies and limitations}
+
+The following observations bound the result and should be resolved by any
+future specification:
+\begin{enumerate}
+  \item \textbf{Missing thresholds.} Figure~3 publishes no concrete
+        $\alpha$, $\beta$, or $\sigma$. The result covers every completion
+        obeying Section~6.4 but does not describe an unavailable alternative
+        profile that ignores that section.
+  \item \textbf{Missing representation.} The paper specifies neither a
+        modular lift nor hash, key, or signature serialization. Both natural
+        fixed lifts pass; the proof holds for every hash vector.
+  \item \textbf{Private implementation.} The proof-of-concept is cited as
+        private communication. No source replay or interoperability claim is
+        made.
+  \item \textbf{Honest signing.} The audit did not attempt honest acceptance.
+        Doing so would require inventing missing $\alpha$, $\beta$, $\sigma$,
+        $\chi$, Ring mapping, and serialization details. The universal attack
+        is independent of an honest signing distribution.
+  \item \textbf{Row-3 contradiction.} Figure~3 reports $s=3989.3$ but
+        $\norm{y}=50533.7$ in the third ``This work'' row, contrary to a
+        literal reading of Section~6.4's $\norm{x}\leq s$ bound.
+  \item \textbf{Size mismatch.} Figure~2's full matrix public-key size formula
+        does not reproduce Figure~3's kilobyte figures without an unstated
+        structured representation.
+  \item \textbf{Empirical error norms.} The printed $\norm{e}$ values are far
+        below the Section~6.4 worst-case bound and are not identified as
+        $\alpha$. They cannot be silently substituted for the verifier
+        threshold.
+\end{enumerate}
+
+The result is a fresh-message forgery, not secret-key or trapdoor recovery.
+It says nothing about a future revision that changes the correctness analysis
+and threshold rule.
+
+\section{Prior work, attack history, and repair direction}
+
+Chen, Genise, and Mukherjee introduced Approx-ISIS and approximate trapdoors
+for smaller hash-and-sign signatures~\cite{cgm}. The zero-vector boundary is
+part of that generic Approx-ISIS context, and this report claims no novelty
+for it. The concrete finding is that the later higher-bit proposal's explicit
+Section~6.4 prescription crosses that boundary at each advertised row.
+
+No prior public attack against the Higher-Bit Approximate-ISIS hash-and-sign
+signature of ePrint 2022/1144 was located in the searches performed as of
+2026-10-14. This is a dated, bounded result and cannot exclude private,
+deleted, or unindexed work; it is not an absolute priority claim. The final
+search confidence is moderate-high.
+
+A repair must make the verifier's accepted error region meaningfully smaller
+than the target space while retaining an honest-signature correctness margin.
+That requires revisiting the higher-bit approximation, signing-error analysis,
+and concrete thresholds together. Merely changing encodings, choosing a
+different lift, or rejecting the literal all-zero byte string has not been
+shown to restore unforgeability: a sound revision needs a complete
+specification and a new proof and full-parameter evaluation. This report does
+not validate a drop-in patch.
+
+\section{Reproducibility and provenance}
+
+The public artifact contains the complete standard-library source,
+three-row parameter transcription, deterministic quick and 64-message
+reference outputs, build files, this \LaTeX{} source and PDF, and a SHA-256
+manifest. Ordinary invocations draw a fresh 256-bit operating-system seed;
+reference invocations use disclosed deterministic fixtures. Every run is
+sequential with one worker and emits a machine-readable JSON record ending in
+the semantic banner \texttt{ATTACK REPRODUCTION: PASS} on success.
+
+The technical path was checked in three roles: primary reproduction, hostile
+adversarial review, and fresh-context independent reproduction. The final
+exact-target history recheck and independent Publication Review also passed.
+The package retains the stricter claim boundary required by those reviews and
+is classified as \texttt{VERIFIED\_ATTACK}. No independent human verification
+was performed or required.
+
+The final-history handoff has SHA-256 digest
+\begin{center}
+\small\ttfamily
+daadbc0743cb5ff1c76d2b1cd842261157e3dd438f06bc35579ee1529431c81b,
+\end{center}
+and its sealed evidence manifest has SHA-256 digest
+\begin{center}
+\small\ttfamily
+9702681ceaaeb90882e0d04c9058f4558fe3f0a5412be2211bd3ede6212d4657.
+\end{center}
+
+\section*{Acknowledgements}
+The computations were performed on the Norwegian Research and Education Cloud (NREC), using resources provided by the University of Bergen and the University of Oslo.
+
+\begin{thebibliography}{9}
+
+\bibitem{hbaisis}
+Anaëlle Le Dévéhat, Hiroki Shizuya, and Shingo Hasegawa.
+\newblock On the Higher-bit Version of Approximate Inhomogeneous Short Integer
+Solution Problem.
+\newblock IACR Cryptology ePrint Archive, Report 2022/1144, 2022.
+\newblock \url{https://eprint.iacr.org/2022/1144}.
+
+\bibitem{cgm}
+Yilei Chen, Nicholas Genise, and Pratyay Mukherjee.
+\newblock Approximate Trapdoors for Lattices and Smaller Hash-and-Sign
+Signatures.
+\newblock In \emph{Advances in Cryptology--ASIACRYPT 2019}, LNCS 11923,
+pages 3--32. Springer, 2019.
+\newblock \url{https://doi.org/10.1007/978-3-030-34618-8_1}.
+
+\end{thebibliography}
+
+\end{document}
+

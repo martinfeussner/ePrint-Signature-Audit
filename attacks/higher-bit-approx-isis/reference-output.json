@@ -1,0 +1,460 @@
+{
+  "accepted_target_checks": 48,
+  "all_rows_pass": true,
+  "attack": {
+    "fresh_message": true,
+    "message_scope": "every fresh attacker-chosen message",
+    "public_inputs_only": true,
+    "result": "universal zero-vector fresh-message forgery",
+    "signing_queries": 0
+  },
+  "banner": "ATTACK REPRODUCTION: PASS",
+  "checks": {
+    "all_affected_parameter_rows_pass": true,
+    "all_target_checks_accept": true,
+    "fresh_message_forgery": true,
+    "ordinary_verifier_equations_used": true,
+    "precommitted_in_domain_diagnostics_reject": true,
+    "zero_signing_queries": true
+  },
+  "conclusion": "ZERO_VECTOR_UNIVERSAL_FORGERY_UNDER_SECTION_6_4_BOUNDS",
+  "digests": {
+    "matrix_set_sha256": "80ecbcb71f7ed4410eaf6443c578dc6336de881a8a21f20e4be829e33312afbd",
+    "message_set_sha256": "dc038df04be0100d093edb7eb0b97adc81261cf49816f4d2342f069daee29805",
+    "oracle_set_sha256": "7a848e09551763a23c8a7363bb5d87c77605d303d318f705440eea223ddf91a6",
+    "target_pdf_sha256": "cbbbb33cacef911548d52de7990eff74479dbb2e4ab9467974770107458cabeb"
+  },
+  "environment": {
+    "dependencies": "Python 3.10+ standard library",
+    "workers": 1
+  },
+  "fresh_message_forgery": true,
+  "honest_acceptance_attempted": false,
+  "honest_acceptance_omission_reason": "The paper omits concrete alpha, beta, sigma, lift, hash/serialization rules, and a complete public honest-signing instantiation.",
+  "lifts": [
+    "canonical",
+    "centered"
+  ],
+  "matrix_vector_implementation": "general full-dimension product; no zero shortcut",
+  "messages_tested": 24,
+  "ordinary_verifier_equations_used": true,
+  "paper_sha256": "cbbbb33cacef911548d52de7990eff74479dbb2e4ab9467974770107458cabeb",
+  "rejected_target_checks": 0,
+  "result": "ZERO_VECTOR_UNIVERSAL_FORGERY_UNDER_SECTION_6_4_BOUNDS",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "both_residue_lifts_accept_all_targets": true,
+        "full_advertised_matrix_dimensions": true,
+        "general_matrix_path_is_live": true,
+        "precommitted_in_domain_diagnostics_reject": true,
+        "universal_target_space_bound": true
+      },
+      "messages_tested": 8,
+      "parameter_row": "TW-512-b2",
+      "signing_queries": 0,
+      "target_checks_accepted": 16
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "both_residue_lifts_accept_all_targets": true,
+        "full_advertised_matrix_dimensions": true,
+        "general_matrix_path_is_live": true,
+        "precommitted_in_domain_diagnostics_reject": true,
+        "universal_target_space_bound": true
+      },
+      "messages_tested": 8,
+      "parameter_row": "TW-1024-b2",
+      "signing_queries": 0,
+      "target_checks_accepted": 16
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "both_residue_lifts_accept_all_targets": true,
+        "full_advertised_matrix_dimensions": true,
+        "general_matrix_path_is_live": true,
+        "precommitted_in_domain_diagnostics_reject": true,
+        "universal_target_space_bound": true
+      },
+      "messages_tested": 8,
+      "parameter_row": "TW-1024-b4",
+      "signing_queries": 0,
+      "target_checks_accepted": 16
+    }
+  ],
+  "rows": [
+    {
+      "analytic": {
+        "alpha_floor_squared_times_100": 453378680501043200,
+        "b_to_d_times_s": "2975744.0",
+        "canonical_max_squared": 2198956147200,
+        "centered_max_squared": 549755813888,
+        "domination_ratio_decimal": "45.406943",
+        "domination_ratio_denominator_tenths": 655350,
+        "domination_ratio_numerator_tenths": 29757440,
+        "q_minus_one": 65535,
+        "universal_for_both_lifts": true
+      },
+      "claimed_aisis_bits": "75.0",
+      "diagnostics": {
+        "matrix_path": {
+          "unit_product_differs": true,
+          "unit_signature_in_domain": true,
+          "unit_signature_results": {
+            "canonical": {
+              "residual_norm_squared": 687994410677,
+              "section_6_4_accepts": true
+            },
+            "centered": {
+              "residual_norm_squared": 182980941493,
+              "section_6_4_accepts": true
+            }
+          },
+          "zero_product_is_zero": true
+        },
+        "precommitted_target_vector": {
+          "comparison_radius": "Figure 3 printed empirical ||e||; not alpha",
+          "definition": "the constant vector (q/2,...,q/2) in Z_q^n",
+          "purpose": "in-domain norm/comparator rejection diagnostic only",
+          "results": {
+            "canonical": {
+              "accepts": false,
+              "residual_norm_squared": 549755813888
+            },
+            "centered": {
+              "accepts": false,
+              "residual_norm_squared": 549755813888
+            }
+          }
+        },
+        "sampled_table_radius_counts": {
+          "counts": {
+            "canonical": {
+              "section_6_4_accept": 8,
+              "section_6_4_reject": 0,
+              "table_radius_accept": 0,
+              "table_radius_reject": 8
+            },
+            "centered": {
+              "section_6_4_accept": 8,
+              "section_6_4_reject": 0,
+              "table_radius_accept": 2,
+              "table_radius_reject": 6
+            }
+          },
+          "purpose": "diagnostic only; Figure 3's printed ||e|| is not alpha"
+        }
+      },
+      "id": "TW-512-b2",
+      "instantiation": {
+        "b_to_d": 2048,
+        "matrix_coefficient_modulus": 32,
+        "matrix_dimensions": [
+          512,
+          3584
+        ],
+        "matrix_entries": 1835008,
+        "matrix_sha256": "9fd057e3218b1fb633ed9a664fc63ca61754faede9228ed1f64233cf080d89da",
+        "q": 65536,
+        "q_rule": "q=b^k"
+      },
+      "message_evidence": {
+        "distinct_message_hashes": 8,
+        "distinct_oracle_hashes": 8,
+        "distinct_residual_norms": {
+          "canonical": 8,
+          "centered": 8
+        },
+        "message_set_sha256": "a401aa19332c1f1f5d5e2f381dddd1b82e390efdd219817b3895f14a1b23ed74",
+        "messages": 8,
+        "oracle_set_sha256": "15f16f867f4c57b40bd7163876045512045063f864c7b4996fae7456f797bbaf",
+        "residual_norm_set_sha256": {
+          "canonical": "c44beae790fbcda52ffd2b7651e06768b39e3f9235b4fdc2dfd63115c79b483e",
+          "centered": "3434812a0d57377b5a995d513199e0da9e05875bd0b06b98aeece6a3fff47c7d"
+        }
+      },
+      "paper_parameters": {
+        "b": 2,
+        "d": 11,
+        "k": 16,
+        "l": 11,
+        "m": 3584,
+        "n": 512,
+        "s": "1453.0",
+        "table_error_norm": "428806.9",
+        "table_y_norm": "1072.2"
+      },
+      "status": "PASS",
+      "target_checks": {
+        "canonical": {
+          "section_6_4_accept": 8,
+          "section_6_4_reject": 0,
+          "table_radius_accept": 0,
+          "table_radius_reject": 8
+        },
+        "centered": {
+          "section_6_4_accept": 8,
+          "section_6_4_reject": 0,
+          "table_radius_accept": 2,
+          "table_radius_reject": 6
+        }
+      }
+    },
+    {
+      "analytic": {
+        "alpha_floor_squared_times_100": 2011102635167318016,
+        "b_to_d_times_s": "4431667.2",
+        "canonical_max_squared": 4397912294400,
+        "centered_max_squared": 1099511627776,
+        "domination_ratio_decimal": "67.622907",
+        "domination_ratio_denominator_tenths": 655350,
+        "domination_ratio_numerator_tenths": 44316672,
+        "q_minus_one": 65535,
+        "universal_for_both_lifts": true
+      },
+      "claimed_aisis_bits": "155.4",
+      "diagnostics": {
+        "matrix_path": {
+          "unit_product_differs": true,
+          "unit_signature_in_domain": true,
+          "unit_signature_results": {
+            "canonical": {
+              "residual_norm_squared": 1542025001508,
+              "section_6_4_accepts": true
+            },
+            "centered": {
+              "residual_norm_squared": 359263517220,
+              "section_6_4_accepts": true
+            }
+          },
+          "zero_product_is_zero": true
+        },
+        "precommitted_target_vector": {
+          "comparison_radius": "Figure 3 printed empirical ||e||; not alpha",
+          "definition": "the constant vector (q/2,...,q/2) in Z_q^n",
+          "purpose": "in-domain norm/comparator rejection diagnostic only",
+          "results": {
+            "canonical": {
+              "accepts": false,
+              "residual_norm_squared": 1099511627776
+            },
+            "centered": {
+              "accepts": false,
+              "residual_norm_squared": 1099511627776
+            }
+          }
+        },
+        "sampled_table_radius_counts": {
+          "counts": {
+            "canonical": {
+              "section_6_4_accept": 8,
+              "section_6_4_reject": 0,
+              "table_radius_accept": 0,
+              "table_radius_reject": 8
+            },
+            "centered": {
+              "section_6_4_accept": 8,
+              "section_6_4_reject": 0,
+              "table_radius_accept": 4,
+              "table_radius_reject": 4
+            }
+          },
+          "purpose": "diagnostic only; Figure 3's printed ||e|| is not alpha"
+        }
+      },
+      "id": "TW-1024-b2",
+      "instantiation": {
+        "b_to_d": 2048,
+        "matrix_coefficient_modulus": 32,
+        "matrix_dimensions": [
+          1024,
+          7168
+        ],
+        "matrix_entries": 7340032,
+        "matrix_sha256": "fa4d40e3d812dae9d44b1e806f241cc529149111ba6a50a9e31d1d43f3abdcf2",
+        "q": 65536,
+        "q_rule": "q=b^k"
+      },
+      "message_evidence": {
+        "distinct_message_hashes": 8,
+        "distinct_oracle_hashes": 8,
+        "distinct_residual_norms": {
+          "canonical": 8,
+          "centered": 8
+        },
+        "message_set_sha256": "16f43e51d5d92bf57b1e71d8dfe38dc874f661cd710d1d6fe004f2bae192fd25",
+        "messages": 8,
+        "oracle_set_sha256": "592e92f0235b145bd276f1a6ab2875e15316b1b95ff782f08ee2072939b1590d",
+        "residual_norm_set_sha256": {
+          "canonical": "ffa694f6452d448133a01e83c332853cde7297f2f92637ce4e66acc211ffb91b",
+          "centered": "42b44fb84feba25a933492b16e5ea16b2700bfe6597f9a797eaaa0ff2f5cab96"
+        }
+      },
+      "paper_parameters": {
+        "b": 2,
+        "d": 11,
+        "k": 16,
+        "l": 11,
+        "m": 7168,
+        "n": 1024,
+        "s": "2163.9",
+        "table_error_norm": "607601.6",
+        "table_y_norm": "1535.5"
+      },
+      "status": "PASS",
+      "target_checks": {
+        "canonical": {
+          "section_6_4_accept": 8,
+          "section_6_4_reject": 0,
+          "table_radius_accept": 0,
+          "table_radius_reject": 8
+        },
+        "centered": {
+          "section_6_4_accept": 8,
+          "section_6_4_reject": 0,
+          "table_radius_accept": 4,
+          "table_radius_reject": 4
+        }
+      }
+    },
+    {
+      "analytic": {
+        "alpha_floor_squared_times_100": 6675031178346496,
+        "b_to_d_times_s": "255315.2",
+        "canonical_max_squared": 4397912294400,
+        "centered_max_squared": 1099511627776,
+        "domination_ratio_decimal": "3.895860",
+        "domination_ratio_denominator_tenths": 655350,
+        "domination_ratio_numerator_tenths": 2553152,
+        "q_minus_one": 65535,
+        "universal_for_both_lifts": true
+      },
+      "claimed_aisis_bits": "153.9",
+      "diagnostics": {
+        "matrix_path": {
+          "unit_product_differs": true,
+          "unit_signature_in_domain": true,
+          "unit_signature_results": {
+            "canonical": {
+              "residual_norm_squared": 1496017206536,
+              "section_6_4_accepts": true
+            },
+            "centered": {
+              "residual_norm_squared": 375096278280,
+              "section_6_4_accepts": true
+            }
+          },
+          "zero_product_is_zero": true
+        },
+        "precommitted_target_vector": {
+          "comparison_radius": "Figure 3 printed empirical ||e||; not alpha",
+          "definition": "the constant vector (q/2,...,q/2) in Z_q^n",
+          "purpose": "in-domain norm/comparator rejection diagnostic only",
+          "results": {
+            "canonical": {
+              "accepts": false,
+              "residual_norm_squared": 1099511627776
+            },
+            "centered": {
+              "accepts": false,
+              "residual_norm_squared": 1099511627776
+            }
+          }
+        },
+        "sampled_table_radius_counts": {
+          "counts": {
+            "canonical": {
+              "section_6_4_accept": 8,
+              "section_6_4_reject": 0,
+              "table_radius_accept": 0,
+              "table_radius_reject": 8
+            },
+            "centered": {
+              "section_6_4_accept": 8,
+              "section_6_4_reject": 0,
+              "table_radius_accept": 1,
+              "table_radius_reject": 7
+            }
+          },
+          "purpose": "diagnostic only; Figure 3's printed ||e|| is not alpha"
+        }
+      },
+      "id": "TW-1024-b4",
+      "instantiation": {
+        "b_to_d": 64,
+        "matrix_coefficient_modulus": 1024,
+        "matrix_dimensions": [
+          1024,
+          7168
+        ],
+        "matrix_entries": 7340032,
+        "matrix_sha256": "f8470bd7e0b2309922eefb5014333120a321fe0f30f27bfcc5998be2ece77888",
+        "q": 65536,
+        "q_rule": "q=b^k"
+      },
+      "message_evidence": {
+        "distinct_message_hashes": 8,
+        "distinct_oracle_hashes": 8,
+        "distinct_residual_norms": {
+          "canonical": 8,
+          "centered": 8
+        },
+        "message_set_sha256": "11d1a98b181d3671892794142d16861f6820848e054a5648c2d926d533e0828b",
+        "messages": 8,
+        "oracle_set_sha256": "9e74f923bd3c43924af1b62b6906edda35a738eb3fdaa7e9cf021c06f7b0d131",
+        "residual_norm_set_sha256": {
+          "canonical": "c6d25159c9c612a05644704a523b0d4fbc6b8a22834be082abee8f893ac0f2d5",
+          "centered": "3be0d2d0d34b62bfa87c57159547ce13b4cee30379d36b6e6cc182c2950031fc"
+        }
+      },
+      "paper_parameters": {
+        "b": 4,
+        "d": 3,
+        "k": 8,
+        "l": 3,
+        "m": 7168,
+        "n": 1024,
+        "s": "3989.3",
+        "table_error_norm": "596704.5",
+        "table_y_norm": "50533.7"
+      },
+      "status": "PASS",
+      "target_checks": {
+        "canonical": {
+          "section_6_4_accept": 8,
+          "section_6_4_reject": 0,
+          "table_radius_accept": 0,
+          "table_radius_reject": 8
+        },
+        "centered": {
+          "section_6_4_accept": 8,
+          "section_6_4_reject": 0,
+          "table_radius_accept": 1,
+          "table_radius_reject": 7
+        }
+      }
+    }
+  ],
+  "rows_passed": 3,
+  "rows_tested": 3,
+  "schema": "eprint-audit.higher-bit-approx-isis.public-reproduction.v1",
+  "scope": {
+    "claim": "Construction 1 under every alpha,beta completion obeying Section 6.4",
+    "hash_adapter": "explicit SHAKE256 uniform random-oracle instantiation",
+    "implementation_replay_claimed": false,
+    "q_execution": "q=b^k",
+    "q_proof": "uses only q<=b^k",
+    "rows": "all three Figure 3 columns labelled This work"
+  },
+  "secret_key_used": false,
+  "seed_hex": "d69e35947d670cc120b42eb7a1a84f1d1c71ffcfb25778ad7031a505e52e937b",
+  "seed_source": "public_reference_fixture",
+  "signing_queries": 0,
+  "status": "PASS",
+  "target_checks": 48,
+  "trials_per_row": 8,
+  "workers": 1
+}

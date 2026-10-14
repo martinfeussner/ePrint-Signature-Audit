@@ -1,0 +1,2 @@
+# Python 3.10 or newer; no third-party packages.
+

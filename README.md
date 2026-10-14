@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 28 |
+| Schemes identified | 29 |
 | Known attacks excluded | 3 |
-| Schemes audited | 25 |
+| Schemes audited | 26 |
 | No practical attack found | 16 |
-| Practical design attacks | 9 |
-| Verified practical design attacks | 9 |
-| Independently reproduced attacks | 9 |
+| Practical design attacks | 10 |
+| Verified practical design attacks | 10 |
+| Independently reproduced attacks | 10 |
 
 ## Practical design attacks
 
@@ -35,6 +35,7 @@ unreported.
 | [GLYPH](attacks/glyph/) | 2017/766 final v3 | Ring-LWE/GLP lattice signature with K-floor compression | Zero-query fresh-message forgery | Strict-interior K-floor fixed point | `m=2048`, `n=1024`, `q=59393`, `B=16383`, `omega=16` | 0.077 ms median forge; 52.5 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [TOT](attacks/tot/) | 2013/771 | Multivariate quadratic trapdoor-inversion signature | Zero-query existential raw-vector forgery | Classical signature-first/no-message public-map evaluation | `q=2`, `n=128`, `d=6`, `t=64` | 5.36 ms forge; 19.0 MiB peak, 1 worker | Verified; independently AI-reproduced |
 | [Full-Distance Syndrome Decoding](attacks/full-distance-syndrome-decoding/) | 2023/1956 | Structured binary syndrome-decoding signature | One-query fresh-message forgery | Public preserved-column recovery and 25-bit weight correction | Level I `(1600,400,125,5,25,343)` | 0.627 s primary attack; 19 MiB peak, 1 worker | Verified; independently AI-reproduced |
+| [Higher-Bit Approximate-ISIS](attacks/higher-bit-approx-isis/) | 2022/1144 | Lattice hash-and-sign with higher-bit approximate trapdoors | Universal zero-query fresh-message forgery | Zero signature vector covered by the Section 6.4 verifier radius | All three Figure 3 “This work” rows | 11.40 s, 61,072 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -329,5 +330,21 @@ result is scoped to an independently documented reconstruction of the paper's
 mathematical KeyGen/Sign/Verify relation. No previous public attack against
 the exact ePrint 2023/1956 scheme was located in searches completed on
 2026-10-14; this is a bounded negative result.
+
+[Higher-Bit Approximate-ISIS](attacks/higher-bit-approx-isis/) (ePrint
+2022/1144, Construction 1) prescribes a verifier radius whose
+`sqrt(n) b^d s` contribution already exceeds the maximum possible target-vector
+norm in every Figure 3 column labelled “This work.” The all-zero signature
+vector therefore passes for every attacker-chosen fresh message and every
+public matrix under any threshold completion obeying Section 6.4. The primary
+run covered all three advertised rows, while a separately written
+fresh-context implementation accepted 384/384 checks across 192 fresh
+messages, both canonical and centered lifts, and three fresh full-size public
+matrices with zero signing queries. The claim is limited to Construction 1
+under Section 6.4-compliant thresholds because the paper omits concrete
+thresholds, serialization, and a public author implementation. The report
+credits the generic zero-vector Approximate-ISIS boundary to
+Chen--Genise--Mukherjee and claims no technique novelty. No prior public attack
+against this exact signature was located in searches completed on 2026-10-14.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

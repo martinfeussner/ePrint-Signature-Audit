@@ -495,5 +495,25 @@
     "attack_history_checked_at": "2026-10-14",
     "url": "https://eprint.iacr.org/2021/2",
     "exclusion_basis": "The target author’s direct successor, ePrint 2022/097 v1, acknowledges that the exact scheme’s structured-response defense against quadratic statistical attacks fails and explains the product-statistic mechanism. No public practical endpoint was located, but the substantive exact-target structural cryptanalysis controls the history gate."
+  },
+  {
+    "scheme": "Higher-Bit Approximate-ISIS signature, Construction 1",
+    "aliases": [
+      "On the Higher bit Version of Approximate Inhomogeneous Short Integer Solution Problem",
+      "Higher-Bit Approximate-ISIS"
+    ],
+    "eprint_id": "2022/1144",
+    "eprint_version": "Pinned ePrint PDF observed 2026-10-14; received 2022-09-02 and approved 2022-09-05",
+    "eprint_date": "2022-09-02",
+    "family": "Lattice hash-and-sign signature with higher-bit approximate trapdoors",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2022/1144",
+    "attack_history_note": "No prior public attack against the Higher-Bit Approximate-ISIS hash-and-sign signature of ePrint 2022/1144 was located in the searches performed as of 2026-10-14. The generic zero-vector Approximate-ISIS boundary is credited to Chen, Genise, and Mukherjee (ASIACRYPT 2019), and no technique novelty is claimed.",
+    "audit_completed_at": "2026-10-14",
+    "attack_result": "Public-key-only zero-signing-query universal fresh-message forgery against Construction 1 under every threshold completion obeying Section 6.4",
+    "attack_path": "attacks/higher-bit-approx-isis/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed primary reproduction, adversarial review, fresh-context independent reproduction, final exact-target history, and independent publication-review gates"
   }
 ]

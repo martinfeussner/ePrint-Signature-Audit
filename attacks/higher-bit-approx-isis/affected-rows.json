@@ -1,0 +1,48 @@
+{
+  "paper": "IACR ePrint 2022/1144",
+  "paper_sha256": "cbbbb33cacef911548d52de7990eff74479dbb2e4ab9467974770107458cabeb",
+  "scope": "Every Figure 3 column labelled This work, with q=b^k for the executable instantiation and every alpha,beta completion obeying Section 6.4 for the analytic claim",
+  "rows": [
+    {
+      "id": "TW-512-b2",
+      "claimed_aisis_bits": 75.0,
+      "n": 512,
+      "b": 2,
+      "k": 16,
+      "l": 11,
+      "d": 11,
+      "s": 1453.0,
+      "m": 3584,
+      "table_y_norm": 1072.2,
+      "table_error_norm": 428806.9
+    },
+    {
+      "id": "TW-1024-b2",
+      "claimed_aisis_bits": 155.4,
+      "n": 1024,
+      "b": 2,
+      "k": 16,
+      "l": 11,
+      "d": 11,
+      "s": 2163.9,
+      "m": 7168,
+      "table_y_norm": 1535.5,
+      "table_error_norm": 607601.6
+    },
+    {
+      "id": "TW-1024-b4",
+      "claimed_aisis_bits": 153.9,
+      "n": 1024,
+      "b": 4,
+      "k": 8,
+      "l": 3,
+      "d": 3,
+      "s": 3989.3,
+      "m": 7168,
+      "table_y_norm": 50533.7,
+      "table_error_norm": 596704.5,
+      "paper_inconsistency": "The printed table_y_norm exceeds s even though Section 6.4 states ||x|| <= s."
+    }
+  ]
+}
+
