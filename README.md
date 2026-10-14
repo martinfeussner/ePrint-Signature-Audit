@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 32 |
+| Schemes identified | 33 |
 | Known attacks excluded | 3 |
-| Schemes audited | 29 |
-| No practical attack found | 17 |
+| Schemes audited | 30 |
+| No practical attack found | 18 |
 | Practical design attacks | 12 |
 | Verified practical design attacks | 12 |
 | Independently reproduced attacks | 12 |
@@ -81,6 +81,7 @@ exact-target cryptanalysis:
 | CAPSS-Poseidon-3 Default | 2025/061 current | Exact current Poseidon-3 Default row; proof algebra, transcript binding, and primitive transfer | No practical secret, equivalent witness, or fresh-message forgery |
 | NTRU+Sign-972 | 2025/612 current | Exact 193-bit row; relative norms, CRT/challenge structure, transcript binding, and rejection leakage | No practical secret, equivalent signer, or fresh-message forgery |
 | NIC signature | 2026/1573 v1 | Exact Level-I core relation, wrapper reconstruction, and public structural and solver routes | No practical witness recovery, equivalent signer, or fresh-message forgery |
+| SPHINCS-PE | 2026/1708 v1 | Paper-level, source-independent standard 128f at `q_use=2^8`; advertised source unavailable | No practical signer or forgery; reopen on a material specification/source change or a concrete route within `2^45` work |
 
 ### Audit summaries
 
@@ -237,6 +238,29 @@ forgery was obtained. This is a bounded campaign closeout, not a security
 proof; it should be revisited after an authoritative implementation or
 material revision, evidence of exploitable non-random key-generation
 structure, or a concrete joint solver within the recorded resource limits.
+
+SPHINCS-PE (ePrint 2026/1708 v1) completed a bounded, source-independent
+paper-level audit of the standard 128f row with `q_use=2^8`. The reconstructed
+full verifier links the prepared upper certificate and online lower opening
+through one global address space, leaving no free boundary root or detachable
+certificate. The strongest construction-specific route, pooled FORS coverage
+at a reused lower position, has independently reproduced covered mass
+`A_PE = 2^-130.701751...` even after granting all `2^56` preparations and
+`2^64` signing rows. A `2^45` digest grind therefore contributes at most about
+`2^-85.70` success. Other reviewed routes either reduce to the same coverage
+event, lack a qualifying endpoint, or require generic component work from
+about `2^64` to `2^128`; key recovery remains near `2^128`. Observable episode
+collisions and cache, rollback, cloning, and quota-overrun observations do not
+produce a conforming fresh-message signer.
+The advertised author repository was unavailable, so this
+result makes no implementation-conformance or benchmark claim. Reopen only
+for a material paper revision, erratum, implementation, or test vector that
+changes the verifier semantics; a concrete bias, dependence, alias, or
+occupancy error yielding a legitimate fresh-message route within `2^45`
+work; a practical full-parameter primitive or composition break; a change to
+the fixed-count or state semantics that makes additional pooling, rollback,
+cloning, or quota overuse part of ordinary conforming use; or new exact-target
+prior art.
 
 ## Verified attack summaries
 

@@ -573,5 +573,32 @@
     "attack_history_note": "No public practical attack, signing-key recovery, equivalent-witness recovery, forgery, or other substantive cryptanalysis against the exact NIC signature v1 was located in searches completed as of 2026-10-14; minimal/intersecting-code, SBC, TCitH/VOLEitH, and nearby MPC-in-the-Head results were treated as lineage evidence.",
     "audit_completed_at": "2026-10-14",
     "audit_note": "A bounded paper-level audit centered on the exact Level-I (k,n,w)=(210,1050,350) core relation. Independently reviewed unrestricted and exact-weight XOR-SAT runs on the same declared full-parameter local instance each returned INDETERMINATE at its fixed five-minute cap without finding a witness. Restricted-alphabet joint ISD, generic heuristic search, and structural reductions had no credible route within 2^45 operations and 12 GiB; the strongest exact reduction still leaves about 2^116.951 marginal candidates. The paper supplies no implementation and does not uniquely specify the ordinary TCitH/VOLEitH wrapper, public-key encoding, or Level-I VOLEitH signature length, so a completion profile remains required. No practical secret recovery, equivalent signing witness, fresh signing ability, or fresh-message forgery was obtained."
+  },
+  {
+    "scheme": "SPHINCS-PE",
+    "aliases": [
+      "Prepared Episodes for Short Online Hash-Based Signatures",
+      "Prepared Episodes for Short Online Hash Based Signatures"
+    ],
+    "eprint_id": "2026/1708",
+    "eprint_version": "v1",
+    "eprint_date": "2026-08-17",
+    "family": "Bounded-use hash-based signature with prepared episode certificates, FORS, WOTS+, and heterogeneous SPHINCS+-style hypertrees",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2026/1708",
+    "attack_history_note": "No public practical attack, break, forgery, signing-key recovery, equivalent signing-witness result, or comparable substantive cryptanalysis against exact SPHINCS-PE v1 was located in bounded searches completed as of 2026-10-14. Confidence is moderate because the target is recent, some indexes were unavailable, and the advertised source repository could not be recovered.",
+    "audit_completed_at": "2026-10-14",
+    "selected_parameter_set": "standard 128f with q_use=2^8",
+    "source_status": "SOURCE_CLAIMED_BUT_UNAVAILABLE",
+    "audit_note": "A bounded, source-independent paper-level audit reconstructed the linked full and cached verifiers for standard 128f with q_use=2^8. The strongest construction-specific route, pooled FORS coverage at a reused lower position, has independently reproduced covered mass A_PE=2^-130.701751... even after granting all 2^56 preparations and 2^64 signing rows; a 2^45 digest grind contributes at most about 2^-85.70 success. Other reviewed routes either reduce to the same coverage event, lack a qualifying endpoint, or require generic component work from about 2^64 to 2^128; key recovery remains near 2^128. Observable episode collisions and state/API observations do not yield a conforming fresh-message signer. The advertised source was unavailable, so no implementation-conformance claim is made. No practical secret recovery, equivalent signer, or fresh-message forgery was obtained.",
+    "reopen_conditions": [
+      "A material paper revision, erratum, author implementation, or author test vector changes the abstract verifier, coordinates, bindings, quota semantics, or digest distribution.",
+      "A concrete bias, dependence, alias, or occupancy error gives a legitimate fresh-message route with total work at or below 2^45.",
+      "A practical full-parameter primitive, component, transcript-composition, or equivalent-witness break ends in fresh signing under the ordinary integrated verifier.",
+      "The fixed-count or state semantics change so that additional collision pooling, rollback, cloning, or quota overrun becomes part of ordinary conforming use.",
+      "New exact-target prior art is located."
+    ]
   }
 ]
