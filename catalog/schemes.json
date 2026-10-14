@@ -556,5 +556,22 @@
     "attack_path": "attacks/hppk-ds/",
     "independent_reproduction": true,
     "verification_basis": "Primary reproduction, hostile adversarial review, fresh-context independent reproduction, final exact-target history recheck, and independent Publication Reviewer review passed"
+  },
+  {
+    "scheme": "NIC signature",
+    "aliases": [
+      "Non-Intersecting Codewords signature",
+      "planted binary NIC signature"
+    ],
+    "eprint_id": "2026/1573",
+    "eprint_version": "v1",
+    "eprint_date": "2026-07-31",
+    "family": "Code-based MPC-in-the-Head signature from the planted binary Non-Intersecting Codewords relation, instantiated with TCitH or VOLEitH",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2026/1573",
+    "attack_history_note": "No public practical attack, signing-key recovery, equivalent-witness recovery, forgery, or other substantive cryptanalysis against the exact NIC signature v1 was located in searches completed as of 2026-10-14; minimal/intersecting-code, SBC, TCitH/VOLEitH, and nearby MPC-in-the-Head results were treated as lineage evidence.",
+    "audit_completed_at": "2026-10-14",
+    "audit_note": "A bounded paper-level audit centered on the exact Level-I (k,n,w)=(210,1050,350) core relation. Independently reviewed unrestricted and exact-weight XOR-SAT runs on the same declared full-parameter local instance each returned INDETERMINATE at its fixed five-minute cap without finding a witness. Restricted-alphabet joint ISD, generic heuristic search, and structural reductions had no credible route within 2^45 operations and 12 GiB; the strongest exact reduction still leaves about 2^116.951 marginal candidates. The paper supplies no implementation and does not uniquely specify the ordinary TCitH/VOLEitH wrapper, public-key encoding, or Level-I VOLEitH signature length, so a completion profile remains required. No practical secret recovery, equivalent signing witness, fresh signing ability, or fresh-message forgery was obtained."
   }
 ]

@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 31 |
+| Schemes identified | 32 |
 | Known attacks excluded | 3 |
-| Schemes audited | 28 |
-| No practical attack found | 16 |
+| Schemes audited | 29 |
+| No practical attack found | 17 |
 | Practical design attacks | 12 |
 | Verified practical design attacks | 12 |
 | Independently reproduced attacks | 12 |
@@ -80,6 +80,7 @@ exact-target cryptanalysis:
 | BPORS-C+BFP | 2026/2374 v1 | Complete Section 3.5 standard-128f profile | No practical complete-profile signer or forgery |
 | CAPSS-Poseidon-3 Default | 2025/061 current | Exact current Poseidon-3 Default row; proof algebra, transcript binding, and primitive transfer | No practical secret, equivalent witness, or fresh-message forgery |
 | NTRU+Sign-972 | 2025/612 current | Exact 193-bit row; relative norms, CRT/challenge structure, transcript binding, and rejection leakage | No practical secret, equivalent signer, or fresh-message forgery |
+| NIC signature | 2026/1573 v1 | Exact Level-I core relation, wrapper reconstruction, and public structural and solver routes | No practical witness recovery, equivalent signer, or fresh-message forgery |
 
 ### Audit summaries
 
@@ -219,6 +220,23 @@ vector recognizer, norm factorization, or short lift. This is a bounded
 campaign closeout, not a security proof, and should be revisited only when one
 of those missing steps or another complete fresh-signing route becomes
 practical.
+
+NIC signature (ePrint 2026/1573 v1) completed a bounded paper-level audit
+centered on the exact Level-I `(k,n,w)=(210,1050,350)` core relation. Two
+independently reviewed full-parameter XOR-SAT lanes, one unrestricted and one
+enforcing the promised output weights, both returned `INDETERMINATE` at their
+fixed five-minute caps without finding a witness on the same declared local
+instance. Restricted-alphabet joint ISD, generic heuristic search, and
+structural reductions produced no credible route within `2^45` operations and
+12 GiB; the strongest exact reduction still leaves about `2^116.951` marginal
+candidates. The paper supplies no implementation and does not uniquely specify
+the ordinary TCitH/VOLEitH wrapper, public-key encoding, or Level-I VOLEitH
+signature length, so a completion profile remains required. No secret key,
+equivalent signing witness, fresh signing ability, or efficient fresh-message
+forgery was obtained. This is a bounded campaign closeout, not a security
+proof; it should be revisited after an authoritative implementation or
+material revision, evidence of exploitable non-random key-generation
+structure, or a concrete joint solver within the recorded resource limits.
 
 ## Verified attack summaries
 
