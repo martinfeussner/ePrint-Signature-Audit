@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 35 |
+| Schemes identified | 36 |
 | Known attacks excluded | 3 |
-| Schemes audited | 32 |
-| No practical attack found | 20 |
+| Schemes audited | 33 |
+| No practical attack found | 21 |
 | Practical design attacks | 12 |
 | Verified practical design attacks | 12 |
 | Independently reproduced attacks | 12 |
@@ -84,6 +84,7 @@ exact-target cryptanalysis:
 | SPHINCS-PE | 2026/1708 v1 | Paper-level, source-independent standard 128f at `q_use=2^8`; advertised source unavailable | No practical signer or forgery; reopen on a material specification/source change or a concrete route within `2^45` work |
 | MR-DSS | 2022/973 current | Ordinary Category-I clean-room profile; systematic MinRank and invariant protocol routes | No practical signer or forgery; optimized response profile remains underspecified |
 | CUTS | 2026/2455 v1 | Standalone base `cuts-128-smallest` under at most two ordinary signing queries; CUTS+C excluded | No practical signer or forgery; independently checked selector bound remains above the `2^45` campaign gate |
+| K-LMS | 2026/2372 v1 | Exact principal `n=32,h=10,w=4,L=1` endpoint at source commit `58be56d022422f2f58c15c3542a6fbc930686086`; correct stateful operation; LSH and CHAM-/LEA-/ARIA-TDM mappings kept separate | No practical signer or forgery; reopen only under the listed exact full-round, binding, revision/vector, or prior-art conditions |
 
 ### Audit summaries
 
@@ -291,6 +292,50 @@ not a security proof. Reopen on a selector, source, or parameter change; a
 concrete `rho`, transcript, or SHAKE failure; a defect in the independent
 bound; or an exact full-row endpoint within two signing queries and at most
 `2^45` work.
+
+K-LMS (ePrint 2026/2372 v1) completed a bounded source-backed audit of
+the exact principal `n=32,h=10,w=4,L=1` endpoint under correct stateful
+operation, pinned to commit
+`58be56d022422f2f58c15c3542a6fbc930686086`. The three LSH implementations
+were treated as one byte-identical full-26-step LSH-256 mapping, while the
+source-defined CHAM-, KISA-LEA-, and ARIA-based Tandem-DM mappings were
+reviewed separately. No secret-key recovery with fresh signing, reusable
+equivalent signer, or ordinary-verifier accepted fresh-message forgery was
+obtained. `D_MESG` length extension is reachable by choosing a message that
+contains the old glue padding, but it produced a distinct digest, unchanged
+signatures were rejected by all three Tandem-DM verifiers, and no LM-OTS
+signing bridge survived the checksum argument. Finite scans, local one-bit
+effects, and finite-difference ranks were defect screens rather than security
+evidence. The generic `2^128` collision/Tandem-DM comparisons, the optimistic
+`2^118` 1,024-target Tandem-DM comparison, and the corrected estimate above
+`2^236.02` for all forward-computable chain nodes are stopping estimates rather than
+security lower bounds. The `2^56` and `2^72` fragment enumerations screen only
+their named routes and are not lower bounds on full-round cryptanalysis. This
+is a bounded campaign audit, not a security proof.
+
+The twelve retained source-conformance limitations are:
+
+1. No published or source-independent full K-LMS endpoint known-answer vector is available.
+2. The paper underdefines the Tandem-DM byte dialect; conclusions apply to the pinned source semantics.
+3. Non-SHA backends reuse RFC typecodes, so backend identity remains out of band.
+4. The ordinary verifier has no public-key-length argument, so safe public-key truncation or extension tests cannot be expressed at that API boundary.
+5. Reload evidence is direct-memory and same-process only; durable storage, crash consistency, and atomicity are untested.
+6. Independent primitive known-answer tests, varied hash-API chunking, and fixed padding-vector coverage remain incomplete.
+7. Sanitizer evidence is qualified: host LeakSanitizer is unavailable and the auxiliary paper-LEA core has shift-by-32 undefined behavior; selected production backend round trips passed with leak checks disabled.
+8. The Cisco subtree differs from locked upstream in one non-code line-ending file; all 61 C/H files match.
+9. The dual-SHA baseline and expanded SHA/backend matrix were absent from the sealed producer workflow and supplied by the independent review.
+10. Negative controls are reported in aggregate rather than one result row per control.
+11. The paper's 1,169,407 count is an API-event count; the source-supported count is 1,100,799 logical hashes over 62,736,298 logical bytes.
+12. ARIA EVP failures cannot propagate through the `void` cipher callback; no normal-path failure was observed.
+
+Reopen K-LMS only if one of the following exact conditions occurs:
+
+1. A concrete full-26-step LSH-256 result reaches the exact signing endpoint below `2^45`.
+2. A concrete full-round CHAM, LEA, or ARIA result lowers an exact source-defined Tandem-DM preimage/collision route below `2^45` and supplies an LM-OTS/LMS signing bridge.
+3. An exact `KLMS_TDM_PAD_V1` padding/domain alias or a practical same-digest `D_MESG` length-extension fixed point is demonstrated.
+4. Correct ordinary operation exposes a state, transcript, parser, type, backend, path, or root-binding defect with secret/equivalent signing or an accepted fresh-message forgery.
+5. A concrete secret-derivation, deterministic-`C`, namespace, or LM-OTS transformation defeats the reviewed separation/checksum arguments below the campaign cutoff.
+6. A material paper or source revision, external endpoint vectors, or new exact-target prior art changes the accepted identity, semantics, or scope.
 
 ## Verified attack summaries
 
