@@ -12,6 +12,18 @@
     "exclusion_basis": "Exact identity with MORNING-ATLAS/NGCC sign-15; a public full-parameter ATLAS-128 design attack recovers an equivalent signing key and produces fresh-message forgeries."
   },
   {
+    "scheme": "CMSS",
+    "aliases": ["CMSS -- An Improved Merkle Signature Scheme", "tree-chaining CMSS"],
+    "eprint_id": "2006/320",
+    "eprint_version": "sole exposed revision (2006-09-21)",
+    "eprint_date": "2006-09-21",
+    "family": "stateful hash-based Merkle signature with tree chaining and Winternitz one-time signatures",
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2006/320",
+    "exclusion_basis": "Genet's 2017 EPFL thesis Section 5.1.3 explicitly gives an analytical universal forgery against CMSS under induced faults during non-top-subtree construction. Its practical voltage-glitch demonstration targets SPHINCS-256 rather than the archived original CMSS implementation."
+  },
+  {
     "scheme": "ECLIPSE",
     "aliases": ["prime-degree PRISM", "salted prime-degree Section 5 PRISM"],
     "eprint_id": "2026/2312",

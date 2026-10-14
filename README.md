@@ -14,8 +14,8 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 24 |
-| Known attacks excluded | 1 |
+| Schemes identified | 25 |
+| Known attacks excluded | 2 |
 | Schemes audited | 23 |
 | No practical attack found | 15 |
 | Practical design attacks | 8 |
@@ -37,9 +37,17 @@ unreported.
 
 ## Known attack exclusions
 
-The first catalog record is ATLAS (ePrint 2026/2323), excluded because it is
-the published form of MORNING-ATLAS/NGCC sign-15 and a practical ATLAS-128
-equivalent-key recovery with fresh-message forgery is already public.
+Two catalog records are excluded by prior public attacks:
+
+- ATLAS (ePrint 2026/2323) is the published form of MORNING-ATLAS/NGCC
+  sign-15, for which a practical ATLAS-128 equivalent-key recovery with
+  fresh-message forgery is already public.
+- CMSS (ePrint 2006/320) has an exact-target analytical universal forgery in
+  Section 5.1.3 of Aymeric Genet's 2017 EPFL thesis. The attack requires
+  induced faults while constructing a non-top CMSS subtree. The thesis's
+  practical voltage-glitch demonstration was performed on SPHINCS-256, not
+  the archived original CMSS implementation; the explicit CMSS analysis still
+  controls this campaign's attack-history gate.
 
 ## Completed audits without a practical attack
 
