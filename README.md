@@ -14,13 +14,13 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 37 |
+| Schemes identified | 38 |
 | Known attacks excluded | 3 |
-| Schemes audited | 34 |
+| Schemes audited | 35 |
 | No practical attack found | 21 |
-| Practical design attacks | 13 |
-| Verified practical design attacks | 13 |
-| Independently reproduced attacks | 13 |
+| Practical design attacks | 14 |
+| Verified practical design attacks | 14 |
+| Independently reproduced attacks | 14 |
 
 ## Practical design attacks
 
@@ -39,6 +39,7 @@ unreported.
 | [SSD](attacks/ssd/) | 2022/1698 | Binary syndrome-decoding signature | Zero-query existential fresh-message forgery | Public systematic completion into the accepted weight interval | Standard SSD1760 `(1760,242,502,484,11,440)` | at most 0.054 s attack per key; 24,576 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [HPPK DS](attacks/hppk-ds/) | 2023/1768 | Polynomial/multivariate signature over dual hidden rings | Zero-query universal fresh-message forgery | Four all-zero `(F,H)` pairs annihilate Equation (28) | All 3 target rows and all 15 benchmark rows | 0.34 s source run; 7,680 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [Jevil](attacks/jevil/) | 2026/1103 rev. 4 | Few-time polynomial/zk-WHIR signature | Equivalent signing-state recovery with fresh-message forgery | Authenticated width-four openings and four-row Reed--Solomon interpolation | `n_star=1023`, `c=4` | 641 queries; 486.90 s recovery; 143,756 KiB peak, 1 recovery worker | Verified; independently AI-reproduced |
+| [EagleSignV3](attacks/eaglesignv3/) | 2024/1234 rev. 2 | Fiat--Shamir-with-aborts lattice signature | Ternary secret and equivalent signing-key recovery with fresh-message forgery | Public-`r` centered-wrap labels and ternary feasibility | Paper-level Ring-L2 `(1,1,1024,59393,16,1,16,16384,16384)` | 40,000 signer outputs; 296.09 s independent pipeline; 221,272 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -505,5 +506,25 @@ exact current profile within the query budget was located through 15 October
 forgery fix and a June 2 public non-power-of-two Merkle-helper finding without
 a located signing consequence for this profile; it makes no broad first-attack
 claim.
+
+[EagleSignV3](attacks/eaglesignv3/) (ePrint 2024/1234, current second
+revision) leaks centered-modulus wrap labels through public `r` at the exact
+paper-level Ring-L2 row
+`(k,l,n,q,tau,eta,beta,gamma1,gamma2)=(1,1,1024,59393,16,1,16,16384,16384)`.
+The labels give sparse threshold inequalities in ternary `D`; solving them
+recovers `D` and, when public `T` is a ring unit, the equivalent signing key
+`G=T^-1(A+D)` and a fresh-message signature. Unit `T` is publicly testable and
+has estimated probability about 98.29% for this row. Both counted one-key
+trials succeeded: the primary and prospectively sealed independent runs each
+used every one of 40,000 outputs returned by the printed Algorithm 4,
+including respectively 1,767 and 1,727 outputs rejected by the ordinary
+verifier. The result is paper-level because no exact V3 source, canonical wire
+encoding, or known-answer vector was located; the later package replay is
+supplemental validation and is not a third trial.
+
+No prior public substantive attack against EagleSignV3 (IACR ePrint
+2024/1234) was located in the searches performed as of 15 October 2026.
+
+Pulles and Tibouchi previously broke EagleSign V1 and V2 using response statistics and ideal structure. Those schemes use different response relations, and EagleSign V2 includes an explicit centered-modulus-boundary rejection that is absent from the EagleSignV3 specification studied here. We located no earlier public disclosure applying the centered-modulus-wrap, public-commitment-label route to EagleSignV3. This is a bounded search statement; we make no absolute firstness or attack-technique novelty claim.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

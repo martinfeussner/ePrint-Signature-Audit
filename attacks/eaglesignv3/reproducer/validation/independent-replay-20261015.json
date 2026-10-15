@@ -1,0 +1,65 @@
+{
+  "completion_profile": {
+    "lambda_bytes": 48,
+    "mu_bytes": 48,
+    "r_bytes": 64,
+    "rho_bytes": 32,
+    "source": "Section 3.3 main-text hash-G output with Appendix A.4 lambda, rho, tr, and sampler details",
+    "tr_bytes": 32
+  },
+  "digests": {
+    "constraint_report_sha256": "14d5c60f77f36f3467e88df8108cbb376c5db913a6ebb51bf43dbcce1320ed42",
+    "constraints_sha256": "4859a31b303d8861651aece99956fc930bff9e5353695526a6858d3e5a98e89f",
+    "fresh_forgery_sha256": "aad6f1610b96b5d5b5d10e961d334b1a240fc7f7d4e5066ae7a42fc7316345c5",
+    "handoff_sha256": "bf51fc87cc1c7f2060c1e30caea121d4f57183e2496424a3646f00672e0473b0",
+    "prospective_manifest_sha256": "8da76398c6ffb113fc12d67118abe53d024d597d3ae0c635712f1e7118fdaa8b",
+    "prospective_seal_sha256": "2e8144384c31f59a3dd4d2d196f2d51da885c8bd8fde25e0d7713440e2b67934",
+    "recovered_key_sha256": "4dc18591edf542ccd5ea1f5ef13cb01f00973694b9a1e62510bac4a193acc737",
+    "run_manifest_sha256": "19da75184dde5c2697d8f796bdd3e33a0b09c7700318151ff4c0a9e42613de8a",
+    "solver_report_sha256": "4e66d7a7c57bdc073088e5c63320c31fb00b0b4b448a5b2514dc639ac89dedc9",
+    "solver_wrapper_sha256": "25972ee409baaee25d3eecce79d50707b8a17920423784a21b5052a528558697",
+    "transcripts_sha256": "8208494cdd7bf55abdbff500ed200fdc642ffa05dba5817ab63fb8da1407b01c",
+    "verification_report_sha256": "cf550c2c407c161251b675a65867fb7726ae7c527af5d729a18b1ee7c9d0cf4a"
+  },
+  "parameters": {
+    "beta": 16,
+    "eta": 1,
+    "gamma1": 16384,
+    "gamma2": 16384,
+    "k": 1,
+    "l": 1,
+    "n": 1024,
+    "q": 59393,
+    "tau": 16
+  },
+  "resources": {
+    "constraint_extraction_wall_seconds": 12.83,
+    "full_public_pipeline_wall_seconds": 296.09,
+    "oracle_wall_seconds": 124.51,
+    "peak_rss_kib": 221272,
+    "recovery_and_signing_wall_seconds": 12.82,
+    "solver_command_wall_seconds": 144.56,
+    "solver_seconds": 141.57251229102258,
+    "verification_wall_seconds": 1.37,
+    "virtual_memory_limit_kib": 4194304,
+    "workers": 1
+  },
+  "result": {
+    "constraints": 21982,
+    "fresh_message_forgery_accepted": true,
+    "ordinary_verifier_accepted_outputs": 38273,
+    "ordinary_verifier_rejected_outputs": 1727,
+    "posthoc_exact_D": true,
+    "posthoc_exact_G": true,
+    "public_relation_passed": true,
+    "signing_outputs": 40000,
+    "status": "PASS_PRACTICAL_FULL_PARAMETER_ONE_KEY_KEY_RECOVERY_AND_FRESH_FORGERY",
+    "wraps": 1767
+  },
+  "software": {
+    "highs": "1.12.0",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "solver": "scipy.optimize.milp/HiGHS"
+  }
+}

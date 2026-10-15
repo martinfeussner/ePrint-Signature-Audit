@@ -1,0 +1,52 @@
+{
+  "all_rows_pass": true,
+  "attack": {
+    "signing_queries": 40000
+  },
+  "digests": {
+    "constraint_report_sha256": "14d5c60f77f36f3467e88df8108cbb376c5db913a6ebb51bf43dbcce1320ed42",
+    "constraints_sha256": "4859a31b303d8861651aece99956fc930bff9e5353695526a6858d3e5a98e89f",
+    "fresh_forgery_sha256": "aad6f1610b96b5d5b5d10e961d334b1a240fc7f7d4e5066ae7a42fc7316345c5",
+    "full_run_manifest_sha256": "19da75184dde5c2697d8f796bdd3e33a0b09c7700318151ff4c0a9e42613de8a",
+    "recovered_key_sha256": "4dc18591edf542ccd5ea1f5ef13cb01f00973694b9a1e62510bac4a193acc737",
+    "solver_report_sha256": "4e66d7a7c57bdc073088e5c63320c31fb00b0b4b448a5b2514dc639ac89dedc9",
+    "transcripts_sha256": "8208494cdd7bf55abdbff500ed200fdc642ffa05dba5817ab63fb8da1407b01c",
+    "verification_report_sha256": "cf550c2c407c161251b675a65867fb7726ae7c527af5d729a18b1ee7c9d0cf4a"
+  },
+  "evidence_origin": "prospectively sealed fresh-key independent reproduction completed 2026-10-15",
+  "full_attack_reproduced": true,
+  "resources": {
+    "full_pipeline_peak_rss_kib": 221272,
+    "full_pipeline_wall_seconds": 296.09,
+    "solver_command_wall_seconds": 144.56,
+    "solver_seconds": 141.57251229102258,
+    "workers": 1
+  },
+  "result": "FULL_FRESH_KEY_ATTACK_REPRODUCTION_PASS",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_public_constraints_satisfied": true,
+        "altered_signature_rejected": true,
+        "changed_message_rejected": true,
+        "exact_D_confirmed_posthoc": true,
+        "exact_G_confirmed_posthoc": true,
+        "fresh_message_unqueried": true,
+        "ground_truth_delayed_until_after_public_gate": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "public_relation_holds": true,
+        "recovered_D_ternary": true,
+        "recovered_G_ternary_and_unit": true,
+        "solver_passed": true
+      },
+      "constraints": 21982,
+      "ordinary_verifier_accepted_outputs": 38273,
+      "ordinary_verifier_rejected_outputs": 1727,
+      "parameter_row": "paper-level Ring-L2 (n=1024,q=59393,tau=16,eta=1,gamma1=gamma2=16384)",
+      "profile": "64-byte r from Section 3.3 main text; 48-byte lambda from Appendix A.4",
+      "signing_queries": 40000,
+      "wraps": 1767
+    }
+  ]
+}

@@ -724,5 +724,25 @@
     "attack_path": "attacks/jevil/",
     "independent_reproduction": true,
     "verification_basis": "Primary, hostile-review, fresh-context reproduction, sanitized fresh-key publication-package replay, final exact-target history, and independent Publication Review gates passed."
+  },
+  {
+    "scheme": "EagleSignV3",
+    "aliases": [
+      "EagleSign V3",
+      "EagleSign-V3"
+    ],
+    "eprint_id": "2024/1234",
+    "eprint_version": "current second revision, revised 2024-08-06",
+    "eprint_date": "2024-08-03",
+    "family": "Fiat-Shamir-with-aborts lattice signature over a negacyclic ring or module",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-15",
+    "url": "https://eprint.iacr.org/2024/1234",
+    "attack_history_note": "No prior public substantive attack against EagleSignV3 (IACR ePrint 2024/1234) was located in the searches performed as of 15 October 2026. Pulles and Tibouchi previously broke EagleSign V1 and V2 using response statistics and ideal structure; we located no earlier public disclosure applying the centered-modulus-wrap, public-commitment-label route to EagleSignV3. This is a bounded search statement, not an absolute firstness or attack-technique novelty claim.",
+    "audit_completed_at": "2026-10-15",
+    "attack_result": "Recovery of ternary D and equivalent signing key G, followed by an ordinary-verifier-accepted fresh-message forgery",
+    "attack_path": "attacks/eaglesignv3/",
+    "independent_reproduction": true,
+    "verification_basis": "Primary full-parameter attack, hostile adversarial review, prospectively sealed fresh-context independent reproduction, fresh-key public-package replay, final exact-target history recheck, and independent Publication Review passed"
   }
 ]

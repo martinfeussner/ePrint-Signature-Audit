@@ -1,0 +1,21 @@
+{
+  "eprint_id": "2024/1234",
+  "rows": [
+    {
+      "beta": 16,
+      "gamma1": 16384,
+      "gamma2": 16384,
+      "id": "EagleSignV3-Ring-L2",
+      "k": 1,
+      "l": 1,
+      "n": 1024,
+      "name": "paper-level Ring Level 2",
+      "q": 59393,
+      "ring": "Z_q[X]/(X^1024+1)",
+      "tau": 16,
+      "unit_T_condition": true,
+      "unit_T_probability_approx": 0.9829
+    }
+  ],
+  "scope": "Exact paper-level Ring-L2 only; every output returned by printed Algorithm 4 is retained; direct fresh signing is conditional on public unit T."
+}

@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "paper_level_arithmetic_selftest": true
+  },
+  "digests": {
+    "public_scheme_source_sha256": "5d7276feaf5a027e07a146252ce8ff1f23d25b4ad79ce2a4d14c3ff95681c281",
+    "selftest_source_sha256": "6bef77f855d7f2300349db7ac4239a054f73a2f1d8e48432066993f64163d447"
+  },
+  "environment": {
+    "workers": 1
+  },
+  "full_attack_reproduced": false,
+  "mode": "structural_smoke",
+  "result": "STRUCTURAL_SMOKE_PASS (ring arithmetic, decomposition, and challenge sampling only; no attack executed)"
+}

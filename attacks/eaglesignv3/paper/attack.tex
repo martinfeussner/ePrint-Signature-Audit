@@ -1,0 +1,713 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array,tabularx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{seqsplit}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={The Eagle Has Wrapped: Practical Public-r Key Recovery against EagleSignV3},
+  pdfauthor={Martin Feussner},
+  pdfsubject={Cryptanalytic audit report for IACR ePrint 2024/1234},
+  pdfkeywords={digital signatures, EagleSignV3, lattices, modulus wrap, key recovery, forgery}
+}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{2em}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{The Eagle Has Wrapped}
+\fancyhead[R]{15 October 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Rq}{R_q}
+\newcommand{\HB}{\mathsf{HighBits}_q}
+\newcommand{\LB}{\mathsf{LowBits}_q}
+\newcommand{\Sign}{\mathsf{Sign}}
+\newcommand{\Verify}{\mathsf{Verify}}
+\newcommand{\hash}[1]{{\ttfamily\small\seqsplit{#1}}}
+
+\title{\bfseries The Eagle Has Wrapped:\\
+Practical Public-$r$ Key Recovery against EagleSignV3}
+\author{Martin Feussner\\
+\small Selmer Center, University of Bergen\\
+\small \texttt{martin.feussner@uib.no}}
+\date{15 October 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\fcolorbox{black!55}{black!4}{\parbox{0.94\textwidth}{
+This audit used the OpenAI model Daybreak Blue at the ultra reasoning level.
+OpenAI Codex performed AI-assisted attack-history research, paper review,
+cryptanalysis, implementation, experimentation, and technical writing.
+OpenAI Codex generated and selected this paper's title and deliberately chose
+``The Eagle Has Wrapped'' as wordplay on ``The Eagle Has Landed'' and on the
+centered-modulus wrap that exposes the secret-key constraints. Separately
+tasked AI agents reviewed bounded parts of the argument and implementation.
+The primary full-parameter reproduction, separately tasked hostile adversarial
+review, prospectively sealed fresh-context independent reproduction, final
+exact-target history review, supplemental public-package replay, and
+independent Publication Review all passed. The Publication Reviewer returned
+\texttt{PASS / NO VETO}. No independent human verification was performed; it
+is optional for this audit.}}
+
+\begin{center}
+\fcolorbox{green!45!black}{green!4}{\parbox{0.92\textwidth}{
+\textbf{Verified attack.} Independent Publication Review returned
+\texttt{PASS / NO VETO}. The package, paper, reproducer, evidence pins, and
+release metadata satisfy the audit's publication gates.}}
+\end{center}
+
+\begin{abstract}
+We describe a practical key-recovery and fresh-message forgery against the
+paper-level Ring Level~2 instantiation of EagleSignV3 in IACR ePrint
+2024/1234. The recommended row sets
+$q=59393$ and $\gamma_2=16384$, although the paper separately requires
+$q>4\gamma_2$. Because this inequality is violated, adding the short product
+$Dc$ can cross the centered representative boundary at
+$\pm(q-1)/2$ while satisfying the signer's printed low-bits test.
+
+For an ordinary returned signature $(r,z)$, the public verifier computes
+$v=Tz-Ac=p+Dc\pmod q$. Coordinates of $v$ within $\beta=16$ of a centered
+boundary have two possible pre-addition high bits. The public commitment $r$
+selects the correct combination. Every selected boundary flip is therefore a
+noiseless threshold inequality in one known signed 16-term convolution row of
+the ternary secret $D$. Accumulating these inequalities gives a small ternary
+integer program. Once $D$ is recovered and public $T$ is a ring unit, the
+other signing matrix follows publicly as $G=T^{-1}(A+D)$.
+
+A controlled full-parameter replay retained all 40,000 outputs returned by
+the printed signing algorithm. It extracted 21,933 inequalities, including
+1,811 wraps, and solved the resulting $21{,}933$-by-$1{,}024$ ternary system
+with one SciPy/HiGHS worker in about 68 seconds and 213,404 KiB peak RSS. A
+prospectively sealed fresh-key reproduction independently retained 40,000
+outputs, extracted 21,982 inequalities including 1,767 wraps, and recovered
+the exact signing key in a complete 296.09-second public attack pipeline using at most
+221,272 KiB. Both candidates satisfied every inequality and the public
+relation before hidden-key comparison, then produced accepted signatures on
+unqueried messages with changed-message and altered-signature controls
+rejecting. The runs used, respectively, the Appendix's 32-byte and the main
+text's 64-byte completion of $r$. Each is one exact-row demonstration; neither
+estimates a minimum query count or an all-key success probability. No exact
+EagleSignV3 source or known-answer vector was located, so the claim is
+mathematical and paper-level rather than an implementation-conformance result.
+\end{abstract}
+
+\section{Introduction}
+
+EagleSignV3 is a Fiat--Shamir-with-aborts lattice signature designed as a
+successor to EagleSign V1 and V2~\cite{target}. Its public key is
+$(\rho,T)$, where $\rho$ expands to a public matrix $A$ and
+\[
+  T=(A+D)G^{-1}\pmod q
+\]
+for short secret matrices $D$ and $G$. The signature changes the predecessors'
+response to $z=y+Gc$ and applies rejection tests to $z$ and the low bits of
+$p+Dc$, where $p=Ty$. The paper presents this as the change that restores the
+zero-knowledge property after the attacks of Pulles and
+Tibouchi~\cite{pullestibouchi}.
+
+The Ring Level~2 parameter row does not satisfy a condition stated in the same
+paper. It chooses $q=59393$ and $\gamma_2=2^{14}$, so
+\[
+  q=59393 < 65536 = 4\gamma_2.
+\]
+This matters because EagleSignV3 first reduces coefficients to centered
+representatives modulo $q$ and then decomposes them modulo
+$2\gamma_2=32768$. A short addition near $\pm(q-1)/2$ can wrap through the
+centered modulus boundary and change the high part by two. The low part still
+lies well inside the signer's acceptance interval.
+
+The hash value $r$ commits to the high bits before $Dc$ is added. The public
+signature and public key reveal the high bits after that addition. Near a
+boundary, testing the few possible wrap patterns against $r$ recovers exact
+comparison outcomes for coefficients of $Dc$. Because $c$ has Hamming weight
+16 and $D$ is ternary, each outcome is a sparse integer inequality in the
+1,024 secret coefficients. Standard mixed-integer feasibility then recovers
+$D$ and, for unit $T$, the equivalent signing key $G$.
+
+We make no claim that boundary analysis, sparse linear inequalities, or
+mixed-integer solving is a new cryptanalytic technique. The result is their
+application to the exact EagleSignV3 Ring Level~2 equations and parameters,
+followed by a full key-recovery and ordinary-verifier fresh-message forgery.
+The final history result is a bounded search statement, not an absolute
+firstness or attack-technique novelty claim.
+
+\paragraph{Contributions.}
+We isolate the exact centered-wrap condition, prove that public $r$ labels the
+resulting sparse inequalities, give a public-only recovery procedure, and
+report two complete one-key full-parameter executions under distinct
+$r$-length completions. We explicitly separate the paper-level mathematical
+result from byte-level completion choices and from the behavior of any
+unavailable author implementation.
+
+\section{Exact target and claim boundary}
+\label{sec:target}
+
+\subsection{Pinned paper}
+
+The target is Hounkpevi, Djimnaibeye, Seck, and Sow's
+\emph{EagleSignV3: A new secure variant of EagleSign signature over lattices},
+IACR ePrint 2024/1234, revised 6 August 2024~\cite{target}. The pinned 35-page
+PDF has SHA-256
+\begin{center}
+\hash{9b346bf2234299eadc72460a47c20dd71e6131fa19b3d21abdaaea01a8f061a2}.
+\end{center}
+
+No exact public EagleSignV3 implementation or known-answer vector was located.
+The paper says that an implementation can be deduced from EagleSignV2, but V2
+is a predecessor with different signing equations and an explicit boundary
+guard. It is not a conformance oracle for this target. All executable claims
+in this report therefore concern an explicit reconstruction of the printed V3
+mathematical scheme.
+
+\subsection{Frozen Ring Level~2 row}
+
+The attacked row is the ring variant at the paper's NIST security level~2:
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+Quantity & Frozen value \\
+\midrule
+Ring & $\mathbb Z_q[X]/(X^{1024}+1)$ \\
+$(k,l,n)$ & $(1,1,1024)$ \\
+$q$ & $59393$ \\
+Challenge weight $\tau$ & $16$ \\
+Secret coefficient bound $\eta$ & $1$ \\
+$\beta=l\eta\tau$ & $16$ \\
+$(\gamma_1,\gamma_2)$ & $(16384,16384)$ \\
+Printed classical strong-unforgeability estimate & $117$ bits \\
+Printed classical long-term key-recovery estimate & $172$ bits \\
+\bottomrule
+\end{tabular}
+\caption{The exact paper-level parameter row used by the attack.}
+\label{tab:parameters}
+\end{table}
+
+The paper defines centered representatives modulo odd $q$ in
+$[-(q-1)/2,(q-1)/2]$, and centered representatives modulo even
+$2\gamma_2$ in $(-\gamma_2,\gamma_2]$. We use those conventions literally.
+Decomposing unsigned residues directly would describe a different scheme.
+
+The paper's hash and byte descriptions conflict in several places. In
+particular, Section~3.3 gives a 512-bit range for hash $G$, making $r$ 64
+bytes, while Appendix~A.4 says 256 bits, making $r$ 32 bytes. The main signing
+algorithm and appendix also disagree on the length of $\lambda$. The primary
+replay used the Appendix's 32-byte $r$ completion. The prospectively sealed
+independent reproduction and the proposed public reproducer use the main
+text's 64-byte $r$ completion and Appendix~A.4's 48-byte $\lambda$. Both
+profiles fix all remaining byte choices before execution. The wrap argument
+depends only on the printed ring equations, centered decomposition, challenge
+distribution, and public commitment to the pre-addition high bits; its success
+under both $r$ lengths is therefore paper-level evidence across the conflict,
+not evidence for a canonical wire format.
+
+\subsection{Output semantics}
+
+The claim consumes every value returned after Algorithm~4's two printed
+rejection checks. In the primary run, 1,767 of 40,000 returned values---about
+4.4\%---were rejected when subsequently submitted to the ordinary verifier.
+That mismatch is another consequence of the broken wrap invariant. The
+returned values still expose public $(r,z)$ and therefore valid wrap labels
+for the recovery system.
+
+An implementation that adds an extra ordinary self-verification test and
+resamples failed outputs defines a different signing procedure. We do not
+claim that the present 40,000-output experiment transfers unchanged to that
+modified procedure. This boundary is essential to the result.
+
+\section{EagleSignV3 equations}
+
+Let $\Rq=\mathbb Z_q[X]/(X^n+1)$. At the attacked ring row all matrices are
+single ring elements. Key generation samples ternary $D,G\in\Rq$, with $G$
+invertible, expands $\rho$ to uniform $A\in\Rq$, and publishes
+\[
+  T=(A+D)G^{-1}\pmod q.
+\]
+
+To sign a message $M$, the signer computes a message digest $\mu$, samples
+$y\in S_{\gamma_1}$, and forms
+\[
+  p=Ty,\qquad r=G_{\rm hash}(\HB(p)),\qquad
+  c=H(\mu,r),\qquad z=y+Gc.
+\]
+The challenge $c$ has exactly $\tau=16$ coefficients in $\{-1,+1\}$ and all
+other coefficients zero. The signer returns $(r,z)$ after checking
+\[
+  \lVert z\rVert_\infty < \gamma_1-\beta,
+  \qquad
+  \lVert\LB(p+Dc)\rVert_\infty < \gamma_2-\beta.
+\]
+
+The verifier recomputes $c=H(\mu,r)$ and
+\[
+  v=Tz-Ac.
+\]
+Using $TG=A+D$ and $z=y+Gc$ gives the central public identity
+\begin{equation}
+  v=Ty+(TG-A)c=p+Dc\pmod q.          \label{eq:identity}
+\end{equation}
+It accepts when $z$ is short and
+$c=H(\mu,G_{\rm hash}(\HB(v)))$.
+
+The paper separately instructs designers to choose
+$q>4\max(\gamma_1,\gamma_2)$. That condition would place enough room between
+the decomposition scale and the centered $q$ boundary for the intended
+high-bit stability argument. Table~\ref{tab:parameters} violates it.
+
+\section{Public wrap labels}
+\label{sec:labels}
+
+Write
+\[
+  h=(q-1)/2=29696,\qquad B=2\gamma_2=32768,
+  \qquad s=(Dc)_j.
+\]
+Because $D$ is ternary and $c$ has weight 16, $|s|\leq16=\beta$. A coordinate
+of the public $v$ can have crossed the centered boundary only when its
+representative lies within 16 units of $-h$ or $+h$.
+
+\begin{lemma}[Lower boundary]
+Suppose $v_j=-h+a$ with $0\leq a<\beta$. The hidden pre-addition coefficient
+$p_j$ lies on the positive side of the centered boundary exactly when
+$s>a$.
+\end{lemma}
+\begin{proof}
+Equation~\eqref{eq:identity} gives $p_j=v_j-s\pmod q$. Its centered
+representative wraps from the displayed negative value to the positive side
+exactly when $v_j-s<-h$. Substituting $v_j=-h+a$ yields $s>a$.
+\end{proof}
+
+\begin{lemma}[Upper boundary]
+Suppose $v_j=h-a$ with $0\leq a<\beta$. The hidden pre-addition coefficient
+$p_j$ lies on the negative side of the centered boundary exactly when
+$s<-a$.
+\end{lemma}
+\begin{proof}
+Here $p_j=v_j-s$ crosses above $h$ exactly when
+$h-a-s>h$, or $s<-a$.
+\end{proof}
+
+For a lower-edge coordinate, $\HB(v_j)=-1$ while the wrapped alternative for
+$\HB(p_j)$ is $+1$. For an upper edge the public value is $+1$ and the wrapped
+alternative is $-1$. If one signature contains $K$ edge coordinates, the
+attacker enumerates their $2^K$ possible toggles, hashes each complete
+high-bit vector, and compares with public $r$. A unique match identifies every
+wrap bit. In the primary run, $K$ ranged from zero to five; all 40,000 outputs
+had a unique match, and only 69,252 candidate vectors were tested in total.
+
+\section{From labels to the signing key}
+
+Let the nonzero challenge coefficients be $(c_b)_{b\in S}$ with
+$|S|=16$. Negacyclic multiplication gives
+\[
+  (Dc)_j=\sum_{b\in S}\epsilon_{j,b}c_bD_{j-b\bmod n},
+\]
+where $\epsilon_{j,b}=+1$ before the $X^n=-1$ fold and $-1$ after it. Every
+coefficient is therefore a known signed sum of 16 unknowns
+$D_i\in\{-1,0,1\}$.
+
+The recovered lower-edge label supplies either
+\[
+  (Dc)_j\geq a+1 \quad\text{or}\quad (Dc)_j\leq a,
+\]
+and the upper-edge label supplies either
+\[
+  (Dc)_j\leq-a-1 \quad\text{or}\quad (Dc)_j\geq-a.
+\]
+These are exact integer inequalities, with no statistical noise term. Pooling
+them over returned signatures gives a ternary feasibility problem in 1,024
+variables.
+
+After solving for a candidate $D$, the attacker performs two public checks.
+First, every collected inequality must hold exactly. Second, when public $T$
+is a unit in $\Rq$, compute
+\begin{equation}
+  G=T^{-1}(A+D)\pmod q.              \label{eq:gderive}
+\end{equation}
+The centered coefficients of $G$ must be ternary, $G$ must be invertible, and
+$TG=A+D$ must hold. These checks select a signing-equivalent pair using public
+data alone; comparison with the generated hidden key is unnecessary for the
+attack and is postponed until after the forgery gate.
+
+For the paper-level Ring Level~2 distribution, the estimated probability that
+$T$ is a unit is
+\[
+  (1-1/q)^n\approx0.9829.
+\]
+The direct bridge in Equation~\eqref{eq:gderive} is explicitly conditional on
+this public property. A nonunit $T$ does not invalidate the inequality
+recovery, but deriving a complete signer would need another method and is not
+claimed here.
+
+\begin{theorem}[Conditional signing compromise]
+For the paper-level Ring Level~2 equations, suppose returned signatures give a
+ternary $D$ satisfying all public wrap inequalities, public $T$ is a unit, and
+Equation~\eqref{eq:gderive} yields a ternary invertible $G$ satisfying
+$TG=A+D$. Then $(D,G)$ is an equivalent signing key and can run the printed
+signing equations on a fresh message.
+\end{theorem}
+\begin{proof}
+The public checks establish the exact key-generation relation for the same
+$A,T$. Substituting the recovered pair into signing yields
+$Tz-Ac=Ty+(TG-A)c=Ty+Dc$, exactly the correctness identity used by ordinary
+verification. Rejection sampling can be repeated until the printed bounds and
+ordinary verification accept. No hidden value from the original key is
+needed.
+\end{proof}
+
+\section{Full-parameter evidence}
+\label{sec:evidence}
+
+\subsection{Primary reproduction: Appendix 32-byte \texorpdfstring{$r$}{r}
+completion}
+
+The controlled primary replay fixed one Ring Level~2 key and retained exactly
+40,000 outputs of the printed signing algorithm. Table~\ref{tab:primary}
+summarizes the stable result.
+
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+Measurement & Result \\
+\midrule
+Printed signer outputs & 40,000 \\
+Public edge inequalities & 21,933 \\
+Centered-boundary wraps & 1,811 \\
+Ordinary-verifier-invalid returned outputs & 1,767 (4.4175\%) \\
+Hash candidates tested & 69,252 \\
+Ternary variables / nonzeros & 1,024 / 350,928 \\
+SciPy/HiGHS branch-and-bound nodes & 1 \\
+SciPy/HiGHS solver / command wall time & 65.67 s / 68.08 s \\
+SciPy/HiGHS peak RSS / workers & 213,404 KiB / 1 \\
+Fresh-message ordinary verification & accepted \\
+Changed-message / altered-$r$ controls & rejected / rejected \\
+\bottomrule
+\end{tabular}
+\caption{Primary paper-level Ring Level~2 reproduction.}
+\label{tab:primary}
+\end{table}
+
+Collection took 598.77 seconds. The regenerated constraint dataset has
+SHA-256
+\begin{center}
+\hash{a15776674731b97cca2c469ab4d43512c966d6d4636e5e59344ffd8d38ffb97c}.
+\end{center}
+SciPy/HiGHS returned a ternary candidate satisfying all 21,933 inequalities. Before
+any hidden-key comparison, the implementation derived ternary invertible $G$,
+checked $TG=A+D$, and signed the never-queried message
+\begin{center}
+\texttt{eaglesignv3-highs-continuation-fresh-message-never-queried}.
+\end{center}
+The ordinary verifier accepted that signature. Reusing it on a changed
+message failed, and flipping one bit of $r$ while retaining $z$ also failed.
+Only after these public checks passed did a post-hoc comparison confirm exact
+recovery of the generated $D$ and $G$.
+
+The fresh-forgery and recovered-key artifacts have SHA-256 values
+\begin{center}
+\hash{1e90009b4eb0d9e9cb0103c6015ee7b3a76bb47a6a4334b0ac703fa79eeb5822},\\
+\hash{e0e0fa88ff3bef951687344d17731018495cb958bf68e50d65f7cff3d0bf4eb1}.
+\end{center}
+
+The fixed count 40,000 is one demonstrated working point. We did not optimize
+the number of outputs and make no minimum-query claim. The experiment used one
+fixed key and therefore does not measure a distribution-wide success rate.
+
+\subsection{Hostile adversarial review}
+
+A separately tasked reviewer worked with the explicit objective of disproving
+the attack and returned
+\texttt{PASS\_WITH\_LIMITATIONS / NO\_VETO}. The review covered the exact
+Ring Level~2 arithmetic, both strict wrap inequalities, public-$r$ label
+selection, the sparse negacyclic convolution rows, ternary solver bounds,
+public derivation of $G$, fresh-message signing, ordinary verification, and
+the primary endpoint. It found no hidden-key input or ground-truth label in
+candidate selection. The separate verifier shares the audited public model
+code, which remains a disclosed evidentiary limitation.
+
+The review preserved the material boundaries stated here: paper-level
+Ring Level~2 only; one fixed primary key; direct signing conditional on unit
+$T$; 40,000 as a working point rather than a minimum; use of every output
+returned by printed Algorithm~4; explicit completion of conflicting byte
+details; and no author-implementation claim. Its handoff, full review,
+verdict, and sealed artifact manifest have SHA-256 values
+\begin{center}
+\hash{e8c51f43aff9c1a57bd44a619bb718715ee2d340c9e29c01b46228a524f881cb},\\
+\hash{af6fec885f924f5df83e202fec9b05106c897fe53d5edb7a7a1f1e2218e218dc},\\
+\hash{e08c94ef6da1dcbc3a66f46cd231054a345b056ab30b524e6f09fa36638bb420},\\
+\hash{4e1bcf3d6607514189b4b1362805e8b361c5433cc774b54af405547d049daad7}.
+\end{center}
+This gate authorizes the sealed independent reproduction; it does not itself
+count or publish the attack.
+
+\subsection{Fresh-context independent reproduction: main-text 64-byte
+\texorpdfstring{$r$}{r} completion}
+
+A fresh-context implementation and run were prospectively sealed before the
+target seed was created. The seal covered the hypothesis, fixed completion
+profile, exact commands, C++20 source, SciPy/HiGHS solver wrapper, and all six
+executables. The fresh 32-byte kernel-CSPRNG seed was generated only after that
+seal. Key attempt zero had unit public $T$ and was the only generated key.
+
+The independent completion follows Section~3.3's 512-bit definition of hash
+$G$, so $r$ is 64 bytes. It follows Appendix~A.4 for 48-byte $\lambda$ and
+32-byte $\rho$ and $tr$, uses 48-byte $\mu$, and samples uniformly from the
+inclusive set $[-\gamma_1,\gamma_1]$. This differs deliberately from the
+primary replay's Appendix-based 32-byte $r$ completion while preserving the
+same printed Ring Level~2 equations and attack mechanism.
+
+The run retained every one of 40,000 outputs returned after Algorithm~4's two
+printed rejection tests. Of those, 38,273 passed and 1,727 failed the ordinary
+verifier; no verifier filter was applied. Public edge enumeration produced
+21,982 exact ternary inequalities, including 1,767 edge flips, from 69,301
+candidate high-bit vectors. The largest single transcript had six edge
+coordinates. SciPy~1.18.1 \texttt{optimize.milp}, using bundled
+HiGHS~1.12.0, solved the 1,024-variable, 351,712-nonzero system in 141.57
+solver seconds at one node with zero gap and zero checked row violation.
+
+Before hidden-key access, the implementation checked ternarity, every
+inequality, unit $G$, and $TG=A+D$, then signed the never-queried message
+\begin{center}
+\texttt{EagleSignV3 independent fresh forgery 2026-10-15 / ESV3-IR-001}.
+\end{center}
+The unchanged ordinary verifier accepted the untouched forgery and rejected
+both a changed message and an altered signature. Only afterward did a separate
+process compare against ground truth and confirm exact $D$ and $G$ matches.
+
+The oracle took 124.51 seconds, constraint extraction 12.83 seconds, the
+SciPy/HiGHS command 144.56 seconds, recovery and fresh signing 12.82 seconds,
+and public verification 1.37 seconds. The complete public pipeline therefore
+took 296.09 seconds, excluding post-hoc comparison, with one worker, one-CPU
+solver affinity, a 4 GiB virtual-memory ceiling, and 221,272 KiB peak RSS.
+
+The prospective seal, run artifact manifest, solver report, recovered key,
+fresh forgery, and terminal handoff have SHA-256 values
+\begin{center}
+\hash{2e8144384c31f59a3dd4d2d196f2d51da885c8bd8fde25e0d7713440e2b67934},\\
+\hash{19da75184dde5c2697d8f796bdd3e33a0b09c7700318151ff4c0a9e42613de8a},\\
+\hash{4e66d7a7c57bdc073088e5c63320c31fb00b0b4b448a5b2514dc639ac89dedc9},\\
+\hash{4dc18591edf542ccd5ea1f5ef13cb01f00973694b9a1e62510bac4a193acc737},\\
+\hash{aad6f1610b96b5d5b5d10e961d334b1a240fc7f7d4e5066ae7a42fc7316345c5},\\
+\hash{bf51fc87cc1c7f2060c1e30caea121d4f57183e2496424a3646f00672e0473b0}.
+\end{center}
+
+\subsection{Publication Review and supplemental package replay}
+
+Independent Publication Review returned \texttt{PASS / NO VETO}. As
+supplemental release-readiness validation, the complete public-package path
+was also replayed on a new fresh unit-$T$ key. It retained all 40,000 printed
+signer outputs: 38,219 passed ordinary verification and 1,781 failed it, with
+no verifier filtering. The replay produced 22,083 exact inequalities including
+1,821 wraps, recovered exact $D$ and $G$, checked the public relation, and
+produced an accepted fresh-message forgery. The unchanged verifier rejected
+the changed message and altered signature. The one-worker solve took exactly
+83.31292366300477 solver-wrapper seconds and 84.10 command-wall seconds, with
+243,116 KiB peak RSS.
+
+This package replay is supplemental validation of the release path. It does
+not replace the prospectively sealed independent reproduction, enlarge the
+claim beyond the primary and independent two-key trial scope, or change the
+reported two trials and two successes. The replay review, machine-readable
+report, retained output manifest, and review artifact manifest have SHA-256
+values
+\begin{center}
+\hash{ee6fefb703b8be1c50f5d2804c57f5a62bc1f7f377f1bf8ca0f7aef3769b7761},\\
+\hash{b1549fd2456b8f68d8393ddca1cf23e1ecd2cb43fc12cddb4337832796583e9a},\\
+\hash{b969b537a02e87439a2d07d25a44592e23fb5a187526bbcec9ff6ba8f4427fad},\\
+\hash{8437db885f97a5021353cff69bef8b1cf7604ddbc200feb458196938da369837}.
+\end{center}
+The replay input was the pre-finalization source candidate, pinned by root
+manifest
+\hash{9c8fecf3ba1ea16df8ebd60c52d117a014b0939ac1bb9c85a9fea511a25c93d5}
+and nested reproducer manifest
+\hash{d5b48642fe37e2a043af4b6e9a79219452e9a73d4583c31d4c8a297579e249ac}.
+These are old source-candidate pins, not hashes of this final package.
+
+\section{Reproduction architecture}
+
+The public reproducer is an independently written C++20 paper-level
+implementation. It uses separate executables for key generation, oracle
+collection, public recovery, ordinary verification, and post-hoc ground-truth
+comparison. The recovery executable receives only the public key and the
+returned $(M,r,z)$ records. It writes an LP-format integer program. A sealed
+Python wrapper parses that file into a sparse matrix and invokes SciPy~1.18.1
+\texttt{optimize.milp} with bundled HiGHS~1.12.0, integral ternary bounds,
+one thread, and one-CPU affinity. The wrapper independently validates every
+inequality before emitting its candidate. Recovery then derives $G$ publicly
+and creates the fresh signature. The verifier separately checks freshness,
+the public relation, ordinary acceptance, changed-message rejection, and an
+altered-signature rejection before ground truth is consulted.
+
+The package offers a structural smoke test and a full fresh-key run:
+\begin{verbatim}
+./reproduce.sh --smoke
+./reproduce.sh --full
+\end{verbatim}
+Full mode uses one worker, a 4 GiB virtual-memory ceiling, 40,000 returned
+outputs, and the sealed 21,600-second SciPy/HiGHS time limit. Generated secret
+material and the large transcript remain in a temporary directory and are
+deleted after the final post-hoc comparison.
+
+Because the paper has no exact V3 source and contains conflicting byte
+details, the reproducer records its choices: a 64-byte $r$ following the main
+text, 48-byte $\lambda$, 32-byte $\rho$ and $tr$, 48-byte $\mu$, uniform
+inclusive $[-\gamma_1,\gamma_1]$ sampling, canonical little-endian public
+coefficients, and a documented high-bit encoding. These choices preserve the
+printed equations and distributions but do not define a canonical V3 wire
+format.
+
+\section{Attack history and attribution}
+\label{sec:history}
+
+The final post-reproduction history review returned \texttt{PASS}, with
+moderate confidence and no history veto. Its approved bounded statement is:
+\begin{quote}
+No prior public substantive attack against EagleSignV3 (IACR ePrint
+2024/1234) was located in the searches performed as of 15 October 2026.
+\end{quote}
+This statement cannot exclude private, removed, unpublished, or unindexed
+work, and search and citation indexes can lag.
+
+The direct-lineage V1/V2 cryptanalysis is documented in IACR ePrint
+2024/1137~\cite{pullestibouchi}.
+Pulles and Tibouchi previously broke EagleSign V1 and V2 using response statistics and ideal structure. Those schemes use different response relations, and EagleSign V2 includes an explicit centered-modulus-boundary rejection that is absent from the EagleSignV3 specification studied here. We located no earlier public disclosure applying the centered-modulus-wrap, public-commitment-label route to EagleSignV3. This is a bounded search statement; we make no absolute firstness or attack-technique novelty claim.
+
+Prabowo and Tan analyze generic Schnorr-type signatures with aborts and give a
+statistical attack on the original EagleSign~\cite{prabowotan}. Their work
+provides context for response statistics but does not attack the exact V3
+scheme or analyze the centered-wrap public-$r$ route. Pellet-Mary and Seck
+study generic properties of HighBits and LowBits and their
+applications~\cite{pelletmaryseck}. The retrieved abstract, keywords, visible references,
+and indexed search surfaces disclosed no EagleSign attack; we treat that work
+as adjacent technique context rather than an exact-target attack.
+
+The canonical history handoff, review handoff, machine-readable verdict,
+query ledger, source ledger, and review artifact manifest have SHA-256 values
+\begin{center}
+\hash{2a1cbf638453500b5749cbc040ece0d03abb453e0bb95f7ccd7f4d4f2df82faa},\\
+\hash{53b5c8f3ca4726764b9e0db6df5f6c458f25d988b693968044245a01bfe31d62},\\
+\hash{b28391fda40777c64919a61035a33f8135eccb60a2f635cc7e78d793e2093236},\\
+\hash{43b6eb77e399f8119fc88b162db57ff80d2d8dbf4a5ab127bfcfe4af700256c2},\\
+\hash{f71cd94c1e1e6a9a3af690e39c63074e61aaf98aea7e1bd16705951b5c2f2f48},\\
+\hash{d50ad9e9bebf5a1855c89f960592e131f19fce2b87d8bb5e4514f567d217454d}.
+\end{center}
+
+The attack technique itself is not claimed as original. The contribution is
+the exact application of standard boundary reasoning and integer feasibility
+to the published EagleSignV3 Ring Level~2 row, with a complete signing-key
+bridge and fresh-message forgery.
+
+\section{Limitations and repair boundary}
+
+The following qualifications are part of the claim:
+\begin{itemize}
+  \item The result covers only the exact paper-level Ring Level~2 row in
+        Table~\ref{tab:parameters}. It does not claim the module rows, Level~5
+        rows, or any unpublished implementation.
+  \item No exact V3 source or known-answer vector was located. Conflicting
+        hash lengths, seed lengths, and encodings required explicit
+        completions; there is no author-source or wire-format conformance
+        claim.
+  \item The direct signing-key bridge applies when public $T$ is a unit,
+        estimated at about 98.29\% for this paper-level row and detectable
+        from the public key.
+  \item The primary and independent evidence are each one-key executions.
+        They use different keys, implementations, and $r$-length completions,
+        but together remain a two-key record rather than a many-key
+        success-rate study.
+  \item Forty thousand outputs were sufficient in both reported runs; they
+        are not asserted to be necessary or minimal.
+  \item The attack uses every output of the printed signer, including the
+        roughly 4.4\% that ordinary verification rejects. An added
+        self-verification-and-resampling loop is outside the claim.
+  \item The final history PASS has moderate confidence and is a dated bounded
+        search result. It cannot establish absolute priority or exclude
+        private, deleted, unpublished, or unindexed work.
+\end{itemize}
+
+The paper's own condition $q>4\max(\gamma_1,\gamma_2)$ excludes the reported
+parameter mismatch. Enforcing that condition in a revised row, or restoring a
+correct centered-boundary guard before returning signatures, are natural
+starting points for repair. Either change alters the analyzed scheme or its
+parameters and requires fresh correctness, rejection-rate, security, and
+implementation analysis. Adding only a final self-verification loop blocks
+the precise output stream used here, but is likewise a modified signer and is
+not by itself a security proof.
+
+\section{Conclusion}
+
+At EagleSignV3 Ring Level~2, the printed modulus is too small for the paper's
+own decomposition condition. Public $r$ resolves the resulting centered-wrap
+choices and converts ordinary signer outputs into exact sparse inequalities in
+the ternary secret $D$. One full-parameter primary run solved 21,933 such
+inequalities under the Appendix's 32-byte $r$ completion. A prospectively
+sealed fresh-key reproduction independently solved 21,982 inequalities under
+the main text's 64-byte $r$ completion. Each derived $G$ from the public
+relation and produced an accepted fresh-message signature with no hidden-key
+input to recovery. The result is a practical paper-level signing compromise on
+two demonstrated keys, subject to the explicit unit-$T$, output-semantics, and
+specification-completion limits above. Independent Publication Review returned
+\texttt{PASS / NO VETO}, and the supplemental public-package replay confirmed
+the complete release path without changing the two-key claim scope.
+
+\section*{Acknowledgements}
+The computations were performed on the Norwegian Research and Education Cloud (NREC), using resources provided by the University of Bergen and the University of Oslo.
+
+\begin{thebibliography}{9}
+
+\bibitem{target}
+A. C. Hounkpevi, S. Djimnaibeye, M. Seck, and D. Sow,
+``EagleSignV3: A new secure variant of EagleSign signature over lattices,''
+IACR Cryptology ePrint Archive, Report 2024/1234, revised 6 August 2024.
+\url{https://eprint.iacr.org/2024/1234}
+
+\bibitem{pullestibouchi}
+L. N. Pulles and M. Tibouchi,
+``Cryptanalysis of EagleSign,''
+IACR Cryptology ePrint Archive, Report 2024/1137, 2024.
+\url{https://eprint.iacr.org/2024/1137}
+
+\bibitem{prabowotan}
+T. F. Prabowo and C. H. Tan,
+``Concrete Analysis of Schnorr-type Signatures with Aborts,''
+IACR Cryptology ePrint Archive, Report 2024/1256, 2024.
+\url{https://eprint.iacr.org/2024/1256}
+
+\bibitem{pelletmaryseck}
+A. Pellet-Mary and M. Seck,
+``On the Properties of HighBits and LowBits Functions and their
+Applications,''
+IACR Cryptology ePrint Archive, Report 2026/895, 2026.
+\url{https://eprint.iacr.org/2026/895}
+
+\bibitem{highs}
+Q. Huangfu and J. A. J. Hall,
+``Parallelizing the dual revised simplex method,''
+\emph{Mathematical Programming Computation}, vol.~10, pp.~119--142, 2018.
+
+\end{thebibliography}
+
+\end{document}
