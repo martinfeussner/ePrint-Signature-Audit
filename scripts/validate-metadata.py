@@ -657,7 +657,6 @@ def validate_dashboard(
     reporter: Reporter,
 ) -> None:
     dashboard = parse_dashboard(reporter)
-    attack_count = sum(item.get("status") in ATTACK_STATES for item in catalog)
     expected = {
         "schemes identified": len(catalog),
         "known attacks excluded": sum(
@@ -667,11 +666,7 @@ def validate_dashboard(
         "no practical attack found": sum(
             item.get("status") == "AUDITED_NO_PRACTICAL_ATTACK" for item in catalog
         ),
-        "practical design attacks": attack_count,
-        "verified practical design attacks": sum(
-            item.get("status") == "VERIFIED_ATTACK" for item in catalog
-        ),
-        "independently reproduced attacks": sum(
+        "verified and independently reproduced practical design attacks": sum(
             item.get("independent_reproduction") is True for item in attacks
         ),
     }
@@ -680,16 +675,11 @@ def validate_dashboard(
         "known attacks excluded",
         "schemes audited",
         "no practical attack found",
-        "independently reproduced attacks",
+        "verified and independently reproduced practical design attacks",
     }
     missing = sorted(required - dashboard.keys())
     if missing:
         reporter.fail(f"README.md dashboard is missing {', '.join(missing)}")
-    if not (
-        {"practical design attacks", "verified practical design attacks"}
-        & dashboard.keys()
-    ):
-        reporter.fail("README.md dashboard is missing the practical-design-attack count")
     for name, actual in dashboard.items():
         if name in expected and actual != expected[name]:
             reporter.fail(

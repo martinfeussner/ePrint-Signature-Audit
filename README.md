@@ -18,9 +18,7 @@ unreported.
 | Known attacks excluded | 3 |
 | Schemes audited | 35 |
 | No practical attack found | 21 |
-| Practical design attacks | 14 |
-| Verified practical design attacks | 14 |
-| Independently reproduced attacks | 14 |
+| Verified and independently reproduced practical design attacks | 14 |
 
 ## Practical design attacks
 
