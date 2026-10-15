@@ -1,0 +1,45 @@
+{
+  "all_rows_pass": true,
+  "attack": {
+    "signing_queries": 650
+  },
+  "digests": {
+    "clean_verifier_result_sha256": "a971d03b1305f76c9db858529361aab39e72012da09fc162accc4912366e3673",
+    "full_output_manifest_sha256": "ab49b5db6d7d540876a7be18919c99d998681a432244332fdb869eac2a959848",
+    "full_recovery_result_sha256": "61cde3267cef50ca400217f96ca99341328ec14174c570f429a10d6f7ac32c8b",
+    "full_summary_sha256": "d87cbd2c3bc1f95d4c9c85c97c7ca1de943d95803e9804254b620393de2399ee",
+    "ordinary_sign_source_sha256": "34a61da541e7239402e2e49fedee76aaa50fc4c328c49cc9a307dca3bac2fb74",
+    "ordinary_verify_source_sha256": "d84341b99aa3b76413c20118f7fb0a78886754e1d9c7c0f952c7f930037e569b"
+  },
+  "evidence_origin": "newly executed fresh-key publication-package replay on 2026-10-15",
+  "full_attack_reproduced": true,
+  "resources": {
+    "attack_stages_peak_rss_kib": 150488,
+    "attack_stages_wall_seconds": 1076.65,
+    "build_and_attack_peak_rss_kib": 306680,
+    "build_and_attack_wall_seconds": 1121.14,
+    "workers": 1
+  },
+  "result": "FULL_FRESH_KEY_ATTACK_REPRODUCTION_PASS",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "authenticated_openings": 41600,
+      "checks": {
+        "altered_signature_rejected": true,
+        "changed_message_rejected": true,
+        "changed_root_rejected": true,
+        "corrupted_row_rejected": true,
+        "fresh_message_unqueried": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "public_evaluation_reconstructed": true,
+        "public_inputs_only": true,
+        "root_reconstructed": true
+      },
+      "distinct_positions": 35704,
+      "maximum_zero_based_query_index": 649,
+      "parameter_row": "n_star=1023, c=4, N=131072, four degree-below-32768 rows",
+      "signing_queries": 650
+    }
+  ]
+}

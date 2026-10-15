@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "source_layout_checked": true,
+    "synthetic_four_row_interpolation": true
+  },
+  "digests": {
+    "ordinary_sign_source_sha256": "34a61da541e7239402e2e49fedee76aaa50fc4c328c49cc9a307dca3bac2fb74",
+    "ordinary_verify_source_sha256": "d84341b99aa3b76413c20118f7fb0a78886754e1d9c7c0f952c7f930037e569b",
+    "smoke_output_manifest_sha256": "a59aae2db9d0e0f8015cedd46dbe4455d10ca05fdd7e8d2c487fc20ff7bb0bb7",
+    "smoke_summary_sha256": "2ef9cf8d39f9ef1b821e5e9b91d1275525434c0d52953a236c635f15438cfe00",
+    "source_pins_sha256": "bd5fc9b47d7c2a738723f5a9b18008013386eae797626711b051eb6136b86c20"
+  },
+  "environment": {
+    "workers": 1
+  },
+  "full_attack_reproduced": false,
+  "mode": "structural_smoke",
+  "result": "STRUCTURAL_SMOKE_PASS (source/layout and synthetic interpolation only; no forgery executed)",
+  "validation": {
+    "peak_rss_kib": 230516,
+    "wall_seconds": 159.53
+  }
+}

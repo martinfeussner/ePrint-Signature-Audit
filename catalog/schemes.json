@@ -705,5 +705,24 @@
       "A concrete secret-derivation, deterministic-C, namespace, or LM-OTS transformation defeats the reviewed separation/checksum arguments below the campaign cutoff.",
       "A material paper or source revision, external endpoint vectors, or new exact-target prior art changes the accepted identity, semantics, or scope."
     ]
+  },
+  {
+    "scheme": "Jevil",
+    "aliases": [
+      "Jevil: A Catastrophic-Failure-by-Design Signature Scheme"
+    ],
+    "eprint_id": "2026/1103",
+    "eprint_version": "current fourth revision (2026-06-01)",
+    "eprint_date": "2026-05-29",
+    "family": "few-time signature with a polynomial evaluation budget and a zk-WHIR proof layer",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-15",
+    "url": "https://eprint.iacr.org/2026/1103",
+    "attack_history_note": "No prior public practical signing attack against the current fourth-revision Jevil profile at n_star=1023, c=4, using at most 1,023 ordinary signing queries was located in the searches performed through 15 October 2026. A May 26 public commit fixed a root-binding forgery in a pre-publication development state, and a June 2 public audit trace reported a non-power-of-two Merkle-helper bug without a located signing consequence for this profile; both are disclosed in the attack package.",
+    "audit_completed_at": "2026-10-15",
+    "attack_result": "Equivalent signing-state recovery with fresh-message forgery from 641 ordinary signatures in the primary result and 650 in an independent fresh-key result",
+    "attack_path": "attacks/jevil/",
+    "independent_reproduction": true,
+    "verification_basis": "Primary, hostile-review, fresh-context reproduction, sanitized fresh-key publication-package replay, final exact-target history, and independent Publication Review gates passed."
   }
 ]

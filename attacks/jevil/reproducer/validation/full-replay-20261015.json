@@ -1,0 +1,74 @@
+{
+  "claim_limitations": [
+    "One fresh key in this package replay.",
+    "No minimum-query claim."
+  ],
+  "cleanup": {
+    "cleanup_order_unit_test": true,
+    "fix": "Restore traversal on the run and private directories before recursive permission restoration.",
+    "full_attack_not_rerun_after_cleanup_only_fix": true,
+    "initial_issue": "The first cleanup used recursive chmod before restoring traversal on the mode-000 private directory; all cryptographic checks and the output manifest had already passed.",
+    "private_seed_removed": true,
+    "raw_oracle_corpus_removed": true
+  },
+  "date_utc": "2026-10-15",
+  "digests": {
+    "clean_verifier_result_sha256": "a971d03b1305f76c9db858529361aab39e72012da09fc162accc4912366e3673",
+    "fresh_message_sha256": "422a4c964eba446b66416962cc77d0ff3dd983e5e1c9f74b86bf0932f5ffddf2",
+    "fresh_signature_sha256": "41d2b9710ecb69dfb0603279b3c5ac1c34cf7c15d85544f1e2267c1727d64a65",
+    "opening_transcript_sha256": "c8aeb5fdd5442b159df2a4a0b2609d118a4c1e9249669e705e8e84b45500fb96",
+    "output_manifest_sha256": "ab49b5db6d7d540876a7be18919c99d998681a432244332fdb869eac2a959848",
+    "public_key_sha256": "effb77ef1a584a7d61ecec8b70e7b27bce210e93df7e5044b77241ac178c5bae",
+    "recovered_row_sha256": [
+      "680f475c57f0ee40d3d7b9b49454350b266c1e138c62116c8d94f7d64b69296b",
+      "802da222203b039aa931d41c934c276cc0b2292f3d1c85f25d6f716f91d1416e",
+      "99d3e6a5150ae5eb01b5254f63b235a7e210ca094a41f72875c55117a03f9cb1",
+      "8bacc9187b515ab5e46aef88a5b89356471a2b644544e0e401a9681e9e2d837c"
+    ],
+    "recovery_result_sha256": "61cde3267cef50ca400217f96ca99341328ec14174c570f429a10d6f7ac32c8b",
+    "summary_sha256": "d87cbd2c3bc1f95d4c9c85c97c7ca1de943d95803e9804254b620393de2399ee"
+  },
+  "evidence_origin": "newly executed publication-package replay, not derived from sealed JEVIL-EXP-002 outputs",
+  "parameters": {
+    "excluded_zero_based_query_index": 1023,
+    "maximum_zero_based_query_index": 649,
+    "n_star": 1023,
+    "poseidon_capacity": 4,
+    "signing_queries": 650
+  },
+  "resources": {
+    "attack_stages_peak_rss_kib": 150488,
+    "attack_stages_wall_seconds": 1076.65,
+    "build_and_attack_peak_rss_kib": 306680,
+    "build_and_attack_wall_seconds": 1121.14,
+    "clean_verifier": {
+      "peak_rss_kib": 91840,
+      "wall_seconds": 0.89
+    },
+    "oracle": {
+      "peak_rss_kib": 131552,
+      "wall_seconds": 821.48
+    },
+    "recovery": {
+      "peak_rss_kib": 150488,
+      "wall_seconds": 254.28
+    },
+    "workers": 1
+  },
+  "result": {
+    "altered_signature_rejected": true,
+    "authenticated_openings": 41600,
+    "changed_message_rejected": true,
+    "changed_root_rejected": true,
+    "corrupted_row_rejected": true,
+    "distinct_positions": 35704,
+    "four_rows_recovered": true,
+    "fresh_message_unqueried": true,
+    "public_evaluation_reconstructed": true,
+    "root_reconstructed": true,
+    "untouched_ordinary_verifier_accepts_forgery": true
+  },
+  "schema": "org.eprint-signature-audit.jevil-package-validation/v1",
+  "status": "CRYPTOGRAPHIC_PIPELINE_PASS_WITH_POST_RUN_CLEANUP_FIX",
+  "validation": "fresh_key_full_replay"
+}

@@ -1,0 +1,9 @@
+# Rust
+target
+
+# LaTeX
+spec/*.pdf
+spec/*.log
+
+# macOS
+.DS_Store

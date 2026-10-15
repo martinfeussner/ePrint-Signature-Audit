@@ -1,0 +1,49 @@
+[package]
+name = "jevil"
+version = "0.1.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "A stateless few-time signature scheme with a sharp cliff at the (n*+1)-th signature."
+repository = "https://github.com/symbolicsoft/jevil"
+documentation = "https://docs.rs/jevil"
+readme = "README.md"
+keywords = ["cryptography", "signature", "post-quantum", "few-time", "whir"]
+categories = ["cryptography"]
+
+[lib]
+name = "jevil"
+path = "src/lib.rs"
+
+[dependencies]
+p3-field      = "0.5"
+p3-goldilocks = "0.5"
+p3-poseidon2  = "0.5"
+p3-symmetric  = "0.5"
+rayon         = "1"
+shake         = "0.1"
+spongefish    = { version = "0.7", features = ["ark-ff", "derive"] }
+rand          = "0.10"
+thiserror     = "2"
+zeroize       = { version = "1.8", features = ["derive"] }
+
+[dev-dependencies]
+rand_chacha = "0.10"
+sha2        = "0.11"
+hex         = "0.4"
+
+[[example]]
+name = "basic"
+path = "examples/basic.rs"
+
+[[example]]
+name = "cliff"
+path = "examples/cliff.rs"
+
+[[example]]
+name = "bench"
+path = "examples/bench.rs"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1

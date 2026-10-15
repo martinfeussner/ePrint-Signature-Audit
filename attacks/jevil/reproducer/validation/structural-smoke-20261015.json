@@ -1,0 +1,23 @@
+{
+  "checks": {
+    "source_layout_checked": true,
+    "synthetic_four_row_interpolation": true
+  },
+  "digests": {
+    "output_manifest_sha256": "a59aae2db9d0e0f8015cedd46dbe4455d10ca05fdd7e8d2c487fc20ff7bb0bb7",
+    "summary_sha256": "2ef9cf8d39f9ef1b821e5e9b91d1275525434c0d52953a236c635f15438cfe00"
+  },
+  "full_attack_reproduced": false,
+  "resources": {
+    "peak_rss_kib": 230516,
+    "wall_seconds": 159.53,
+    "workers": 1
+  },
+  "schema": "org.eprint-signature-audit.jevil-package-validation/v1",
+  "status": "PASS",
+  "toolchain": {
+    "cargo": "1.88.0",
+    "rustc": "1.88.0"
+  },
+  "validation": "structural_smoke"
+}

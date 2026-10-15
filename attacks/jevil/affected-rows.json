@@ -1,0 +1,34 @@
+{
+  "eprint_id": "2026/1103",
+  "paper": "Jevil: A Catastrophic-Failure-by-Design Signature Scheme",
+  "paper_sha256": "c0da79bdf8b2d2c9667d6167d6ab008b8eeaf838b463a40eb64f2abe123c01c5",
+  "rows": [
+    {
+      "advertised_cliff_signature_number": 1024,
+      "affected": true,
+      "capacity": 4,
+      "claimed_classical_security": "greater than 124 bits under EUF-CMA-n* for at most 1,023 ordinary signatures",
+      "degree_bound_exclusive": 32768,
+      "domain_size": 131072,
+      "id": "current-revision-4-nstar-1023-c4",
+      "independent_distinct_positions": 35603,
+      "independent_ordinary_queries": 650,
+      "initial_openings_per_signature": 64,
+      "interleaving_width": 4,
+      "maximum_ordinary_signing_queries": 1023,
+      "n_star": 1023,
+      "paper_revision": 4,
+      "poseidon2_width": 12,
+      "primary_distinct_positions": 35203,
+      "primary_ordinary_queries": 641,
+      "public_key_bytes": 68,
+      "row_count": 4,
+      "signature_kib_approx": 337,
+      "source_commit": "905466fbe3be99d90fd41e461e0c68271d09104b",
+      "source_tree": "f4a7366dac1a1f079186d87a2aca79c9918ee79e",
+      "working_field": "degree-4 extension of Goldilocks"
+    }
+  ],
+  "scope": "The current fourth-revision source-backed n_star=1023, c=4 profile. The demonstrated 641- and 650-query attacks stay below the 1,023-query ceiling and do not use the advertised 1,024th signature.",
+  "source_boundary": "The pinned source predates the final PDF by about 19 hours 47 minutes, and the paper does not name a source commit. The executable result uses the source layout; complete four-row recovery also follows under the cited Definition-3.22 layout."
+}
