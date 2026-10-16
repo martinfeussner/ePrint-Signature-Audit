@@ -64,7 +64,7 @@ exact-target cryptanalysis:
 
 | Scheme | ePrint | Scope | Disposition |
 |---|---|---|---|
-| ECLIPSE | 2026/2312 v1 | Paper-level construction; private implementation unavailable | No practical signing compromise; source recheck if released |
+| ECLIPSE | 2026/2312 v2 | Paper-level ordinary signature and shared-key specification delta; exact implementation unavailable | No practical signing compromise; source/composition recheck if released |
 | ASTRA-Sign | 2026/1290 v2 | Exact QC-MDGM parameter and recovery screens | Best memory-feasible routes remain infeasible |
 | miniMEDS | 2026/1323 v1 | Paper and pinned source, including MEDS attack transfers | Source/paper mismatch found; no signer or forgery |
 | Lithium | 2026/1790 v1 | IRS, transcript, DSD, and encoding paths | Challenge-index margin loss remains infeasible |
@@ -90,13 +90,15 @@ exact-target cryptanalysis:
 
 ### Audit summaries
 
-ECLIPSE (ePrint 2026/2312) received a scoped paper-level audit after a
-scheme-specific search, including its unnamed Section 5 PRISM identity, located
-no prior public attack as of 2026-10-07. Tests of its structured-primality,
-scalar-verifier, canonical-encoding, derived-key, and deterministic-stream
-surfaces found no practical full-parameter signing compromise. The exact
-implementation remains private, so source-specific decoder and serializer
-checks are reserved for a release-time recheck.
+ECLIPSE (ePrint 2026/2312 v2) remains a bounded paper-level audit. Its
+2026-10-14 version and history refresh found no prior public exact-target attack
+and confirmed that ordinary Sign/Verify, wire format, and primary rows are
+unchanged from v1 apart from domain labels. The added MIKE/ECLIPSE shared-key
+mode leaves an open joint-security question but supplies no concrete practical
+signing route. Earlier structured-primality, scalar-verifier,
+canonical-encoding, derived-key, and deterministic-stream screens found no
+full-parameter signing compromise. The cited implementation remains private,
+so exact source and composition checks remain reopening conditions.
 
 ASTRA-Sign (ePrint 2026/1290 v2) completed a scoped audit with no practical
 signing compromise. QC-pooled transcript statistics, sparse-ratio and CRT

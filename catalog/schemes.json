@@ -33,18 +33,18 @@
     "scheme": "ECLIPSE",
     "aliases": [
       "prime-degree PRISM",
-      "salted prime-degree Section 5 PRISM"
+      "salted prime-degree variant of PRISM"
     ],
     "eprint_id": "2026/2312",
-    "eprint_version": "v1",
-    "eprint_date": "2026-10-02",
+    "eprint_version": "v2",
+    "eprint_date": "2026-10-08",
     "family": "supersingular-isogeny hash-and-sign signature",
     "status": "AUDITED_NO_PRACTICAL_ATTACK",
-    "attack_history_checked_at": "2026-10-07",
+    "attack_history_checked_at": "2026-10-14",
     "url": "https://eprint.iacr.org/2026/2312",
-    "attack_history_note": "No public attack against exact ECLIPSE was located; related attacks against weakened PRISM, PRISM-id, and auxiliary-isogeny constructions do not target this exact scheme.",
+    "attack_history_note": "No public attack against exact ECLIPSE v2 was located in the searches refreshed through 2026-10-14. Related attacks against weakened PRISM, PRISM-id, and auxiliary-isogeny constructions do not target this exact scheme.",
     "audit_completed_at": "2026-10-07",
-    "audit_note": "A scoped paper-level audit tested structured-composite primality, the scalar verifier, canonical response encoding, derived-key adaptation, and deterministic-stream framing without finding a practical full-parameter signing compromise. The cited ECLIPSE source remains private, so exact decoder and serializer checks are deferred until release."
+    "audit_note": "The v2 specification delta preserves ordinary Sign/Verify, wire format v3, and the primary NIST I/III/V rows apart from domain labels. The added MIKE/ECLIPSE shared-key mode leaves an open joint-security question but no concrete practical signing route. Earlier structured-primality, scalar-verifier, canonical-encoding, derived-key, and deterministic-stream screens found no practical full-parameter signing compromise. The cited implementation remains private, so exact source and composition checks are reopening conditions."
   },
   {
     "scheme": "D-James",
