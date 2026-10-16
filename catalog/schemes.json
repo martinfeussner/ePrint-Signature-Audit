@@ -767,6 +767,49 @@
     ]
   },
   {
+    "scheme": "ANSA-IBS",
+    "aliases": [
+      "ANSA-IBS: Identity-Based Signatures from Annular NTRU Trapdoors and Bimodal Fiat-Shamir with Aborts"
+    ],
+    "eprint_id": "2026/2134",
+    "eprint_version": "current major revision dated 2026-10-12",
+    "eprint_date": "2026-09-21",
+    "family": "identity-based lattice signature from annular NTRU trapdoors and bimodal Fiat-Shamir with aborts",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2026/2134",
+    "authors": [
+      "Zhaohui Cheng",
+      "Hengfu Yang",
+      "Kaixin Xiong"
+    ],
+    "paper_sha256": "6f8fe0b10184e3fc99d5843b5c015625a36b10efefdae786faab3cf39fe4ff5b",
+    "attack_history_note": "No public attack, fresh-message forgery, master-key recovery, equivalent signing-witness result, correction, issue, or advisory against the exact frozen current ANSA-IBS scheme was located in bounded searches through 2026-10-16. Confidence is moderate because the scheme and current revision are recent, the conference presentation is future, some search surfaces were limited, and the claimed author artifact was not publicly located.",
+    "audit_completed_at": "2026-10-16",
+    "selected_parameter_set": "paper-level ordinary external-message IBS-1 with N=1536, q=8380417, challenge weight 27, ZBOUND=2018750, and fixed 8,488-byte signatures",
+    "source_status": "AUTHOR ARTIFACT CLAIMED BUT NOT PUBLICLY LOCATED; PAPER-LEVEL AUDIT ONLY",
+    "operation_scope": "Algorithms 3.1-3.4 with the main annular/Antrag setup and Appendix-B fixed-point realization. The forgery game permits signing other messages at the target identity, while the forged identity must not have been explicitly extracted and the forged identity/message pair must be fresh.",
+    "audit_note": "A bounded paper-level audit found no secret-key recovery with fresh signing, reusable equivalent signing witness, or ordinary-verifier-accepted fresh-message forgery within the campaign's 2^45 work boundary. The closest numerical observation is an approximately 2^50 auxiliary ordinary-RSIS diagnostic, but it is a one-way consequence of two already-accepting same-commitment forks and has no reverse construction to a transcript-fixed signature. Direct BMST, alternate-user-key, retargeting, identity, annular, and exact-Galois routes either remain above the cutoff or lack a signing bridge. No experiment was warranted. This is a bounded campaign result, not a security proof.",
+    "audit_limitations": [
+      "The result is paper-level only because no author-designated implementation or benchmark artifact was located.",
+      "Public Hash and HashToRq instantiations and several signature, user-key, and key-hash wire encodings are not byte-exactly specified.",
+      "Lattice and distributional costs are stopping estimates rather than unconditional lower bounds.",
+      "Sparse fixed-weight challenge classes were not exhaustively enumerated because no useful family, density, or signing bridge was specified.",
+      "The negative attack-history result has moderate confidence because the target and current revision are recent.",
+      "The bounded closeout is not a proof against every possible future attack."
+    ],
+    "reopen_conditions": [
+      "A reverse ordinary-RSIS-to-accepted-transcript construction below 2^45 is supplied.",
+      "A full-row affine-preimage, BMST, or annular recovery algorithm enters the sub-2^45 range.",
+      "A counted weak-challenge family and complete signing bridge have combined work below 2^45.",
+      "An ordinary-output witness-dependent bias yields a quantified recovery algorithm below 2^45.",
+      "An exact module symmetry survives the complete prime-order Galois screen.",
+      "A shared-interface ANSA-IBKEM or Antrag break yields the master trapdoor or an unextracted-identity signing witness.",
+      "An author artifact, material revision, or new exact-target prior art changes the frozen scope or history result."
+    ]
+  },
+  {
     "scheme": "Jevil",
     "aliases": [
       "Jevil: A Catastrophic-Failure-by-Design Signature Scheme"

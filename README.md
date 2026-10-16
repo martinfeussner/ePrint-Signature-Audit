@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 39 |
+| Schemes identified | 40 |
 | Known attacks excluded | 3 |
-| Schemes audited | 36 |
-| No practical attack found | 22 |
+| Schemes audited | 37 |
+| No practical attack found | 23 |
 | Verified and independently reproduced practical design attacks | 14 |
 
 ## Practical design attacks
@@ -86,6 +86,7 @@ exact-target cryptanalysis:
 | CUTS | 2026/2455 v1 | Standalone base `cuts-128-smallest` under at most two ordinary signing queries; CUTS+C excluded | No practical signer or forgery; independently checked selector bound remains above the `2^45` campaign gate |
 | K-LMS | 2026/2372 v1 | Exact principal `n=32,h=10,w=4,L=1` endpoint at source commit `58be56d022422f2f58c15c3542a6fbc930686086`; correct stateful operation; LSH and CHAM-/LEA-/ARIA-TDM mappings kept separate | No practical signer or forgery; reopen only under the listed exact full-round, binding, revision/vector, or prior-art conditions |
 | SigRPO-LDR | 2024/1553 current v2 | Exact Goldilocks `D=2048,q=85,e=3,m=58` LDR profile at source commit `99304c22e3ed384d0e227b670d1d7465ed7c4e98`; RPO and Blake3 BCS endpoints kept separate | No practical signer or forgery; exact RPO quotient-leaf defect remains nonqualifying because no DEEP/Horner signing bridge was found |
+| ANSA-IBS | 2026/2134 current 2026-10-12 revision | Paper-level external-message IBS-1 at `N=1536`, `q=8380417`, challenge weight 27, and `ZBOUND=2018750`; claimed artifact unavailable | No practical signer or forgery; closest ordinary-RSIS diagnostic is about `2^50` and has no reverse signing bridge |
 
 ### Audit summaries
 
@@ -357,6 +358,26 @@ unavailable. This is a bounded campaign result, not a security proof. No attack
 package is created. Reopen only for a sub-`2^45` constrained RPO opening,
 path/transcript, direct-witness, q85/e3 proof, or packed-Blake3 route; a material
 paper/source or parser/profile change; or new exact-target prior art.
+
+ANSA-IBS (ePrint 2026/2134, current 2026-10-12 revision) completed a
+bounded paper-level audit of the ordinary external-message IBS-1 profile at
+`N=1536`, `q=8380417`, challenge weight 27, `ZBOUND=2018750`, and an 8,488-byte
+signature. Exact reconstruction and hostile closeout found no master-key
+recovery, reusable equivalent signing witness, or ordinary-verifier-accepted
+fresh-message forgery within the campaign's `2^45` work boundary. The closest
+numerical observation is the paper's approximately `2^50` auxiliary
+ordinary-RSIS diagnostic, but it is only a consequence of two already-valid
+same-commitment forks and supplies no reverse construction to a transcript-fixed
+signature. Direct BMST, alternate-user-key, challenge-retargeting, identity,
+annular, and exact-Galois routes either remain above the cutoff or lack a
+signing bridge. No experiment was warranted. The claimed author artifact was
+not publicly located, and the public hash suite and several wire encodings are
+not byte-exactly specified, so this result makes no source-conformance or
+benchmark claim. This is a bounded campaign audit, not a security proof. Reopen
+for a concrete sub-`2^45` RSIS-to-transcript, affine-preimage/BMST, annular,
+weak-challenge, output-bias, or surviving-symmetry route; a shared-interface
+ANSA-IBKEM/Antrag break yielding signing power; a material paper/artifact
+change; or new exact-target prior art.
 
 ## Verified attack summaries
 
