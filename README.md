@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 38 |
+| Schemes identified | 39 |
 | Known attacks excluded | 3 |
-| Schemes audited | 35 |
-| No practical attack found | 21 |
+| Schemes audited | 36 |
+| No practical attack found | 22 |
 | Verified and independently reproduced practical design attacks | 14 |
 
 ## Practical design attacks
@@ -85,6 +85,7 @@ exact-target cryptanalysis:
 | MR-DSS | 2022/973 current | Ordinary Category-I clean-room profile; systematic MinRank and invariant protocol routes | No practical signer or forgery; optimized response profile remains underspecified |
 | CUTS | 2026/2455 v1 | Standalone base `cuts-128-smallest` under at most two ordinary signing queries; CUTS+C excluded | No practical signer or forgery; independently checked selector bound remains above the `2^45` campaign gate |
 | K-LMS | 2026/2372 v1 | Exact principal `n=32,h=10,w=4,L=1` endpoint at source commit `58be56d022422f2f58c15c3542a6fbc930686086`; correct stateful operation; LSH and CHAM-/LEA-/ARIA-TDM mappings kept separate | No practical signer or forgery; reopen only under the listed exact full-round, binding, revision/vector, or prior-art conditions |
+| SigRPO-LDR | 2024/1553 current v2 | Exact Goldilocks `D=2048,q=85,e=3,m=58` LDR profile at source commit `99304c22e3ed384d0e227b670d1d7465ed7c4e98`; RPO and Blake3 BCS endpoints kept separate | No practical signer or forgery; exact RPO quotient-leaf defect remains nonqualifying because no DEEP/Horner signing bridge was found |
 
 ### Audit summaries
 
@@ -326,6 +327,36 @@ equivalent signer or accepted fresh-message forgery; a secret-derivation,
 deterministic-`C`, namespace, or LM-OTS transformation defeating the reviewed
 arguments below the cutoff; or a material paper/source revision, endpoint
 vector, or new exact-target prior art.
+
+SigRPO-LDR (ePrint 2024/1553 current v2) completed a bounded source-backed
+audit of the exact Goldilocks `D=2048,q=85,e=3,m=58` LDR profile, with no FRI
+folds and grinding `(0,0,0,2)`, at paper-branch commit
+`99304c22e3ed384d0e227b670d1d7465ed7c4e98`. The source-defined RPO and
+Blake3 BCS verifiers were adjudicated separately. Neither endpoint yielded a
+secret key, reusable equivalent signer, or ordinary-verifier-accepted
+fresh-message forgery within the campaign's `2^45` work boundary.
+
+The RPO endpoint has an exact source-specific commitment defect: every
+four-felt digest of a 48-felt quotient leaf has efficient full-round preimages,
+arbitrary multicollisions, and a leaf/node alias. A same-digest substituted
+opening preserved Merkle reconstruction, but the unchanged verifier rejected
+with `DeepCheckFailed` because each queried row must also satisfy a prescribed
+cubic-extension DEEP/Horner value. No constructive bridge into that condition
+below `2^45` was found. The defect is therefore nonqualifying and is not a
+successful signature attack. It does not transfer to Blake3, whose leaves are
+tagged and length-bound and whose nodes use a distinct canonical encoding.
+
+The result is limited to the pinned source's salted transcript and BCS byte
+dialect, four-canonical-Goldilocks-element message API, CPU/no-default-features
+endpoint, explicit Blake3 preset, and out-of-band verifier-type backend
+selection. The generated vectors are campaign candidates rather than
+pre-existing author KATs; the paper's printed estimates were checked for
+consistency, not proved as new soundness theorems. Current v2 was pinned from a
+public mirror matched to official metadata, while immutable v1 bytes were
+unavailable. This is a bounded campaign result, not a security proof. No attack
+package is created. Reopen only for a sub-`2^45` constrained RPO opening,
+path/transcript, direct-witness, q85/e3 proof, or packed-Blake3 route; a material
+paper/source or parser/profile change; or new exact-target prior art.
 
 ## Verified attack summaries
 

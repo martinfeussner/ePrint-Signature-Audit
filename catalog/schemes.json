@@ -707,6 +707,66 @@
     ]
   },
   {
+    "scheme": "SigRPO-LDR",
+    "aliases": [
+      "SigRPO",
+      "STARK-based Signatures from the RPO Permutation",
+      "RPO STARK signature"
+    ],
+    "eprint_id": "2024/1553",
+    "eprint_version": "current v2, revised 2026-08-20",
+    "eprint_date": "2024-10-03",
+    "family": "STARK/FRI-based Fiat-Shamir signature proving knowledge of an RPO preimage over the Goldilocks field",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2024/1553",
+    "attack_history_note": "No public secret-key recovery, equivalent signing witness, fresh-message forgery, practical soundness violation, or comparable substantive cryptanalysis against SigRPO or the exact current-v2 q=85/e=3 LDR profile was located in bounded searches through 2026-10-16T09:01:42Z. Confidence is moderate-high: immutable v1 paper bytes were unavailable, several search surfaces were limited, and public indexes can lag.",
+    "audit_completed_at": "2026-10-16",
+    "selected_parameter_set": "Goldilocks LDR (D,q,e,m)=(2048,85,3,58), no FRI folds, maximum remainder degree 255, grinding (0,0,0,2), with source-defined RPO and Blake3 BCS endpoints treated separately",
+    "source_status": "AUTHOR_SOURCE_AVAILABLE; PAPER BRANCH AND SOURCE-SPECIFIC BCS SEMANTICS PINNED",
+    "source_url": "https://github.com/0xMiden/miden-signature",
+    "source_branch": "paper/original-udr-ldr",
+    "source_commit": "99304c22e3ed384d0e227b670d1d7465ed7c4e98",
+    "source_tree": "d7e6547f3a8b1667f87c3f34ec087b540eddd424",
+    "source_archive_sha256": "82f3ada44dba10a9637ceedd4bbc4292274b4c032ed39de809be070bce0f0df4",
+    "operation_scope": "Exact x86_64 CPU/no-default-features endpoints and the source API's four-canonical-Goldilocks-element messages. RPO and Blake3 are distinct verifier types and distinct audit endpoints; proof bytes do not select the suite.",
+    "backend_findings": [
+      "RPO: every four-felt digest of a 48-felt quotient leaf has efficient full-round chosen-digest preimages, arbitrary multicollisions, and a leaf/node alias in the pinned source construction. A same-digest substituted opening preserved Merkle reconstruction but the unchanged ordinary verifier rejected with DeepCheckFailed because the required cubic-extension DEEP/Horner value was not preserved. No constrained-opening or signing bridge below 2^45 was found.",
+      "Blake3: the RPO construction does not transfer. Leaves are tagged and length-bound, nodes use a distinct canonical encoding, and the packed-digest reduction retains about 2^128 generic birthday work and at least about 2^252 generic target-preimage work. No structural collision, suite-confusion path, equivalent signer, or accepted fresh-message forgery was found."
+    ],
+    "audit_note": "A bounded source-backed audit of the exact profile found no secret-key recovery with fresh signing, reusable equivalent signer, or ordinary-verifier-accepted fresh-message forgery within the campaign's 2^45 work boundary. The exact RPO quotient-leaf commitment defect is a substantive but nonqualifying finding: the post-challenge DEEP/Horner condition remains, and the ordinary verifier rejected the demonstrated same-digest replacement. Blake3 was adjudicated separately and does not share that defect. The retained cost figures are route-specific stopping estimates, not formal lower bounds. This is a bounded campaign result, not a security proof or validation of the paper's numerical security claims. No attack package is warranted.",
+    "conformance_limitations": [
+      "Messages are four canonical Goldilocks elements; the source API specifies no arbitrary-byte encoding.",
+      "KeyGen is a deterministic seed wrapper around the paper-level random four-felt secret and depends on caller seed quality.",
+      "Blake3 has no narrow public LDR wrapper; the exact local preset and suite type must be constructed explicitly.",
+      "Backend identity is verifier type and out-of-band state, not a serialized proof field.",
+      "The paper does not specify the source-exact salted transcript or BCS framing, and RPO leaf/node separation is not structurally tagged.",
+      "The source's tighter estimator numbers do not replace the paper's printed 126/125/>122 security chain.",
+      "The accepted S1 result is static evidence only; it supplies no build, KAT, full endpoint vector, or round-trip evidence."
+    ],
+    "conformance_note": "The seventh retained limitation describes the static S1 review. The separate sealed EXP-002 run added a warning-free release build, the three available source checks, and one successful KeyGen/Sign/Verify round trip plus eight rejecting controls per backend. It did not add a pre-existing full-endpoint author KAT, so its generated vectors remain campaign candidates.",
+    "audit_limitations": [
+      "The chosen-digest defect is exact for the pinned source commit's RPO leaf construction; the paper does not specify that exact salted transcript, leaf/node framing, or byte dialect, so the finding is not generalized to every conceivable paper-compatible implementation.",
+      "Conformance covers the four-field-element message API, CPU/no-default-features execution, and one fixed-seed candidate vector per backend; it is not a distributional campaign or author KAT.",
+      "Backend identity is selected out of band by the verifier type; attacker-controlled suite autodetection is outside the reviewed ordinary API.",
+      "Blake3 was instantiated through the source's generic suite type with the exact local preset because no narrow public LDR wrapper exists.",
+      "The estimator and list/proximity formulas were checked for arithmetic consistency rather than independently proved as new soundness theorems.",
+      "Full-round RPO is treated as cryptographic in the generic projection, partial-preimage, and capacity-match stopping estimates. The leaf collision is constructive; the absence of a constrained-opening solver is only a bounded-search conclusion.",
+      "Current v2 was frozen from a public mirror and matched to official metadata; immutable v1 bytes were unavailable, and the history gate is bounded by accessible and indexed material.",
+      "The hash/commitment evidence manifest seals its declared evidence rather than every generated file; omitted bytecode caches are not cited as evidence."
+    ],
+    "reopen_conditions": [
+      "A full-round algorithm below 2^45 solves hash_row(row,salt)=h and H_alpha(row)=t for fixed adversarial h, alpha, and t.",
+      "A full-profile RPO internal-node/path equivocation or transcript-capacity steering method below 2^45 removes the fixed-digest or Horner condition.",
+      "A direct full-round RPO secret-preimage or reusable equivalent-witness method enters the campaign bound.",
+      "An exact q85/e3 cheating word, quotient identity, DEEP counterexample, or verifier defect makes the 85-query event operational within 2^45 work; agreement near 0.704 would suffice for the reviewed nonce strategy.",
+      "A packed Blake3 collision or target-preimage construction enters 2^45 work, or an ordinary application path lets proof bytes select the suite.",
+      "A material paper or source revision changes transcript order, leaf widths, tree reconstruction, canonical encoding, verifier-owned parameters, or the exact security profile.",
+      "New exact-target prior art or an authoritative source-independent BCS specification materially changes the target boundary."
+    ]
+  },
+  {
     "scheme": "Jevil",
     "aliases": [
       "Jevil: A Catastrophic-Failure-by-Design Signature Scheme"
