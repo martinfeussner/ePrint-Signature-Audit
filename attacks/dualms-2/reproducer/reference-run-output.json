@@ -1,0 +1,147 @@
+{
+  "banner": "DUALMS 2.0 ATTACK REPRODUCTION: PASS",
+  "profiles": [
+    {
+      "all_negative_controls_rejected": true,
+      "attack": {
+        "all_zero_responses": true,
+        "hint_norm_squared": 136885,
+        "hint_norm_squared_threshold": 138330,
+        "hsig_queries": 19,
+        "maximum_canonical_hint_norm_squared": 403200,
+        "ordinary_verifier_accepted": true,
+        "signature_sha256": "6a5119a4666c753bab98ce68e6307363cddf75b4918e36f0057470b1131617e6",
+        "trial_count": 19
+      },
+      "bounds": {
+        "B": "24959699776.38182194811282443234280514870465405454682210257253581305791300851636058401736328388801932",
+        "B_double_prime_squared_floor": 49152,
+        "B_prime_squared_floor": 18840538647830577807,
+        "B_squared_floor": 622986612927114772561,
+        "T": "215519.4654781790238096239269814332397811467409280546721070957389176340250032796880114642499631962633",
+        "alpha": "157.344",
+        "hint_norm_squared_threshold": 138330,
+        "sigma": "33910694.77619860032230146716696663168012475280458383432801887194425620803011603923047583094620915285"
+      },
+      "negative_controls": {
+        "changed_challenge_rejected": true,
+        "changed_message_rejected": true,
+        "changed_r_rejected": true,
+        "changed_rbar_rejected": true,
+        "changed_registration_list_rejected": true,
+        "changed_z_rejected": true,
+        "excessive_canonical_hint_rejected": true,
+        "noncanonical_hint_rejected": true
+      },
+      "parameters": {
+        "N": 256,
+        "ell": 6,
+        "eta": 1,
+        "kappa": 60,
+        "m": 7,
+        "n": 32,
+        "nu_b": 11,
+        "nu_w": 26,
+        "q": 2113928077,
+        "q_b": 1032191,
+        "q_w": 31
+      },
+      "profile": "DUALMS2-ROUNDED-N32-PAPER-Q2113928077-V1",
+      "runtime": {
+        "peak_rss_kib": 22016,
+        "wall_seconds": 1.712233,
+        "workers": 1
+      },
+      "security_game": {
+        "adversarially_registered_keys": 31,
+        "distinct_public_keys": 32,
+        "fresh_message": true,
+        "honest_challenge_keys": 1,
+        "registration_list_size": 32,
+        "signing_oracle_queries": 0
+      },
+      "status": "PASS",
+      "transcript": {
+        "aggregate_public_key_sha256": "be160b9bfae31778f866414e2e4785f8c5cbea6756f5f600197b62cf6137e0bb",
+        "codec": "non-normative direct injective length-delimited SHAKE256 completion",
+        "message_sha256": "4b7fd157b25de007207960561338dbb219557801b087f4811be81787d3df6e48",
+        "public_key_list_sha256": "cc926b119c3fbf886063984faf54ddc7d040f7cd8d738ffd8cce210b912db768"
+      }
+    },
+    {
+      "all_negative_controls_rejected": true,
+      "attack": {
+        "all_zero_responses": true,
+        "hint_norm_squared": 47681,
+        "hint_norm_squared_threshold": 329464658,
+        "hsig_queries": 1,
+        "maximum_canonical_hint_norm_squared": 125440,
+        "ordinary_verifier_accepted": true,
+        "signature_sha256": "e23431a3bc7078c9f50bfd6685aa91492e31a67076ebb46260fbf42f9feab88e",
+        "trial_count": 1
+      },
+      "bounds": {
+        "B": "4872415274260.441301417139173533596505935948068619751861357756234839485933789022445632320984333783030",
+        "B_double_prime_squared_floor": 1572864,
+        "B_prime_squared_floor": 749659649786136453646909,
+        "B_squared_floor": 23740430604846451426078443,
+        "T": "237490.8840355772476697132077041068366484786753815205370213612938102693703490470037906609462866954155",
+        "alpha": "5035.008",
+        "hint_norm_squared_threshold": 329464658,
+        "sigma": "1195768501.046203726634987358495839555379783318375358956066850285225056761862414456462008189841081711"
+      },
+      "negative_controls": {
+        "changed_challenge_rejected": true,
+        "changed_message_rejected": true,
+        "changed_r_rejected": true,
+        "changed_rbar_rejected": true,
+        "changed_registration_list_rejected": true,
+        "changed_z_rejected": true,
+        "noncanonical_hint_rejected": true
+      },
+      "parameters": {
+        "N": 256,
+        "ell": 6,
+        "eta": 1,
+        "kappa": 60,
+        "m": 10,
+        "n": 1024,
+        "nu_b": 11,
+        "nu_w": 28,
+        "q": 4160748533,
+        "q_b": 2031615,
+        "q_w": 15
+      },
+      "profile": "DUALMS2-ROUNDED-N1024-PAPER-Q4160748533-V1",
+      "runtime": {
+        "peak_rss_kib": 105828,
+        "wall_seconds": 6.861065,
+        "workers": 1
+      },
+      "security_game": {
+        "adversarially_registered_keys": 1023,
+        "distinct_public_keys": 1024,
+        "fresh_message": true,
+        "honest_challenge_keys": 1,
+        "registration_list_size": 1024,
+        "signing_oracle_queries": 0
+      },
+      "status": "PASS",
+      "transcript": {
+        "aggregate_public_key_sha256": "30380f9956085f00ad1922927a10cb242d52f77dccc66bb12f3c389b26c280b3",
+        "codec": "non-normative direct injective length-delimited SHAKE256 completion",
+        "message_sha256": "d5751a83e4d50660719f37d37232805b4258983b305449d1227560cb1306b8d5",
+        "public_key_list_sha256": "84e33b884555cc1733eb33de95612c2007e6edcf0a2847c4a195ea64231621e2"
+      }
+    }
+  ],
+  "publication_status": "VERIFIED_ATTACK",
+  "seed_hex": "b54788155733e2f4898e263673996949837f1816b18e620f8e7d77b50169bda2",
+  "summary": {
+    "all_negative_controls_rejected": true,
+    "all_ordinary_verifiers_accepted": true,
+    "profiles_passed": 2,
+    "profiles_total": 2,
+    "signing_oracle_queries": 0
+  }
+}

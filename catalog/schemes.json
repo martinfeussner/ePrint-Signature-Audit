@@ -901,5 +901,15 @@
       "A deployment exposes a materially different adversarial endpoint that changes the reviewed design boundary.",
       "New exact-target prior art, public security guidance, a withdrawal, or an exact-scheme attack changes the dated history verdict."
     ]
+  },
+  {
+    "scheme": "DualMS 2.0",
+    "eprint_id": "2026/1941",
+    "eprint_version": "current retained 39-page body observed 2026-10-16; official version ordinal unavailable",
+    "eprint_date": "2026-09-09",
+    "family": "Lattice-based two-round Fiat-Shamir multisignature with modulus rounding",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2026/1941"
   }
 ]

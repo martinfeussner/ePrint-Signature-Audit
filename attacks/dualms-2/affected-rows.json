@@ -1,0 +1,18 @@
+{
+  "eprint_id": "2026/1941",
+  "rows": [
+    {
+      "n": 32,
+      "profile": "DUALMS2-ROUNDED-N32-PAPER-Q2113928077-V1",
+      "q": 2113928077,
+      "result": "practical probabilistic fresh-message forgery"
+    },
+    {
+      "n": 1024,
+      "profile": "DUALMS2-ROUNDED-N1024-PAPER-Q4160748533-V1",
+      "q": 4160748533,
+      "result": "one-Hsig-query fresh-message forgery; every canonical hint fits"
+    }
+  ],
+  "scope": "Both advertised rounded Table-6 rows; zero signing-oracle queries."
+}

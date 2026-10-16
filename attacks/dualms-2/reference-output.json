@@ -1,0 +1,25 @@
+{
+  "attack": {
+    "signing_queries": 0
+  },
+  "checks": {
+    "all_negative_controls_rejected": true,
+    "both_advertised_rows_passed": true,
+    "direct_full_list_codec_used": true,
+    "ordinary_verifiers_accepted": true,
+    "zero_signing_oracle_queries": true
+  },
+  "digests": {
+    "independent_reproduction_verdict_sha256": "f624f7f7c8ad10097db96bece708c2c95c0bd6ccda6eb17acef7d142bf8c5842",
+    "reproducer_core_sha256": "07549712f719773d548f260ca848d1a6feae946c764a764d63dfb7495ec06d4c",
+    "stable_raw_output_sha256": "2a3ed0d96cca4f072f20d4cb2dc4948f43794fa7abd1c2d9cbfab81ffc76a67b",
+    "stable_seed_sha256": "10a1909f0d7cb48eb904d6119c8c478dcd11a7265a6cd70d78d8a5bcb63ef2d4"
+  },
+  "environment": {
+    "dependencies": "Python 3 standard library",
+    "workers": 1
+  },
+  "full_attack_reproduced": true,
+  "mode": "stable_two_row_package_replay",
+  "result": "PASS: stable full-parameter hint-slack forgery replay accepted for both advertised rounded rows"
+}

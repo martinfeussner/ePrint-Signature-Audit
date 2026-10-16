@@ -1,0 +1,56 @@
+{
+  "all_rows_pass": true,
+  "attack": {
+    "signing_queries": 0
+  },
+  "digests": {
+    "independent_reproduction_verdict_sha256": "f624f7f7c8ad10097db96bece708c2c95c0bd6ccda6eb17acef7d142bf8c5842",
+    "reproducer_core_sha256": "07549712f719773d548f260ca848d1a6feae946c764a764d63dfb7495ec06d4c",
+    "stable_raw_output_sha256": "2a3ed0d96cca4f072f20d4cb2dc4948f43794fa7abd1c2d9cbfab81ffc76a67b",
+    "stable_seed_sha256": "10a1909f0d7cb48eb904d6119c8c478dcd11a7265a6cd70d78d8a5bcb63ef2d4"
+  },
+  "evidence_origin": "stable publication-package replay, distinct from the sealed fresh-context independent reproduction",
+  "full_attack_reproduced": true,
+  "resources": {
+    "peak_rss_kib": 105828,
+    "wall_seconds": 8.7,
+    "workers": 1
+  },
+  "result": "FULL_TWO_ROW_PACKAGE_REPLAY_PASS",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_negative_controls_rejected": true,
+        "fresh_message": true,
+        "ordinary_verifier_accepted": true,
+        "zero_responses": true,
+        "zero_signing_oracle_queries": true
+      },
+      "hint_norm_squared": 136885,
+      "hint_norm_squared_threshold": 138330,
+      "hsig_queries": 19,
+      "parameter_row": "DUALMS2-ROUNDED-N32-PAPER-Q2113928077-V1",
+      "registration_list_size": 32,
+      "signature_sha256": "6a5119a4666c753bab98ce68e6307363cddf75b4918e36f0057470b1131617e6",
+      "signing_oracle_queries": 0
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_negative_controls_rejected": true,
+        "fresh_message": true,
+        "ordinary_verifier_accepted": true,
+        "zero_responses": true,
+        "zero_signing_oracle_queries": true
+      },
+      "hint_norm_squared": 47681,
+      "hint_norm_squared_threshold": 329464658,
+      "hsig_queries": 1,
+      "parameter_row": "DUALMS2-ROUNDED-N1024-PAPER-Q4160748533-V1",
+      "registration_list_size": 1024,
+      "signature_sha256": "e23431a3bc7078c9f50bfd6685aa91492e31a67076ebb46260fbf42f9feab88e",
+      "signing_oracle_queries": 0
+    }
+  ]
+}

@@ -14,11 +14,11 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 41 |
+| Schemes identified | 42 |
 | Known attacks excluded | 3 |
-| Schemes audited | 38 |
+| Schemes audited | 39 |
 | No practical attack found | 24 |
-| Verified and independently reproduced practical design attacks | 14 |
+| Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
 
@@ -38,6 +38,7 @@ unreported.
 | [HPPK DS](attacks/hppk-ds/) | 2023/1768 | Polynomial/multivariate signature over dual hidden rings | Zero-query universal fresh-message forgery | Four all-zero `(F,H)` pairs annihilate Equation (28) | All 3 target rows and all 15 benchmark rows | 0.34 s source run; 7,680 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [Jevil](attacks/jevil/) | 2026/1103 rev. 4 | Few-time polynomial/zk-WHIR signature | Equivalent signing-state recovery with fresh-message forgery | Authenticated width-four openings and four-row Reed--Solomon interpolation | `n_star=1023`, `c=4` | 641 queries; 486.90 s recovery; 143,756 KiB peak, 1 recovery worker | Verified; independently AI-reproduced |
 | [EagleSignV3](attacks/eaglesignv3/) | 2024/1234 rev. 2 | Fiat--Shamir-with-aborts lattice signature | Ternary secret and equivalent signing-key recovery with fresh-message forgery | Public-`r` centered-wrap labels and ternary feasibility | Paper-level Ring-L2 `(1,1,1024,59393,16,1,16,16384,16384)` | 40,000 signer outputs; 296.09 s independent pipeline; 221,272 KiB peak, 1 worker | Verified; independently AI-reproduced |
+| [DualMS 2.0](attacks/dualms-2/) | 2026/1941 retained current body | Rounded two-round Fiat--Shamir lattice multisignature | Public-key-only fresh-message forgery | Zero responses and verifier-hint absorption of reconstruction | Rounded Table-6 `n=32` and `n=1024` | 4 and 1 `Hsig` queries in the independent reproduction; 28.16 s, 252,432 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
