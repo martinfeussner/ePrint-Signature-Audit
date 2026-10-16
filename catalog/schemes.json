@@ -911,5 +911,60 @@
     "status": "VERIFIED_ATTACK",
     "attack_history_checked_at": "2026-10-16",
     "url": "https://eprint.iacr.org/2026/1941"
+  },
+  {
+    "scheme": "edaBitE Blind Signature",
+    "aliases": [
+      "edaBits in the Exponent blind signature",
+      "BMLDSA",
+      "blind_mldsa"
+    ],
+    "eprint_id": "2026/2473",
+    "eprint_version": "initial/current object approved 2026-10-14",
+    "eprint_date": "2026-10-14",
+    "family": "three-message Fischlin-style blind signature from ML-DSA-44 and VOLE-in-the-Head with edaBitE conversions",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL / PAPER_LEVEL_SOURCE_LIMITED",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2026/2473",
+    "authors": [
+      "Carsten Baum",
+      "Marvin Beckmann"
+    ],
+    "paper_sha256": "c293aba40dbfb19eaec66e1dbc69c97c34f105c04d52570e9344e88ffd929b1d",
+    "attack_history_note": "No public attack against exact ePrint 2026/2473 was located in bounded searches through 2026-10-16. Confidence is moderate because the paper was two days old, some indexes were unavailable, and both advertised author repositories were inaccessible. Cloudflare vole-mole PR 56 is related implementation evidence, but no paper-level transfer was established. This is a dated absence-of-located-public-attack statement, not an absolute novelty or priority claim.",
+    "audit_completed_at": "2026-10-16",
+    "selected_parameter_set": "paper-level base single-issuer ML-DSA-44; lambda=128; VOLE tau=16; d_max=197; SampleInBall attempt budget theta_max=213; base-8 ranges; six edaBitE repetitions; two general-ORAM checks; (3,0) SHAKE plan; claimed eight-bit grinding",
+    "source_status": "BOTH ADVERTISED AUTHOR ARTIFACTS RETURN HTTP 401; PAPER-LEVEL AUDIT ONLY",
+    "source_urls": [
+      "https://anonymous.4open.science/r/blind_mldsa-800C",
+      "https://anonymous.4open.science/r/swanky-0321"
+    ],
+    "operation_scope": "Base single-issuer blind signature only, under the ordinary one-more game and the paper's explicit requirement that the 256 reserved raw-VOLE mask bits are bound by the first phase before the external hash. Issuer-hiding and attribute-disclosure extensions, source-specific transcript/parser behavior, privacy, linkability without a signing endpoint, selective abort, and completeness failures are excluded.",
+    "audit_note": "A bounded paper-level audit found no practical full-parameter issuer-key recovery, reusable equivalent signing witness, zero-query accepted proof, or one-more fresh-message forgery within 2^45 work. Under first-phase mask binding, cross-message reuse requires about 2^128 generic collision work and fixed-target retargeting about 2^256. The theorem states ordinary final-proof straightline extraction although its proof needs stronger first-phase extraction or binding; the algorithm and prose expressly select that stronger PoMFRIT-style schedule, so the mismatch is not a demonstrated attack on the frozen design. The claimed eight-bit grinding step is unverified because its transcript and predicate are omitted; without its credit, aggregate generic soundness is about 2^-120.3774879 and still supplies no practical accepted-proof route. Exact edaBitE, ML-DSA range/hint, and general-ORAM checks were bounded negative. This is a bounded campaign result, not a security proof or a source-conformance conclusion.",
+    "conformance_limitations": [
+      "Both advertised author artifacts redirected to endpoints returning HTTP 401, so no source tree, archive, commit, test vector, proof generator, or executable verifier was frozen.",
+      "The byte transcript, proof parser, Fiat--Shamir domains and order, grinding predicate, witness-row layout, and exact SHAKE framing remain source-conformance questions.",
+      "Theorem 2's ordinary final-proof extraction assumption is weaker than the first-phase mask-binding property used in its proof, although the algorithm and prose expressly select the stronger schedule.",
+      "The claimed eight-bit grinding credit is conditional; omitting it leaves aggregate generic soundness near 2^-120.3774879.",
+      "Algorithm 14's final w1 block and Algorithm 6's return have canonical paper-level readings but require source confirmation, as does SampleInBall's second squeeze."
+    ],
+    "audit_limitations": [
+      "The result covers only the initial/current 2026-10-14 paper-level base single-issuer ML-DSA-44 profile; issuer-hiding and attribute extensions are excluded.",
+      "The exact-target history result has moderate confidence because the target was two days old, some indexes were unavailable, and both author repositories were inaccessible.",
+      "The concrete soundness figures assume the paper's post-commitment challenge schedule and, where stated, independent challenges.",
+      "A source finding that merely contradicts the paper is implementation-specific unless it establishes the intended design or supplies an independent faithful-design signing route.",
+      "The bounded closeout is not a proof against every possible future attack."
+    ],
+    "reopen_conditions": [
+      "The exact swanky-0321 and blind_mldsa-800C artifacts, an author-equivalent commit, or test vectors become accessible; freeze their hashes before checking the conditions below.",
+      "The proof implementation allows any reserved r bit to be selected, corrected, remapped, or equivocated after H_ext(msg,pi1), or pi1 does not bind or extract all 256 bits before that query; attempt the concrete one-signed-commitment/two-message attack immediately.",
+      "The concrete Fiat--Shamir transcript omits (pk,msg,pi1), the circuit, the complete committed lists, or conversion candidates from a challenge that depends on them; reuses a challenge across required independent checks; or exposes a framing/domain alias with a practical accepted-proof consequence.",
+      "Source uses a non-generator exponent base, violates the 2^(kappa+1) order bound, correlates the six edaBitE repetitions, reuses or pre-samples the two ORAM challenges, or otherwise falsifies a soundness premise.",
+      "Source handling of the last w1 block, SampleInBall's second squeeze, Algorithm 6's return, canonical signature values, or exact SHAKE input length defines a wider relation and a concrete zero-query or one-more endpoint.",
+      "The grinding transcript becomes available and either fails to supply the claimed work factor or interacts with extraction or challenge selection in a way that yields a practical accepted proof; a reduction-only loss remains nonqualifying without that endpoint.",
+      "Exact PR-56-style row reuse or another zero-knowledge failure is found and can be extended beyond linkability to a reusable witness or accepted extra message; linkability alone does not change the classification.",
+      "A paper revision, erratum, authoritative author statement, practical ML-DSA or proof-system break, materially stronger full-row attack, or new exact-target prior art changes the frozen relation, practical bound, or history verdict."
+    ]
   }
 ]

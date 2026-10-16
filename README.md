@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 42 |
+| Schemes identified | 43 |
 | Known attacks excluded | 3 |
-| Schemes audited | 39 |
-| No practical attack found | 24 |
+| Schemes audited | 40 |
+| No practical attack found | 25 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -89,6 +89,7 @@ exact-target cryptanalysis:
 | SigRPO-LDR | 2024/1553 current v2 | Exact Goldilocks `D=2048,q=85,e=3,m=58` LDR profile at source commit `99304c22e3ed384d0e227b670d1d7465ed7c4e98`; RPO and Blake3 BCS endpoints kept separate | No practical signer or forgery; exact RPO quotient-leaf defect remains nonqualifying because no DEEP/Horner signing bridge was found |
 | ANSA-IBS | 2026/2134 current 2026-10-12 revision | Paper-level external-message IBS-1 at `N=1536`, `q=8380417`, challenge weight 27, and `ZBOUND=2018750`; claimed artifact unavailable | No practical signer or forgery; closest ordinary-RSIS diagnostic is about `2^50` and has no reverse signing bridge |
 | Round-Optimal Pairing-Free Blind Signatures | 2026/091 v1/current | Intended Scheme2 relation with P-256 Nyberg--Rueppel issuance, 32-byte SHA-256 map, T-256, Spartan issuance, and R1CS-IPA final proof at source commit `f040bd34004c17fa475cb03e481e94101a98e886` | No practical design-level signer, fresh-message forgery, or one-more forgery within `2^45`; implementation security is outside this public disposition |
+| edaBitE Blind Signature | 2026/2473 initial/current | Paper-level base single-issuer ML-DSA-44 profile with edaBitE conversions and general ORAM; issuer-hiding extensions excluded | No practical one-more forgery or reusable signer; reopen for exact source conformance or a qualifying new route |
 
 ### Audit summaries
 
@@ -410,6 +411,29 @@ bounded campaign result, not a security proof. Reopen for a material paper,
 source, profile, endpoint-vector, or intended-relation change; a concrete
 sub-`2^45` message-map, nonce, group, concurrent, proof-system, or commitment
 route; a deployment that materially changes the reviewed endpoint; or new
+exact-target prior art.
+
+edaBitE Blind Signature (ePrint 2026/2473, initial/current 2026-10-14 object)
+completed a bounded paper-level audit of the base single-issuer ML-DSA-44
+profile. No practical issuer-key recovery, reusable equivalent signer,
+zero-query accepted proof, or one-more fresh-message forgery was found within
+the campaign's `2^45` work boundary. The claimed eight-bit grinding step is
+unverified; omitting its credit leaves aggregate generic soundness at roughly
+`2^-120.38`, with no practical accepted-proof route. Theorem 2 states ordinary
+final-proof straightline extraction although its proof needs the 256-bit mask
+fixed or extractably bound by the first phase before the external hash; the
+paper's algorithm and prose expressly select that stronger binding, so the
+mismatch is not a demonstrated break of the frozen design. Both advertised
+author artifacts returned HTTP 401, so this result makes no source-conformance
+claim. Reopen if authoritative source or vectors permit post-hash mask
+correction, remapping, or equivocation; omit required statement, circuit,
+commitment, conversion, framing, or domain binding; alter generator/order or
+the six edaBitE and two ORAM challenge-independence conditions; make the final
+`w1` block, second `SampleInBall` squeeze, Algorithm 6 return, canonical values,
+SHAKE length, or grinding admit a practical wider relation; or expose
+PR-56-style row reuse that reaches a reusable witness or accepted extra
+message. Also reopen for a material revision, erratum, authoritative author
+statement, practical ML-DSA/proof-system break, stronger full-row route, or new
 exact-target prior art.
 
 ## Verified attack summaries
