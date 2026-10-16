@@ -847,5 +847,59 @@
     "attack_path": "attacks/eaglesignv3/",
     "independent_reproduction": true,
     "verification_basis": "Primary full-parameter attack, hostile adversarial review, prospectively sealed fresh-context independent reproduction, fresh-key public-package replay, final exact-target history recheck, and independent Publication Review passed"
+  },
+  {
+    "scheme": "Round-Optimal Pairing-Free Blind Signatures",
+    "aliases": [
+      "Round-Optimal Pairing-Free Blind Signatures Scheme2",
+      "Scheme2 blind NR signature",
+      "signature-proof Scheme2"
+    ],
+    "eprint_id": "2026/91",
+    "eprint_version": "v1/current; author-affiliated Final Version byte identity dated 2026-01-20",
+    "eprint_date": "2026-01-20",
+    "family": "two-move pairing-free blind signature from plain Nyberg--Rueppel issuance and noninteractive proof of possession",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2026/91",
+    "authors": [
+      "Julia Kastner",
+      "Stefano Tessaro",
+      "Greg Zaverucha"
+    ],
+    "paper_sha256": "4cd877c2d7799694309abce800a78d111158de516afc462fd694929886f1cc20",
+    "attack_history_note": "No public secret-key recovery, equivalent signing witness, fresh-message or one-more forgery, or comparable substantive cryptanalysis against the exact frozen Scheme2 construction was located in bounded searches through 2026-10-16. Confidence is moderate-high with explicit recency and index-access limits; this is a dated absence-of-located-public-attack statement, not an absolute priority claim.",
+    "audit_completed_at": "2026-10-16",
+    "selected_parameter_set": "Scheme2 with P-256 Nyberg--Rueppel issuance, 32-byte SHA-256-to-P-256 map, T-256 proofs, Spartan issuance proof, and 1,349-byte R1CS-IPA final proof",
+    "source_status": "AUTHOR SOURCE PINNED FOR STRUCTURED PROFILE IDENTITY; NO CANONICAL PUBLIC OUTER DECODER OR FIXED FULL-SCHEME KAT; PUBLIC DISPOSITION COVERS THE INTENDED PAPER RELATION",
+    "source_url": "https://github.com/zaverucha/signature-proof",
+    "source_commit": "f040bd34004c17fa475cb03e481e94101a98e886",
+    "source_tree": "334a8c4ed4672582455f4661d2e434aa4aefe1a9",
+    "operation_scope": "Intended paper Scheme2 relation under complete-statement and first-message Fiat--Shamir binding, canonical encodings, full point equality, sound and extractable proof components, fresh uniform signer nonces, and an honest nonidentity public key. Scheme1, Scheme3/vector credentials, other curve or proof-system profiles, external parsing, interoperability, privacy, unlinkability, selective abort, availability, and side channels without a signing compromise are excluded.",
+    "audit_note": "A bounded audit found no practical design-level secret-key recovery, reusable equivalent signing witness, accepted fresh-message forgery, or one-more forgery within 2^45 work. The strongest retained generic stopping estimates are about 2^125 raw hashes for a selected-map collision, 2^128 work for group-claw, discrete-log, or useful nonce-relation routes, 2^248 work for a fixed mapped-point preimage, and 2^256 work for a statement-complete strong-Fiat--Shamir fixed point. Exact reblinding simulates concurrent issuance from ordinary Nyberg--Rueppel signatures, and no intended mixed Sigma/SNARK route survived the stated binding and soundness assumptions. This is a bounded campaign result, not a security proof.",
+    "conformance_limitations": [
+      "The repository has no canonical public outer decoder, stable external wire contract, or fixed full-scheme known-answer vector.",
+      "The public disposition concerns the intended paper relation and does not certify every behavior of the pinned source implementation.",
+      "The paper proof and reblinding displays require competent algebraic interpretation because their literal transcription is not complete and consistent.",
+      "The frozen endpoint is one structured Rust profile; external parsing, byte-level interoperability, and other curve or proof-system choices were not audited."
+    ],
+    "audit_limitations": [
+      "The result is specific to Scheme2 and excludes Scheme1 and Scheme3/vector credentials.",
+      "Proof soundness, extraction, complete public-input binding, canonical encodings, full point equality, subgroup validity, and Poseidon binding are assumptions of the intended-design closeout.",
+      "Full SHA-256, the selected map, P-256, T-256, Spartan, and R1CS-IPA are treated as having no practical structural break below 2^45.",
+      "The official ePrint PDF/version endpoints were unavailable during acquisition; the frozen paper is the author-affiliated Final Version and no second byte identity was located.",
+      "The exact-history result is bounded by recency and incomplete public-index coverage."
+    ],
+    "reopen_conditions": [
+      "A paper revision, erratum, or authoritative author statement materially changes the intended relation or transcript binding.",
+      "A material source/profile revision, canonical endpoint, or external test vector changes the frozen semantics or parameters.",
+      "A selected-map collision, chosen-image/preimage method, map bias, or SHA-256 result supplies a full-parameter external-message bridge within 2^45 work.",
+      "A practical P-256/T-256 discrete-log, representation, nonce-relation, or faithful nonce-generation failure yields issuer-key or reusable-signing capability within the campaign boundary.",
+      "A concurrent strategy or ROS/pROS/M&M transfer defeats the ordinary-NR simulation while retaining sound issuance extraction and complete final-statement binding.",
+      "A practical Poseidon equivocation, proof-system soundness failure, special-challenge strategy, or mixed Sigma/SNARK attack survives complete statement binding and reaches an accepted fresh-message proof.",
+      "A deployment exposes a materially different adversarial endpoint that changes the reviewed design boundary.",
+      "New exact-target prior art, public security guidance, a withdrawal, or an exact-scheme attack changes the dated history verdict."
+    ]
   }
 ]

@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 40 |
+| Schemes identified | 41 |
 | Known attacks excluded | 3 |
-| Schemes audited | 37 |
-| No practical attack found | 23 |
+| Schemes audited | 38 |
+| No practical attack found | 24 |
 | Verified and independently reproduced practical design attacks | 14 |
 
 ## Practical design attacks
@@ -87,6 +87,7 @@ exact-target cryptanalysis:
 | K-LMS | 2026/2372 v1 | Exact principal `n=32,h=10,w=4,L=1` endpoint at source commit `58be56d022422f2f58c15c3542a6fbc930686086`; correct stateful operation; LSH and CHAM-/LEA-/ARIA-TDM mappings kept separate | No practical signer or forgery; reopen only under the listed exact full-round, binding, revision/vector, or prior-art conditions |
 | SigRPO-LDR | 2024/1553 current v2 | Exact Goldilocks `D=2048,q=85,e=3,m=58` LDR profile at source commit `99304c22e3ed384d0e227b670d1d7465ed7c4e98`; RPO and Blake3 BCS endpoints kept separate | No practical signer or forgery; exact RPO quotient-leaf defect remains nonqualifying because no DEEP/Horner signing bridge was found |
 | ANSA-IBS | 2026/2134 current 2026-10-12 revision | Paper-level external-message IBS-1 at `N=1536`, `q=8380417`, challenge weight 27, and `ZBOUND=2018750`; claimed artifact unavailable | No practical signer or forgery; closest ordinary-RSIS diagnostic is about `2^50` and has no reverse signing bridge |
+| Round-Optimal Pairing-Free Blind Signatures | 2026/091 v1/current | Intended Scheme2 relation with P-256 Nyberg--Rueppel issuance, 32-byte SHA-256 map, T-256, Spartan issuance, and R1CS-IPA final proof at source commit `f040bd34004c17fa475cb03e481e94101a98e886` | No practical design-level signer, fresh-message forgery, or one-more forgery within `2^45`; implementation security is outside this public disposition |
 
 ### Audit summaries
 
@@ -380,6 +381,35 @@ for a concrete sub-`2^45` RSIS-to-transcript, affine-preimage/BMST, annular,
 weak-challenge, output-bias, or surviving-symmetry route; a shared-interface
 ANSA-IBKEM/Antrag break yielding signing power; a material paper/artifact
 change; or new exact-target prior art.
+
+Round-Optimal Pairing-Free Blind Signatures (ePrint 2026/091 v1/current)
+completed a bounded audit of the intended Scheme2 relation using P-256
+Nyberg--Rueppel issuance, the source's 32-byte SHA-256 map, T-256 proofs,
+Spartan issuance, and the 1,349-byte R1CS-IPA final proof at source commit
+`f040bd34004c17fa475cb03e481e94101a98e886`. No practical design-level
+secret-key recovery, reusable equivalent signing witness, accepted
+fresh-message forgery, or one-more forgery was found within the campaign's
+`2^45` work boundary. The strongest retained generic stopping estimates are
+about `2^125` raw hashes for a selected-map collision, `2^128` work for group
+claws, discrete logarithms, or useful nonce relations, `2^248` work for a
+fixed mapped-point preimage, and `2^256` work for a statement-complete strong-
+Fiat--Shamir fixed point. Exact reblinding simulates concurrent issuance from
+ordinary Nyberg--Rueppel signatures, and no intended mixed Sigma/SNARK route
+survived the stated binding and soundness assumptions.
+
+This result covers Scheme2 under a competent statement-complete
+Fiat--Shamir compilation, canonical encodings, full point equality, and the
+paper's proof assumptions. Scheme1, Scheme3/vector credentials, other curve or
+proof-system profiles, and external parsing or interoperability are excluded.
+The repository has no canonical public outer decoder, stable external wire
+contract, or fixed full-scheme known-answer vector, and this public disposition
+does not certify the pinned implementation. The paper's displayed proof and
+reblinding formulas require competent algebraic interpretation. This is a
+bounded campaign result, not a security proof. Reopen for a material paper,
+source, profile, endpoint-vector, or intended-relation change; a concrete
+sub-`2^45` message-map, nonce, group, concurrent, proof-system, or commitment
+route; a deployment that materially changes the reviewed endpoint; or new
+exact-target prior art.
 
 ## Verified attack summaries
 
