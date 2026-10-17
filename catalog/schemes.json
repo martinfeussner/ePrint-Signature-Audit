@@ -1076,5 +1076,58 @@
       "The corrected sampler gap yields a measured full-row secret-dependent statistic, recovery algorithm, and fresh-signing consequence within the ordinary query and work limits.",
       "A material paper or source revision, canonical endpoint or test vector, or new exact-target prior art changes the frozen identity, semantics, or history classification."
     ]
+  },
+  {
+    "scheme": "Aerie",
+    "aliases": [
+      "Aerie Falcon aggregation"
+    ],
+    "eprint_id": "2026/2501",
+    "eprint_version": "initial/current object approved 2026-10-17; exact official PDF bytes unresolved",
+    "eprint_date": "2026-10-15",
+    "family": "succinct aggregation of per-record-salt Falcon/FN-DSA signatures using Akita proofs",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL / SOURCE_PROFILE_LIMITED",
+    "attack_history_checked_at": "2026-10-17",
+    "url": "https://eprint.iacr.org/2026/2501",
+    "authors": [
+      "Alberto Centelles",
+      "Quang Dao",
+      "Mohammadtaghi Badakhshan",
+      "Justin Thaler"
+    ],
+    "paper_sha256": "efc7038f38102e3c854f0288d4ecfad0f1560da8d2a9e8be7a4b2e530d5c9d5b",
+    "paper_status": "PINNED CONTEMPORANEOUS 58-PAGE AUTHOR-REPOSITORY PDF; OFFICIAL EPRINT PDF BYTE IDENTITY UNRESOLVED AFTER HTTP 403",
+    "source_url": "https://github.com/a16z/aerie",
+    "source_commit": "49b6c212c209286c536196f53618823ffdf0e899",
+    "source_tree": "72b9d45dba2c5a43a008c338dd734fa202f56a5f",
+    "source_status": "PINNED AUTHOR TAG V0.2.0 WITH AKITA E023B6A46143F7B23199CCECB2684192BAF7B640 AND DEV-PROTOCOL; STATIC REVIEW ONLY; NO EXTERNAL COMPLETE KAT OR COMMITTED 32,768-RECORD PROOF VECTOR",
+    "attack_history_note": "A bounded exact-title, identifier, lineage, repository, revision-history, and internal-campaign search through 2026-10-17 located no public attack against the exact released Aerie v0.2.0 target at moderate-high confidence. PR 7 records a material prerelease domain-separation defect, but the first public release and paper already contain the corrected distinct cSHAKE domains under wire version 1 and the prerelease issue supplies no signing endpoint. Indexes can lag and private, removed, newly indexed, or later work cannot be excluded. This is a dated absence-of-located-public-attack statement, not an absolute novelty, priority, or security claim.",
+    "audit_completed_at": "2026-10-17",
+    "selected_parameter_set": "AERIE-F512-V1-PER-RECORD-N32768-v0.2.0: released wire-version-1 per-record-salt Falcon-512 aggregation at 32,768 live and padded records, q=12289, degree 512, beta^2=34034726, 897-byte canonical keys, 666-byte padded signatures, 40-byte salts, fn-dsa 0.3.0, and Akita e023b6a46143f7b23199ccecb2684192baf7b640 with dev-protocol",
+    "operation_scope": "Ordinary aggregate prover/verifier at Aerie tag v0.2.0, commit 49b6c212c209286c536196f53618823ffdf0e899, tree 72b9d45dba2c5a43a008c338dd734fa202f56a5f, wire magic aerie/falcon/v1p, wire version 1. The qualifying endpoint is an accepted aggregate with at least one fresh message under the fixed honest target Falcon key, or secret/equivalent signing recovery enabling such a record, within 2^45 work. Common-salt mode, Falcon-1024, prerelease lineage, parser-only behavior, same-record malleability, and Falcon-only results without aggregate transfer are excluded.",
+    "audit_note": "No practical full-parameter secret-key recovery with fresh signing, reusable equivalent signing witness, or ordinary-verifier-accepted fresh-record aggregate forgery was found within 2^45 work. The released verifier derives each canonical ring key and key-prefixed target, binds the ordered record stream and complete profile before challenges, and enforces the Falcon relation rowwise through the pinned Akita proof; at exactly 32,768 rows there is no padded suffix. The concrete raw-SHAKE Hpk/HashToPoint alias has idealized expected cost about 2^14.9368 only while varying an adversarial key. It does not give the same repeatable search for a fixed honest challenge key; reversing the orientation to embed the fixed honest key requires a generic 512-bit preimage match. Even when the first orientation fits, the equality exposes only public correlated bytes: the verifier separately decodes the key into h, rejection-samples the target into C, derives other targets independently, and never equates those types. No short witness, proof bypass, or signing bridge survived. At 2^45 trials, the retained Fiat--Shamir term is approximately 2^-83, clear-projection escape approximately 2^-91.4182, and terminal two-digest term approximately 2^-167; these are conditional stopping estimates, not security lower bounds. This is a bounded static campaign result, not a security proof or implementation-conformance conclusion.",
+    "conformance_limitations": [
+      "Official ePrint PDF byte identity remains unresolved after HTTP 403; the pinned paper is the contemporaneous 58-page author-repository PDF with SHA-256 efc7038f38102e3c854f0288d4ecfad0f1560da8d2a9e8be7a4b2e530d5c9d5b.",
+      "No external source-independent complete known-answer test, committed 32,768-record proof vector, or retained exact benchmark corpus was available.",
+      "The pinned Akita commit and dev-protocol feature are exact, but the complete Akita implementation and extraction theorem were not independently reproduced from a separate sealed source archive.",
+      "PR 7 is a material prerelease hash-domain correction already present in first public v0.2.0 under wire version 1; the prerelease parent and temporary wire version 2 are outside the frozen release.",
+      "The author benchmark generator's messages differ from the paper's 32-byte comparison description, and the release is a research release rather than a production-accepted profile."
+    ],
+    "audit_limitations": [
+      "No Aerie or dependency code was built or executed; no signer, verifier, full-row corpus, benchmark, external complete KAT, or attack experiment ran.",
+      "The result covers only AERIE-F512-V1-PER-RECORD-N32768-v0.2.0; common-salt mode, Falcon-1024, prerelease lineage, parser-only failures, same-record malleability, and Falcon-only results without aggregate transfer are excluded.",
+      "The Fiat--Shamir, clear-projection, terminal-digest, record-root, and unchanged-witness figures are stopping estimates under named binding, sampler, setup, extraction, random-oracle, and Module-SIS assumptions, not security lower bounds.",
+      "The exact-target history result is a moderate-high-confidence bounded same-day search through 2026-10-17 and cannot exclude private, removed, newly indexed, or later work.",
+      "The bounded closeout is not a proof against every possible Falcon, Akita, transcript, composition, or implementation attack."
+    ],
+    "reopen_conditions": [
+      "The raw-SHAKE alias is composed with an exact short witness for the honest row, a source path from aliased bytes into decoded h or a target relation, or an ordinary-verifier-accepted false row within 2^45 work.",
+      "A concrete sub-2^45 kernel, commitment collision/equivocation, or cross-role relation is produced for the pinned Akita seed, profile, and schedule.",
+      "A deterministic omission or desynchronization in the released transcript, group/claim order, PCS session, grinding plan, parser, or EOF check accepts a false three-stage relation.",
+      "A released record-binding collision/second preimage is accompanied by a stage-3 witness bridge, or an exact row-composition/key-prefix transform cancels or retargets the fresh honest-key row within 2^45 work.",
+      "A complete source-independent KAT or Akita reproduction exposes a material paper/source/relation mismatch or practical false-statement path.",
+      "The paper bytes, Aerie source/tag/tree, Akita pin/features, catalog row, wire/domain semantics, Falcon parameter, salt mode, or record profile changes materially, or new exact-target prior art changes eligibility."
+    ]
   }
 ]

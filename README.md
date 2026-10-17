@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 45 |
+| Schemes identified | 46 |
 | Known attacks excluded | 3 |
-| Schemes audited | 42 |
-| No practical attack found | 27 |
+| Schemes audited | 43 |
+| No practical attack found | 28 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -92,6 +92,7 @@ exact-target cryptanalysis:
 | edaBitE Blind Signature | 2026/2473 initial/current | Paper-level base single-issuer ML-DSA-44 profile with edaBitE conversions and general ORAM; issuer-hiding extensions excluded | No practical one-more forgery or reusable signer; reopen for exact source conformance or a qualifying new route |
 | ModFalcon | 2019/1456 current v4 | Paper-level ModFalcon-2-512 at `R=Z[x]/(x^512+1)`, `q=12289`, `rho=1512`; SR and conservative KR profiles kept separate | No practical signer or forgery; reopen for an exact completion-row signing bridge, authoritative current endpoint, or another full-row route within `2^45` work |
 | Lattice SEP | 2024/131 current major revision | Exact `LSEP-2024-131-SOURCE-M10-v1` ordinary source endpoint at commit `e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7`; fixed 320-byte binary-vector messages and source `B1'` cutoff | No practical signer or forgery; non-injective source tags are outside correct unique-tag operation, and the sampler correction remains a proof limitation without a signing consequence |
+| Aerie | 2026/2501 initial/current | Exact `AERIE-F512-V1-PER-RECORD-N32768-v0.2.0` released per-record-salt Falcon-512 aggregate verifier at 32,768 records; Aerie `v0.2.0` and pinned Akita | No practical signer or fresh-record aggregate forgery; the raw-SHAKE chosen-key alias remains type-separated and has no signing bridge |
 
 ### Audit summaries
 
@@ -524,6 +525,71 @@ a bounded campaign result, not a security proof. Reopen for a normative
 unique-tag change; a norm-compatible tag, message-map, factor, or sampler route
 with a complete endpoint within `2^45`; a material paper/source/vector change;
 or new exact-target prior art.
+
+Aerie (ePrint 2026/2501, initial/current object approved 2026-10-17)
+completed a bounded static audit of
+`AERIE-F512-V1-PER-RECORD-N32768-v0.2.0`: the released wire-version-1,
+per-record-salt Falcon-512 aggregate verifier with 32,768 live and padded
+records at Aerie tag `v0.2.0`, commit
+`49b6c212c209286c536196f53618823ffdf0e899`, tree
+`72b9d45dba2c5a43a008c338dd734fa202f56a5f`, and Akita commit
+`e023b6a46143f7b23199ccecb2684192baf7b640` with `dev-protocol`. No practical
+secret-key recovery with fresh signing, reusable equivalent signing witness,
+or ordinary-verifier-accepted aggregate containing a fresh message under the
+fixed honest Falcon key was found within `2^45` work.
+
+The released verifier derives each canonical ring key and key-prefixed
+HashToPoint target, binds the ordered record stream and complete profile before
+the proof challenges, and enforces the Falcon relation rowwise through its
+three-stage PIOP and pinned Akita opening. At exactly 32,768 records there is
+no padded suffix. Record substitution, duplication, rogue-row cancellation,
+transcript splicing, algebraic key transforms, and reviewed Akita kernel,
+equivocation, omission, and false-statement routes supplied no fresh honest-row
+witness or verifier bypass.
+
+The strongest concrete observation is an exact raw-SHAKE model gap. A complete
+897-byte HashToPoint input can also encode a canonical Falcon-512 public key
+after idealized expected work about `2^14.9368` while varying an adversarial
+key, causing that key's 64-byte `Hpk` output to equal the first 64 target-stream
+bytes for another adversarial record. This work estimate does not give a
+repeatable search for a fixed honest challenge key: placing the fixed honest
+key in the opposite role instead requires a generic 512-bit preimage match.
+Even when the first orientation fits, the verifier separately decodes the key
+into `h`, rejection-samples the stream into `C`, derives every other target
+independently, and never equates those types. The equality exposes correlated
+public bytes but no short witness, proof bypass, secret recovery, or accepted
+fresh record.
+
+At `2^45` trials, the retained Fiat--Shamir term is approximately `2^-83`, the
+clear-projection escape approximately `2^-91.4182`, and the terminal two-digest
+term approximately `2^-167`. These are conditional stopping estimates rather
+than security lower bounds. No Aerie or dependency code was built or executed;
+no signer, verifier, full-row corpus, benchmark, external complete KAT, or
+attack experiment ran. Official ePrint PDF byte identity remains unresolved
+after HTTP 403, so the paper freeze is the contemporaneous 58-page
+author-repository PDF. The exact Akita pin and features were reviewed, but the
+complete Akita implementation and extraction theorem were not independently
+reproduced from a separate sealed source archive. The author benchmark
+generator also uses messages different from the paper's 32-byte comparison
+description. A moderate-high-confidence bounded history search through
+2026-10-17 cannot exclude private, removed, newly indexed, or later work.
+PR 7 records a material prerelease domain-separation defect; first public
+`v0.2.0` already contains the correction under public wire version 1. This is
+a bounded campaign result, not a security proof or implementation-conformance
+conclusion.
+
+Reopen only if the raw-SHAKE alias gains an exact honest-row short-witness,
+decoded-key, target-relation, or accepted-false-row bridge within `2^45`; a
+sub-`2^45` Akita kernel, commitment collision or equivocation, or cross-role
+relation is produced for the pinned seed, profile, and schedule; a released
+transcript, group/claim order, PCS session, grinding plan, parser, or EOF
+omission accepts a false three-stage relation; a record-binding collision or
+second preimage gains a stage-3 witness bridge, or an exact row/key-prefix
+transform cancels or retargets the fresh honest row within `2^45`; an
+independent complete KAT or Akita reproduction exposes a material mismatch or
+false-statement path; or the paper bytes, Aerie source/tag/tree, Akita pin or
+features, catalog row, wire/domain semantics, Falcon parameter, salt mode,
+record profile, or exact-target prior art changes materially.
 
 ## Verified attack summaries
 
