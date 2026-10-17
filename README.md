@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 44 |
+| Schemes identified | 45 |
 | Known attacks excluded | 3 |
-| Schemes audited | 41 |
-| No practical attack found | 26 |
+| Schemes audited | 42 |
+| No practical attack found | 27 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -91,6 +91,7 @@ exact-target cryptanalysis:
 | Round-Optimal Pairing-Free Blind Signatures | 2026/091 v1/current | Intended Scheme2 relation with P-256 Nyberg--Rueppel issuance, 32-byte SHA-256 map, T-256, Spartan issuance, and R1CS-IPA final proof at source commit `f040bd34004c17fa475cb03e481e94101a98e886` | No practical design-level signer, fresh-message forgery, or one-more forgery within `2^45`; implementation security is outside this public disposition |
 | edaBitE Blind Signature | 2026/2473 initial/current | Paper-level base single-issuer ML-DSA-44 profile with edaBitE conversions and general ORAM; issuer-hiding extensions excluded | No practical one-more forgery or reusable signer; reopen for exact source conformance or a qualifying new route |
 | ModFalcon | 2019/1456 current v4 | Paper-level ModFalcon-2-512 at `R=Z[x]/(x^512+1)`, `q=12289`, `rho=1512`; SR and conservative KR profiles kept separate | No practical signer or forgery; reopen for an exact completion-row signing bridge, authoritative current endpoint, or another full-row route within `2^45` work |
+| Lattice SEP | 2024/131 current major revision | Exact `LSEP-2024-131-SOURCE-M10-v1` ordinary source endpoint at commit `e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7`; fixed 320-byte binary-vector messages and source `B1'` cutoff | No practical signer or forgery; non-injective source tags are outside correct unique-tag operation, and the sampler correction remains a proof limitation without a signing consequence |
 
 ### Audit summaries
 
@@ -481,6 +482,48 @@ and signing bridge; authoritative current SR/KR source, vectors, revision, or
 erratum exposing a practical route; a practical KR binding bypass; mathematical
 sampler leakage yielding a reusable trapdoor; a nonnegligible publicly
 detectable weak-key signer class; or material new exact-target prior art.
+
+Lattice SEP (ePrint 2024/131, current major revision with latest archive
+object dated 2025-08-27) completed a bounded audit of
+`LSEP-2024-131-SOURCE-M10-v1`: the ordinary standalone stateful signature at
+author commit `e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7` under pinned x86-64
+little-endian semantics. The endpoint signs exactly 320 bytes as ten binary
+polynomials over `Z_425801[x]/(x^256+1)`, uses weight-five tags, and checks the
+source cutoff `B1'^2=16568582601`; the literal-paper
+`B1^2=16556934335` verifier, credential protocols, successor rows,
+arbitrary-document hashing, wire formats, and deployment behavior are outside
+scope. No practical secret-key recovery with fresh signing, reusable
+equivalent signer, or ordinary-verifier-accepted fresh-message forgery was
+found within `2^45` work.
+
+A `2^24` exact source-tag scan found 16,036 colliding pairs and eleven triple
+bins. Same-tag affine identities held in all 32 Boolean-triple trials and all
+4,080 two-signature monomial candidates, but no candidate passed the source
+norms or verifier. The paper requires that tags remain unique and leaves the
+tag function abstract, so direct state selection, rollback, or reuse of the
+non-injective source schedule violates correct paper operation. The finding is
+retained as a caller/state conformance limitation rather than a design attack.
+The exact structural review also found every valid tag and every difference of
+distinct binary tags to be a unit in all four CRT factors. A nonzero element
+supported on one factor has minimum norm
+`sqrt(318924949)=17858.469951...`, above the complete `v2` and `v3` bounds;
+the best reviewed complementary projection has an optimistic approximately
+`2^212.3` Core-SVP stopping estimate and no signing bridge.
+
+The successor's corrected sampler condition requires `s1` about `0.359108%`
+above the frozen value at the maximum admitted estimated trapdoor norm. No
+measured secret-dependent statistic, recovery method, or fresh-signing
+consequence followed. Probability, occupancy, continuous-volume, generic-key,
+and lattice-estimator/BKZ/Core-SVP figures are stopping estimates, not security
+lower bounds. The source does not persist state, enforce the `2^32` query cap,
+prevent tag reuse, detect wrap, or define canonical serialization; it also
+predates later paper revisions and uses a five-step spectral estimate for key
+screening. A moderate-high-confidence bounded history search through
+2026-10-16 located no exact-target public attack, but indexes can lag. This is
+a bounded campaign result, not a security proof. Reopen for a normative
+unique-tag change; a norm-compatible tag, message-map, factor, or sampler route
+with a complete endpoint within `2^45`; a material paper/source/vector change;
+or new exact-target prior art.
 
 ## Verified attack summaries
 

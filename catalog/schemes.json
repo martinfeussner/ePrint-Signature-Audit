@@ -1020,5 +1020,61 @@
       "A nonnegligible accepted weak-key class exposes both an efficient public test or recovery procedure and fresh-signing capability.",
       "A material paper revision, exact-target prior attack, or new exact-profile source artifact changes the frozen relation, history status, or practical estimates."
     ]
+  },
+  {
+    "scheme": "Lattice SEP",
+    "aliases": [
+      "Lattice signature with efficient protocols",
+      "Practical Post-Quantum Signatures for Privacy",
+      "AGJ+24",
+      "AGJLRS24 signature"
+    ],
+    "eprint_id": "2024/131",
+    "eprint_version": "current major revision; latest archive object dated 2025-08-27",
+    "eprint_date": "2024-01-30",
+    "family": "stateful standard-model module-lattice signature with tag-friendly trapdoor preimage sampling",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL / SOURCE_PROFILE_LIMITED",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2024/131",
+    "authors": [
+      "Sven Argo",
+      "Tim Güneysu",
+      "Corentin Jeudy",
+      "Georg Land",
+      "Adeline Roux-Langlois",
+      "Olivier Sanders"
+    ],
+    "paper_sha256": "5c3f76c752f43318e00bd4be20da22ccad48431b360d6c72481e6c455ee7172f",
+    "source_commit": "e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7",
+    "source_status": "PINNED AUTHOR C PROOF OF CONCEPT; SOURCE-M10 PROFILE BUILT AND EXECUTED WITH HOST, ENDPOINT, STATE, AND VERSION LIMITS",
+    "attack_history_note": "A bounded exact-title, identifier, lineage, repository, citation-index, and internal-campaign search through 2026-10-16 located no public attack against exact ePrint 2024/131 at moderate-high confidence. Indexes can lag and terminology can differ. This is a dated absence-of-located-public-attack statement, not an absolute novelty, priority, or security claim.",
+    "audit_completed_at": "2026-10-17",
+    "selected_parameter_set": "LSEP-2024-131-SOURCE-M10-v1: R=Z[x]/(x^256+1), q=425801, d=4, m=10, k=5, weight-five tags, exactly 320 bytes decoded as ten binary ring polynomials, source B1'^2=16568582601",
+    "operation_scope": "Ordinary standalone stateful signature at author commit e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7 under the pinned x86-64 little-endian source semantics and source B1' cutoff. Credential issuance, showing and proof layers, ePrint 2024/1952 profiles, arbitrary-document hashing, serialized formats, deployment behavior, and the literal-paper B1^2=16556934335 verifier are excluded.",
+    "audit_note": "No practical full-parameter secret-key recovery with fresh signing, reusable equivalent signing witness, or ordinary-verifier-accepted fresh-message forgery was found within 2^45 work. A 2^24 source-tag scan found 16,036 colliding pairs and 11 triple bins. Exact same-tag affine equations held in all 32 Boolean-triple and 4,080 two-signature monomial candidates, but every candidate failed the source norms or verifier. The paper requires unique tags and leaves F abstract, so the non-injective source schedule and direct state selection or rollback do not constitute an attack on correct paper operation. Exact structural checks show every valid tag and every difference of distinct binary tags is a unit in all four CRT factors; the minimum norm of a nonzero one-factor-supported element is sqrt(318924949)=17858.469951..., above the full v2 and v3 bounds. The best reviewed complementary projection has an optimistic approximately 2^212.3 Core-SVP estimate and no signing bridge. Probability, occupancy, continuous-volume, generic-key, and lattice-estimator/BKZ/Core-SVP figures are stopping estimates, not security lower bounds. The successor's corrected condition requires s1 about 0.359108% above the frozen value at the maximum admitted estimated trapdoor norm, but no measured secret-dependent statistic, recovery, or signing consequence was found. This is a bounded campaign result, not a security proof.",
+    "conformance_limitations": [
+      "The source ordinary endpoint uses B1'^2=16568582601, while literal standalone Algorithm 5.4 derives B1^2=16556934335.",
+      "The source does not persist caller-owned state, enforce the 2^32 query cap, prevent tag reuse, or detect state wrap.",
+      "The source exposes native host inputs and in-memory FLINT objects and supplies no canonical external-message, key, signature, or state serialization.",
+      "The pinned source predates later paper revisions; it is a proof of concept and no byte-level current-paper conformance or deployment claim is made.",
+      "Source key screening uses a five-step power-method estimate rather than a certified spectral-norm upper bound."
+    ],
+    "audit_limitations": [
+      "The result covers only LSEP-2024-131-SOURCE-M10-v1 and is not an unqualified conclusion about every Lattice SEP profile, credential protocol, or successor construction.",
+      "The finite tag diagnostic used deterministic test entropy and directly selected colliding states; it is a conformance diagnostic, not an EUF-CMA transcript or an attack reproduction.",
+      "The Gaussian, occupancy, continuous-volume, generic-key, and lattice-estimator/BKZ/Core-SVP figures are stopping estimates rather than security lower bounds.",
+      "The exact-target history result is a moderate-high-confidence bounded search through 2026-10-16, not an absolute claim.",
+      "The bounded closeout is not a proof against unknown lattice, sampler, composition, or implementation attacks."
+    ],
+    "reopen_conditions": [
+      "A normative revision selects the non-injective source tag schedule while removing or weakening the no-repeated-tag condition.",
+      "A concrete norm-preserving same-tag composition reaches the ordinary full-parameter verifier without rollback, state selection, repeated-tag misuse, or another artificial condition.",
+      "A chosen admissible tag or distinct-tag combination yields a norm-compatible public kernel or cross-term cancellation and a complete fresh-message signing bridge within 2^45 work.",
+      "A signed-binary message-map relation or inhomogeneous preimage is produced within 2^45 work at the exact 320-byte endpoint.",
+      "A materially different factor or zero-divisor method bypasses the exact one-factor response-norm obstruction and supplies an accepted signature.",
+      "The corrected sampler gap yields a measured full-row secret-dependent statistic, recovery algorithm, and fresh-signing consequence within the ordinary query and work limits.",
+      "A material paper or source revision, canonical endpoint or test vector, or new exact-target prior art changes the frozen identity, semantics, or history classification."
+    ]
   }
 ]
