@@ -1129,5 +1129,54 @@
       "A complete source-independent KAT or Akita reproduction exposes a material paper/source/relation mismatch or practical false-statement path.",
       "The paper bytes, Aerie source/tag/tree, Akita pin/features, catalog row, wire/domain semantics, Falcon parameter, salt mode, or record profile changes materially, or new exact-target prior art changes eligibility."
     ]
+  },
+  {
+    "scheme": "Robust ECDSA Threshold Signing at Scale",
+    "aliases": [
+      "robust threshold ECDSA at scale",
+      "large-oracle CIC ECDSA"
+    ],
+    "eprint_id": "2026/2493",
+    "eprint_version": "initial/current v1 approved 2026-10-15; official ePrint PDF bytes unavailable",
+    "eprint_date": "2026-10-15",
+    "family": "robust threshold ECDSA with guaranteed output delivery from honest-majority preprocessing and presignatures",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / NONQUALIFYING_FORMAL_SPECIFICATION_AND_PROOF_FLAW / REOPEN_CONDITIONAL / PAPER_PROFILE_LIMITED",
+    "attack_history_checked_at": "2026-10-17",
+    "url": "https://eprint.iacr.org/2026/2493",
+    "authors": [
+      "Carsten Baum",
+      "Anders Dalskov"
+    ],
+    "paper_sha256": "523c447cef6eb4e4f91bfae675c48458fe426e23944973e91ca752aba5a7597e",
+    "paper_status": "PINNED CURRENT 54-PAGE MIRROR PDF; OFFICIAL EPRINT PDF AND VERSION ENDPOINTS RETURNED HTTP 403",
+    "source_url": "https://github.com/anderspkd-partisia/large-oracle-cic-code",
+    "source_commit": "740b69f44f795b390c4df22b9ff948f1256a9d7f",
+    "source_tree": "59f5cc552eca1b222d52195dc3de3371f13ab8ae",
+    "source_status": "PINNED PAPER-LINKED AUTHOR BENCHMARK; PERFORMANCE LINEAGE ONLY; NOT A MALICIOUS-SECURITY OR PAPER-CONFORMANCE IMPLEMENTATION; NOT BUILT OR RUN",
+    "attack_history_note": "A bounded initial and attack-specific search through 2026-10-17 located no public substantive attack against exact ePrint 2026/2493 at moderate confidence. The paper was two days old and public indexes can lag. Earlier public NEAR/DJNPO20 and MPC Pitfalls material documents the general split-view and presignature-reuse mechanism and atomic-consumption mitigation, so no method-novelty or firstness claim is made.",
+    "audit_completed_at": "2026-10-17",
+    "selected_parameter_set": "ROBUST-ECDSA-2026-2493-SECP256K1-SHA256-N88-T29-PAPER-v1: paper semantics over secp256k1 and SHA-256 with n=88, t=29, at most 29 static active corruptions, at least 59 KeyGen inputs, intended t+1=30-party signing, a formal F_TSS t+2=31-input boundary, and 29 ordered single-use presignatures",
+    "operation_scope": "The paper-level intended construction, including agreement on sid, public key, message, presignature R and shares, and ordered zeta, with single-use presignatures enforced before honest online-share release. The model uses synchronous authenticated channels, ideal broadcast, a session-scoped global random oracle, unknown-discrete-log generators, and the ideal-NIZK theorem. The ordinary endpoint is standard ECDSA verification. The linked benchmark is performance-lineage evidence only.",
+    "audit_note": "No qualifying practical attack against the intended frozen profile was established within 2^45 work. Literal Protocol 1 releases degree-29 online shares before its formal 31-input F_TSS boundary, so 29 legitimate corrupt states plus one honest Step-4 release reconstruct the signing values after 30 activations. This is a real Protocol 1/Theorem 1 mismatch. It is not a fresh-message forgery under the paper's intended t+1=30 convention because the honest party received a Sign input for that message. Two separately implemented full-profile demonstrations, three of three primary trials and one of one precommitted clean-room trial, also recovered the long-term ECDSA key and signed an unsubmitted third message from two conflicting views of the same base presignature. That endpoint violates the paper-stated agreement and ordered single-use intent and is blocked by pre-release atomic authorization and consumption. The result is classified as a nonqualifying formal specification and proof flaw, not a verified campaign attack. This bounded audit is not a security proof.",
+    "conformance_limitations": [
+      "The paper pin is a current 54-page mirror; official ePrint PDF and version-archive bytes were unavailable after HTTP 403.",
+      "The n=88 row is a composite paper evaluation profile rather than a published end-to-end malicious execution, and the paper gives no explicit numerical security-bit table or complete wire-format KAT.",
+      "The author benchmark fixes H=-42G, uses proof generators with known relations, centrally constructs keys and presignatures, and omits the complete robust composition; those defects were excluded and the benchmark was not executed.",
+      "The theorem uses an ideal NIZK functionality, while the compressed Fiat--Shamir proofs are only a heuristic implementation instantiation."
+    ],
+    "audit_limitations": [
+      "The experiments reproduce the literal online algebra and ordinary ECDSA verification equations; they are not full preprocessing, networking, broadcast-agreement, or UC executions and do not use an external ECDSA verifier library.",
+      "The nonqualification ruling depends on the paper's stated agreement requirement and ordered single-use presignature intent being enforced before honest Step-4 release.",
+      "The exact-target history result has only moderate confidence because the target was two days old and several indexes were unavailable, rate-limited, or potentially lagging.",
+      "The result is bounded to the frozen paper profile and is neither a security proof nor an exhaustive claim against future attacks."
+    ],
+    "reopen_conditions": [
+      "An authoritative revision, erratum, or designer clarification makes the formal t+2 F_TSS authorization boundary normative for ordinary signing while retaining Protocol 1 Step 4 release before that boundary.",
+      "An authoritative revision or clarification removes pre-release global message/presignature agreement or atomic single-use presignature consumption from the intended construction, making the reproduced two-view execution conforming.",
+      "A concrete full-profile route obtains conflicting views, secret or equivalent signing recovery, or a genuinely fresh-message forgery despite enforced pre-release agreement and atomic single-use consumption, within 2^45 work.",
+      "A different concrete full-profile proof, preprocessing, commitment, transcript, or composition defect reaches a qualifying signing endpoint within 2^45 without relying on benchmark-only fixtures or a specification omission.",
+      "A material paper, source, profile, or test-vector revision, or new exact-target prior art, changes the frozen semantics, claimed boundary, or attack-history disposition."
+    ]
   }
 ]

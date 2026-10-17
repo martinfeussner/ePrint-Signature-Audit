@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 46 |
+| Schemes identified | 47 |
 | Known attacks excluded | 3 |
-| Schemes audited | 43 |
-| No practical attack found | 28 |
+| Schemes audited | 44 |
+| No practical attack found | 29 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -93,6 +93,7 @@ exact-target cryptanalysis:
 | ModFalcon | 2019/1456 current v4 | Paper-level ModFalcon-2-512 at `R=Z[x]/(x^512+1)`, `q=12289`, `rho=1512`; SR and conservative KR profiles kept separate | No practical signer or forgery; reopen for an exact completion-row signing bridge, authoritative current endpoint, or another full-row route within `2^45` work |
 | Lattice SEP | 2024/131 current major revision | Exact `LSEP-2024-131-SOURCE-M10-v1` ordinary source endpoint at commit `e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7`; fixed 320-byte binary-vector messages and source `B1'` cutoff | No practical signer or forgery; non-injective source tags are outside correct unique-tag operation, and the sampler correction remains a proof limitation without a signing consequence |
 | Aerie | 2026/2501 initial/current | Exact `AERIE-F512-V1-PER-RECORD-N32768-v0.2.0` released per-record-salt Falcon-512 aggregate verifier at 32,768 records; Aerie `v0.2.0` and pinned Akita | No practical signer or fresh-record aggregate forgery; the raw-SHAKE chosen-key alias remains type-separated and has no signing bridge |
+| Robust ECDSA Threshold Signing at Scale | 2026/2493 v1 | Exact paper profile `ROBUST-ECDSA-2026-2493-SECP256K1-SHA256-N88-T29-PAPER-v1` at `n=88,t=29`; intended agreement and ordered single-use presignatures; author benchmark excluded | No qualifying intended-design signer or forgery; the literal 30-versus-31 release mismatch and same-presignature two-view key recovery are real but nonqualifying under the stated agreement, single-use, and freshness rules |
 
 ### Audit summaries
 
@@ -590,6 +591,53 @@ independent complete KAT or Akita reproduction exposes a material mismatch or
 false-statement path; or the paper bytes, Aerie source/tag/tree, Akita pin or
 features, catalog row, wire/domain semantics, Falcon parameter, salt mode,
 record profile, or exact-target prior art changes materially.
+
+Robust ECDSA Threshold Signing at Scale (ePrint 2026/2493 v1) completed a
+bounded audit of the paper-level secp256k1/SHA-256 profile at `n=88,t=29`, with
+at most 29 static active corruptions, intended `t+1=30`-party signing, 29
+ordered single-use presignatures, and the paper-stated message and
+presignature agreement requirement. No qualifying practical attack against
+that intended construction was established within `2^45` work.
+
+Literal Protocol 1 nevertheless has a concrete formal mismatch. Its Step 4
+releases degree-29 shares before the formal `F_TSS` functionality has the 31
+matching inputs required by its `t+2` boundary. The 29 corrupt parties'
+legitimate states plus one honest outgoing share therefore determine the
+signing values after 30 activations and produce an ordinary accepted ECDSA
+signature. This is a real Protocol 1/Theorem 1 specification and proof flaw.
+It is not a fresh-message forgery under the paper's own intended threshold
+convention: `t+1=30` participants are expressly sufficient to sign, and the
+honest participant received a signing input for that message.
+
+Two separately implemented full-profile demonstrations confirmed the stronger
+literal-protocol consequence. The primary implementation succeeded in three
+of three trials, and a precommitted clean-room implementation succeeded in one
+of one trial with a different seed, public instance, organization, and
+arithmetic implementation. Both obtained two conflicting message views of the
+same base presignature, recovered the long-term ECDSA key by independent
+equations, signed an unsubmitted third message, and rejected a mutated-message
+control. Those experiments establish the literal algebraic behavior. They do
+not establish a qualifying attack against the intended construction: the
+two-view route violates the paper-stated agreement and ordered single-use
+presignature condition, and the clean-room atomic authorization-and-consumption
+control prevented the second release.
+
+The experiments did not reproduce a full preprocessing, network,
+broadcast-agreement, or UC execution, and ordinary ECDSA acceptance was checked
+in self-contained arithmetic rather than by an external verifier library. The
+author benchmark was not executed and its known generator, central-setup, and
+composition defects were excluded. The exact-target history result has
+moderate confidence because the paper was two days old and public indexes can
+lag. This disposition is a bounded paper-profile audit, not a security proof,
+and it creates no public attack package or verified-attack count change.
+
+Reopen only if one of these conditions occurs:
+
+1. An authoritative revision, erratum, or designer clarification makes the formal t+2 F_TSS authorization boundary normative for ordinary signing while retaining Protocol 1 Step 4 release before that boundary.
+2. An authoritative revision or clarification removes pre-release global message/presignature agreement or atomic single-use presignature consumption from the intended construction, making the reproduced two-view execution conforming.
+3. A concrete full-profile route obtains conflicting views, secret or equivalent signing recovery, or a genuinely fresh-message forgery despite enforced pre-release agreement and atomic single-use consumption, within 2^45 work.
+4. A different concrete full-profile proof, preprocessing, commitment, transcript, or composition defect reaches a qualifying signing endpoint within 2^45 without relying on benchmark-only fixtures or a specification omission.
+5. A material paper, source, profile, or test-vector revision, or new exact-target prior art, changes the frozen semantics, claimed boundary, or attack-history disposition.
 
 ## Verified attack summaries
 
