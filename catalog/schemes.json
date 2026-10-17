@@ -966,5 +966,59 @@
       "Exact PR-56-style row reuse or another zero-knowledge failure is found and can be extended beyond linkability to a reusable witness or accepted extra message; linkability alone does not change the classification.",
       "A paper revision, erratum, authoritative author statement, practical ML-DSA or proof-system break, materially stronger full-row attack, or new exact-target prior art changes the frozen relation, practical bound, or history verdict."
     ]
+  },
+  {
+    "scheme": "ModFalcon",
+    "aliases": [
+      "ModFalcon-2-512",
+      "compact signatures based on module NTRU lattices"
+    ],
+    "eprint_id": "2019/1456",
+    "eprint_version": "current fourth revision dated 2024-11-01",
+    "eprint_date": "2019-12-24",
+    "family": "module-NTRU GPV hash-and-sign signature with signature-recovery and key-recovery encodings",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / REOPEN_CONDITIONAL / PAPER_LEVEL_SOURCE_LIMITED",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2019/1456",
+    "authors": [
+      "Chitchanok Chuengsatiansup",
+      "Thomas Prest",
+      "Damien Stehle",
+      "Alexandre Wallet",
+      "Keita Xagawa"
+    ],
+    "paper_sha256": "3ab283e00be79eb2dd1d3cdaa2b1c90f23be8574feeb2547db4609916fa51d4d",
+    "source_commit": "16388e0064d8272792047b81ea82fce4791788a1",
+    "source_status": "PINNED AUTHOR PYTHON RESEARCH POC IMPLEMENTS THE GENERIC FULL-VECTOR CONSTRUCTION, NOT EITHER CURRENT SR OR KR ENDPOINT; NO CURRENT-ENDPOINT KAT",
+    "attack_history_note": "A bounded search through 2026-10-16 located no public practical signing compromise against exact current-v4 ModFalcon-2-512 SR or KR at moderate-high confidence. The ModFalcon authors' own analyses and Espitau--Kirchner nearest-colattice work are mandatory attribution. This is a dated absence-of-located-public-attack statement, not an absolute novelty, priority, or security claim.",
+    "audit_completed_at": "2026-10-16",
+    "selected_parameter_set": "current-v4 ModFalcon-2-512: R=Z[x]/(x^512+1), q=12289, paper n=2, ambient module rank 3, rho=1512, 320-bit salt; SR and KR kept separate",
+    "operation_scope": "Paper-level current-v4 ModFalcon-2-512 mathematical relation. SR transmits (s1,s2) and reconstructs centered s0. KR is reviewed only under an explicitly conservative completion retaining h1, omitting h2, canonically binding the ordered complete key with an inferred 348-to-352-bit digest, transmitting all three signature coordinates, and rejecting nonunit s2 with signer resampling. The paper does not select all KR byte or parser semantics.",
+    "audit_note": "No practical full-parameter secret-key recovery with fresh signing, reusable equivalent signing trapdoor, or ordinary-verifier-accepted fresh-message forgery was found within 2^45 work. The favorable corrected current-v4 SR row-deletion estimate is beta=660, about 2^192.720 classical or 2^174.900 quantum work with a 2^136.95-element sieve list. Displayed Equation (6) gives beta=661, the current table's beta=658 does not pass, and the historical dimensions-for-free beta=608 row remains far outside the cutoff. Theorem 3.1 does not apply to the concrete q=1 mod 8 row and coefficient widths, but no signing bridge follows. In conservative KR, exact short nonunit denominators establish a correctness/specification gap; accepted signatures still reduce to the full SR relation or a fixed-target 348-to-352-bit digest second preimage. The structured completion row (g0,-f) remains a reopen condition because its exact distribution and a rho=1512 signing bridge are unavailable. The printed epsilon=2^-38 and GS cap imply sigma>=35.627134... and nominal radius 1535.922..., inconsistent with Table 2 rho=1512. The pinned source does not implement current SR/KR endpoints and no exact KAT exists. This is a bounded campaign result, not a security proof or implementation-conformance conclusion.",
+    "conformance_limitations": [
+      "The current paper does not freeze byte-level hash-to-point or codec rules for either SR or KR.",
+      "The KR recovery coordinate, nonunit behavior, digest primitive and effective length, complete-key encoding, and parser are unspecified; the reviewed strict-unit, canonical 348-to-352-bit completion is analytical only.",
+      "The pinned author Python repository implements the generic full-vector construction rather than either current SR or KR endpoint, and no full current-endpoint known-answer vector was located.",
+      "The paper's printed epsilon=2^-38 and GS cap imply sigma>=35.627134... and nominal radius 1535.922..., while Table 2 fixes rho=1512.",
+      "The displayed Equation (6), corrected current-v4 derivation, current table, and historical repository estimator give inconsistent block-size records; favorable reviewed values remain outside the campaign cutoff.",
+      "Theorem 3.1 does not cover the concrete q=1 mod 8 row or its coefficient widths; no practical public weak-key label, relation recovery, or signing bridge was established."
+    ],
+    "audit_limitations": [
+      "The result covers only the current fourth-revision paper-level ModFalcon-2-512 SR relation and the explicitly conservative KR completion.",
+      "No key generation, signing, verifier, lattice reduction, or attack experiment was run because every prospective full-row route remained far above 2^45.",
+      "The exact completion-row distribution and rank-two basis quality are unpublished, so completion recovery cannot be promoted to a signing result.",
+      "The exact-target history result is a moderate-high-confidence bounded search through 2026-10-16, not an absolute claim.",
+      "The bounded closeout is not a proof against future attacks or materially different implementations."
+    ],
+    "reopen_conditions": [
+      "A current-row ApproxCVP, nearest-colattice, Module-NTRU, hybrid, algebraic, or structured-lattice method lowers a full accepted signing endpoint to at most 2^45 work with feasible memory.",
+      "Exact paper-distribution completion statistics or representative conforming measurements show a recoverable (g0,-f) class, and a recovered rank-two basis is demonstrated to forge with s2=0 at rho=1512 under the ordinary verifier.",
+      "An authoritative SR or KR implementation, test vector, revision, or erratum fixes hash-to-point, codec, omitted index, nonunit behavior, digest, encoding, or parser semantics and exposes a practical accepted-relation route.",
+      "A concrete KR digest or encoding gives a fixed-key second preimage, binding bypass, or large-annihilator forgery below 2^45.",
+      "An authoritative mathematical sampler has a basis-dependent deviation that yields a reusable trapdoor through ordinary signatures; source-only RNG, timing, floating-point, and fault behavior remains outside the design claim.",
+      "A nonnegligible accepted weak-key class exposes both an efficient public test or recovery procedure and fresh-signing capability.",
+      "A material paper revision, exact-target prior attack, or new exact-profile source artifact changes the frozen relation, history status, or practical estimates."
+    ]
   }
 ]

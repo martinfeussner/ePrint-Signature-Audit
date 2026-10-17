@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 43 |
+| Schemes identified | 44 |
 | Known attacks excluded | 3 |
-| Schemes audited | 40 |
-| No practical attack found | 25 |
+| Schemes audited | 41 |
+| No practical attack found | 26 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -90,6 +90,7 @@ exact-target cryptanalysis:
 | ANSA-IBS | 2026/2134 current 2026-10-12 revision | Paper-level external-message IBS-1 at `N=1536`, `q=8380417`, challenge weight 27, and `ZBOUND=2018750`; claimed artifact unavailable | No practical signer or forgery; closest ordinary-RSIS diagnostic is about `2^50` and has no reverse signing bridge |
 | Round-Optimal Pairing-Free Blind Signatures | 2026/091 v1/current | Intended Scheme2 relation with P-256 Nyberg--Rueppel issuance, 32-byte SHA-256 map, T-256, Spartan issuance, and R1CS-IPA final proof at source commit `f040bd34004c17fa475cb03e481e94101a98e886` | No practical design-level signer, fresh-message forgery, or one-more forgery within `2^45`; implementation security is outside this public disposition |
 | edaBitE Blind Signature | 2026/2473 initial/current | Paper-level base single-issuer ML-DSA-44 profile with edaBitE conversions and general ORAM; issuer-hiding extensions excluded | No practical one-more forgery or reusable signer; reopen for exact source conformance or a qualifying new route |
+| ModFalcon | 2019/1456 current v4 | Paper-level ModFalcon-2-512 at `R=Z[x]/(x^512+1)`, `q=12289`, `rho=1512`; SR and conservative KR profiles kept separate | No practical signer or forgery; reopen for an exact completion-row signing bridge, authoritative current endpoint, or another full-row route within `2^45` work |
 
 ### Audit summaries
 
@@ -435,6 +436,51 @@ PR-56-style row reuse that reaches a reusable witness or accepted extra
 message. Also reopen for a material revision, erratum, authoritative author
 statement, practical ML-DSA/proof-system break, stronger full-row route, or new
 exact-target prior art.
+
+ModFalcon (ePrint 2019/1456, current fourth revision dated
+2024-11-01) completed a bounded paper-level audit of ModFalcon-2-512 over
+`R=Z[x]/(x^512+1)` at `q=12289`, `rho=1512`, and a 320-bit salt. Signature
+recovery (SR) and key recovery (KR) were treated as separate profiles. No
+practical secret-key recovery with fresh signing, reusable equivalent signing
+trapdoor, or ordinary-verifier-accepted fresh-message forgery was found within
+`2^45` work. In SR, the favorable corrected current-v4 row-deletion estimate
+first passes at block size 660, about `2^192.72` classical or `2^174.90`
+quantum work with a `2^136.95`-element sieve list. The displayed Equation (6)
+instead gives 661, the current table's 658 does not pass, and the aggressive
+historical dimensions-for-free row gives 608 but remains far outside the
+campaign boundary. Theorem 3.1 does not apply to the concrete row because
+`q=1 mod 8` and its coefficient widths do not meet the theorem's sufficient
+conditions; no practical public-key-distribution signing bridge followed.
+
+The KR review used an explicitly conservative analysis completion: retain
+`h1`, omit `h2`, bind a canonical ordered complete key with an inferred
+348-to-352-bit digest, transmit all three signature coordinates, reject
+nonunit `s2`, and resample it during signing. The paper does not fix those
+semantics. Exact short nonunit denominators establish a correctness and
+specification gap, while an accepted signature under this completion still
+reduces either to the full SR relation or to a fixed-target digest second
+preimage. The structured completion row `(g0,-f)` remains the principal reopen
+item: reopen if exact paper-distribution statistics make it recoverable and a
+derived rank-two basis is shown to sign with `s2=0` at `rho=1512`. The paper's
+printed `epsilon=2^-38` and GS cap imply `sigma>=35.627134...` and nominal
+radius `1535.922...`, inconsistent with Table 2's `rho=1512`; this and the
+estimator discrepancies are proof, parameter-record, or conformance limits,
+not demonstrated attacks.
+
+The pinned author Python repository at commit
+`16388e0064d8272792047b81ea82fce4791788a1` implements the generic full-vector
+construction, not either current SR or KR endpoint. The paper also leaves
+byte-level hash-to-point, codecs, KR recovery-coordinate and nonunit handling,
+digest, parser, and full current-endpoint known-answer vectors unfrozen, so no
+implementation-conformance claim is made. A bounded history search through
+2026-10-16 located no public practical signing compromise against the exact
+profile at moderate-high confidence; that is a dated absence-of-located-public-
+attack statement. This campaign result is not a security proof. Reopen for a
+full accepted endpoint within `2^45`; a demonstrated completion-row recovery
+and signing bridge; authoritative current SR/KR source, vectors, revision, or
+erratum exposing a practical route; a practical KR binding bypass; mathematical
+sampler leakage yielding a reusable trapdoor; a nonnegligible publicly
+detectable weak-key signer class; or material new exact-target prior art.
 
 ## Verified attack summaries
 
