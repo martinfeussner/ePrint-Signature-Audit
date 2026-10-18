@@ -14,11 +14,11 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 52 |
+| Schemes identified | 53 |
 | Known attacks excluded | 3 |
-| Schemes audited | 49 |
+| Schemes audited | 50 |
 | No practical attack found | 33 |
-| Verified and independently reproduced practical design attacks | 16 |
+| Verified and independently reproduced practical design attacks | 17 |
 
 ## Practical design attacks
 
@@ -40,6 +40,7 @@ unreported.
 | [EagleSignV3](attacks/eaglesignv3/) | 2024/1234 rev. 2 | Fiat--Shamir-with-aborts lattice signature | Ternary secret and equivalent signing-key recovery with fresh-message forgery | Public-`r` centered-wrap labels and ternary feasibility | Paper-level Ring-L2 `(1,1,1024,59393,16,1,16,16384,16384)` | 40,000 signer outputs; 296.09 s independent pipeline; 221,272 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [DualMS 2.0](attacks/dualms-2/) | 2026/1941 retained current body | Rounded two-round Fiat--Shamir lattice multisignature | Public-key-only fresh-message forgery | Zero responses and verifier-hint absorption of reconstruction | Rounded Table-6 `n=32` and `n=1024` | 4 and 1 `Hsig` queries in the independent reproduction; 28.16 s, 252,432 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [FABS](attacks/fabs/) | 2026/022 current | Pairing-based key-policy attribute-based signature | One-H0-query, zero-signing-query universal fresh-message forgery | Public satisfying witness and Schnorr-style response programming | Figure 1 KP-ABS, 100-attribute all-AND endpoint | 1 `H0` query; 0 signing queries | Verified; independently AI-reproduced |
+| [Iceberg](attacks/iceberg/) | 2026/1757 v1 | Nested threshold MuSig2 over replicated secret sharing | Group signing-key recovery with fresh-message BIP340 forgery | Same-message context splitting and a three-response linear solve | `t=2`, `n=4`, `mu=3`, `nu=2`, secp256k1 | 3 signing queries; 0.92 s independent run; 15,360 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -623,5 +624,20 @@ run took 3.77 seconds and 31,744 KiB on one worker. The result covers Figure 1
 KP-ABS, not SP-ABS or anonymity, and makes no exact author-backend or byte-codec
 claim. No prior public exact-target attack was located through 18 October
 2026, and no technique novelty is claimed.
+
+[Iceberg](attacks/iceberg/) (ePrint 2026/1757 v1) binds a session identifier
+to one message in its security game but leaves the attacker-chosen outer
+MuSig2 context unbound across honest members. With one corrupt member, the
+attacker queries each of the three honest members once under the same SID and
+message while changing only the cosigner nonce. Interpolation yields three
+complete group partial signatures whose public full-rank equations recover
+both fixed nonce scalars and the group signing key. The recovered key then
+produces an ordinary BIP340 signature on a never-queried message with no
+honest participation. The exact pinned-source C run and an independently
+written secp256k1 reproduction both passed, including rank, parity, raw-share,
+and changed-message controls; the independent run took 0.92 seconds and
+15,360 KiB on one worker. The result claims no novelty for its known component
+techniques, and no prior public report of the complete Iceberg-specific attack
+was located through 18 October 2026.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

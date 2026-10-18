@@ -1,0 +1,21 @@
+{
+  "all_rows_pass": true,
+  "result": "FULL_ICEBERG_RETAINED_PROFILE_REPLAY_PASS",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_three_queried_outer_signatures_valid": true,
+        "fresh_message_bip340_forgery_valid": true,
+        "group_signing_secret_recovered": true,
+        "one_sign_query_per_honest_member": true,
+        "ordinary_bip340_verifier_used": true,
+        "same_message_and_sid_across_queries": true,
+        "three_by_three_system_full_rank": true,
+        "zero_honest_participation_on_forged_message": true
+      },
+      "parameter_row": "Iceberg t=2, n=4, mu=3, nu=2 over secp256k1",
+      "profile_id": "ICEBERG-SECP256K1-T2-N4-MU3-NU2-DEPTH2-BIP327-BIP340-SID32-ARTIFACT-B2F87CB"
+    }
+  ]
+}

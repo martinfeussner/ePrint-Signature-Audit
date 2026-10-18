@@ -1,0 +1,122 @@
+{
+  "attack": {
+    "corrupt_members": 1,
+    "honest_pre_round_queries": 3,
+    "honest_signing_queries_on_forged_message": 0,
+    "signing_queries": 3
+  },
+  "attack_checks": {
+    "all_three_queried_outer_signatures_valid": true,
+    "fresh_signature_bytes": 64,
+    "fresh_signature_valid": true,
+    "group_nonce_1_recovered": true,
+    "group_nonce_2_recovered": true,
+    "group_signing_secret_recovered": true,
+    "selected_context_candidates": [
+      0,
+      1,
+      5
+    ],
+    "selected_nonce_parities": [
+      -1,
+      -1,
+      1
+    ],
+    "three_by_three_rank": 3
+  },
+  "checks": {
+    "all_three_queried_outer_signatures_valid": true,
+    "fresh_message_bip340_forgery_valid": true,
+    "group_signing_secret_recovered": true,
+    "one_sign_query_per_honest_member": true,
+    "ordinary_bip340_verifier_used": true,
+    "same_message_and_sid_across_queries": true,
+    "three_by_three_system_full_rank": true,
+    "zero_honest_participation_on_forged_message": true
+  },
+  "construction_checks": {
+    "aggregate_key_and_nonce_parities_applied": true,
+    "challenge_transcript": "xonly32(R)||xonly32(P)||msg32",
+    "dealer_and_vpss_tags_source_faithful": true,
+    "group_key_coefficient_bip327": true,
+    "honest_nonce_codeword_indices": [
+      2,
+      3,
+      4
+    ],
+    "inner_nonce_transcript_source_order": "ext33(R1)||ext33(R2)||ext33(X_group)",
+    "outer_nonce_transcript": "ext33(T1)||ext33(T2)||xonly32(P)||msg32"
+  },
+  "digests": {
+    "fresh_signature_sha256": "1a8e96501c2e3cb1e3234f09184986d3fe598cf0aa7b87ec1213e71faeeb1c88",
+    "queried_message_sha256": "d5d768e2b6d7f58984f547d6eefa18a696e1f8c105da3b1a7bea69e5cc5b0136"
+  },
+  "environment": {
+    "dependencies": "Python 3 standard library",
+    "workers": 1
+  },
+  "game_accounting": {
+    "corrupt_members": [
+      1
+    ],
+    "forgery_message": "a09db8b98dbf173f8f12908d7b1771046b94e196445a1a8ffdec2073a8f5ef7d",
+    "forgery_message_honest_signers": [],
+    "pre_round_queries": [
+      {
+        "member": 2,
+        "sid": "1d09b96ec1e165535420df6bef64b17b0c46db81313f628fdaeb849d94fbd448"
+      },
+      {
+        "member": 3,
+        "sid": "1d09b96ec1e165535420df6bef64b17b0c46db81313f628fdaeb849d94fbd448"
+      },
+      {
+        "member": 4,
+        "sid": "1d09b96ec1e165535420df6bef64b17b0c46db81313f628fdaeb849d94fbd448"
+      }
+    ],
+    "queried_message_honest_signers": [
+      2,
+      3,
+      4
+    ],
+    "sign_round_queries": [
+      {
+        "member": 2,
+        "message": "6296f73dd48666a53b77c15dd0e376cd1b1192cf754c969fd67d5bc500cc4c4c",
+        "outer_context_candidate": 0,
+        "sid": "1d09b96ec1e165535420df6bef64b17b0c46db81313f628fdaeb849d94fbd448"
+      },
+      {
+        "member": 3,
+        "message": "6296f73dd48666a53b77c15dd0e376cd1b1192cf754c969fd67d5bc500cc4c4c",
+        "outer_context_candidate": 1,
+        "sid": "1d09b96ec1e165535420df6bef64b17b0c46db81313f628fdaeb849d94fbd448"
+      },
+      {
+        "member": 4,
+        "message": "6296f73dd48666a53b77c15dd0e376cd1b1192cf754c969fd67d5bc500cc4c4c",
+        "outer_context_candidate": 5,
+        "sid": "1d09b96ec1e165535420df6bef64b17b0c46db81313f628fdaeb849d94fbd448"
+      }
+    ],
+    "threshold_t": 2,
+    "win_bound_t_minus_corrupt": 1,
+    "win_inequality": "0 < 2 - 1",
+    "zero_honest_participation_in_forgery": true
+  },
+  "negative_controls": {
+    "parity_blind_true_solution_has_nonzero_residual": true,
+    "raw_honest_responses_do_not_recover_group_key": true,
+    "repeated_context_rank": 2,
+    "two_equation_rank": 2
+  },
+  "profile": "ICEBERG-SECP256K1-T2-N4-MU3-NU2-DEPTH2-BIP327-BIP340-SID32-ARTIFACT-B2F87CB",
+  "public_fingerprints": {
+    "aggregate_public_xonly": "f3ee718dea3f99e57608749e771a7ade14c57ee2aa2f1aa5d05fa0e1482e6368",
+    "fresh_signature_sha256": "1a8e96501c2e3cb1e3234f09184986d3fe598cf0aa7b87ec1213e71faeeb1c88",
+    "group_public_compressed": "02ed67d22c1d0dee1a0a4cd34047738285c4129fe2398f7df79eae0936fb8b49e3"
+  },
+  "result": "PASS: three same-message contexts recovered the Iceberg group key and produced a fresh BIP340 forgery",
+  "verdict": "PASS"
+}

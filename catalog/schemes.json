@@ -1537,5 +1537,28 @@
       "An authoritative paper, source, KAT, implementation, or certificate revision changes the frozen semantics or profile.",
       "New exact-target prior art changes eligibility or history."
     ]
+  },
+  {
+    "scheme": "Iceberg",
+    "aliases": [
+      "Enabling Threshold Custody for the Lightning Network with Nested Threshold Multi-Signatures"
+    ],
+    "eprint_id": "2026/1757",
+    "eprint_version": "initial/current v1",
+    "eprint_date": "2026-08-21",
+    "family": "nested threshold MuSig2 over replicated secret sharing",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/1757",
+    "authors": [
+      "Paul Gerhart",
+      "Nadav Kohen",
+      "Jesse Posner",
+      "Matias Furszyfer"
+    ],
+    "paper_sha256": "6a3bd9d2079551000ea4d69e18463f0975e85decbb5a37f0efff30e1c2508403",
+    "source_url": "https://github.com/furszy/benchmark-iceberg",
+    "source_commit": "b2f87cb047467dd78852bc32722a5228a7167f5e",
+    "audit_completed_at": "2026-10-18"
   }
 ]
