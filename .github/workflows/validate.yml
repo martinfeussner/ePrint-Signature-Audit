@@ -16,5 +16,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install pinned Markdown parser
+        run: >-
+          python3 -m pip install --disable-pip-version-check --no-cache-dir
+          markdown-it-py==3.0.0 mdurl==0.1.2
       - name: Validate catalog and published attacks
         run: python3 -B scripts/validate-metadata.py
+      - name: Regression-test README structure guard
+        run: python3 -B scripts/test-readme-structure.py
