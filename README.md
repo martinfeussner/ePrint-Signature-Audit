@@ -14,11 +14,11 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 53 |
+| Schemes identified | 54 |
 | Known attacks excluded | 3 |
-| Schemes audited | 50 |
+| Schemes audited | 51 |
 | No practical attack found | 33 |
-| Verified and independently reproduced practical design attacks | 17 |
+| Verified and independently reproduced practical design attacks | 18 |
 
 ## Practical design attacks
 
@@ -41,6 +41,7 @@ unreported.
 | [DualMS 2.0](attacks/dualms-2/) | 2026/1941 retained current body | Rounded two-round Fiat--Shamir lattice multisignature | Public-key-only fresh-message forgery | Zero responses and verifier-hint absorption of reconstruction | Rounded Table-6 `n=32` and `n=1024` | 4 and 1 `Hsig` queries in the independent reproduction; 28.16 s, 252,432 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [FABS](attacks/fabs/) | 2026/022 current | Pairing-based key-policy attribute-based signature | One-H0-query, zero-signing-query universal fresh-message forgery | Public satisfying witness and Schnorr-style response programming | Figure 1 KP-ABS, 100-attribute all-AND endpoint | 1 `H0` query; 0 signing queries | Verified; independently AI-reproduced |
 | [Iceberg](attacks/iceberg/) | 2026/1757 v1 | Nested threshold MuSig2 over replicated secret sharing | Group signing-key recovery with fresh-message BIP340 forgery | Same-message context splitting and a three-response linear solve | `t=2`, `n=4`, `mu=3`, `nu=2`, secp256k1 | 3 signing queries; 0.95 s wall independent replay; 15,360 KiB peak, 1 worker | Verified; independently AI-reproduced |
+| [BLS DS2 (Definition 33)](attacks/bls-2p-aiso-as/) | 2026/1394 retained current | BLS two-party signature with direct public-key aggregation | Zero-query fresh-message forgery against Definition 33 | Rogue-key cancellation after the honest-key reveal | BLS12-381 paper-linked G1-public-key/G2-signature profile | 0 signing queries; 1.164 s checks; 102.98 s clean build-and-run; 400,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -639,5 +640,7 @@ and changed-message controls; the independent replay took 0.95 seconds wall and
 15,360 KiB on one worker. The result claims no novelty for its known component
 techniques, and no prior public report of the complete Iceberg-specific attack
 was located through 18 October 2026.
+
+[BLS DS2 (Definition 33)](attacks/bls-2p-aiso-as/) (ePrint 2026/1394, retained current preprint) reveals an honest BLS public key before accepting the corrupt participant's key. A zero-query attacker registers `X_E=beta*P-X_A`, making the direct-addition aggregate equal `beta*P`, and signs any fresh message as `beta*H(m)`. The unchanged paper-linked BLS12-381 ordinary verifier accepted; a sealed fresh-context reproduction passed 32/32 honest keys with all controls rejecting. The claim is limited to the direct-addition Definition 33 instantiation and expressly excludes Theorem 1, Figure 6, central honest `KeyGen`, proper DKG, the artifact's normal lifecycle, and deployments. Rogue-key cancellation is standard prior art credited to BGLS, Bellare--Neven, Boneh--Drijvers--Neven, and CFRG BLS guidance; no technique novelty is claimed, and no earlier public report of this exact-target application was located through 18 October 2026.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

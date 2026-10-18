@@ -68,6 +68,8 @@ README_ATTACK_ORDER = (
     "eaglesignv3",
     "dualms-2",
     "fabs",
+    "iceberg",
+    "bls-2p-aiso-as",
 )
 README_EXCLUSION_ORDER = (
     "ATLAS",

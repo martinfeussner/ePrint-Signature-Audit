@@ -1,0 +1,9 @@
+[package]
+name = "definition33-rogue-key-source-exact"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+bls-aiso-as = { path = "../upstream/bls-aiso-as" }
+bls12_381 = { version = "0.1.4", package = "irmaseal-curve", features = ["experimental"] }

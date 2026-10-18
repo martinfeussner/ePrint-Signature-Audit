@@ -494,7 +494,7 @@
     "status": "KNOWN_ATTACK_EXCLUDED",
     "attack_history_checked_at": "2026-10-14",
     "url": "https://eprint.iacr.org/2021/2",
-    "exclusion_basis": "The target author’s direct successor, ePrint 2022/097 v1, acknowledges that the exact scheme’s structured-response defense against quadratic statistical attacks fails and explains the product-statistic mechanism. No public practical endpoint was located, but the substantive exact-target structural cryptanalysis controls the history gate."
+    "exclusion_basis": "The target author\u2019s direct successor, ePrint 2022/097 v1, acknowledges that the exact scheme\u2019s structured-response defense against quadratic statistical attacks fails and explains the product-statistic mechanism. No public practical endpoint was located, but the substantive exact-target structural cryptanalysis controls the history gate."
   },
   {
     "scheme": "Higher-Bit Approximate-ISIS signature, Construction 1",
@@ -1039,7 +1039,7 @@
     "url": "https://eprint.iacr.org/2024/131",
     "authors": [
       "Sven Argo",
-      "Tim Güneysu",
+      "Tim G\u00fcneysu",
       "Corentin Jeudy",
       "Georg Land",
       "Adeline Roux-Langlois",
@@ -1260,7 +1260,7 @@
     "attack_history_checked_at": "2026-10-18",
     "url": "https://eprint.iacr.org/2026/420",
     "authors": [
-      "Felix Günther",
+      "Felix G\u00fcnther",
       "Vadim Lyubashevsky",
       "Rolfe Schmidt"
     ],
@@ -1559,6 +1559,30 @@
     "paper_sha256": "6a3bd9d2079551000ea4d69e18463f0975e85decbb5a37f0efff30e1c2508403",
     "source_url": "https://github.com/furszy/benchmark-iceberg",
     "source_commit": "b2f87cb047467dd78852bc32722a5228a7167f5e",
+    "audit_completed_at": "2026-10-18"
+  },
+  {
+    "scheme": "Direct-addition BLS instantiation of the Definition 33 chosen-key DS2 interface",
+    "aliases": [
+      "BLS DS2 (Definition 33)",
+      "Definition 33 chosen-key DS2 interface"
+    ],
+    "eprint_id": "2026/1394",
+    "eprint_version": "retained initial/current 83-page PDF observed 2026-10-18; official record received 2026-07-08 and approved 2026-07-12",
+    "eprint_date": "2026-07-08",
+    "family": "BLS-based two-party signature with direct public-key aggregation",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/1394",
+    "authors": [
+      "Javier Gomez-Martinez",
+      "Erkan Tairi",
+      "Pedro Moreno-Sanchez",
+      "Clara Schneidewind"
+    ],
+    "paper_sha256": "93c36cf110ab278be767c367c20ae2035446c1bbffc3e1429551d8b42e473e4f",
+    "source_url": "https://anonymous.4open.science/r/Adaptor_Signatures_Meet_BLS-ECD0/",
+    "source_archive_sha256": "f1e70afef59a55e3a852d1a9debfefb7f9250f90679a65faa46ecdf0c0a7b441",
     "audit_completed_at": "2026-10-18"
   }
 ]

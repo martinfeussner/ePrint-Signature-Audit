@@ -1,0 +1,33 @@
+{
+  "attack": {
+    "known_aggregate_scalar": 42,
+    "signing_queries": 0
+  },
+  "checks": {
+    "aggregate key equals beta times generator": true,
+    "aggregate key nonidentity": true,
+    "changed message rejected": true,
+    "changed signature rejected": true,
+    "forged signature nonidentity": true,
+    "fresh forgery accepted": true,
+    "fresh message was never queried": true,
+    "honest key nonidentity": true,
+    "honest key substitution rejected": true,
+    "rogue key nonidentity": true,
+    "zero signing queries": true
+  },
+  "digests": {
+    "fresh_message_sha256": "690edcc9b16dc9cb1ccef7386891525606d24e773c9aec3305f9a3df06c6dcb6",
+    "reference_domain_sha256": "4d69566baac393838de26c88af7c1752ba3686273e7486cd1eca9da25ca5d26c"
+  },
+  "environment": {
+    "workers": 1
+  },
+  "model": {
+    "group_order": "52435875175126190479447740508185965837690552500527637822603658699938581184513",
+    "kind": "prime-order bilinear-group reference model",
+    "source_exact_bls12_381_is_separate": true
+  },
+  "result": "PASS",
+  "scope": "ePrint 2026/1394 Definition 33 chosen-key DS2 interface only"
+}

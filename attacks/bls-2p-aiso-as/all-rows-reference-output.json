@@ -1,0 +1,22 @@
+{
+  "all_rows_pass": true,
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "counts": {
+        "aggregate_cancellations": 32,
+        "attack_acceptances": 32,
+        "changed_message_rejections": 32,
+        "changed_signature_rejections": 32,
+        "honest_key_substitution_rejections": 32,
+        "valid_nonidentity_aggregate_keys": 32,
+        "valid_nonidentity_rogue_keys": 32,
+        "valid_nonidentity_signatures": 32
+      },
+      "parameter_row": "BLS12-381-G1PK-G2SIG-SHA256-XMD-DEFINITION33",
+      "signing_queries_per_trial": 0,
+      "trials": 32
+    }
+  ],
+  "scope": "ePrint 2026/1394 Definition 33 chosen-key DS2 interface only"
+}
