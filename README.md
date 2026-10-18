@@ -101,7 +101,6 @@ exact-target cryptanalysis:
 | BRaccoon | 2026/1084 current 2026-09-25 | Current Table-3 `Q_s=2^32` paper-static object, four-move issuance protocol, and literal Figure-5 external-message verifier; parameter-certificate source only | No practical signer, fresh-message forgery, or one-more forgery; floor-rounding proof/certificate mismatch is nonqualifying and full-query H-MLWE regression is outside the practical envelope |
 
 ### Audit summaries
-
 ECLIPSE (ePrint 2026/2312 v2) remains a bounded paper-level audit. Its
 2026-10-14 version and history refresh found no prior public exact-target attack
 and confirmed that ordinary Sign/Verify, wire format, and primary rows are
@@ -213,20 +212,14 @@ or concrete primitive suite is available, so implementation conformance
 remains a reopening condition.
 
 CAPSS-Poseidon-3 Default (ePrint 2025/061, current 2026-09-10 revision)
-completed a bounded audit of the exact 19,616-byte Default row. Current-paper
-SmallWood algebra, message and transcript binding, the truncated Poseidon OWF,
-and XOF/Jive mode separation produced no practical secret, reusable signing
-witness, or ordinary-verifier fresh-message forgery. The strongest intended
-selective-opening route costs at least `2^128.332` by the paper's theorem, or
-about `2^129.258` raw XOF trials with exact challenge acceptance. The paper's
-two capacity definitions disagree: the operational one-field digest has a
-generic collision boundary near `2^126.798`, but that does not give a practical
-fresh-message endpoint. Figure 7 also states an underdetermined interpolation
-line; the signature supplies no values or rule for its two missing
-coefficients, so the defect is undefined pseudocode rather than an executable
-bypass. The result is a bounded audit, not a security proof, and should be
-revisited if an authoritative current-row implementation or material revision
-resolves the specification gaps or changes the verifier algebra.
+completed a bounded audit of the exact 19,616-byte Default row with no
+practical signing compromise. The review found inconsistent capacity
+definitions, one implying a generic collision boundary near `2^126.798`, and an
+underdetermined interpolation step, but neither yielded a secret, reusable
+signer, or fresh-message forgery. No authoritative current-row implementation
+was available. Reopen if an implementation or revision resolves those gaps, or
+if a concrete primitive, interpolation, or composition route reaches the
+campaign bound.
 
 NTRU+Sign-972 (ePrint 2025/612, current 2025-12-17 object) completed a
 bounded audit of its exact `(n,q,sigma,tau,d)=(972,9721,260.96,38,8)` row.
@@ -241,45 +234,23 @@ campaign closeout, not a security proof, and should be revisited only when one
 of those missing steps or another complete fresh-signing route becomes
 practical.
 
-NIC signature (ePrint 2026/1573 v1) completed a bounded paper-level audit
-centered on the exact Level-I `(k,n,w)=(210,1050,350)` core relation. Two
-independently reviewed full-parameter XOR-SAT lanes, one unrestricted and one
-enforcing the promised output weights, both returned `INDETERMINATE` at their
-fixed five-minute caps without finding a witness on the same declared local
-instance. Restricted-alphabet joint ISD, generic heuristic search, and
-structural reductions produced no credible route within `2^45` operations and
-12 GiB; the strongest exact reduction still leaves about `2^116.951` marginal
-candidates. The paper supplies no implementation and does not uniquely specify
-the ordinary TCitH/VOLEitH wrapper, public-key encoding, or Level-I VOLEitH
-signature length, so a completion profile remains required. No secret key,
-equivalent signing witness, fresh signing ability, or efficient fresh-message
-forgery was obtained. This is a bounded campaign closeout, not a security
-proof; it should be revisited after an authoritative implementation or
-material revision, evidence of exploitable non-random key-generation
-structure, or a concrete joint solver within the recorded resource limits.
+NIC signature (ePrint 2026/1573 v1) completed a bounded paper-level audit of
+the Level-I `(k,n,w)=(210,1050,350)` core with no practical signing compromise.
+Two full-parameter XOR-SAT lanes reached their five-minute limits without
+finding a witness, and the strongest exact reduction still leaves about
+`2^116.951` marginal candidates. The paper supplies neither an implementation
+nor a fully specified wrapper or encoding. Reopen if authoritative artifacts
+fix those semantics, non-random key structure becomes exploitable, or a
+concrete full-row solver enters the `2^45` campaign bound.
 
-SPHINCS-PE (ePrint 2026/1708 v1) completed a bounded, source-independent
-paper-level audit of the standard 128f row with `q_use=2^8`. The reconstructed
-full verifier links the prepared upper certificate and online lower opening
-through one global address space, leaving no free boundary root or detachable
-certificate. The strongest construction-specific route, pooled FORS coverage
-at a reused lower position, has independently reproduced covered mass
-`A_PE = 2^-130.701751...` even after granting all `2^56` preparations and
-`2^64` signing rows. A `2^45` digest grind therefore contributes at most about
-`2^-85.70` success. Other reviewed routes either reduce to the same coverage
-event, lack a qualifying endpoint, or require generic component work from
-about `2^64` to `2^128`; key recovery remains near `2^128`. Observable episode
-collisions and cache, rollback, cloning, and quota-overrun observations do not
-produce a conforming fresh-message signer.
-The advertised author repository was unavailable, so this
-result makes no implementation-conformance or benchmark claim. Reopen only
-for a material paper revision, erratum, implementation, or test vector that
-changes the verifier semantics; a concrete bias, dependence, alias, or
-occupancy error yielding a legitimate fresh-message route within `2^45`
-work; a practical full-parameter primitive or composition break; a change to
-the fixed-count or state semantics that makes additional pooling, rollback,
-cloning, or quota overuse part of ordinary conforming use; or new exact-target
-prior art.
+SPHINCS-PE (ePrint 2026/1708 v1) completed a bounded paper-level audit of the
+standard 128f row with `q_use=2^8` and no practical signing compromise. The
+reconstructed verifier binds the prepared certificate and online opening in one
+address space. Even after the advertised preparation and signing budgets,
+pooled FORS coverage is about `2^-130.70`, leaving a `2^45` digest grind near
+`2^-85.70` success. The author repository was unavailable. Reopen if
+implementation evidence changes verifier semantics or a concrete bias,
+state-use issue, or primitive break supplies a fresh-message route.
 
 MR-DSS (ePrint 2022/973, current 2022-09-21 revision) completed a bounded
 audit of the ordinary Category-I row
@@ -310,618 +281,129 @@ bound; or an exact full-row endpoint within two signing queries and at most
 `2^45` work.
 
 K-LMS (ePrint 2026/2372 v1) completed a bounded source-backed audit of the
-exact principal `n=32,h=10,w=4,L=1` endpoint under correct stateful operation,
-pinned to commit `58be56d022422f2f58c15c3542a6fbc930686086`. The three LSH
-implementations were treated as one byte-identical full-26-step LSH-256
-mapping, while the source-defined CHAM-, KISA-LEA-, and ARIA-based Tandem-DM
-mappings were reviewed separately. No secret-key recovery with fresh signing,
-reusable equivalent signer, or ordinary-verifier accepted fresh-message
-forgery was obtained. A reachable `D_MESG` length extension produced a
-distinct digest, unchanged signatures were rejected, and no LM-OTS signing
-bridge survived the checksum argument. The generic `2^128`, optimistic
-`2^118`, and corrected above-`2^236.02` comparisons are stopping estimates,
-while the `2^56` and `2^72` fragment enumerations screen only their named
-routes; none is a security lower bound. Conformance remains limited by the
-absence of a published or source-independent endpoint vector, the paper's
-underdefined Tandem-DM byte dialect, out-of-band non-SHA backend identity, the
-verifier's missing public-key-length argument, same-process memory-only reload
-tests, incomplete primitive/chunking/padding vectors, qualified sanitizer
-coverage (including unavailable LeakSanitizer and shift-by-32 behavior in the
-auxiliary paper-LEA core), one non-code Cisco line-ending difference despite
-all 61 C/H files matching, dual-SHA and backend-matrix coverage supplied only
-by independent review, aggregate-only negative-control reporting, the
-distinction between 1,169,407 API events and 1,100,799 logical hashes over
-62,736,298 logical bytes, and the `void` ARIA callback's inability to propagate
-EVP failures, although no normal-path failure was observed. This is a bounded
-campaign audit, not a security proof. Reopen for a full-26-step LSH-256 signing
-endpoint below `2^45`; a full-round CHAM, LEA, or ARIA Tandem-DM route below
-`2^45` with an LM-OTS/LMS signing bridge; a `KLMS_TDM_PAD_V1` padding/domain
-alias or same-digest `D_MESG` fixed point; an ordinary-operation state,
-transcript, parser, type, backend, path, or root-binding defect yielding an
-equivalent signer or accepted fresh-message forgery; a secret-derivation,
-deterministic-`C`, namespace, or LM-OTS transformation defeating the reviewed
-arguments below the cutoff; or a material paper/source revision, endpoint
-vector, or new exact-target prior art.
+principal `n=32,h=10,w=4,L=1` endpoint with no practical signing compromise. A
+reachable `D_MESG` length extension changed the digest, and all three Tandem-DM
+verifiers rejected unchanged signatures; no LM-OTS signing bridge survived the
+checksum. Conformance remains limited by the underdefined Tandem-DM byte
+dialect and the absence of an independent endpoint vector. Reopen if a
+practical LSH or Tandem-DM route gains an LMS signing bridge, a padding or
+domain alias appears, or authoritative source evidence changes the endpoint.
 
 SigRPO-LDR (ePrint 2024/1553 current v2) completed a bounded source-backed
-audit of the exact Goldilocks `D=2048,q=85,e=3,m=58` LDR profile, with no FRI
-folds and grinding `(0,0,0,2)`, at paper-branch commit
-`99304c22e3ed384d0e227b670d1d7465ed7c4e98`. The source-defined RPO and
-Blake3 BCS verifiers were adjudicated separately. Neither endpoint yielded a
-secret key, reusable equivalent signer, or ordinary-verifier-accepted
-fresh-message forgery within the campaign's `2^45` work boundary.
+audit of the Goldilocks `D=2048,q=85,e=3,m=58` LDR profile with no practical
+signing compromise. Its RPO endpoint has efficient chosen-digest quotient-leaf
+preimages and multicollisions, but substituted openings still failed the
+required DEEP/Horner condition; the defect does not transfer to the separately
+reviewed Blake3 endpoint. Reopen if a sub-`2^45` constrained opening or
+transcript route supplies that missing condition, or if a material source,
+parser, profile, or prior-art change alters the result.
 
-The RPO endpoint has an exact source-specific commitment defect: every
-four-felt digest of a 48-felt quotient leaf has efficient full-round preimages,
-arbitrary multicollisions, and a leaf/node alias. A same-digest substituted
-opening preserved Merkle reconstruction, but the unchanged verifier rejected
-with `DeepCheckFailed` because each queried row must also satisfy a prescribed
-cubic-extension DEEP/Horner value. No constructive bridge into that condition
-below `2^45` was found. The defect is therefore nonqualifying and is not a
-successful signature attack. It does not transfer to Blake3, whose leaves are
-tagged and length-bound and whose nodes use a distinct canonical encoding.
-
-The result is limited to the pinned source's salted transcript and BCS byte
-dialect, four-canonical-Goldilocks-element message API, CPU/no-default-features
-endpoint, explicit Blake3 preset, and out-of-band verifier-type backend
-selection. The generated vectors are campaign candidates rather than
-pre-existing author KATs; the paper's printed estimates were checked for
-consistency, not proved as new soundness theorems. Current v2 was pinned from a
-public mirror matched to official metadata, while immutable v1 bytes were
-unavailable. This is a bounded campaign result, not a security proof. No attack
-package is created. Reopen only for a sub-`2^45` constrained RPO opening,
-path/transcript, direct-witness, q85/e3 proof, or packed-Blake3 route; a material
-paper/source or parser/profile change; or new exact-target prior art.
-
-ANSA-IBS (ePrint 2026/2134, current 2026-10-12 revision) completed a
-bounded paper-level audit of the ordinary external-message IBS-1 profile at
-`N=1536`, `q=8380417`, challenge weight 27, `ZBOUND=2018750`, and an 8,488-byte
-signature. Exact reconstruction and hostile closeout found no master-key
-recovery, reusable equivalent signing witness, or ordinary-verifier-accepted
-fresh-message forgery within the campaign's `2^45` work boundary. The closest
-numerical observation is the paper's approximately `2^50` auxiliary
-ordinary-RSIS diagnostic, but it is only a consequence of two already-valid
-same-commitment forks and supplies no reverse construction to a transcript-fixed
-signature. Direct BMST, alternate-user-key, challenge-retargeting, identity,
-annular, and exact-Galois routes either remain above the cutoff or lack a
-signing bridge. No experiment was warranted. The claimed author artifact was
-not publicly located, and the public hash suite and several wire encodings are
-not byte-exactly specified, so this result makes no source-conformance or
-benchmark claim. This is a bounded campaign audit, not a security proof. Reopen
-for a concrete sub-`2^45` RSIS-to-transcript, affine-preimage/BMST, annular,
-weak-challenge, output-bias, or surviving-symmetry route; a shared-interface
-ANSA-IBKEM/Antrag break yielding signing power; a material paper/artifact
-change; or new exact-target prior art.
+ANSA-IBS (ePrint 2026/2134, current 2026-10-12 revision) completed a bounded
+paper-level audit of the ordinary IBS-1 profile with no practical signing
+compromise. The closest observation, an approximately `2^50` auxiliary RSIS
+diagnostic, follows from two already-valid same-commitment forks but gives no
+reverse construction to an accepted transcript. The claimed author artifact was
+unavailable and several hash and wire encodings remain unspecified. Reopen if a
+concrete RSIS, BMST, annular, weak-challenge, or symmetry route gains a signing
+bridge, or authoritative artifacts materially change the profile.
 
 Round-Optimal Pairing-Free Blind Signatures (ePrint 2026/091 v1/current)
-completed a bounded audit of the intended Scheme2 relation using P-256
-Nyberg--Rueppel issuance, the source's 32-byte SHA-256 map, T-256 proofs,
-Spartan issuance, and the 1,349-byte R1CS-IPA final proof at source commit
-`f040bd34004c17fa475cb03e481e94101a98e886`. No practical design-level
-secret-key recovery, reusable equivalent signing witness, accepted
-fresh-message forgery, or one-more forgery was found within the campaign's
-`2^45` work boundary. The strongest retained generic stopping estimates are
-about `2^125` raw hashes for a selected-map collision, `2^128` work for group
-claws, discrete logarithms, or useful nonce relations, `2^248` work for a
-fixed mapped-point preimage, and `2^256` work for a statement-complete strong-
-Fiat--Shamir fixed point. Exact reblinding simulates concurrent issuance from
-ordinary Nyberg--Rueppel signatures, and no intended mixed Sigma/SNARK route
-survived the stated binding and soundness assumptions.
+completed a bounded audit of the intended Scheme2 relation with no practical
+key recovery, equivalent signer, fresh-message forgery, or one-more forgery.
+Exact reblinding only simulates concurrent issuance, while the strongest
+generic collision, claw, nonce, and proof routes remain at roughly `2^125` work
+or more. The repository lacks a canonical outer decoder and full-scheme
+known-answer vector. Reopen if a concrete message-map, nonce, group, proof, or
+commitment route enters `2^45`, or if authoritative semantics materially
+change.
 
-This result covers Scheme2 under a competent statement-complete
-Fiat--Shamir compilation, canonical encodings, full point equality, and the
-paper's proof assumptions. Scheme1, Scheme3/vector credentials, other curve or
-proof-system profiles, and external parsing or interoperability are excluded.
-The repository has no canonical public outer decoder, stable external wire
-contract, or fixed full-scheme known-answer vector, and this public disposition
-does not certify the pinned implementation. The paper's displayed proof and
-reblinding formulas require competent algebraic interpretation. This is a
-bounded campaign result, not a security proof. Reopen for a material paper,
-source, profile, endpoint-vector, or intended-relation change; a concrete
-sub-`2^45` message-map, nonce, group, concurrent, proof-system, or commitment
-route; a deployment that materially changes the reviewed endpoint; or new
-exact-target prior art.
+edaBitE Blind Signature (ePrint 2026/2473) completed a bounded paper-level
+audit of the base single-issuer ML-DSA-44 profile with no practical signing
+compromise. Omitting the paper's unverified eight-bit grinding credit leaves
+estimated generic soundness near `2^-120.38`. A stated extraction mismatch is
+resolved only by the intended requirement that the 256-bit mask be fixed or
+extractably bound before hashing. The advertised artifacts were inaccessible.
+Reopen if authoritative source permits post-hash mask correction or omits
+required binding, or if a concrete proof-system route reaches the campaign
+bound.
 
-edaBitE Blind Signature (ePrint 2026/2473, initial/current 2026-10-14 object)
-completed a bounded paper-level audit of the base single-issuer ML-DSA-44
-profile. No practical issuer-key recovery, reusable equivalent signer,
-zero-query accepted proof, or one-more fresh-message forgery was found within
-the campaign's `2^45` work boundary. The claimed eight-bit grinding step is
-unverified; omitting its credit leaves aggregate generic soundness at roughly
-`2^-120.38`, with no practical accepted-proof route. Theorem 2 states ordinary
-final-proof straightline extraction although its proof needs the 256-bit mask
-fixed or extractably bound by the first phase before the external hash; the
-paper's algorithm and prose expressly select that stronger binding, so the
-mismatch is not a demonstrated break of the frozen design. Both advertised
-author artifacts returned HTTP 401, so this result makes no source-conformance
-claim. Reopen if authoritative source or vectors permit post-hash mask
-correction, remapping, or equivocation; omit required statement, circuit,
-commitment, conversion, framing, or domain binding; alter generator/order or
-the six edaBitE and two ORAM challenge-independence conditions; make the final
-`w1` block, second `SampleInBall` squeeze, Algorithm 6 return, canonical values,
-SHAKE length, or grinding admit a practical wider relation; or expose
-PR-56-style row reuse that reaches a reusable witness or accepted extra
-message. Also reopen for a material revision, erratum, authoritative author
-statement, practical ML-DSA/proof-system break, stronger full-row route, or new
-exact-target prior art.
+ModFalcon (ePrint 2019/1456, current 2024-11-01 revision) completed a bounded
+paper-level audit of ModFalcon-2-512 with no practical signing compromise. The
+most favorable corrected signature-recovery estimate is about `2^192.72`
+classical work, while published table and theorem conditions do not match the
+concrete row. The key-recovery profile is underdefined; nonunit denominators
+expose a correctness gap but no accepted-signature bridge. The available source
+implements only the generic construction. Reopen if authoritative endpoint
+semantics or vectors expose a sub-`2^45` completion-row, binding, weak-key, or
+sampler-leakage route.
 
-ModFalcon (ePrint 2019/1456, current fourth revision dated
-2024-11-01) completed a bounded paper-level audit of ModFalcon-2-512 over
-`R=Z[x]/(x^512+1)` at `q=12289`, `rho=1512`, and a 320-bit salt. Signature
-recovery (SR) and key recovery (KR) were treated as separate profiles. No
-practical secret-key recovery with fresh signing, reusable equivalent signing
-trapdoor, or ordinary-verifier-accepted fresh-message forgery was found within
-`2^45` work. In SR, the favorable corrected current-v4 row-deletion estimate
-first passes at block size 660, about `2^192.72` classical or `2^174.90`
-quantum work with a `2^136.95`-element sieve list. The displayed Equation (6)
-instead gives 661, the current table's 658 does not pass, and the aggressive
-historical dimensions-for-free row gives 608 but remains far outside the
-campaign boundary. Theorem 3.1 does not apply to the concrete row because
-`q=1 mod 8` and its coefficient widths do not meet the theorem's sufficient
-conditions; no practical public-key-distribution signing bridge followed.
+Lattice SEP (ePrint 2024/131) completed a bounded source-backed audit of the
+standalone stateful M10 profile with no practical signing compromise. A `2^24`
+tag scan found many collisions, and same-tag affine identities held, but every
+tested candidate failed the source norms or verifier; exploiting scheduled
+reuse would also violate the paper's unique-tag operation. A small successor
+sampler-margin discrepancy produced no leakage or signing consequence. Reopen
+if a norm-compatible tag, message-map, factor, or sampler route reaches `2^45`,
+or if authoritative state, source, or vector semantics change.
 
-The KR review used an explicitly conservative analysis completion: retain
-`h1`, omit `h2`, bind a canonical ordered complete key with an inferred
-348-to-352-bit digest, transmit all three signature coordinates, reject
-nonunit `s2`, and resample it during signing. The paper does not fix those
-semantics. Exact short nonunit denominators establish a correctness and
-specification gap, while an accepted signature under this completion still
-reduces either to the full SR relation or to a fixed-target digest second
-preimage. The structured completion row `(g0,-f)` remains the principal reopen
-item: reopen if exact paper-distribution statistics make it recoverable and a
-derived rank-two basis is shown to sign with `s2=0` at `rho=1512`. The paper's
-printed `epsilon=2^-38` and GS cap imply `sigma>=35.627134...` and nominal
-radius `1535.922...`, inconsistent with Table 2's `rho=1512`; this and the
-estimator discrepancies are proof, parameter-record, or conformance limits,
-not demonstrated attacks.
-
-The pinned author Python repository at commit
-`16388e0064d8272792047b81ea82fce4791788a1` implements the generic full-vector
-construction, not either current SR or KR endpoint. The paper also leaves
-byte-level hash-to-point, codecs, KR recovery-coordinate and nonunit handling,
-digest, parser, and full current-endpoint known-answer vectors unfrozen, so no
-implementation-conformance claim is made. A bounded history search through
-2026-10-16 located no public practical signing compromise against the exact
-profile at moderate-high confidence; that is a dated absence-of-located-public-
-attack statement. This campaign result is not a security proof. Reopen for a
-full accepted endpoint within `2^45`; a demonstrated completion-row recovery
-and signing bridge; authoritative current SR/KR source, vectors, revision, or
-erratum exposing a practical route; a practical KR binding bypass; mathematical
-sampler leakage yielding a reusable trapdoor; a nonnegligible publicly
-detectable weak-key signer class; or material new exact-target prior art.
-
-Lattice SEP (ePrint 2024/131, current major revision with latest archive
-object dated 2025-08-27) completed a bounded audit of
-`LSEP-2024-131-SOURCE-M10-v1`: the ordinary standalone stateful signature at
-author commit `e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7` under pinned x86-64
-little-endian semantics. The endpoint signs exactly 320 bytes as ten binary
-polynomials over `Z_425801[x]/(x^256+1)`, uses weight-five tags, and checks the
-source cutoff `B1'^2=16568582601`; the literal-paper
-`B1^2=16556934335` verifier, credential protocols, successor rows,
-arbitrary-document hashing, wire formats, and deployment behavior are outside
-scope. No practical secret-key recovery with fresh signing, reusable
-equivalent signer, or ordinary-verifier-accepted fresh-message forgery was
-found within `2^45` work.
-
-A `2^24` exact source-tag scan found 16,036 colliding pairs and eleven triple
-bins. Same-tag affine identities held in all 32 Boolean-triple trials and all
-4,080 two-signature monomial candidates, but no candidate passed the source
-norms or verifier. The paper requires that tags remain unique and leaves the
-tag function abstract, so direct state selection, rollback, or reuse of the
-non-injective source schedule violates correct paper operation. The finding is
-retained as a caller/state conformance limitation rather than a design attack.
-The exact structural review also found every valid tag and every difference of
-distinct binary tags to be a unit in all four CRT factors. A nonzero element
-supported on one factor has minimum norm
-`sqrt(318924949)=17858.469951...`, above the complete `v2` and `v3` bounds;
-the best reviewed complementary projection has an optimistic approximately
-`2^212.3` Core-SVP stopping estimate and no signing bridge.
-
-The successor's corrected sampler condition requires `s1` about `0.359108%`
-above the frozen value at the maximum admitted estimated trapdoor norm. No
-measured secret-dependent statistic, recovery method, or fresh-signing
-consequence followed. Probability, occupancy, continuous-volume, generic-key,
-and lattice-estimator/BKZ/Core-SVP figures are stopping estimates, not security
-lower bounds. The source does not persist state, enforce the `2^32` query cap,
-prevent tag reuse, detect wrap, or define canonical serialization; it also
-predates later paper revisions and uses a five-step spectral estimate for key
-screening. A moderate-high-confidence bounded history search through
-2026-10-16 located no exact-target public attack, but indexes can lag. This is
-a bounded campaign result, not a security proof. Reopen for a normative
-unique-tag change; a norm-compatible tag, message-map, factor, or sampler route
-with a complete endpoint within `2^45`; a material paper/source/vector change;
-or new exact-target prior art.
-
-Aerie (ePrint 2026/2501, initial/current object approved 2026-10-17)
-completed a bounded static audit of
-`AERIE-F512-V1-PER-RECORD-N32768-v0.2.0`: the released wire-version-1,
-per-record-salt Falcon-512 aggregate verifier with 32,768 live and padded
-records at Aerie tag `v0.2.0`, commit
-`49b6c212c209286c536196f53618823ffdf0e899`, tree
-`72b9d45dba2c5a43a008c338dd734fa202f56a5f`, and Akita commit
-`e023b6a46143f7b23199ccecb2684192baf7b640` with `dev-protocol`. No practical
-secret-key recovery with fresh signing, reusable equivalent signing witness,
-or ordinary-verifier-accepted aggregate containing a fresh message under the
-fixed honest Falcon key was found within `2^45` work.
-
-The released verifier derives each canonical ring key and key-prefixed
-HashToPoint target, binds the ordered record stream and complete profile before
-the proof challenges, and enforces the Falcon relation rowwise through its
-three-stage PIOP and pinned Akita opening. At exactly 32,768 records there is
-no padded suffix. Record substitution, duplication, rogue-row cancellation,
-transcript splicing, algebraic key transforms, and reviewed Akita kernel,
-equivocation, omission, and false-statement routes supplied no fresh honest-row
-witness or verifier bypass.
-
-The strongest concrete observation is an exact raw-SHAKE model gap. A complete
-897-byte HashToPoint input can also encode a canonical Falcon-512 public key
-after idealized expected work about `2^14.9368` while varying an adversarial
-key, causing that key's 64-byte `Hpk` output to equal the first 64 target-stream
-bytes for another adversarial record. This work estimate does not give a
-repeatable search for a fixed honest challenge key: placing the fixed honest
-key in the opposite role instead requires a generic 512-bit preimage match.
-Even when the first orientation fits, the verifier separately decodes the key
-into `h`, rejection-samples the stream into `C`, derives every other target
-independently, and never equates those types. The equality exposes correlated
-public bytes but no short witness, proof bypass, secret recovery, or accepted
-fresh record.
-
-At `2^45` trials, the retained Fiat--Shamir term is approximately `2^-83`, the
-clear-projection escape approximately `2^-91.4182`, and the terminal two-digest
-term approximately `2^-167`. These are conditional stopping estimates rather
-than security lower bounds. No Aerie or dependency code was built or executed;
-no signer, verifier, full-row corpus, benchmark, external complete KAT, or
-attack experiment ran. Official ePrint PDF byte identity remains unresolved
-after HTTP 403, so the paper freeze is the contemporaneous 58-page
-author-repository PDF. The exact Akita pin and features were reviewed, but the
-complete Akita implementation and extraction theorem were not independently
-reproduced from a separate sealed source archive. The author benchmark
-generator also uses messages different from the paper's 32-byte comparison
-description. A moderate-high-confidence bounded history search through
-2026-10-17 cannot exclude private, removed, newly indexed, or later work.
-PR 7 records a material prerelease domain-separation defect; first public
-`v0.2.0` already contains the correction under public wire version 1. This is
-a bounded campaign result, not a security proof or implementation-conformance
-conclusion.
-
-Reopen only if the raw-SHAKE alias gains an exact honest-row short-witness,
-decoded-key, target-relation, or accepted-false-row bridge within `2^45`; a
-sub-`2^45` Akita kernel, commitment collision or equivocation, or cross-role
-relation is produced for the pinned seed, profile, and schedule; a released
-transcript, group/claim order, PCS session, grinding plan, parser, or EOF
-omission accepts a false three-stage relation; a record-binding collision or
-second preimage gains a stage-3 witness bridge, or an exact row/key-prefix
-transform cancels or retargets the fresh honest row within `2^45`; an
-independent complete KAT or Akita reproduction exposes a material mismatch or
-false-statement path; or the paper bytes, Aerie source/tag/tree, Akita pin or
-features, catalog row, wire/domain semantics, Falcon parameter, salt mode,
-record profile, or exact-target prior art changes materially.
+Aerie (ePrint 2026/2501) completed a bounded static audit of the released
+32,768-record per-record-salt Falcon-512 aggregate verifier with no practical
+signing compromise. A raw-SHAKE encoding alias can be found cheaply while
+varying an adversarial key, but the verifier keeps key and target types
+separate and the observation gives no short witness or fresh honest-row
+forgery; fixing the honest key instead restores a generic 512-bit preimage
+task. Reopen if that alias gains an honest-row signing bridge, a practical
+Akita false-statement route appears, or authoritative source, wire, or profile
+semantics materially change.
 
 Robust ECDSA Threshold Signing at Scale (ePrint 2026/2493 v1) completed a
-bounded audit of the paper-level secp256k1/SHA-256 profile at `n=88,t=29`, with
-at most 29 static active corruptions, intended `t+1=30`-party signing, 29
-ordered single-use presignatures, and the paper-stated message and
-presignature agreement requirement. No qualifying practical attack against
-that intended construction was established within `2^45` work.
-
-Literal Protocol 1 nevertheless has a concrete formal mismatch. Its Step 4
-releases degree-29 shares before the formal `F_TSS` functionality has the 31
-matching inputs required by its `t+2` boundary. The 29 corrupt parties'
-legitimate states plus one honest outgoing share therefore determine the
-signing values after 30 activations and produce an ordinary accepted ECDSA
-signature. This is a real Protocol 1/Theorem 1 specification and proof flaw.
-It is not a fresh-message forgery under the paper's own intended threshold
-convention: `t+1=30` participants are expressly sufficient to sign, and the
-honest participant received a signing input for that message.
-
-Two separately implemented full-profile demonstrations confirmed the stronger
-literal-protocol consequence. The primary implementation succeeded in three
-of three trials, and a precommitted clean-room implementation succeeded in one
-of one trial with a different seed, public instance, organization, and
-arithmetic implementation. Both obtained two conflicting message views of the
-same base presignature, recovered the long-term ECDSA key by independent
-equations, signed an unsubmitted third message, and rejected a mutated-message
-control. Those experiments establish the literal algebraic behavior. They do
-not establish a qualifying attack against the intended construction: the
-two-view route violates the paper-stated agreement and ordered single-use
-presignature condition, and the clean-room atomic authorization-and-consumption
-control prevented the second release.
-
-The experiments did not reproduce a full preprocessing, network,
-broadcast-agreement, or UC execution, and ordinary ECDSA acceptance was checked
-in self-contained arithmetic rather than by an external verifier library. The
-author benchmark was not executed and its known generator, central-setup, and
-composition defects were excluded. The exact-target history result has
-moderate confidence because the paper was two days old and public indexes can
-lag. This disposition is a bounded paper-profile audit, not a security proof,
-and it creates no public attack package or verified-attack count change.
-
-Reopen only if one of these conditions occurs:
-
-1. An authoritative revision, erratum, or designer clarification makes the formal t+2 F_TSS authorization boundary normative for ordinary signing while retaining Protocol 1 Step 4 release before that boundary.
-2. An authoritative revision or clarification removes pre-release global message/presignature agreement or atomic single-use presignature consumption from the intended construction, making the reproduced two-view execution conforming.
-3. A concrete full-profile route obtains conflicting views, secret or equivalent signing recovery, or a genuinely fresh-message forgery despite enforced pre-release agreement and atomic single-use consumption, within 2^45 work.
-4. A different concrete full-profile proof, preprocessing, commitment, transcript, or composition defect reaches a qualifying signing endpoint within 2^45 without relying on benchmark-only fixtures or a specification omission.
-5. A material paper, source, profile, or test-vector revision, or new exact-target prior art, changes the frozen semantics, claimed boundary, or attack-history disposition.
+bounded audit of the intended `n=88,t=29` secp256k1 profile with no qualifying
+practical attack. Literal Protocol 1 releases shares before its formal `t+2`
+authorization boundary, and two demonstrations recovered the key from
+conflicting views, but that route violates the construction's stated message
+agreement and atomic single-use presignature rules. Reopen if authoritative
+semantics make the reproduced execution conforming, or if a concrete route
+defeats those rules and yields key recovery or a fresh-message forgery within
+`2^45`.
 
 Concurrently Secure Compact Blind Signatures from Module-SIS (ePrint 2026/1690
-v1/current) completed a bounded paper-static audit of profile
-`MSIS-CBS-2026-1690-N1536-M4608-Q1013921281-GAMMA2.5-PAPER-v1`, with
-`n=1536`, conductor `m=4608`, `q=1013921281`, `gamma=2.5`, and Figure 3's
-full-vector ordinary verifier. The strict endpoint was secret or reusable
-equivalent signing recovery with fresh signing, an ordinary fresh-message
-forgery, or `k+1` ordinary-valid pairs on pairwise-distinct messages after `k`
-stateful signing instances, within `2^45` work. No such endpoint was obtained.
+v1) completed a bounded paper-static audit of the full-vector profile with no
+practical signer, fresh-message forgery, or pairwise-distinct one-more forgery.
+Setting `y=0` can expose valid signatures from rejected rounds, but all remain
+bound to the same message. Literal `MSIS_B` is also trivial because `B>q`, yet
+the resulting vector exceeds the verifier bound and gives no signer. Reopen if
+pinned implementation semantics expose cross-state transfer or a sub-`2^45`
+short preimage for a fresh syndrome.
 
-The strongest near miss is an ordinary-valid same-message surplus. A malicious
-user can set `y=0`, so every response `sigma=(-1)^b*sigma0` satisfies the
-ordinary equation and `norm(sigma)<=beta0<beta`, even when the rejection
-mechanism labels the round a failure. The failed round can expose one valid
-signature and authorize a retry. Every candidate remains attached to the one
-message fixed by `cm`, so this does not meet Figure 1's pairwise-distinct
-one-more endpoint and does not forge a fresh message.
+FALCON with message recovery (ePrint 2026/420) completed a bounded paper-static
+audit of the native Falcon-512 maximal-recovery profile with no practical
+signing compromise. Signature-first candidates must hit one prescribed value in
+`q^19`; hash-first candidates instead require a full random-target Falcon short
+preimage. Sleeping-Falcon transfer also lacks the required exact target
+repetition under fresh salts. No author source or target-specific known-answer
+vector was available. Reopen if a public preimage method, hash relation,
+ordinary sampler repetition, or authoritative codec and padding profile
+supplies a fresh native-message forgery within `2^45`.
 
-The reduction and specification contain additional real defects. Because
-`B=2*beta+beta0>q`, literal Definition 8 `MSIS_B` is trivial via `q*e_i`.
-That vector is longer than the verifier bound, is zero in `R_q`, preserves the
-syndrome, and supplies no arbitrary-target sampler or signer. The compact
-paragraph swaps coordinate roles and omits `rho`; coherent conventions retain
-the full-vector predicate, while the literal mixture fails honest correctness.
-Figure 1 has an `i=j` quantifier typo and Figure 4 has a restart-step typo. The
-rejection proof omits an `arccosh` branch and does not explicitly transfer its
-distribution argument to the target coset and truncation. The displayed
-formulas also give `M_tilde=3.039469822339112...`, rather than at most 3, and
-`0.292*484=141.328` bits, rather than the nominal 148-bit label. None provides
-a short preimage of a fresh `H(message,rho)` target or another qualifying
-signing bridge below `2^45`.
+smklhs (ePrint 2026/1370) completed a bounded paper-static audit of the
+two-signer base BLS12-381 profile with no practical signing compromise. The
+printed outer proof scales honest contributions by a Fiat--Shamir challenge
+while its inner verifier uses an all-ones vector, so ordinary nonzero
+aggregates generally fail; this is a material correctness and proof gap. A
+complete false-zero forgery still requires a target-group discrete logarithm,
+estimated near `2^127.43`. Reopen if a practical group relation, proof attack,
+hash weakness, or authoritative revision turns the defect into accepted fresh
+or false signing.
 
-Independent closeout corrected four lane details without changing the verdict:
-if public `h` is a unit, a third coherent compact convention keeps `A=(h,1)`,
-transmits `s2`, and reconstructs
-`s1=h^{-1}(H(message,rho)-s2)`; for `y=0`, rejection ranges from
-`0.0126648734678957` to `0.0768836536133642` over `t` in `[0,0.16]`; the
-printed malicious formula gives acceptance at least
-`0.329004747028684...` and retry at most `0.670995252971316...`; and the
-omitted `arccosh` branch rejects unconditionally for `C<1`, while at `C=1`
-the strict test rejects exactly when the inner product is nonzero, with a
-measure-zero equality boundary under ideal continuous `F0`.
-
-This is a paper-static result, not a security proof. The concrete PKE, NIZK,
-hash and codec suite, sampler, trapdoor generation, precision profile, state
-API, and leakage contract are unfrozen. The linked 4open estimator still
-returns HTTP 401 `not_connected`; no artifact bytes, revision, commit, tree,
-or source hash are available. No target build, execution, benchmark, KAT, or
-experiment was authorized or performed, and no attack package or
-verified-attack count change is created.
-
-In public searches completed through 18 October 2026, we located no prior
-substantive attack against Concurrently Secure Compact Blind Signatures from
-Module-SIS, IACR ePrint 2026/1690. Related attacks on other blind signatures
-informed the audit but are not attacks on this exact target. This is a
-moderate-confidence, date-bounded history result because the paper is recent,
-the canonical PDF and version archive returned HTTP 403, the linked repository
-is inaccessible, and some public indexes were unavailable or potentially
-lagging.
-
-Reopen only if one of these conditions occurs:
-
-1. a pinned sampler, trapdoor, precision, or timing profile yields exploitable leakage below 2^45
-2. a pinned PKE, proof circuit, codec, or session API permits commitment equivocation, cross-state transfer, or reset/fork
-3. an intended concrete verifier checks less than the full reconstructed vector or omits rho
-4. a sub-2^45 hash relation or short-preimage method bridges to a fresh accepted syndrome
-5. new primary-source or implementation evidence changes the frozen profile
-
-FALCON with message recovery (FALCON-MRM, ePrint 2026/420, paper PDF
-v1 with current metadata revised 2026-04-16) completed a bounded paper-static
-audit of `FALCON-MRM-2026-420-N512-Q12289-L19-G15-MAXREC-M2EMPTY-PAPER-v1`.
-This is the standalone native Algorithm 4 profile over
-`Z_q[X]/(X^512+1)` with `n=512`, `q=12289`, `lambda=19`, `gamma=15`, 478
-recovered message coefficients, `M2=epsilon`, and inclusive squared-norm bound
-`beta^2=34034726`. No full-parameter secret-key recovery with fresh signing,
-reusable equivalent signer, or ordinary-verifier-accepted fresh native-message
-forgery was found within `2^45` work.
-
-The decisive invariant is a signature-first versus full-preimage dichotomy.
-Every native tuple `x=(rho,M1)` fixes the complete target
-`C(x)=(H1(x,epsilon),H2(H1(x,epsilon))+x)`. A signature candidate committed
-before its fresh `H1` response must hit one prescribed value in `q^19`, whose
-logarithmic size is `258.11651815257505...`; even `2^45` distinct tests have
-success probability at most `2^-213.116518...`. Choosing `x` and learning
-`H1(x,epsilon)` first removes that equality, but fixes all 512 target
-coefficients and leaves a full random-target Falcon-512 short-preimage problem.
-No combination of fixed points, sparse templates, norm-preserving
-transformations, signed transcripts, or stored hash values supplied a third
-route.
-
-The strongest intended-design near miss is the hash-first constructor `C(x)`:
-it produces a verifier-consistent target for any fresh native message, but no
-public full-parameter method found a norm-valid preimage within `2^45`.
-Independent closeout also corrected the two-list accounting. Under one total
-budget `W=2^45`, `TQ` is at most `W^2/4=2^88`, so a two-list `H1` prefix match
-has probability at most `2^-170.116518...`; the lane's looser value used two
-full `2^45` lists and exceeded the total budget.
-
-The strongest conditional transfer near miss is Sleeping Falcon, which needs
-both an exact repeated target and discrepant floating-point sampler executions.
-With at most `2^45` same-message signing attempts, a 15-coefficient salt and
-hence an exact target repeats with probability below `2^-114.776198...`.
-Closeout conservatively uses that bound and does not multiply Sleeping
-Falcon's approximately `10^-4` empirical conditional rate into it without an
-independence argument. Fresh salts and a correct intended sampler therefore do
-not provide the required premise. Sending both short components reveals the
-same mathematical sample already recoverable from an ordinary Falcon
-signature; no intended transcript route yielded a trapdoor or reusable signer.
-
-The maximal optional `B(478)` adapter is injective:
-`39*163+5*27=6492` bits map to `39*12+5*2=478` coefficients, with
-`2^163<q^12` and `2^27<q^2`. The payload requires 812 storage bytes with four
-unused low bits. The paper's 811-byte table entry and unspecified
-shorter-message padding are framing limitations, not two distinct native
-messages with the same encoding and not signing power.
-
-This is a bounded paper-static campaign result, not a security proof. No
-author FALCON-MRM source, target-specific KAT, exact `H1`/`H2` tag bytes,
-header, or canonical two-polynomial wire codec was located, so no byte-level
-implementation-conformance or benchmark claim is made. The pinned Litt1eQ
-repository is a nonauthor reconstruction that chooses its own tags, header,
-length prefix, and codec; it is not a conformance oracle. The result covers
-only the frozen `n=512`, maximal-recovery, `M2=epsilon` endpoint, not the 1024
-row or the separate ring-signature sketch. No target build or attack
-experiment was warranted, and no attack package or verified-attack count
-change is created.
-
-In public searches performed through 18 October 2026, no prior substantive
-attack against the main FALCON-MRM construction in IACR ePrint 2026/420 was
-located. The message-recovery transform originates in ePrint 2016/435, and
-attacks and security analyses for ordinary Falcon implementations and related
-schemes are transfer material rather than attacks on this exact target. This
-is a date-bounded absence-of-located-public-attack statement; private,
-deleted, embargoed, unpublished, or unindexed work cannot be excluded.
-
-Reopen only if one of these conditions occurs:
-
-1. An explicit full-parameter algorithm takes public `(h,q)` and a frozen target `C(x)` and returns a norm-valid preimage, short NTRU basis, or reusable sampler with nonnegligible success in at most `2^45` work.
-2. An authoritative intended `H1`/`H2` completion exhibits a reproducible structural relation that removes the `q^19` signature-first filter and yields an ordinary Algorithm 4-accepted fresh native message within `2^45`.
-3. Faithful ordinary signing naturally repeats an exact target or exposes an intended sampler bias, without rollback, induced faults, or external leakage, and a complete key-recovery/equivalent-signer bridge works within `2^45`.
-4. Ordinary transcripts yield a concrete short kernel basis, equivalent trapdoor, or arbitrary-target preimage sampler within `2^45`, including a demonstrated fresh signing consequence.
-5. An authoritative native or application profile fixes tuple, tag, codec, or padding semantics whose noninjectivity produces a distinct accepted message and survives the intended-design and ordinary-verifier tests.
-6. A material paper/source/parameter revision, author implementation or KAT, validated exact public-input quantum derivation, or new exact-target prior art changes the frozen verifier, sampler, profile, or attack assessment.
-
-smklhs (ePrint 2026/1370, initial/current preprint received 2026-07-03)
-completed a bounded paper-static audit of
-`SMKLHS-2026-1370-BASE-BLS12-381-WHUFCMA-T2-ALL-HONEST-LITERAL-VERIFY-PAPER-v1`.
-The profile covers the base Figure 4 construction at the claimed BLS12-381
-setting, exactly two distinct honest and uncorrupted `KeyGen` signers, a weakly
-adaptive predeclared signing-query set, abstract ordered random-oracle tuples,
-and literal Figure 4 verification together with the literal Figure 3 verifier.
-No secret-key recovery with fresh signing, reusable equivalent signer, accepted
-Type-2 false aggregate, or accepted nonzero fresh honest contribution was found
-within `2^45` work, 24 hours, and approximately 12 GiB.
-
-The literal construction nevertheless has a material correctness and proof statement
-defect. For either outer proof, Figure 4 supplies
-`P=C*u^(z*mu_hat)`, where `z=H2(C,pp)`, while Figure 3 hard-codes the public
-inner-product vector to all ones. Substituting the honest contribution witness
-forces `(z-1)*mu_hat=0 mod p`. An ordinary nonzero two-signer aggregate therefore
-needs the prescribed output `z=1` for each of the independent `M` and `Omega`
-proofs; the favorable fixed-instance probability is `1/(p-1)^2`. The security
-proof assumes the unscaled contribution sums that the printed verifier does not
-establish. This is a material correctness/specification failure and proof gap,
-but honest rejection alone does not recover a signer or produce an accepted
-fresh or false aggregate, so it is not a qualifying campaign attack.
-
-The strongest complete signing consequence found is an above-cutoff two-query
-Type-2 false-zero forgery. With one signature on message `1` from each signer,
-define the public target-group bases
-`Kbar_j=e(Upsilon_j^(1),Theta2)*e(Omega_j,Psi2)`, solve
-`Kbar_1=Kbar_2^d`, and use coefficients `(1,-d)`, the corresponding quotient of
-the two signatures, identity commitments, a claimed output of zero, and two
-zero Figure 3 proofs. The true output is `1-d` except in a negligible key event.
-The required target-group discrete logarithm has generic Pollard-rho scale about
-`2^127.4285` operations for the BLS12-381 scalar subgroup. This is a complete
-above-cutoff attack, not a practical result; the audit found no concrete target field discrete-log, source-group relation, pairing-inversion,
-co-CDH, random-oracle, or proof-malleability route that completes an endpoint inside the
-campaign envelope. The generic figure is a stopping estimate rather than a
-security lower bound.
-
-This result makes no implementation-conformance or security claim. The
-canonical ePrint PDF and complete version history were blocked by Cloudflare;
-the retained 459,028-byte date-matched IACR Asia mirror has SHA-256
-`cb8338d4b7ac0e3f3403319e3acc4f649e0be5097e6cf1817669742d939538e3`,
-but byte identity with the current canonical PDF is not asserted. The paper-linked repository returned HTTP
-404, and no public source commit, RELIC pin,
-known-answer test, codec, transcript vector, or benchmark was located. Byte
-aliases and concrete domain encodings are outside the abstract-tuple profile;
-`rnd.smklhs`, `adpt.smklhs`, rogue or all-adversarial keys, and the printed
-evaluator's separate `pp_M`/`pp_Omega` mismatch are also outside scope.
-
-No prior public attack against smklhs was located in the searches performed as
-of 18 October 2026. This is a bounded search result over the scheme name and
-aliases, ePrint identifier, authors, predecessor, public repositories and
-issues, cryptography discussion sites, scholarly indexes, and general web
-results. It does not claim that no attack exists or that the result is novel.
-
-Reopen only if one of these conditions occurs:
-
-1. A concrete BLS12-381 source- or target-group DLP, multibase relation, pairing-inversion, or co-CDH method completes a signing endpoint within `2^45` work, 24 hours, and about 12 GiB including precomputation.
-2. A Figure 3 Fiat--Shamir or folding attack completes both outer proofs and the pairing equation without a hidden relation or fixed-target random-oracle event.
-3. A concrete `H1` or `H2` instantiation exposes structure, aliases, collisions, or bias yielding a qualifying ordinary-verifier endpoint within the campaign limits.
-4. An honest setup or key degeneracy occurs with materially greater probability and yields fresh signing or a false aggregate.
-5. An authoritative revision, erratum, source release, KAT, or implementation changes the proof statement, bases, transcript, key binding, or selected profile.
-6. New exact-target prior art changes the history or eligibility assessment.
-
-BRaccoon (ePrint 2026/1084, current 2026-09-25 revision) completed a
-bounded paper-static audit of
-`BRACCOON-2026-1084-CURRENT-20260925-TABLE3-QS2^32-PAPER-OBJECT-v1`.
-The frozen Table-3 row uses `n=256`, `q_sig=2^66-5`, `k=12`, `ell=16`,
-challenge weight 23, `sigma_t=2^10`, `sigma_w'=2^17`, `sigma_w=2^57`,
-`nu_t=52`, and `nu_w=55`. The ordinary endpoint is the literal Figure-5
-external-message verifier on `(c,z,h)`: after at most `q<=2^32` opened
-sessions, including abandoned sessions, a one-more result needs `q+1`
-accepted signatures on pairwise-distinct messages. Secret or equivalent-key
-recovery counts only with demonstrated accepted fresh signing.
-
-No qualifying endpoint was obtained. The sparse challenge range has exact
-size `2^23*binomial(256,23)` and binary logarithm about `131.0778`.
-Consequently, `2^45` generic trials against one target have ideal success
-about `2^-86.08`; even granting all `2^32` issued challenges as targets gives
-about `2^-54.08`, while ideal square-root work remains about `2^49.54`.
-Zero and edge tuples, hint manipulation, rotations, linear combinations,
-public-kernel shifts, replay, splicing, reblinding, and message retargeting did
-not remove this challenge condition or the remaining short-relation barrier.
-
-The audit did find a material correctness, proof-language, reduction, and
-certificate defect. For `s=2^nu`, `m=2^(66-nu)`, and floor-sized rounded
-modulus `M=m-1`, literal rounding conflicts with the strict half-width
-relations printed for `L1` and `L2`. Exact counting gives `s+m-6` residues
-without a proof-language value, `s/2-5` with a unique alternate value, and
-`3*s/2+m-11` where the prescribed literal value fails the proof relation.
-The relation is single-valued wherever defined, and the ordinary verifier
-evaluates literal rounding rather than the proof relation. The mismatch does
-not provide a second challenge, an uncharged response, reusable signing power,
-or an accepted fresh-message forgery, so it is not a qualifying campaign
-attack.
-
-The strongest actual signing bridge is transcript H-MLWE regression. Each
-completed session gives the malicious user `z-r=c*s+r'`; recovering `s` would
-permit fresh signing. The documented route requires essentially all `2^32`
-complete proof-bearing sessions, about `2^48.524` scalar sparse updates, at
-least 64 TiB of response data, and about 3.7 PB or 3.3 PiB of complete
-transcripts. Completing acquisition in 24 hours would require roughly 49,710
-sessions per second and 42.84 GB/s of sustained protocol traffic before two
-large proof executions per session. The nominal `2^44.524` figure counts one
-idealized 16-lane AVX-512 instruction as one operation and is not a scalar or
-end-to-end work measure. No full-parameter recovery or accepted fresh
-signature was executed.
-
-This result makes no implementation-conformance or security claim. The pinned
-66-page mirror hashes to
-`3e7cd774f34e83107dbf9993ad2700f446c4483e3c7809b5c663e69706206a62`
-and is reconciled to current official metadata, but the official PDF endpoint
-returned HTTP 403, so official-IACR byte identity is not asserted. The
-attributable repository is pinned at
-`8bee4a86cb9a948f3eea9a84b409cfe2aa7fac1e` and contains a parameter and
-security certificate, not an end-to-end implementation, serializer, KAT, or
-benchmark. Complete corrected `L1`/`L2` profiles, exact proof errors, the
-chosen-key joint flooding distribution, full `2^32` composition margins, and
-the message-versus-prehash reduction boundary remain limitations.
-
-No prior public attack against BRaccoon was located in the searches performed
-as of 18 October 2026. This is a bounded result covering the exact target,
-authors, repository, citation and discussion indexes, the ordinary Raccoon
-lineage, privacy-only work, concurrent-signature comparators, and proof-system
-results. It does not claim that no attack exists or that the result is novel.
-
-Reopen only if one of these conditions occurs:
-
-1. A sealed full-parameter H-MLWE transcript attack recovers a real or equivalent key and produces accepted fresh signing within the complete local work, runtime, memory, query, proof, and I/O envelope.
-2. A lower-sample estimator, challenge strategy, decoder, or equivalent-key method brings the complete regression route below `2^45` and realistic signing-query volume.
-3. A fixed-challenge retarget, hash bias or alias, signed-rotation method, or transcript splice yields a distinct-message accepted signature below the cutoff.
-4. A chosen HE key or admissible ciphertext defeats flooding and supplies secret recovery, equivalent signing, or two usable responses within the practical budget.
-5. A complete current `L1` or `L2` profile yields an accepted false proof with a qualifying signing bridge.
-6. A rounding repair or authoritative reinterpretation changes the public verifier or creates multiple usable proof-language values or an uncharged response.
-7. An authoritative paper, source, KAT, implementation, or certificate revision changes the frozen semantics or profile.
-8. New exact-target prior art changes eligibility or history.
+BRaccoon (ePrint 2026/1084, current 2026-09-25 revision) completed a bounded
+paper-static audit of the Table-3 `Q_s=2^32` profile with no practical signing
+compromise. Literal floor rounding conflicts with the strict half-width proof
+relations, but the relation remains single-valued where defined and the
+verifier is not relaxed. The strongest key-recovery bridge needs essentially
+`2^32` complete sessions, about `2^48.524` scalar updates, and roughly 3.3 PiB
+of transcripts. Reopen if lower-sample regression, a verifier or flooding
+bypass, or authoritative rounding, source, or profile changes produce a
+sub-`2^45` signing endpoint.
 
 ## Verified attack summaries
 
