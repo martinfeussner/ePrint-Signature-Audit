@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 51 |
+| Schemes identified | 52 |
 | Known attacks excluded | 3 |
-| Schemes audited | 48 |
-| No practical attack found | 32 |
+| Schemes audited | 49 |
+| No practical attack found | 33 |
 | Verified and independently reproduced practical design attacks | 16 |
 
 ## Practical design attacks
@@ -98,6 +98,7 @@ exact-target cryptanalysis:
 | Concurrently Secure Compact Blind Signatures from Module-SIS | 2026/1690 v1/current | Exact paper-static profile `MSIS-CBS-2026-1690-N1536-M4608-Q1013921281-GAMMA2.5-PAPER-v1`; full-vector verifier; linked estimator unavailable | No practical signer, fresh-message forgery, or pairwise-distinct one-more forgery; the `B>q` reduction defect and rejected-round valid signatures remain nonqualifying |
 | FALCON with message recovery (FALCON-MRM) | 2026/420 paper v1/current | Exact paper-static profile `FALCON-MRM-2026-420-N512-Q12289-L19-G15-MAXREC-M2EMPTY-PAPER-v1`; native Algorithm 4 at `n=512`; no author source or KAT | No practical signer or fresh native-message forgery; signature-first candidates face `q^19`, while hash-first candidates require a full Falcon short preimage |
 | smklhs | 2026/1370 initial/current | Base Figure 4 at the claimed BLS12-381 setting, exactly two distinct honest signers, weakly adaptive predeclared queries, and the literal Figure 4 plus Figure 3 verifier; paper-static | No practical signer or accepted false/fresh aggregate; the literal challenge-scaled proof statements generically reject honest nonzero multisigner outputs |
+| BRaccoon | 2026/1084 current 2026-09-25 | Current Table-3 `Q_s=2^32` paper-static object, four-move issuance protocol, and literal Figure-5 external-message verifier; parameter-certificate source only | No practical signer, fresh-message forgery, or one-more forgery; floor-rounding proof/certificate mismatch is nonqualifying and full-query H-MLWE regression is outside the practical envelope |
 
 ### Audit summaries
 
@@ -848,6 +849,79 @@ Reopen only if one of these conditions occurs:
 4. An honest setup or key degeneracy occurs with materially greater probability and yields fresh signing or a false aggregate.
 5. An authoritative revision, erratum, source release, KAT, or implementation changes the proof statement, bases, transcript, key binding, or selected profile.
 6. New exact-target prior art changes the history or eligibility assessment.
+
+BRaccoon (ePrint 2026/1084, current 2026-09-25 revision) completed a
+bounded paper-static audit of
+`BRACCOON-2026-1084-CURRENT-20260925-TABLE3-QS2^32-PAPER-OBJECT-v1`.
+The frozen Table-3 row uses `n=256`, `q_sig=2^66-5`, `k=12`, `ell=16`,
+challenge weight 23, `sigma_t=2^10`, `sigma_w'=2^17`, `sigma_w=2^57`,
+`nu_t=52`, and `nu_w=55`. The ordinary endpoint is the literal Figure-5
+external-message verifier on `(c,z,h)`: after at most `q<=2^32` opened
+sessions, including abandoned sessions, a one-more result needs `q+1`
+accepted signatures on pairwise-distinct messages. Secret or equivalent-key
+recovery counts only with demonstrated accepted fresh signing.
+
+No qualifying endpoint was obtained. The sparse challenge range has exact
+size `2^23*binomial(256,23)` and binary logarithm about `131.0778`.
+Consequently, `2^45` generic trials against one target have ideal success
+about `2^-86.08`; even granting all `2^32` issued challenges as targets gives
+about `2^-54.08`, while ideal square-root work remains about `2^49.54`.
+Zero and edge tuples, hint manipulation, rotations, linear combinations,
+public-kernel shifts, replay, splicing, reblinding, and message retargeting did
+not remove this challenge condition or the remaining short-relation barrier.
+
+The audit did find a material correctness, proof-language, reduction, and
+certificate defect. For `s=2^nu`, `m=2^(66-nu)`, and floor-sized rounded
+modulus `M=m-1`, literal rounding conflicts with the strict half-width
+relations printed for `L1` and `L2`. Exact counting gives `s+m-6` residues
+without a proof-language value, `s/2-5` with a unique alternate value, and
+`3*s/2+m-11` where the prescribed literal value fails the proof relation.
+The relation is single-valued wherever defined, and the ordinary verifier
+evaluates literal rounding rather than the proof relation. The mismatch does
+not provide a second challenge, an uncharged response, reusable signing power,
+or an accepted fresh-message forgery, so it is not a qualifying campaign
+attack.
+
+The strongest actual signing bridge is transcript H-MLWE regression. Each
+completed session gives the malicious user `z-r=c*s+r'`; recovering `s` would
+permit fresh signing. The documented route requires essentially all `2^32`
+complete proof-bearing sessions, about `2^48.524` scalar sparse updates, at
+least 64 TiB of response data, and about 3.7 PB or 3.3 PiB of complete
+transcripts. Completing acquisition in 24 hours would require roughly 49,710
+sessions per second and 42.84 GB/s of sustained protocol traffic before two
+large proof executions per session. The nominal `2^44.524` figure counts one
+idealized 16-lane AVX-512 instruction as one operation and is not a scalar or
+end-to-end work measure. No full-parameter recovery or accepted fresh
+signature was executed.
+
+This result makes no implementation-conformance or security claim. The pinned
+66-page mirror hashes to
+`3e7cd774f34e83107dbf9993ad2700f446c4483e3c7809b5c663e69706206a62`
+and is reconciled to current official metadata, but the official PDF endpoint
+returned HTTP 403, so official-IACR byte identity is not asserted. The
+attributable repository is pinned at
+`8bee4a86cb9a948f3eea9a84b409cfe2aa7fac1e` and contains a parameter and
+security certificate, not an end-to-end implementation, serializer, KAT, or
+benchmark. Complete corrected `L1`/`L2` profiles, exact proof errors, the
+chosen-key joint flooding distribution, full `2^32` composition margins, and
+the message-versus-prehash reduction boundary remain limitations.
+
+No prior public attack against BRaccoon was located in the searches performed
+as of 18 October 2026. This is a bounded result covering the exact target,
+authors, repository, citation and discussion indexes, the ordinary Raccoon
+lineage, privacy-only work, concurrent-signature comparators, and proof-system
+results. It does not claim that no attack exists or that the result is novel.
+
+Reopen only if one of these conditions occurs:
+
+1. A sealed full-parameter H-MLWE transcript attack recovers a real or equivalent key and produces accepted fresh signing within the complete local work, runtime, memory, query, proof, and I/O envelope.
+2. A lower-sample estimator, challenge strategy, decoder, or equivalent-key method brings the complete regression route below `2^45` and realistic signing-query volume.
+3. A fixed-challenge retarget, hash bias or alias, signed-rotation method, or transcript splice yields a distinct-message accepted signature below the cutoff.
+4. A chosen HE key or admissible ciphertext defeats flooding and supplies secret recovery, equivalent signing, or two usable responses within the practical budget.
+5. A complete current `L1` or `L2` profile yields an accepted false proof with a qualifying signing bridge.
+6. A rounding repair or authoritative reinterpretation changes the public verifier or creates multiple usable proof-language values or an uncharged response.
+7. An authoritative paper, source, KAT, implementation, or certificate revision changes the frozen semantics or profile.
+8. New exact-target prior art changes eligibility or history.
 
 ## Verified attack summaries
 

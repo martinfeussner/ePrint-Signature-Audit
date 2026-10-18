@@ -1424,5 +1424,118 @@
     "status": "VERIFIED_ATTACK",
     "attack_history_checked_at": "2026-10-18",
     "url": "https://eprint.iacr.org/2026/022"
+  },
+  {
+    "scheme": "BRaccoon: Concurrently Secure Blind Lattice Signatures from Raccoon",
+    "aliases": [
+      "BRaccoon"
+    ],
+    "eprint_id": "2026/1084",
+    "eprint_version": "current revision dated 2026-09-25",
+    "eprint_date": "2026-05-28",
+    "family": "concurrently secure blind lattice signature built from the Raccoon signature relation, BGV-style homomorphic encryption, BDLOP commitments, and ZK-LaBRADOR proofs",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / BOUNDED_PAPER_STATIC_NEGATIVE / MATERIAL_NONQUALIFYING_ROUNDING_PROOF_CERTIFICATE_DEFECT / HIGH_QUERY_HMLWE_NEAR_MISS_NONQUALIFYING / REOPEN_CONDITIONAL / PAPER_PROFILE_LIMITED",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/1084",
+    "authors": [
+      "Lucjan Hanzlik",
+      "Mark Manulis",
+      "Marzio Mula",
+      "Alan Pulval-Dady",
+      "Tjerand Silde",
+      "Daniel Slamanig"
+    ],
+    "paper_sha256": "3e7cd774f34e83107dbf9993ad2700f446c4483e3c7809b5c663e69706206a62",
+    "paper_status": "Current official metadata is dated 2026-09-25. The retained 1,059,827-byte, 66-page mirror is metadata-reconciled and byte-stable across the final recheck, but the official PDF endpoint returned HTTP 403, so official-IACR byte identity is not asserted.",
+    "source_url": "https://github.com/Heltorfx/BRaccoon-Parameters",
+    "source_commit": "8bee4a86cb9a948f3eea9a84b409cfe2aa7fac1e",
+    "source_tree": "0cb095329f7890daa5800dfe9fe426f9217bea93",
+    "source_status": "Pinned parameter and security certificate only; no end-to-end Setup, KGen, User, Signer, or Verify implementation, serializer, KAT, or benchmark target is present.",
+    "attack_history_note": "No prior public attack against BRaccoon was located in the searches performed as of 18 October 2026. The bounded recheck covered the exact title, ePrint identifier, authors, target repository, issues, pulls, releases and forks, citation indexes, discussion sites, the Raccoon lineage, privacy-only results, concurrent-signature comparators, and proof-component work. It cannot exclude private, deleted, unindexed, inaccessible, or later work and makes no absolute novelty or security claim.",
+    "audit_completed_at": "2026-10-18",
+    "selected_parameter_set": "BRACCOON-2026-1084-CURRENT-20260925-TABLE3-QS2^32-PAPER-OBJECT-v1: current paper Table 3 Q_s=2^32 row with n=256, q_sig=2^66-5, k=12, ell=16, omega=23, sigma_t=2^10, sigma_w_prime=2^17, sigma_w=2^57, nu_t=52, and nu_w=55.",
+    "operation_scope": "Bounded paper-static audit of the four-move concurrent issuance protocol and literal Figure-5 external-message verifier on final (c,z,h). The endpoint is q+1 accepted pairwise-distinct messages after at most q<=2^32 opened sessions, or secret/equivalent signing power with accepted fresh signing, under the project 2^45 work, 24-hour, and approximately 12-GiB envelope.",
+    "audit_note": "No qualifying endpoint was obtained. The sparse challenge range has log2 size about 131.0778, leaving 2^45 generic trials against all 2^32 issued targets at ideal success about 2^-54.0778 and ideal square-root work about 2^49.5389. Literal floor rounding conflicts with the strict half-width L1/L2 proof equations and the certificate mixes floor and ceiling conventions, but the relation is single-valued where defined and the ordinary verifier is not relaxed. The strongest actual signing bridge, H-MLWE regression from z-r=c*s+r_prime, needs essentially 2^32 complete proof-bearing sessions, about 2^48.524 scalar updates, at least 64 TiB of response data, and about 3.3 PiB of complete traffic. No full recovery or accepted fresh signature was executed. This is a bounded campaign negative, not a security proof.",
+    "material_nonqualifying_finding": {
+      "kind": "FLOOR_ROUNDING_VS_STRICT_HALF_WIDTH_PROOF_LANGUAGE_AND_CERTIFICATE_MISMATCH",
+      "relation_single_valued_where_defined": true,
+      "formula_no_proof_relation_value": "s+m-6",
+      "formula_unique_alternate_proof_value": "s/2-5",
+      "formula_prescribed_rounding_failure": "3*s/2+m-11",
+      "L2_nu_t_52": {
+        "no_proof_value": "2^52+16378",
+        "unique_alternate": "2^51-5",
+        "prescribed_failure": "3*2^51+16373"
+      },
+      "L1_nu_w_55": {
+        "no_proof_value": "2^55+2042",
+        "unique_alternate": "2^54-5",
+        "prescribed_failure": "3*2^54+2037"
+      },
+      "ordinary_verifier_relaxed": false,
+      "second_challenge_or_response_obtained": false,
+      "qualifying_signing_consequence": false
+    },
+    "strongest_signing_bridge": {
+      "name": "H-MLWE plaintext-response regression",
+      "equation": "z_i-r_i=c_i*s+r_prime_i",
+      "fresh_signing_if_key_recovered": true,
+      "required_complete_sessions": "2^32",
+      "scalar_sparse_updates_log2": "48.523561956057",
+      "fft_scalar_work_log2_approx": "47",
+      "nominal_AVX512_16_lane_instruction_count_log2": "44.523561956057",
+      "minimum_response_stream": "64 TiB",
+      "complete_transcript_volume": "about 3.7 PB / 3.3 PiB",
+      "required_sessions_per_second_for_24h": "about 49,710",
+      "required_protocol_traffic_for_24h": "about 42.84 GB/s",
+      "full_parameter_recovery_executed": false,
+      "accepted_fresh_signature_demonstrated": false,
+      "within_campaign_envelope": false
+    },
+    "checked_arithmetic": {
+      "challenge_cardinality": "2^23*binomial(256,23)",
+      "challenge_cardinality_integer": "2873108161471518200301057969538203648000",
+      "challenge_log2": "131.0778080064192",
+      "single_target_2pow45_success_log2": "-86.0778080064192",
+      "all_2pow32_targets_2pow45_success_log2": "-54.0778080064192",
+      "ideal_square_root_all_targets_work_log2": "49.5389040032096"
+    },
+    "strongest_near_misses": [
+      "Offline reblinding preserves an affine response but a distinct external message still requires a fixed sparse-challenge hash retarget.",
+      "A structured chosen HE key can expose shifted flooding coins, but no reviewed route recovered reusable signing power or two usable responses within the envelope.",
+      "Transcript regression has a direct fresh-signing bridge after key recovery, but complete acquisition and processing exceed the work, query, proof, storage, traffic, and runtime limits."
+    ],
+    "nonqualifying_findings": [
+      "literal floor-rounding versus strict half-width L1/L2 proof-language mismatch",
+      "floor/ceiling rounded-ring mixture in the parameter certificate",
+      "missing complete corrected L1/L2 concrete profiles and composition margins",
+      "uninstantiated chosen-key joint flooding law; B_flood establishes no-wrap only",
+      "message-level versus prehashed oracle typing gap in reductions",
+      "high-query H-MLWE regression near miss outside the campaign work, query, storage, traffic, and runtime envelope",
+      "no end-to-end source, wire codec, KAT, or benchmark target"
+    ],
+    "conformance_limitations": [
+      "Official-IACR PDF byte identity is unresolved because the canonical PDF endpoint returned HTTP 403; the pinned mirror is metadata-reconciled.",
+      "The attributable repository is a parameter/security certificate without an end-to-end implementation, wire codec, KAT, or benchmark.",
+      "Byte and bit order, verification-key seed mapping, public-seed expansion, serialization, and proof/transcript wire rules are not pinned.",
+      "No source, target, solver, benchmark, byte-level conformance, or full-parameter recovery execution was performed."
+    ],
+    "audit_limitations": [
+      "This is a bounded paper-static assessment, not a security proof or a lower bound against every H-MLWE, lattice, proof-system, or random-oracle method.",
+      "Complete corrected L1/L2 profiles, exact proof errors, the chosen-key joint flooding distribution, and full 2^32 composition margins are not certified.",
+      "The reductions retain a message-level versus prehashed-oracle typing gap.",
+      "The final-history conclusion is bounded to public searches through 2026-10-18 and recorded endpoint access limits."
+    ],
+    "reopen_conditions": [
+      "A sealed full-parameter H-MLWE transcript attack recovers a real or equivalent key and produces accepted fresh signing within the complete local work, runtime, memory, query, proof, and I/O envelope.",
+      "A lower-sample estimator, challenge strategy, decoder, or equivalent-key method brings the complete regression route below 2^45 and realistic signing-query volume.",
+      "A fixed-challenge retarget, hash bias or alias, signed-rotation method, or transcript splice yields a distinct-message accepted signature below the cutoff.",
+      "A chosen HE key or admissible ciphertext defeats flooding and supplies secret recovery, equivalent signing, or two usable responses within the practical budget.",
+      "A complete current L1 or L2 profile yields an accepted false proof with a qualifying signing bridge.",
+      "A rounding repair or authoritative reinterpretation changes the public verifier or creates multiple usable proof-language values or an uncharged response.",
+      "An authoritative paper, source, KAT, implementation, or certificate revision changes the frozen semantics or profile.",
+      "New exact-target prior art changes eligibility or history."
+    ]
   }
 ]
