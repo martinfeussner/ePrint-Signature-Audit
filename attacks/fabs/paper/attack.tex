@@ -1,0 +1,674 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array,tabularx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={FABS-olutely Forged: A One-H0-Query, Zero-Signing-Query Universal Forgery Against FABS},
+  pdfauthor={Martin Feussner},
+  pdfsubject={Cryptanalytic audit report for IACR ePrint 2026/022},
+  pdfkeywords={digital signatures, attribute-based signatures, FABS, Schnorr, Fiat-Shamir, universal forgery}
+}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{2em}
+\Urlmuskip=0mu plus 1mu
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{FABS-olutely Forged}
+\fancyhead[R]{18 October 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newcommand{\Zp}{\mathbb{Z}_p}
+\newcommand{\gone}{\mathbb{G}_1}
+\newcommand{\gtwo}{\mathbb{G}_2}
+\newcommand{\gthree}{\mathbb{G}_T}
+\newcommand{\oneone}{1_{\gone}}
+\newcommand{\onetwo}{1_{\gtwo}}
+\newcommand{\onethree}{1_{\gthree}}
+\newcommand{\Verify}{\mathsf{Verify}}
+\newcommand{\KeyGen}{\mathsf{KeyGen}}
+\newcommand{\Sign}{\mathsf{Sign}}
+\newcommand{\Setup}{\mathsf{Setup}}
+
+\title{\bfseries FABS-olutely Forged:\\
+A One-H0-Query, Zero-Signing-Query Universal Forgery Against FABS}
+\author{Martin Feussner\\
+\small Selmer Center, University of Bergen\\
+\small \texttt{martin.feussner@uib.no}}
+\date{18 October 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\fcolorbox{black!55}{black!4}{\parbox{0.94\textwidth}{
+This audit used the OpenAI model Daybreak Blue at the ultra reasoning level.
+OpenAI Codex generated and selected this paper's title and deliberately chose
+``FABS-olutely Forged'' as wordplay on the FABS scheme name and the universal
+forgery. OpenAI Codex performed AI-assisted target reconstruction,
+attack-history searching, cryptanalysis, implementation, experimentation,
+review coordination, and technical writing. A separately tasked AI agent
+performed hostile adversarial review and returned PASS. A fresh-context AI
+agent independently reconstructed the result with a pinned Arkworks BN254
+implementation using actual pairing operations and returned PASS in all five
+fixed setup checks. A sealed post-reproduction history delta returned clear.
+Independent Publication Review returned PASS.
+Independent human verification was not performed; it is optional and is not a
+publication requirement.}}
+
+\begin{abstract}
+We analyze the key-policy attribute-based signature (KP-ABS) construction in
+Figure~1 of \emph{FABS: Fast Attribute-Based Signatures}, IACR ePrint
+2026/022. Its signature contains group elements $(A,B,C)$ and a
+Fiat--Shamir proof for
+$Y=X^\beta$ and
+$B=g_1^k\prod_i H_1(\pi(i))^{\delta_i}$, where
+$Y=e(A,g_2)/e(B,C)$. The verifier does not prove that $(A,B,C)$ came from an
+issued credential, does not bind the public witnesses to MSP reconstruction
+coefficients, and does not require them to be nonzero.
+
+For any public key, legal attribute set, and attacker-chosen fresh message,
+set $A=B=g_1$ and $C=g_2$. Then $Y=1$. Choose a public scalar $\rho$, query
+\[
+ c=H_0(g_1,g_1,g_2,1,1,g_1^\rho,\mathit{msg}),
+\]
+and return $s_\alpha=0$, $s_k=\rho-c$, and $s_i=0$ for every attribute.
+The ordinary verifier reconstructs exactly the tuple queried to $H_0$ and
+accepts. All three transmitted group elements are nonidentity. The adversary
+makes one $H_0$ query, no $H_1$ query, no key-generation query, and no signing
+query; as a mathematical algorithm it may use the known target-group identity
+without computing a pairing. An all-identity presentation is still simpler, while a
+strengthened presentation makes $A,B,C,Z,W$ nonidentity and every scalar
+attribute response nonzero using only public data.
+
+A sealed standard-library typed-group model accepted every attack at legal
+1-, 3-, and 100-attribute counts, plus algebraic 0-attribute edge checks,
+three honest controls, and four separately formed
+fresh-message forgeries; eight transcript-perturbation controls rejected. The
+full run took 0.11 seconds and 18,432 KiB peak resident memory on one worker.
+A hostile reviewer re-derived the paper equations and returned PASS. The
+algebra holds in any prime-order Type-III pairing group. The model uses a
+common explicit BN254 scalar order, but the exact Charm/PBC backend and wire
+encoding used by the authors remain unresolved, so no byte-conformance claim
+is made. A prospectively sealed fresh-context implementation using actual
+Arkworks BN254 pairing operations reproduced both retained 100-attribute
+attack forms in five of five fixed setup checks. In every run, honest 1-, 3-, and
+100-attribute controls accepted and eight single-change negative controls
+rejected. The sealed run used zero key-generation and signing queries, took
+3.77 seconds wall time and 31,744 KiB peak resident memory, and used one
+program thread and one Cargo build job.
+\end{abstract}
+
+\section{Introduction}
+
+Chen et al. present FABS, a pair of pairing-based attribute-based signature
+schemes supporting monotone span program (MSP) policies, large universes,
+arbitrary attributes, and adaptive security~\cite{fabs}. The KP-ABS
+construction embeds a policy in the signing key and associates each signature
+with a public set of attributes. The paper claims adaptive EUF-CMA security in
+the random-oracle model under the computational bilinear Diffie--Hellman
+assumption. Its implementation evaluation uses the BN254 curve and reaches
+100 attributes.
+
+The final signature proof verifies a smaller relation than the security
+argument needs. The printed Schnorr statement~\cite{schnorr} allows the witness
+$(\beta,k,\{\delta_i\})=(0,1,\{0\})$, which is public and satisfies the
+relation when $A=B=g_1$ and $C=g_2$. The Fiat--Shamir
+transform~\cite{fiatshamir} therefore yields responses after one ordinary
+$H_0$ query. No issued credential, signing
+transcript, master secret, pairing computation, collision, preimage, or
+exceptional setup is required.
+
+\paragraph{Contribution and originality boundary.}
+We give the exact all-identity, nonidentity, and strengthened nonidentity
+forgeries; connect them to the paper's EUF-CMA game and 100-attribute workload;
+identify the failed premise in the proof; report primary and hostile-review
+evidence; and provide a self-contained public reproducer. We make no claim
+that public-witness Schnorr transcripts, identity-element validation, or the
+Fiat--Shamir reasoning is novel. The contribution is their concrete
+application to the literal FABS Figure~1 verifier.
+
+\paragraph{Claim boundary.}
+The result breaks the KP-ABS construction's unforgeability. It does not claim
+an attack on the separate SP-ABS construction or on anonymity. It is a
+construction-level paper result and does not depend on the author source's
+separate MSP-coefficient defect.
+
+\section{Target, version, and audit profile}
+
+The target is \emph{FABS: Fast Attribute-Based Signatures}, IACR ePrint
+2026/022~\cite{fabs}. The official record reports receipt on 6 January 2026
+and revision on 18 January 2026. The retained 29-page IACR Asia copy has
+SHA-256 digest
+\begin{center}
+\small\ttfamily
+0660d99b322467489a85f9a7f239c145b00b5a024958e474cee295361364e8a8.
+\end{center}
+It is byte-identical to Zenodo record 18712762. The canonical IACR PDF endpoint
+returned an access challenge during the audit, so equality with the canonical
+current IACR bytes is not asserted. The official USENIX Security 2026 record
+and later paper copies corroborate the construction identity.
+
+The frozen profile is the KP-ABS construction in Figure~1, asymmetric
+prime-order Type-III groups, every legal public attribute set accepted by the
+literal mathematical verifier, and ordered typed random-oracle inputs. A
+policy belongs to a signing key in the EUF-CMA game; it is not a forged input
+to Figure~1 Verify. The paper names BN254 but does not state a numeric
+bit-security level. The 100-distinct-attribute set satisfying a legal
+100-input all-AND MSP is retained as the full evaluated endpoint, not as a
+security parameter or scope restriction.
+
+The author repository is pinned at commit
+\texttt{aed8ba37b86e7fce1cb797de9ab53a38e0214d68}~\cite{fabssource}.
+It has no dependency lock, fixed known-answer vector, or normative transcript
+codec. Its signer also omits general MSP reconstruction coefficients. The
+source is therefore provenance and static corroboration, not an arbitrary-MSP
+conformance oracle. The attack below uses only the paper equations and does
+not rely on that implementation defect.
+
+\section{FABS KP-ABS and its claimed security}
+
+\subsection{Setup and signing relation}
+
+Let $p$ be prime and let $\gone$, $\gtwo$, and $\gthree$ be cyclic groups of
+order $p$, with generators $g_1\in\gone$, $g_2\in\gtwo$, and asymmetric
+pairing $e:\gone\times\gtwo\rightarrow\gthree$. Setup samples
+$\alpha\leftarrow\Zp^*$ and publishes
+\[
+ X=e(g_1,g_2)^\alpha.
+\]
+The random oracles are $H_0:\{0,1\}^*\rightarrow\Zp$ and
+$H_1:\{0,1\}^*\rightarrow\gone$.
+
+A KP signing key is associated with an MSP $(M,\pi)$. For a satisfying set of
+rows $I$, the signer finds coefficients $\gamma_i$ such that
+$\sum_{i\in I}\gamma_i M_i=(1,0,\ldots,0)$. Figure~1 samples
+$k,t,r_\alpha,r_k,\{r_i\}\leftarrow\Zp$ and creates group elements
+$A\in\gone$, $B\in\gone$, $C\in\gtwo$ that satisfy
+\[
+ Y=\frac{e(A,g_2)}{e(B,C)}=X^{kt},
+ \qquad
+ B=g_1^k\prod_{i\in I}H_1(\pi(i))^{\gamma_i k}.
+\]
+The Fiat--Shamir commitments and challenge are
+\[
+ Z=X^{r_\alpha},\qquad
+ W=g_1^{r_k}\prod_{i\in I}H_1(\pi(i))^{r_i},
+\]
+\[
+ c=H_0(A,B,C,Y,Z,W,\mathit{msg}),
+\]
+with responses
+\[
+ s_\alpha=r_\alpha-ktc,\quad
+ s_k=r_k-kc,\quad
+ s_i=r_i-\gamma_i kc.
+\]
+
+\subsection{Literal verification}
+
+For signature
+$\sigma=(A,B,C,c,s_\alpha,s_k,\{s_i\}_{i\in I})$, Figure~1 computes
+\begin{align*}
+Y'&=\frac{e(A,g_2)}{e(B,C)},\\
+Z'&=X^{s_\alpha}(Y')^c,\\
+W'&=g_1^{s_k}\prod_{i\in I}H_1(\pi(i))^{s_i}B^c,\\
+c'&=H_0(A,B,C,Y',Z',W',\mathit{msg}),
+\end{align*}
+and accepts exactly when $c'=c$.
+
+Equivalently, the printed signature proof establishes knowledge of
+$(\beta,k,\{\delta_i\})$ such that
+\begin{equation}\label{eq:printed-relation}
+Y=X^\beta
+\quad\text{and}\quad
+B=g_1^k\prod_{i\in I}H_1(\pi(i))^{\delta_i}.
+\end{equation}
+Equation~\eqref{eq:printed-relation} does not state that $(A,B,C)$ came from a
+credential, that the credential's policy accepts the attribute set, or that
+$\beta=kt$ and $\delta_i=\gamma_i k$ for shared values.
+
+\subsection{EUF-CMA endpoint}
+
+In the paper's KP-ABS game, a forgery is
+$(\mathit{msg}^*,y^*,\sigma^*)$, where $y^*$ is the public attribute set. It
+must pass ordinary verification. The adversary must not have requested a key
+whose policy accepts $y^*$ and must not have made a forbidden signing query
+for $y^*$ or under a policy accepting $y^*$. The campaign also requires that
+$\mathit{msg}^*$ never appeared in a signing query. An adversary making zero
+key and signing queries satisfies all these restrictions vacuously.
+
+\section{Universal fresh-message forgery}
+
+\subsection{Numbered attack algorithm}
+
+For a public key, a legal public attribute set indexed by $I$, and an
+attacker-chosen fresh message, the minimal nonidentity adversary proceeds as
+follows.
+\begin{enumerate}
+  \item Choose a public nonzero scalar $\rho$ and set
+        $A=B=g_1$, $C=g_2$, $Y=\onethree$, $Z=\onethree$, and
+        $W=g_1^\rho$.
+  \item Make the sole challenge-oracle query
+        $c=H_0(A,B,C,Y,Z,W,\mathit{msg})$.
+  \item Set $s_\alpha=0$, $s_k=\rho-c$, and $s_i=0$ for every $i\in I$.
+  \item Return $(A,B,C,c,s_\alpha,s_k,\{s_i\}_{i\in I})$.
+\end{enumerate}
+This algorithm makes no key-generation or signing query. The cancellation
+$Y=1$ is known algebraically, so the mathematical adversary need not compute a
+pairing.
+
+\subsection{All-identity form}
+
+For any chosen message and attribute set, let
+\[
+A=\oneone,\quad B=\oneone,\quad C=\onetwo,
+\quad s_\alpha=s_k=s_i=0.
+\]
+The verifier obtains $Y'=\onethree$, $Z'=\onethree$, and $W'=\oneone$.
+Query
+\[
+c=H_0(\oneone,\oneone,\onetwo,\onethree,\onethree,
+      \oneone,\mathit{msg})
+\]
+and insert the result into the signature. Verification repeats the same tuple
+for every returned value $c$ and accepts deterministically.
+
+These are valid typed group elements and scalars. Figure~1 includes no
+identity rejection. It deliberately writes $\Zp$ rather than $\Zp^*$ for the
+signer's $k,t,r_\alpha,r_k,r_i$, so a nonzero convention cannot be inferred
+from the sampling syntax.
+
+\subsection{Nonidentity transmitted components}
+
+Identity rejection in the three transmitted group slots does not stop the
+attack.
+
+\begin{theorem}\label{thm:nonidentity}
+For every FABS KP-ABS public key, every legal public attribute set, and every
+chosen message, the literal Figure~1 verifier accepts a signature formed with
+one $H_0$ query, no $H_1$ query, no pairing, no key-generation query, no
+signing query, and nonidentity $A$, $B$, and $C$.
+\end{theorem}
+
+\begin{proof}
+Choose a public scalar $\rho\in\Zp$ and set
+\[
+A=g_1,\qquad B=g_1,\qquad C=g_2.
+\]
+Then
+\[
+Y'=\frac{e(g_1,g_2)}{e(g_1,g_2)}=\onethree.
+\]
+Fix the prechallenge commitments $Z=\onethree$ and $W=g_1^\rho$, and query
+\[
+c=H_0(g_1,g_1,g_2,\onethree,\onethree,g_1^\rho,
+      \mathit{msg}).
+\]
+Return
+\[
+s_\alpha=0,\qquad s_k=\rho-c,\qquad s_i=0
+\quad\text{for every }i.
+\]
+The verifier reconstructs
+\[
+Z'=X^0(\onethree)^c=\onethree
+\]
+and
+\[
+W'=g_1^{\rho-c}\prod_i H_1(\pi(i))^0(g_1)^c=g_1^\rho.
+\]
+It therefore queries $H_0$ on exactly the prechallenge tuple and obtains
+$c'=c$. The witnesses $(\beta,k,\{\delta_i\})=(0,1,\{0\})$ satisfy
+Equation~\eqref{eq:printed-relation}. Every operation used by the forger is
+public, and $g_1,g_1,g_2$ are nonidentity by definition.
+\end{proof}
+
+There is no Fiat--Shamir fixed point in this construction. The group tuple
+given to $H_0$ is completely fixed before the challenge is requested;
+$s_k=\rho-c$ merely makes verification reconstruct the preselected $W$.
+
+\subsection{Strengthened nonidentity commitments and responses}
+
+The zero commitments and attribute responses are also unnecessary. Keep
+$A=B=g_1$, $C=g_2$ and public witnesses
+$(\beta,k,\delta_i)=(0,1,0)$. Choose $r_\alpha=1$, public nonzero values
+$r_i$, and an $r_k$ for which
+\[
+W=g_1^{r_k}\prod_i H_1(\pi(i))^{r_i}\ne\oneone.
+\]
+At most one value of $r_k$ is excluded, so it can be selected publicly without
+a secret. Set $Z=X$, query
+\[
+c=H_0(g_1,g_1,g_2,\onethree,X,W,\mathit{msg}),
+\]
+and return
+\[
+s_\alpha=1,\qquad s_k=r_k-c,\qquad s_i=r_i.
+\]
+The verifier reconstructs $Z'=X$ and the selected $W$. Since setup chooses
+$\alpha\in\Zp^*$, $X$ is nonidentity. Thus $A$, $B$, $C$, $Z'$, and $W'$ can
+all be nonidentity while every scalar attribute response is nonzero; only the
+derived cancellation $Y'=\onethree$ remains.
+
+\section{Full-size instance, complexity, and freshness}
+
+The paper evaluates KP-ABS with policy and attribute sizes through 100. When
+both sizes agree, it forms an AND gate over all attributes. The reproducer
+uses the standard telescoping 100-row MSP: its first row is
+$(1,1,0,\ldots)$, intermediate rows are
+$(0,\ldots,-1,1,\ldots)$, and its last row ends in $-1$. The all-one
+reconstruction coefficients sum the rows to $(1,0,\ldots,0)$. This is a legal
+100-distinct-attribute all-AND workload of the kind evaluated in the paper.
+
+The minimal nonidentity adversary emits one scalar response per public
+attribute, all zero, and otherwise performs constant public work and one
+$H_0$ evaluation. It makes no $H_1$ query and no pairing. Its cost is linear
+only in the unavoidable output length. The strengthened form uses one $H_1$
+evaluation and one public scalar multiplication per attribute, still with one
+$H_0$ query. Both are far below the campaign's $2^{45}$ practical-work cutoff.
+
+The adversary makes zero calls to the key-generation and signing oracles. The
+chosen output message has therefore never appeared in a signing query, and no
+queried key policy can violate the game's restriction. A public random-oracle
+query that contains the chosen message is part of ordinary Fiat--Shamir
+signing and is not a signing-oracle query.
+
+\section{Why the proof extraction fails}
+
+Theorem~3 of the target first assumes that an accepted forgery has the honest
+algebraic structure of $A$, $B$, and $C$. Figure~1 verification never proves
+that premise. After forking, the reduction extracts $k^*t^*$ from the two
+$s_\alpha$ responses and $k^*$ from the two $s_k$ responses. It then divides
+to calculate $t^*$, computes $(C^*)^{1/t^*}$, and uses a final exponent whose
+denominator contains $\delta^*_{\rm id}k^*t^*$.
+
+For the nonidentity forgery, the extracted proof witnesses are
+$k^*t^*=\beta=0$ and $k^*=1$, hence $t^*=0$. The values $1/t^*$ and
+$1/(\delta^*_{\rm id}k^*t^*)$ do not exist. Indeed, the accepted
+$C^*=g_2$ cannot equal an honest $g_2^{r t^*}$ when $t^*=0$. The all-identity
+form instead has $k^*=0$, so even the stated calculation of $t^*$ is
+undefined. The proof also samples its special $\delta^*_{\rm id}$ from
+$\Zp$ before using it in a denominator, rather than excluding zero.
+
+These observations explain why the reduction does not rule out the forgery.
+The attack itself needs no appeal to the proof: acceptance follows directly
+from the verifier equations.
+
+\section{Experimental evidence and reproducibility}
+
+\subsection{Primary typed-group reproduction}
+
+The primary reproducer implements the exact typed Figure~1 equations in the
+standard library. It represents an element of each prime-order cyclic group by
+its exponent and maps a pairing of exponents $(a,b)$ to $ab$. That model is
+faithful for every group equality used here. Although the representation
+contains discrete logarithms internally, no attack function reads or branches
+on them. Hash inputs use distinct group tags and explicit length prefixes.
+
+The pinned modulus is the common BN254 scalar order
+\[
+21888242871839275222246405745257275088548364400416034343698204186575808495617.
+\]
+This constant is an explicit reproducible instantiation, not a claim that it
+matches the unresolved Charm/PBC backend byte for byte. The attack is
+algebraically independent of the chosen prime order.
+
+The sealed run covered:
+\begin{itemize}
+  \item honest all-AND controls at 1, 3, and 100 attributes;
+  \item all three attack forms at legal 1-, 3-, and 100-attribute counts,
+        plus 0-attribute algebraic edge checks that are not treated as a
+        qualifying endpoint;
+  \item four separately constructed fresh-message forgeries;
+  \item portability of the zero-response transcript across changed attribute
+        names; and
+  \item eight negative controls changing the held message, challenge, each of
+        $A,B,C$, $s_\alpha$, $s_k$, or one attribute response.
+\end{itemize}
+All 12 attack cases and all honest and fresh-message controls accepted. All
+eight negative controls rejected. The prospectively recorded run exited zero
+in 0.11 seconds with 18,432 KiB maximum resident memory on one worker. A
+separate hostile reviewer re-derived the equations before replaying the
+sealed result under explicit resource caps and returned PASS with no material
+objection.
+
+\subsection{Independent actual-pairing gate}
+
+A fresh-context agent independently reconstructed the verifier and attack in
+Rust using actual Arkworks BN254 group and pairing operations. The hypothesis,
+source, dependency lock, command, machine description, and acceptance criteria
+were prospectively sealed before the first execution. The successful first
+run was sealed before comparison with the primary attack artifacts. Only then
+did the independent agent compare the results and record material agreement.
+
+The implementation uses \texttt{ark-bn254 0.4.0},
+\texttt{ark-ec 0.4.2}, \texttt{ark-ff 0.4.2},
+\texttt{ark-serialize 0.4.2}, and \texttt{sha2 0.10.9}; the included
+\texttt{Cargo.lock} fixes all 45 transitive archives. Setup computes
+$X=e(g_1,g_2)^\alpha$ with \texttt{Bn254::pairing}, and the same primitive is
+used for both pairings in the ordinary verifier. $H_0$ is SHA-256 over a
+declared typed and length-prefixed tuple of canonical compressed Arkworks
+encodings. $H_1$ is a deterministic SHA-256 try-and-increment map into BN254
+G1 with curve and subgroup checks. These choices instantiate the paper-level
+typed oracles; the attack does not depend on the particular encoding or map.
+
+Five fixed setup controls used nonzero exponents $1,2,3,5,7$; they are
+deterministic checks, not random-key statistical trials. In every run, honest
+all-AND signatures at 1, 3, and 100 attributes accepted. The independent
+minimal form set $A=B=g_1$, $C=g_2$, $s_\alpha=1$, $Z=X$, all $s_i=0$, and
+made one adversarial $H_0$ query and no adversarial $H_1$ query. This is an
+equivalent variant of Theorem~\ref{thm:nonidentity}, which instead takes
+$s_\alpha=0$ and $Z=1$. The strengthened form made $A,B,C,Z,W$ nonidentity
+and all 100 scalar attribute responses nonzero. Both 100-attribute forms
+accepted in all five runs. The adversary made zero key-generation and signing queries,
+used fresh attacker-chosen messages, and all eight single-change controls
+rejected in every run. The measured Rust harness computed $Y$ with actual
+pairings to test the cancellation; only the mathematical adversary may replace
+that computation with the known target-group identity.
+
+The five measured attack sections took 2.425783378 seconds in aggregate, and
+the program measured 3.641531290 seconds total. GNU \texttt{time} measured
+3.77 seconds wall, 3.72 seconds user, 0.04 seconds system, and 31,744 KiB peak
+resident memory under a 1 GiB cap. The program reported one thread at its
+start and end, and Cargo used one build job. The host reported 64
+single-threaded AMD EPYC processors under KVM.
+
+The independent source, lock file, manifest, verdict, handoff, and first-run
+stdout have SHA-256 digests, respectively,
+\begin{center}
+\small\ttfamily
+\begin{tabular}{@{}ll@{}}
+source & 808eb1aad74c3da427459b175675bfdff4ac1a512a378206df9b86fbdb27ae28\\
+Cargo.lock & 0c2a3cbf50b8942a9474501ecc1878448afc80cbe7e65cf8968ac862aa76a3c4\\
+manifest & 348d1a6557ce212ef33c312e63d1da5e0162363e9967c0d3be3f8343f8da10bf\\
+verdict & 2e51b768bf14783990beeeb545bff68aaaaea91a7b0bc2ce7d4d010cf28dd68d\\
+handoff & 8f43c3ce8af69a3f90d69520023ca435a0d79b001e2d972e8d77e59a8021e92d\\
+stdout & df517733aa6c7cfb48b1e2ac6729ddb04a2c56647baaa713566ebe5a62e33907.
+\end{tabular}
+\end{center}
+The pre-execution and first-run seal files hash to, respectively,
+\begin{center}
+\small\ttfamily
+aea49ef0b71010682dd13ec4d3b58728130f629fb46af584dda6dc8de9e61617\\
+087b74b5ecb065a52f03dde218c70a9a0c1c0061e21da809de278df391460b9b.
+\end{center}
+The coordinator's later semantic replay corroborated the sealed result but is
+not included in the sealed provenance.
+
+\subsection{Public package}
+
+The accompanying package's compact mathematical model requires Python 3.9 or
+later and no third-party dependency. From its attack directory, run
+\begin{verbatim}
+python3 -B reproduce.py --reference
+python3 -B reproduce-all-rows.py --reference
+\end{verbatim}
+The first command gives a compact 100-attribute report. The second checks the
+three retained attack presentations. Both execute the attack through one
+general verifier rather than replaying a stored accepted signature.
+
+The exact independent \texttt{main.rs}, \texttt{Cargo.toml}, and
+\texttt{Cargo.lock} are included under
+\nolinkurl{reproducer/actual-bn254/}. With the locked crates present in a local
+Cargo cache, \texttt{make actual-bn254} builds and runs that source offline
+with one Cargo job and a target directory under \texttt{/tmp}. Cached crates,
+the release binary and build tree, private logs, and raw evidence are excluded
+from the package.
+
+\section{Attack-history review and related techniques}
+
+No prior public attack against FABS was located in the searches performed as
+of 18 October 2026. The search covered the exact title and identifier, authors,
+IACR and venue records, author and institution pages, the public repository
+and its issue and revision surfaces, scholarly indexes, source archives, and
+mechanism-specific queries. After independent reproduction, a sealed delta
+rechecked the target, source, author, venue, scholarly, discussion, and focused
+mechanism surfaces through 04:02:59 UTC. It found no new exact-target attack
+and no evidence that the comprehensive search missed one. The delta manifest,
+report, history finding, verdict, validation record, and handoff have SHA-256
+digests
+\begin{center}
+\small\ttfamily
+\begin{tabular}{@{}ll@{}}
+manifest & 17de33374378b531b78b8691eb5cc28a60156fe45f916770315f2fdf0ca1659f\\
+report & b2b5eeda8e5c7533adeea2946c9f79c0c3001689da609f4bcd9b9623241b4b85\\
+history & 53c9db21447a54e9b034429423c5207a28c70c6dd43724c419e3c4f82fc8f025\\
+verdict & cdbd4b9fbece8a0a62017a014d7e3e46986a4f8b283020d654fd0f890c11ac34\\
+validation & 72cf683eafaf3e99b1fd9043f3f7ed3af12611b469552ce12115b2cb9f46e1bf\\
+handoff & d7223f285bca5d079f05c03ccbd10df1a4c9b7fac980d42a1ca439ffe6280bfb.
+\end{tabular}
+\end{center}
+The conclusion is bounded by accessible and indexed public material and
+supports neither an absolute first-ever claim nor novelty for the technique.
+
+Generic group-validation guidance predates this work. RFC 8235 discusses
+applications that exclude an identity Schnorr public key~\cite{rfc8235}, and
+RFC 9591 specifies identity rejection in a different group interface
+~\cite{rfc9591}. Neither analyzes FABS. More decisively, the attack in
+Theorem~\ref{thm:nonidentity} transmits generators in all three group slots and
+therefore survives identity-only validation of $A$, $B$, and $C$.
+
+Tan, Heng, and Goi analyze the distinct Guo--Zeng ABS construction
+~\cite{tanhenggoi}. Zhang et al. analyze the distinct Maji--Prabhakaran--
+Rosulek family~\cite{zhangetal}. Those results are relevant ABS history but do
+not disclose the public witnesses or Figure~1 cancellation reported here. We
+make no novelty claim for Schnorr transcripts, Fiat--Shamir, zero witnesses,
+or identity validation.
+
+\section{Impact, repair direction, and limitations}
+
+The attack is a direct universal fresh-message forgery under the target's
+ordinary mathematical verifier. It supplies the signing endpoint demanded by
+the paper's adaptive EUF-CMA game without recovering the master secret. The
+weakness is at the design level: it follows from the printed relation and
+works with valid group elements in an ordinary prime-order group.
+
+Rejecting identity values in the transmitted $(A,B,C)$ is not enough. A rule
+that rejects the derived $Y'=1$ would be a scheme change, and it would conflict
+with honest zero choices permitted by Figure~1 unless signing also changed to
+sample suitable values from $\Zp^*$. Such a check may block these transcripts,
+but this audit does not claim it is a complete repair.
+
+A robust revision needs a proved statement that binds $(A,B,C)$ to a
+credential issued under the master key, binds the same signing values to valid
+MSP reconstruction coefficients for the declared attributes, and excludes the
+public zero-witness branch. It must define compatible nonzero sampling and a
+normative transcript encoding and then receive new correctness,
+unforgeability, and implementation-conformance analysis. We have not
+validated a drop-in patch.
+
+The result has the following limitations:
+\begin{itemize}
+  \item it targets Figure~1 KP-ABS unforgeability, not SP-ABS or anonymity;
+  \item the retained paper is metadata-matched and hash-pinned, but canonical
+        IACR PDF byte identity could not be established;
+  \item the paper does not define a normative byte encoding for the
+        Fiat--Shamir tuple;
+  \item the exact Charm/PBC BN254 backend remains unresolved, so the public
+        model makes no author-backend or wire-conformance claim;
+  \item the source signer omits general MSP coefficients, but the attack does
+        not use or depend on that separate source limitation;
+  \item the independent actual-pairing result is a common explicit BN254
+        instantiation and makes no Charm/PBC, author-codec, or author-source
+        conformance claim; and
+  \item the history conclusion is dated and bounded.
+\end{itemize}
+
+\section*{Acknowledgements}
+
+The computations were performed on the Norwegian Research and Education Cloud (NREC), using resources provided by the University of Bergen and the University of Oslo.
+
+\begin{thebibliography}{9}
+
+\bibitem{fabs}
+L. Chen, L. Meng, Y. Wang, N. El Kassem, C. J. P. Newton, Y. Tian,
+J. Knapp, C. C. Dragan, D. Gardham, and M. Manulis,
+``FABS: Fast Attribute-Based Signatures,'' IACR Cryptology ePrint Archive,
+Report 2026/022, 2026.
+\url{https://eprint.iacr.org/2026/022}.
+
+\bibitem{fabssource}
+FABS authors,
+``FABS implementation,'' commit
+\href{https://github.com/Anonymous-Mystery/FABS/commit/aed8ba37b86e7fce1cb797de9ab53a38e0214d68}{\texttt{aed8ba37b86e7fce1cb797de9ab53a38e0214d68}}.
+
+\bibitem{schnorr}
+C. P. Schnorr,
+``Efficient Signature Generation by Smart Cards,''
+\emph{Journal of Cryptology}, vol.~4, pp.~161--174, 1991.
+\url{https://doi.org/10.1007/BF00196725}.
+
+\bibitem{fiatshamir}
+A. Fiat and A. Shamir,
+``How to Prove Yourself: Practical Solutions to Identification and Signature
+Problems,'' in \emph{Advances in Cryptology---CRYPTO '86}, LNCS 263,
+pp.~186--194, 1987.
+\url{https://doi.org/10.1007/3-540-47721-7_12}.
+
+\bibitem{rfc8235}
+F. Hao,
+``Schnorr Non-interactive Zero-Knowledge Proof,'' RFC 8235, September 2017.
+\url{https://www.rfc-editor.org/rfc/rfc8235}.
+
+\bibitem{rfc9591}
+D. Connolly, C. Komlo, I. Goldberg, and C. A. Wood,
+``The Flexible Round-Optimized Schnorr Threshold (FROST) Protocol for
+Two-Round Schnorr Signatures,'' RFC 9591, June 2024.
+\url{https://www.rfc-editor.org/rfc/rfc9591}.
+
+\bibitem{tanhenggoi}
+S. Y. Tan, S. H. Heng, and B. M. Goi,
+``On the Security of an Attribute-Based Signature Scheme,''
+International Conference on U- and E-Service, Science and Technology, 2009.
+\url{https://doi.org/10.1007/978-3-642-10580-7_22}.
+
+\bibitem{zhangetal}
+Y. Zhang, D. Feng, Z. Zhang, and L. Zhang,
+``On the Security of an Efficient Attribute-Based Signature,''
+International Conference on Network and System Security, 2013.
+\url{https://doi.org/10.1007/978-3-642-38631-2_28}.
+
+\end{thebibliography}
+
+\end{document}
+

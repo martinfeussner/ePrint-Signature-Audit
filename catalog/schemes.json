@@ -1414,5 +1414,15 @@
       "An authoritative revision, erratum, source release, KAT, or implementation changes the proof statement, bases, transcript, key binding, or selected profile.",
       "New exact-target prior art changes the history or eligibility assessment."
     ]
+  },
+  {
+    "scheme": "FABS: Fast Attribute-Based Signatures",
+    "eprint_id": "2026/022",
+    "eprint_version": "current official metadata revised 2026-01-18; retained 29-page IACR Asia/Zenodo full-version bytes; canonical IACR PDF byte identity unresolved",
+    "eprint_date": "2026-01-06",
+    "family": "pairing-based key-policy attribute-based signature with a Schnorr-style proof of a policy-satisfying signing witness",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/022"
   }
 ]

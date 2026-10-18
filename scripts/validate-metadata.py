@@ -26,7 +26,7 @@ CATALOG_CSV = ROOT / "catalog" / "schemes.csv"
 README = ROOT / "README.md"
 ATTACKS = ROOT / "attacks"
 
-EPRINT = re.compile(r"^(?:19|20)[0-9]{2}/[1-9][0-9]*$")
+EPRINT = re.compile(r"^(?:19|20)[0-9]{2}/[0-9]+$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 GIT_COMMIT = re.compile(r"^[0-9a-f]{40}$")
 

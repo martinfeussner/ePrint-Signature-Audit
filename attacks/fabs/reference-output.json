@@ -1,0 +1,55 @@
+{
+  "attack": {
+    "H0_queries": 1,
+    "key_generation_queries": 0,
+    "signing_queries": 0
+  },
+  "checks": {
+    "all_eight_negative_controls_rejected": true,
+    "all_identity_100_accepted": true,
+    "fresh_message_forgeries_accepted": true,
+    "honest_100_attribute_control_accepted": true,
+    "minimal_nonidentity_100_accepted": true,
+    "strengthened_nonidentity_100_accepted": true,
+    "strengthened_transmitted_components_nonidentity": true,
+    "zero_key_and_signing_queries": true
+  },
+  "digests": {
+    "actual_bn254_cargo_lock_sha256": "0c2a3cbf50b8942a9474501ecc1878448afc80cbe7e65cf8968ac862aa76a3c4",
+    "actual_bn254_cargo_toml_sha256": "07e9c71c53b5d70f5235a4b8d80e515fb95797fd3f1bc98d4120a187439fa4fa",
+    "actual_bn254_encoding_sha256": "bc188aa1d5491a9ba93d22b68f6541a5f500964f6d0a3192e8ac9348e304e55e",
+    "actual_bn254_source_sha256": "808eb1aad74c3da427459b175675bfdff4ac1a512a378206df9b86fbdb27ae28",
+    "independent_first_run_stdout_sha256": "df517733aa6c7cfb48b1e2ac6729ddb04a2c56647baaa713566ebe5a62e33907",
+    "independent_reproduction_handoff_sha256": "8f43c3ce8af69a3f90d69520023ca435a0d79b001e2d972e8d77e59a8021e92d",
+    "independent_reproduction_manifest_sha256": "348d1a6557ce212ef33c312e63d1da5e0162363e9967c0d3be3f8343f8da10bf",
+    "independent_reproduction_verdict_sha256": "2e51b768bf14783990beeeb545bff68aaaaea91a7b0bc2ce7d4d010cf28dd68d",
+    "reproducer_core_sha256": "8c738e464a40c2d4a934f6d5b7435e2f73e91e2250bf31e70ffe75b2513c7f89",
+    "stable_raw_output_sha256": "d6efd5f7623c5822d6ecfe8ea60639d390a688ff1dc7ceb809fc582bf08a94b4",
+    "target_paper_sha256": "0660d99b322467489a85f9a7f239c145b00b5a024958e474cee295361364e8a8"
+  },
+  "environment": {
+    "dependencies": "Python 3 standard library",
+    "workers": 1
+  },
+  "full_attack_reproduced": true,
+  "independent_reproduction": {
+    "actual_pairing": true,
+    "backend": "ark-bn254 0.4.0 via Arkworks 0.4",
+    "peak_rss_kib": 31744,
+    "setup_alphas_role": "fixed deterministic controls, not random-key statistical trials",
+    "setup_alphas_u64": [
+      1,
+      2,
+      3,
+      5,
+      7
+    ],
+    "status": "PASS",
+    "successes": 5,
+    "trials": 5,
+    "wall_seconds": 3.77,
+    "workers": 1
+  },
+  "mode": "stable_paper_level_and100_package_replay",
+  "result": "PASS: literal Figure 1 accepted all-identity, nonidentity, and strengthened zero-signing-query fresh-message forgeries"
+}

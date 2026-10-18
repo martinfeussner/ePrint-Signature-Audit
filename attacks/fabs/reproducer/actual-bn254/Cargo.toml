@@ -1,0 +1,17 @@
+[package]
+name = "fabs-independent-reproducer"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+ark-bn254 = { version = "=0.4.0", features = ["curve"] }
+ark-ec = "=0.4.2"
+ark-ff = "=0.4.2"
+ark-serialize = "=0.4.2"
+sha2 = "=0.10.9"
+
+[profile.release]
+codegen-units = 1
+lto = false
+panic = "abort"

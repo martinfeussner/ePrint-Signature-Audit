@@ -1,0 +1,2 @@
+# No third-party dependencies. Python 3.9 or later is sufficient.
+
