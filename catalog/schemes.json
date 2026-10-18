@@ -1244,5 +1244,85 @@
       "a sub-2^45 hash relation or short-preimage method bridges to a fresh accepted syndrome",
       "new primary-source or implementation evidence changes the frozen profile"
     ]
+  },
+  {
+    "scheme": "FALCON with message recovery, a specification",
+    "aliases": [
+      "FALCON-MRM",
+      "Falcon with message recovery"
+    ],
+    "eprint_id": "2026/420",
+    "eprint_version": "paper PDF v1; current metadata revised 2026-04-16; current PDF byte-identical to the initial March capture",
+    "eprint_date": "2026-03-02",
+    "family": "Falcon/NTRU hash-and-sign signature with salted message recovery",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / BOUNDED_PAPER_STATIC_NEGATIVE / REOPEN_CONDITIONAL / PAPER_PROFILE_LIMITED",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/420",
+    "authors": [
+      "Felix Günther",
+      "Vadim Lyubashevsky",
+      "Rolfe Schmidt"
+    ],
+    "paper_sha256": "28df37be851d6db3b2a9ada69528ccf8a45c26f45d7cc46ee8464b9701f1486a",
+    "paper_status": "Current 351,096-byte IACR Asia mirror PDF is byte-identical to the initial March PDF capture; the official record shows an April 16 metadata revision, while the canonical PDF and version archive returned HTTP 403.",
+    "source_url": null,
+    "source_commit": null,
+    "source_tree": null,
+    "source_status": "No author FALCON-MRM source or target-specific KAT was located. Litt1eQ/Falcon-MRM commit 6f64848b3c479063621cb8c6b5e0626208dfa89e is a pinned nonauthor reconstruction, not a conformance oracle; no target code was built or run.",
+    "attack_history_note": "In public searches performed through 18 October 2026, no prior substantive attack against the main FALCON-MRM construction in IACR ePrint 2026/420 was located. The message-recovery transform originates in ePrint 2016/435, and attacks and security analyses for ordinary Falcon implementations and related schemes are transfer material rather than attacks on this exact target. The result is date-bounded and cannot exclude private, deleted, embargoed, unpublished, or unindexed work.",
+    "audit_completed_at": "2026-10-18",
+    "selected_parameter_set": "FALCON-MRM-2026-420-N512-Q12289-L19-G15-MAXREC-M2EMPTY-PAPER-v1: standalone native Algorithm 4 at n=512, q=12289, lambda=19, gamma=15, 478 recovered M1 coefficients, M2 empty, and inclusive beta^2=34034726.",
+    "operation_scope": "The native paper-level Algorithm 4 verifier reconstructs c=s1+h*s2, splits the first 19 coefficients as c1, recovers (rho,M1)=c2-H2(c1) with rho in Z_q^15 and M1 in Z_q^478, and accepts iff the norm bound and H1(rho,(M1,epsilon))=c1 hold. The qualifying boundary is secret or reusable equivalent signing recovery with fresh signing, or an accepted previously unsigned native message, within 2^45 work. The 1024 row, Ring-FALCON-MRM, physical leakage and faults, and discretionary third-party byte completions are excluded.",
+    "audit_note": "No qualifying endpoint was obtained. Every x=(rho,M1) fixes C(x)=(H1(x,epsilon),H2(H1(x,epsilon))+x). Committing a signature candidate first requires a prescribed q^19 output hit; choosing x first fixes a complete random Falcon-512 target and requires a full short preimage. The strongest intended near miss is this hash-first constructor. Sleeping Falcon is the strongest conditional transfer, but requires exact target repetition and discrepant floating-point executions that faithful fresh-salt intended operation does not provide. This is a bounded paper-static campaign result, not a security proof.",
+    "checked_arithmetic": {
+      "log2_q_pow_19": "258.11651815257505",
+      "log2_signature_first_success_at_2_pow_45": "-213.11651815257505",
+      "log2_budget_tight_two_list_match_at_total_2_pow_45": "-170.11651815257505",
+      "log2_rho_pair_collision_at_2_pow_45": "-114.77619854150667"
+    },
+    "strongest_near_misses": [
+      "Hash first: choose a fresh x and form C(x), which is verifier-consistent but leaves a full random-target Falcon-512 short-preimage instance with no located solver within 2^45.",
+      "Sleeping Falcon: key recovery is conditional on exact target repetition and discrepant floating-point sampler executions; neither premise arises with useful probability in faithful ordinary operation."
+    ],
+    "closeout_corrections": [
+      "With one total W=2^45 work budget, TQ is at most W^2/4=2^88, so the two-list H1 prefix-match probability is at most 2^-170.11651815257505. The looser lane expression used two full 2^45 lists and was over budget.",
+      "Do not multiply Sleeping Falcon's approximately 10^-4 empirical conditional success rate into the FALCON-MRM salt-repeat probability without an independence argument. The conservative exact-target-repeat bound below 2^-114.77619854150667 already excludes the route."
+    ],
+    "optional_adapter": {
+      "mapping": "B(478)=6492 bits using 39 blocks of 163 bits and 5 blocks of 27 bits into 39*12+5*2=478 coefficients",
+      "injectivity": "2^163<q^12 and 2^27<q^2",
+      "storage": "812 bytes with four unused low bits; the paper's 811-byte entry is a framing discrepancy",
+      "endpoint_effect": "No distinct accepted native-message alias or signing power was found."
+    },
+    "nonqualifying_findings": [
+      "Missing exact H1/H2 tag bytes, header, and canonical two-polynomial wire codec.",
+      "The 811-byte table entry versus 812-byte storage for the 6492-bit maximal adapter is a framing limitation.",
+      "Unspecified shorter-message padding.",
+      "Same-message alternate short preimages and public norm-preserving candidate transformations.",
+      "Conditional sampler attacks requiring faulty, discrepant, or repeated-target execution.",
+      "Broad quantum claims without an exact public-input FALCON-MRM derivation or signing consequence."
+    ],
+    "conformance_limitations": [
+      "No author FALCON-MRM source or target-specific known-answer test was located.",
+      "The paper does not assign exact H1/H2 tag bytes, a header value, or a complete canonical two-polynomial codec.",
+      "The optional adapter freezes only the maximal 6492-bit mapping; padding for shorter bit strings is unspecified.",
+      "The pinned third-party reconstruction invents tags, a header, length framing, and codec choices and is not an author conformance oracle.",
+      "No byte-level implementation-conformance or benchmark claim is made."
+    ],
+    "audit_limitations": [
+      "This is a bounded paper-static random-oracle analysis, not a security proof or a lower bound on all lattice algorithms.",
+      "The result covers the standalone n=512 maximal-recovery M2-empty paper endpoint, not n=1024 or the separate ring-signature sketch.",
+      "No target build, target-code execution, or attack experiment was warranted or performed.",
+      "The final history conclusion is bounded to public searches through 2026-10-18."
+    ],
+    "reopen_conditions": [
+      "An explicit full-parameter algorithm takes public (h,q) and a frozen target C(x) and returns a norm-valid preimage, short NTRU basis, or reusable sampler with nonnegligible success in at most 2^45 work.",
+      "An authoritative intended H1/H2 completion exhibits a reproducible structural relation that removes the q^19 signature-first filter and yields an ordinary Algorithm 4-accepted fresh native message within 2^45.",
+      "Faithful ordinary signing naturally repeats an exact target or exposes an intended sampler bias, without rollback, induced faults, or external leakage, and a complete key-recovery/equivalent-signer bridge works within 2^45.",
+      "Ordinary transcripts yield a concrete short kernel basis, equivalent trapdoor, or arbitrary-target preimage sampler within 2^45, including a demonstrated fresh signing consequence.",
+      "An authoritative native or application profile fixes tuple, tag, codec, or padding semantics whose noninjectivity produces a distinct accepted message and survives the intended-design and ordinary-verifier tests.",
+      "A material paper/source/parameter revision, author implementation or KAT, validated exact public-input quantum derivation, or new exact-target prior art changes the frozen verifier, sampler, profile, or attack assessment."
+    ]
   }
 ]

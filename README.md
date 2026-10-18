@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 48 |
+| Schemes identified | 49 |
 | Known attacks excluded | 3 |
-| Schemes audited | 45 |
-| No practical attack found | 30 |
+| Schemes audited | 46 |
+| No practical attack found | 31 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -95,6 +95,7 @@ exact-target cryptanalysis:
 | Aerie | 2026/2501 initial/current | Exact `AERIE-F512-V1-PER-RECORD-N32768-v0.2.0` released per-record-salt Falcon-512 aggregate verifier at 32,768 records; Aerie `v0.2.0` and pinned Akita | No practical signer or fresh-record aggregate forgery; the raw-SHAKE chosen-key alias remains type-separated and has no signing bridge |
 | Robust ECDSA Threshold Signing at Scale | 2026/2493 v1 | Exact paper profile `ROBUST-ECDSA-2026-2493-SECP256K1-SHA256-N88-T29-PAPER-v1` at `n=88,t=29`; intended agreement and ordered single-use presignatures; author benchmark excluded | No qualifying intended-design signer or forgery; the literal 30-versus-31 release mismatch and same-presignature two-view key recovery are real but nonqualifying under the stated agreement, single-use, and freshness rules |
 | Concurrently Secure Compact Blind Signatures from Module-SIS | 2026/1690 v1/current | Exact paper-static profile `MSIS-CBS-2026-1690-N1536-M4608-Q1013921281-GAMMA2.5-PAPER-v1`; full-vector verifier; linked estimator unavailable | No practical signer, fresh-message forgery, or pairwise-distinct one-more forgery; the `B>q` reduction defect and rejected-round valid signatures remain nonqualifying |
+| FALCON with message recovery (FALCON-MRM) | 2026/420 paper v1/current | Exact paper-static profile `FALCON-MRM-2026-420-N512-Q12289-L19-G15-MAXREC-M2EMPTY-PAPER-v1`; native Algorithm 4 at `n=512`; no author source or KAT | No practical signer or fresh native-message forgery; signature-first candidates face `q^19`, while hash-first candidates require a full Falcon short preimage |
 
 ### Audit summaries
 
@@ -706,6 +707,82 @@ Reopen only if one of these conditions occurs:
 3. an intended concrete verifier checks less than the full reconstructed vector or omits rho
 4. a sub-2^45 hash relation or short-preimage method bridges to a fresh accepted syndrome
 5. new primary-source or implementation evidence changes the frozen profile
+
+FALCON with message recovery (FALCON-MRM, ePrint 2026/420, paper PDF
+v1 with current metadata revised 2026-04-16) completed a bounded paper-static
+audit of `FALCON-MRM-2026-420-N512-Q12289-L19-G15-MAXREC-M2EMPTY-PAPER-v1`.
+This is the standalone native Algorithm 4 profile over
+`Z_q[X]/(X^512+1)` with `n=512`, `q=12289`, `lambda=19`, `gamma=15`, 478
+recovered message coefficients, `M2=epsilon`, and inclusive squared-norm bound
+`beta^2=34034726`. No full-parameter secret-key recovery with fresh signing,
+reusable equivalent signer, or ordinary-verifier-accepted fresh native-message
+forgery was found within `2^45` work.
+
+The decisive invariant is a signature-first versus full-preimage dichotomy.
+Every native tuple `x=(rho,M1)` fixes the complete target
+`C(x)=(H1(x,epsilon),H2(H1(x,epsilon))+x)`. A signature candidate committed
+before its fresh `H1` response must hit one prescribed value in `q^19`, whose
+logarithmic size is `258.11651815257505...`; even `2^45` distinct tests have
+success probability at most `2^-213.116518...`. Choosing `x` and learning
+`H1(x,epsilon)` first removes that equality, but fixes all 512 target
+coefficients and leaves a full random-target Falcon-512 short-preimage problem.
+No combination of fixed points, sparse templates, norm-preserving
+transformations, signed transcripts, or stored hash values supplied a third
+route.
+
+The strongest intended-design near miss is the hash-first constructor `C(x)`:
+it produces a verifier-consistent target for any fresh native message, but no
+public full-parameter method found a norm-valid preimage within `2^45`.
+Independent closeout also corrected the two-list accounting. Under one total
+budget `W=2^45`, `TQ` is at most `W^2/4=2^88`, so a two-list `H1` prefix match
+has probability at most `2^-170.116518...`; the lane's looser value used two
+full `2^45` lists and exceeded the total budget.
+
+The strongest conditional transfer near miss is Sleeping Falcon, which needs
+both an exact repeated target and discrepant floating-point sampler executions.
+With at most `2^45` same-message signing attempts, a 15-coefficient salt and
+hence an exact target repeats with probability below `2^-114.776198...`.
+Closeout conservatively uses that bound and does not multiply Sleeping
+Falcon's approximately `10^-4` empirical conditional rate into it without an
+independence argument. Fresh salts and a correct intended sampler therefore do
+not provide the required premise. Sending both short components reveals the
+same mathematical sample already recoverable from an ordinary Falcon
+signature; no intended transcript route yielded a trapdoor or reusable signer.
+
+The maximal optional `B(478)` adapter is injective:
+`39*163+5*27=6492` bits map to `39*12+5*2=478` coefficients, with
+`2^163<q^12` and `2^27<q^2`. The payload requires 812 storage bytes with four
+unused low bits. The paper's 811-byte table entry and unspecified
+shorter-message padding are framing limitations, not two distinct native
+messages with the same encoding and not signing power.
+
+This is a bounded paper-static campaign result, not a security proof. No
+author FALCON-MRM source, target-specific KAT, exact `H1`/`H2` tag bytes,
+header, or canonical two-polynomial wire codec was located, so no byte-level
+implementation-conformance or benchmark claim is made. The pinned Litt1eQ
+repository is a nonauthor reconstruction that chooses its own tags, header,
+length prefix, and codec; it is not a conformance oracle. The result covers
+only the frozen `n=512`, maximal-recovery, `M2=epsilon` endpoint, not the 1024
+row or the separate ring-signature sketch. No target build or attack
+experiment was warranted, and no attack package or verified-attack count
+change is created.
+
+In public searches performed through 18 October 2026, no prior substantive
+attack against the main FALCON-MRM construction in IACR ePrint 2026/420 was
+located. The message-recovery transform originates in ePrint 2016/435, and
+attacks and security analyses for ordinary Falcon implementations and related
+schemes are transfer material rather than attacks on this exact target. This
+is a date-bounded absence-of-located-public-attack statement; private,
+deleted, embargoed, unpublished, or unindexed work cannot be excluded.
+
+Reopen only if one of these conditions occurs:
+
+1. An explicit full-parameter algorithm takes public `(h,q)` and a frozen target `C(x)` and returns a norm-valid preimage, short NTRU basis, or reusable sampler with nonnegligible success in at most `2^45` work.
+2. An authoritative intended `H1`/`H2` completion exhibits a reproducible structural relation that removes the `q^19` signature-first filter and yields an ordinary Algorithm 4-accepted fresh native message within `2^45`.
+3. Faithful ordinary signing naturally repeats an exact target or exposes an intended sampler bias, without rollback, induced faults, or external leakage, and a complete key-recovery/equivalent-signer bridge works within `2^45`.
+4. Ordinary transcripts yield a concrete short kernel basis, equivalent trapdoor, or arbitrary-target preimage sampler within `2^45`, including a demonstrated fresh signing consequence.
+5. An authoritative native or application profile fixes tuple, tag, codec, or padding semantics whose noninjectivity produces a distinct accepted message and survives the intended-design and ordinary-verifier tests.
+6. A material paper/source/parameter revision, author implementation or KAT, validated exact public-input quantum derivation, or new exact-target prior art changes the frozen verifier, sampler, profile, or attack assessment.
 
 ## Verified attack summaries
 
