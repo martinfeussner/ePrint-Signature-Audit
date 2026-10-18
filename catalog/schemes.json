@@ -1324,5 +1324,95 @@
       "An authoritative native or application profile fixes tuple, tag, codec, or padding semantics whose noninjectivity produces a distinct accepted message and survives the intended-design and ordinary-verifier tests.",
       "A material paper/source/parameter revision, author implementation or KAT, validated exact public-input quantum derivation, or new exact-target prior art changes the frozen verifier, sampler, profile, or attack assessment."
     ]
+  },
+  {
+    "scheme": "smklhs: Succinct Multi key Linearly Homomorphic Signatures for Certified Statistics",
+    "aliases": [
+      "smklhs",
+      "Succinct Multi key Linearly Homomorphic Signatures for Certified Statistics",
+      "base smklhs"
+    ],
+    "eprint_id": "2026/1370",
+    "eprint_version": "initial/current preprint received 2026-07-03 and approved 2026-07-06; canonical PDF bytes unresolved",
+    "eprint_date": "2026-07-03",
+    "family": "pairing-based succinct multi-key linearly homomorphic signatures for certified statistics",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / BOUNDED_PAPER_STATIC_NEGATIVE / MATERIAL_NONQUALIFYING_MULTISIGNER_CORRECTNESS_DEFECT / REOPEN_CONDITIONAL / PAPER_PROFILE_LIMITED",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/1370",
+    "authors": [
+      "Diego F. Aranha",
+      "Cecilia Boschini",
+      "Hanna Ek",
+      "Elena Pagnin"
+    ],
+    "paper_sha256": "cb8338d4b7ac0e3f3403319e3acc4f649e0be5097e6cf1817669742d939538e3",
+    "paper_status": "Retained 459,028-byte date-matched IACR Asia mirror is byte-identical to the initial gate copy. The official landing page and OAI metadata expose no revision after the initial submission, but the canonical PDF and complete version-history endpoints returned HTTP 403; canonical byte identity is not asserted.",
+    "source_url": "https://github.com/dfaranha/smklhs",
+    "source_commit": null,
+    "source_tree": null,
+    "source_status": "The paper-linked repository, commits endpoint, and raw README returned HTTP 404. No public author repository, immutable commit, RELIC pin, known-answer test, transcript vector, codec, benchmark, or archived implementation was located; no source was built or run.",
+    "attack_history_note": "No prior public attack against smklhs was located in the searches performed as of 18 October 2026. The bounded search covered the scheme name and aliases, ePrint identifier, authors, predecessor, public repositories and issues, cryptography discussion sites, scholarly indexes, and general web results. It cannot exclude private, deleted, unindexed, or later work and makes no absolute novelty or security claim.",
+    "audit_completed_at": "2026-10-18",
+    "selected_parameter_set": "SMKLHS-2026-1370-BASE-BLS12-381-WHUFCMA-T2-ALL-HONEST-LITERAL-VERIFY-PAPER-v1: base Figure 4, claimed BLS12-381 setting, exactly two distinct honest uncorrupted KeyGen signers, weakly adaptive predeclared signing-query set, abstract ordered random-oracle tuples, and literal Figure 4 Verify plus literal Figure 3 verification.",
+    "operation_scope": "The qualifying boundary is secret-key recovery with fresh signing, reusable equivalent signing-key or witness recovery with fresh signing, an accepted Type-2 false aggregate, or an accepted nonzero fresh honest contribution, within 2^45 work, 24 hours, and approximately 12 GiB. rnd.smklhs, adpt.smklhs, rogue or all-adversarial keys, byte encodings, padding, concrete random-oracle domain encodings, and the printed evaluator's separate pp_M/pp_Omega mismatch are excluded.",
+    "audit_note": "No qualifying endpoint was obtained. The literal Figure 4 construction has a material correctness and proof-statement defect: each outer proof forces (H2(C,pp)-1)*mu_hat=0 for the honest unscaled witness, so ordinary nonzero honest aggregates generically reject. This does not by itself yield signing power. The strongest complete signing consequence is a two-query Type-2 false-zero forgery after solving one BLS12-381 target-group discrete logarithm, with generic scale about 2^127.4285 operations. No concrete complete route was found within the campaign envelope. This is a bounded paper-static negative, not a security proof.",
+    "material_nonqualifying_finding": {
+      "kind": "LITERAL_MULTI_SIGNER_CORRECTNESS_AND_PROOF_STATEMENT_FAILURE",
+      "exact_condition_per_outer_proof": "(H2(C,pp)-1)*mu_hat=0 mod p for the honest unscaled contribution witness",
+      "ordinary_nonzero_honest_aggregate": "Rejects unless the corresponding outer challenge is one; the two independent outer proofs require both prescribed outputs.",
+      "favorable_fixed_instance_probability": "1/(p-1)^2",
+      "security_proof_issue": "The proof assumes unscaled contribution sums that the literal challenge-scaled Figure 3 statement does not establish.",
+      "qualifying_signing_consequence_by_itself": false
+    },
+    "strongest_complete_above_cutoff_route": {
+      "name": "two-query Type-2 false-zero forgery via target-group discrete logarithm",
+      "required_computation": "Solve Kbar_1=Kbar_2^d for public Kbar_j=e(Upsilon_j^(1),Theta2)*e(Omega_j,Psi2).",
+      "construction": "After one message-1 signature from each signer, use coefficients (1,-d), Gamma=sigma_1*sigma_2^(-d), identity M and Omega, claimed output zero, and two zero Figure 3 proofs.",
+      "true_output": "1-d except in the negligible Kbar_1=Kbar_2 event",
+      "generic_log2_work": "127.4285447065236",
+      "within_campaign_cutoff": false,
+      "local_practical": false
+    },
+    "checked_arithmetic": {
+      "bls12_381_scalar_order": "52435875175126190479447740508185965837690552500527637822603658699938581184513",
+      "log2_scalar_order": "254.8570894130472",
+      "generic_target_group_dlp_log2_work": "127.4285447065236",
+      "single_prescribed_value_success_at_2_pow_45_log2_upper": "-209.8570894130472",
+      "four_root_inner_challenge_success_at_2_pow_45_log2_upper": "-207.8570894130472",
+      "same_list_pair_collision_at_2_pow_45_log2_upper": "-165.8570894130472",
+      "balanced_two_list_total_budget_at_2_pow_45_log2_upper": "-166.8570894130472"
+    },
+    "strongest_near_misses": [
+      "One outer proof can be trivialized with C=u^r, mu_hat=-r/H2(C,pp), and an identity Figure 3 proof, but synchronizing both independent outer proofs to the same nonzero output remains a random-oracle cross-list match and the pairing equation still requires a hidden relation.",
+      "Public Theta/Psi pairing cancellation removes one known setup relation but replacement proofs still require hidden source- or target-group relations.",
+      "Pairing inversion, co-CDH, and source-group or target-group discrete logarithms give complete attack skeletons only above the campaign cutoff."
+    ],
+    "nonqualifying_findings": [
+      "The literal challenge-scaled Figure 3 statements generically reject honest nonzero multisigner aggregates and invalidate the printed unscaled proof step.",
+      "A single outer proof has an identity-statement construction, but the second proof and pairing completion remain blocked within the cutoff.",
+      "The printed evaluator has a separate pp_M versus pp_Omega mismatch outside the selected verifier-only profile.",
+      "Special or weak honest keys occur with probability about 1/p or smaller in the reviewed model and supplied no practical signing endpoint."
+    ],
+    "conformance_limitations": [
+      "Canonical ePrint PDF byte identity is unresolved; the retained input is a date-matched 459,028-byte IACR Asia mirror with SHA-256 cb8338d4b7ac0e3f3403319e3acc4f649e0be5097e6cf1817669742d939538e3.",
+      "The paper-linked repository returned HTTP 404; no public source commit, RELIC pin, known-answer test, codec, transcript vector, or benchmark was located.",
+      "Random-oracle inputs are abstract ordered tuples; byte aliases, padding, and concrete domain encodings are outside scope.",
+      "No source, byte-level implementation-conformance, target execution, or benchmark claim is made."
+    ],
+    "audit_limitations": [
+      "This is a bounded paper-static assessment, not a security proof or a lower bound against every discrete-logarithm or index-calculus algorithm.",
+      "The result covers only the base Figure 4 construction with exactly two distinct honest signers; rnd.smklhs and adpt.smklhs are deferred.",
+      "Rogue keys, all-adversarial-key cases, concrete encodings, padding, and the evaluator's pp_M/pp_Omega mismatch are outside the frozen profile.",
+      "The final history conclusion is bounded to public searches through 2026-10-18 and the target's short public-history window."
+    ],
+    "reopen_conditions": [
+      "A concrete BLS12-381 source- or target-group DLP, multibase relation, pairing-inversion, or co-CDH method completes a signing endpoint within 2^45 work, 24 hours, and about 12 GiB including precomputation.",
+      "A Figure 3 Fiat-Shamir or folding attack completes both outer proofs and the pairing equation without a hidden relation or fixed-target random-oracle event.",
+      "A concrete H1 or H2 instantiation exposes structure, aliases, collisions, or bias yielding a qualifying ordinary-verifier endpoint within the campaign limits.",
+      "An honest setup or key degeneracy occurs with materially greater probability and yields fresh signing or a false aggregate.",
+      "An authoritative revision, erratum, source release, KAT, or implementation changes the proof statement, bases, transcript, key binding, or selected profile.",
+      "New exact-target prior art changes the history or eligibility assessment."
+    ]
   }
 ]

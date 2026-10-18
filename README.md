@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 49 |
+| Schemes identified | 50 |
 | Known attacks excluded | 3 |
-| Schemes audited | 46 |
-| No practical attack found | 31 |
+| Schemes audited | 47 |
+| No practical attack found | 32 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -96,6 +96,7 @@ exact-target cryptanalysis:
 | Robust ECDSA Threshold Signing at Scale | 2026/2493 v1 | Exact paper profile `ROBUST-ECDSA-2026-2493-SECP256K1-SHA256-N88-T29-PAPER-v1` at `n=88,t=29`; intended agreement and ordered single-use presignatures; author benchmark excluded | No qualifying intended-design signer or forgery; the literal 30-versus-31 release mismatch and same-presignature two-view key recovery are real but nonqualifying under the stated agreement, single-use, and freshness rules |
 | Concurrently Secure Compact Blind Signatures from Module-SIS | 2026/1690 v1/current | Exact paper-static profile `MSIS-CBS-2026-1690-N1536-M4608-Q1013921281-GAMMA2.5-PAPER-v1`; full-vector verifier; linked estimator unavailable | No practical signer, fresh-message forgery, or pairwise-distinct one-more forgery; the `B>q` reduction defect and rejected-round valid signatures remain nonqualifying |
 | FALCON with message recovery (FALCON-MRM) | 2026/420 paper v1/current | Exact paper-static profile `FALCON-MRM-2026-420-N512-Q12289-L19-G15-MAXREC-M2EMPTY-PAPER-v1`; native Algorithm 4 at `n=512`; no author source or KAT | No practical signer or fresh native-message forgery; signature-first candidates face `q^19`, while hash-first candidates require a full Falcon short preimage |
+| smklhs | 2026/1370 initial/current | Base Figure 4 at the claimed BLS12-381 setting, exactly two distinct honest signers, weakly adaptive predeclared queries, and the literal Figure 4 plus Figure 3 verifier; paper-static | No practical signer or accepted false/fresh aggregate; the literal challenge-scaled proof statements generically reject honest nonzero multisigner outputs |
 
 ### Audit summaries
 
@@ -783,6 +784,69 @@ Reopen only if one of these conditions occurs:
 4. Ordinary transcripts yield a concrete short kernel basis, equivalent trapdoor, or arbitrary-target preimage sampler within `2^45`, including a demonstrated fresh signing consequence.
 5. An authoritative native or application profile fixes tuple, tag, codec, or padding semantics whose noninjectivity produces a distinct accepted message and survives the intended-design and ordinary-verifier tests.
 6. A material paper/source/parameter revision, author implementation or KAT, validated exact public-input quantum derivation, or new exact-target prior art changes the frozen verifier, sampler, profile, or attack assessment.
+
+smklhs (ePrint 2026/1370, initial/current preprint received 2026-07-03)
+completed a bounded paper-static audit of
+`SMKLHS-2026-1370-BASE-BLS12-381-WHUFCMA-T2-ALL-HONEST-LITERAL-VERIFY-PAPER-v1`.
+The profile covers the base Figure 4 construction at the claimed BLS12-381
+setting, exactly two distinct honest and uncorrupted `KeyGen` signers, a weakly
+adaptive predeclared signing-query set, abstract ordered random-oracle tuples,
+and literal Figure 4 verification together with the literal Figure 3 verifier.
+No secret-key recovery with fresh signing, reusable equivalent signer, accepted
+Type-2 false aggregate, or accepted nonzero fresh honest contribution was found
+within `2^45` work, 24 hours, and approximately 12 GiB.
+
+The literal construction nevertheless has a material correctness and proof statement
+defect. For either outer proof, Figure 4 supplies
+`P=C*u^(z*mu_hat)`, where `z=H2(C,pp)`, while Figure 3 hard-codes the public
+inner-product vector to all ones. Substituting the honest contribution witness
+forces `(z-1)*mu_hat=0 mod p`. An ordinary nonzero two-signer aggregate therefore
+needs the prescribed output `z=1` for each of the independent `M` and `Omega`
+proofs; the favorable fixed-instance probability is `1/(p-1)^2`. The security
+proof assumes the unscaled contribution sums that the printed verifier does not
+establish. This is a material correctness/specification failure and proof gap,
+but honest rejection alone does not recover a signer or produce an accepted
+fresh or false aggregate, so it is not a qualifying campaign attack.
+
+The strongest complete signing consequence found is an above-cutoff two-query
+Type-2 false-zero forgery. With one signature on message `1` from each signer,
+define the public target-group bases
+`Kbar_j=e(Upsilon_j^(1),Theta2)*e(Omega_j,Psi2)`, solve
+`Kbar_1=Kbar_2^d`, and use coefficients `(1,-d)`, the corresponding quotient of
+the two signatures, identity commitments, a claimed output of zero, and two
+zero Figure 3 proofs. The true output is `1-d` except in a negligible key event.
+The required target-group discrete logarithm has generic Pollard-rho scale about
+`2^127.4285` operations for the BLS12-381 scalar subgroup. This is a complete
+above-cutoff attack, not a practical result; the audit found no concrete target field discrete-log, source-group relation, pairing-inversion,
+co-CDH, random-oracle, or proof-malleability route that completes an endpoint inside the
+campaign envelope. The generic figure is a stopping estimate rather than a
+security lower bound.
+
+This result makes no implementation-conformance or security claim. The
+canonical ePrint PDF and complete version history were blocked by Cloudflare;
+the retained 459,028-byte date-matched IACR Asia mirror has SHA-256
+`cb8338d4b7ac0e3f3403319e3acc4f649e0be5097e6cf1817669742d939538e3`,
+but byte identity with the current canonical PDF is not asserted. The paper-linked repository returned HTTP
+404, and no public source commit, RELIC pin,
+known-answer test, codec, transcript vector, or benchmark was located. Byte
+aliases and concrete domain encodings are outside the abstract-tuple profile;
+`rnd.smklhs`, `adpt.smklhs`, rogue or all-adversarial keys, and the printed
+evaluator's separate `pp_M`/`pp_Omega` mismatch are also outside scope.
+
+No prior public attack against smklhs was located in the searches performed as
+of 18 October 2026. This is a bounded search result over the scheme name and
+aliases, ePrint identifier, authors, predecessor, public repositories and
+issues, cryptography discussion sites, scholarly indexes, and general web
+results. It does not claim that no attack exists or that the result is novel.
+
+Reopen only if one of these conditions occurs:
+
+1. A concrete BLS12-381 source- or target-group DLP, multibase relation, pairing-inversion, or co-CDH method completes a signing endpoint within `2^45` work, 24 hours, and about 12 GiB including precomputation.
+2. A Figure 3 Fiat--Shamir or folding attack completes both outer proofs and the pairing equation without a hidden relation or fixed-target random-oracle event.
+3. A concrete `H1` or `H2` instantiation exposes structure, aliases, collisions, or bias yielding a qualifying ordinary-verifier endpoint within the campaign limits.
+4. An honest setup or key degeneracy occurs with materially greater probability and yields fresh signing or a false aggregate.
+5. An authoritative revision, erratum, source release, KAT, or implementation changes the proof statement, bases, transcript, key binding, or selected profile.
+6. New exact-target prior art changes the history or eligibility assessment.
 
 ## Verified attack summaries
 
