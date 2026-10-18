@@ -1,0 +1,31 @@
+{
+  "attack": {
+    "signing_queries": 0
+  },
+  "checks": {
+    "candidate accepts": true,
+    "candidate accepts changed context": true,
+    "candidate accepts changed messages": true,
+    "honest proof accepts": true,
+    "honest proof rejects changed message": true,
+    "identity A mutation rejects": true,
+    "identity B mutation rejects": true,
+    "identity U mutation rejects": true,
+    "zero signing queries": true,
+    "zero-response s mutation rejects": true
+  },
+  "digests": {
+    "fresh_attribute_vector_sha256": "ead9dff92d226ade1094afebff68c69a538c753d7d7cd7e0eb891dfea787f9ae",
+    "reference_model_domain_sha256": "2ecdaccdb03d4611ccfeb04499cec97084e401013d6d8520dfd0261eaaa0c9ac"
+  },
+  "environment": {
+    "workers": 1
+  },
+  "model": {
+    "group_order": "21888242871839275222246405745257275088548364400416034343698204186575808495617",
+    "kind": "prime-order pairing-group coordinate model",
+    "separate_actual_bn254_reproducer": true
+  },
+  "result": "PASS",
+  "scope": "CUBE ePrint 2026/920 ordinary proof verification equations"
+}

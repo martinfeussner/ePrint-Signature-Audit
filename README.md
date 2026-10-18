@@ -14,11 +14,11 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 54 |
+| Schemes identified | 56 |
 | Known attacks excluded | 3 |
-| Schemes audited | 51 |
-| No practical attack found | 33 |
-| Verified and independently reproduced practical design attacks | 18 |
+| Schemes audited | 53 |
+| No practical attack found | 34 |
+| Verified and independently reproduced practical design attacks | 19 |
 
 ## Practical design attacks
 
@@ -42,6 +42,7 @@ unreported.
 | [FABS](attacks/fabs/) | 2026/022 current | Pairing-based key-policy attribute-based signature | One-H0-query, zero-signing-query universal fresh-message forgery | Public satisfying witness and Schnorr-style response programming | Figure 1 KP-ABS, 100-attribute all-AND endpoint | 1 `H0` query; 0 signing queries | Verified; independently AI-reproduced |
 | [Iceberg](attacks/iceberg/) | 2026/1757 v1 | Nested threshold MuSig2 over replicated secret sharing | Group signing-key recovery with fresh-message BIP340 forgery | Same-message context splitting and a three-response linear solve | `t=2`, `n=4`, `mu=3`, `nu=2`, secp256k1 | 3 signing queries; 0.95 s wall independent replay; 15,360 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [BLS DS2 (Definition 33)](attacks/bls-2p-aiso-as/) | 2026/1394 retained current | BLS two-party signature with direct public-key aggregation | Zero-query fresh-message forgery against Definition 33 | Rogue-key cancellation after the honest-key reveal | BLS12-381 paper-linked G1-public-key/G2-signature profile | 0 signing queries; 1.164 s checks; 102.98 s clean build-and-run; 400,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
+| [CUBE](attacks/cube/) | 2026/920 initial/current | Partially blind BBS credential proof | Zero-query fresh-message forgery | Identity proof points and zero responses | BN254 five-word source and paper-complete profiles | 0 signing queries; 0.03 s; 2,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -101,6 +102,7 @@ exact-target cryptanalysis:
 | FALCON with message recovery (FALCON-MRM) | 2026/420 paper v1/current | Exact paper-static profile `FALCON-MRM-2026-420-N512-Q12289-L19-G15-MAXREC-M2EMPTY-PAPER-v1`; native Algorithm 4 at `n=512`; no author source or KAT | No practical signer or fresh native-message forgery; signature-first candidates face `q^19`, while hash-first candidates require a full Falcon short preimage |
 | smklhs | 2026/1370 initial/current | Base Figure 4 at the claimed BLS12-381 setting, exactly two distinct honest signers, weakly adaptive predeclared queries, and the literal Figure 4 plus Figure 3 verifier; paper-static | No practical signer or accepted false/fresh aggregate; the literal challenge-scaled proof statements generically reject honest nonzero multisigner outputs |
 | BRaccoon | 2026/1084 current 2026-09-25 | Current Table-3 `Q_s=2^32` paper-static object, four-move issuance protocol, and literal Figure-5 external-message verifier; parameter-certificate source only | No practical signer, fresh-message forgery, or one-more forgery; floor-rounding proof/certificate mismatch is nonqualifying and full-query H-MLWE regression is outside the practical envelope |
+| Practical c-STS Construction 2 | 2026/1820 current | Full BLS12-381 `N=2^20`, `n=1024`, `t=512` paper profile and ordinary lifecycle | No practical signer or forgery; fixed-support algebraic endpoint fails support timing |
 
 ### Audit summaries
 ECLIPSE (ePrint 2026/2312 v2) remains a bounded paper-level audit. Its
@@ -407,6 +409,8 @@ of transcripts. Reopen if lower-sample regression, a verifier or flooding
 bypass, or authoritative rounding, source, or profile changes produce a
 sub-`2^45` signing endpoint.
 
+Practical c-STS Construction 2 (ePrint 2026/1820, current major-revision body dated 2026-09-10) completed a bounded audit of the full BLS12-381, `N=2^20`, `n=1024`, `t=512` paper profile with no practical signing compromise. A sealed full run confirmed a fixed-support affine construction accepted by the unchanged six-equation verifier on two fresh messages, but ordinary registration fixes corrupt rows before the random committee is known. The required support occurs with probability about `2^-5345.98`; the reviewed support-adaptive configuration needs 474,499 nonzero rows, about 23.88 TB of logical hints, and an estimated 5.54 four-worker years. Reopen only for an evidenced ordinary lifecycle supplying the required timing, a full support-adaptive attack within the campaign limits, or a separately reviewed parameter profile.
+
 ## Verified attack summaries
 
 [D-James](attacks/d-james/) (ePrint 2026/1650 v5) exposes an expanded
@@ -642,5 +646,7 @@ techniques, and no prior public report of the complete Iceberg-specific attack
 was located through 18 October 2026.
 
 [BLS DS2 (Definition 33)](attacks/bls-2p-aiso-as/) (ePrint 2026/1394, retained current preprint) reveals an honest BLS public key before accepting the corrupt participant's key. A zero-query attacker registers `X_E=beta*P-X_A`, making the direct-addition aggregate equal `beta*P`, and signs any fresh message as `beta*H(m)`. The unchanged paper-linked BLS12-381 ordinary verifier accepted; a sealed fresh-context reproduction passed 32/32 honest keys with all controls rejecting. The claim is limited to the direct-addition Definition 33 instantiation and expressly excludes Theorem 1, Figure 6, central honest `KeyGen`, proper DKG, the artifact's normal lifecycle, and deployments. Rogue-key cancellation is standard prior art credited to BGLS, Bellare--Neven, Boneh--Drijvers--Neven, and CFRG BLS guidance; no technique novelty is claimed, and no earlier public report of this exact-target application was located through 18 October 2026.
+
+[CUBE](attacks/cube/) (ePrint 2026/920, initial/current) omits nonidentity checks for its three proof points. Setting `A_bar`, `B_bar`, and `U` to the BN254 identity and `s=t=u_gamma=0` satisfies both ordinary verification equations for every challenge and attribute vector, yielding a zero-signing-query fresh-message Sys-EUF-CMA forgery. Primary and fresh-context Arkworks reproductions passed for the five-word source and paper-complete address/nullifier profiles, with honest and mutation controls rejecting as expected. Read-only historical simulation also passed at the author-listed Sepolia addresses; no transaction or source-to-runtime bytecode claim is made. Generic BBS nonidentity validation is prior art, no technique novelty is claimed, and no earlier public CUBE attack was located through 18 October 2026.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

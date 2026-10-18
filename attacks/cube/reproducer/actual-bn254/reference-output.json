@@ -1,0 +1,17 @@
+{
+  "profile": "CUBE-BN254-M5-AND-PAPER-COMPLETE-KECCAK256-V1",
+  "actual_bn254_pairings": true,
+  "signing_queries": 0,
+  "honest_source_accepts": true,
+  "honest_paper_complete_accepts": true,
+  "candidate_source_accepts": true,
+  "candidate_paper_complete_accepts": true,
+  "candidate_changed_messages_accepts": true,
+  "candidate_changed_context_accepts": true,
+  "mutate_a_rejects": true,
+  "mutate_b_rejects": true,
+  "mutate_u_rejects": true,
+  "mutate_s_rejects": true,
+  "honest_changed_message_rejects": true,
+  "result": "PASS"
+}

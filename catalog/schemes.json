@@ -494,7 +494,7 @@
     "status": "KNOWN_ATTACK_EXCLUDED",
     "attack_history_checked_at": "2026-10-14",
     "url": "https://eprint.iacr.org/2021/2",
-    "exclusion_basis": "The target author\u2019s direct successor, ePrint 2022/097 v1, acknowledges that the exact scheme\u2019s structured-response defense against quadratic statistical attacks fails and explains the product-statistic mechanism. No public practical endpoint was located, but the substantive exact-target structural cryptanalysis controls the history gate."
+    "exclusion_basis": "The target author’s direct successor, ePrint 2022/097 v1, acknowledges that the exact scheme’s structured-response defense against quadratic statistical attacks fails and explains the product-statistic mechanism. No public practical endpoint was located, but the substantive exact-target structural cryptanalysis controls the history gate."
   },
   {
     "scheme": "Higher-Bit Approximate-ISIS signature, Construction 1",
@@ -1039,7 +1039,7 @@
     "url": "https://eprint.iacr.org/2024/131",
     "authors": [
       "Sven Argo",
-      "Tim G\u00fcneysu",
+      "Tim Güneysu",
       "Corentin Jeudy",
       "Georg Land",
       "Adeline Roux-Langlois",
@@ -1260,7 +1260,7 @@
     "attack_history_checked_at": "2026-10-18",
     "url": "https://eprint.iacr.org/2026/420",
     "authors": [
-      "Felix G\u00fcnther",
+      "Felix Günther",
       "Vadim Lyubashevsky",
       "Rolfe Schmidt"
     ],
@@ -1584,5 +1584,60 @@
     "source_url": "https://anonymous.4open.science/r/Adaptor_Signatures_Meet_BLS-ECD0/",
     "source_archive_sha256": "f1e70afef59a55e3a852d1a9debfefb7f9250f90679a65faa46ecdf0c0a7b441",
     "audit_completed_at": "2026-10-18"
+  },
+  {
+    "scheme": "Practical Silent Threshold Signatures and Silent Threshold Encryption for Dynamic Committees",
+    "aliases": [
+      "Practical c-STS Construction 2",
+      "Practical c-STS",
+      "c-STS"
+    ],
+    "eprint_id": "2026/1820",
+    "eprint_version": "current major-revision body dated 2026-09-10",
+    "eprint_date": "2026-08-27",
+    "family": "pairing-based silent threshold BLS signature with dynamic committees and KZG-style polynomial commitments",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/1820",
+    "authors": [
+      "Yifei He",
+      "Zheng Zhou",
+      "Yu Chen",
+      "Zhi Guan",
+      "Zhong Chen"
+    ],
+    "paper_sha256": "026b52faaf0e53d10cfff134317242317e26e863f30a607ac921f601523b161d",
+    "source_url": "https://github.com/Gorachya/c-STS-STE",
+    "source_commit": "5f0be953fa11764e4b8e2ba2591493d2f9bf2f66",
+    "source_tree": "c19f70d0807da7b9bf991a33a62cbd3d0a8016cc",
+    "audit_completed_at": "2026-10-18",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / BOUNDED_PAPER_PROFILE_NEGATIVE / CONDITIONAL_FIXED_SUPPORT_ALGEBRAIC_ENDPOINT / REOPEN_CONDITIONAL",
+    "audit_note": "The full fixed-support algebraic endpoint passed, but the ordinary lifecycle fixes corrupt rows before the random committee is known. Exact support occurs with probability about 2^-5345.98, and the reviewed support-adaptive family exceeds the campaign runtime and storage limits. No practical signing compromise was found."
+  },
+  {
+    "scheme": "CUBE: Partially Blind BBS Signatures for Unlinkable Decentralized Identity",
+    "aliases": [
+      "CUBE",
+      "Credential Unlinkability using Blinded Elements"
+    ],
+    "eprint_id": "2026/920",
+    "eprint_version": "initial/current; official record received 2026-05-10 and approved 2026-05-14",
+    "eprint_date": "2026-05-10",
+    "family": "partially blind BBS signature credential framework with Fiat--Shamir NIZK presentation and on-chain SBT minting",
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/920",
+    "authors": [
+      "Guohao Lai"
+    ],
+    "paper_sha256": "97795d68928f1537ed963b6ee2870c85ebc6efd4b41c13a73fffb1af246ecaff",
+    "source_url": "https://github.com/LetsVerify/demo_v2",
+    "source_commit": "2af179dc02692c188c51125a3a6d98cf8f67faef",
+    "source_tree": "24e8f8377199792af57b5d65204e25df9ad44e3e",
+    "audit_completed_at": "2026-10-18",
+    "attack_result": "Zero-signing-query fresh-message Sys-EUF-CMA forgery",
+    "attack_path": "attacks/cube/",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical, adversarial, independent-reproduction, final-history, and publication-review gates"
   }
 ]

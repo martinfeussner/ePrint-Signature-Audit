@@ -1,0 +1,3 @@
+__pycache__/
+*.pyc
+reproducer/actual-bn254/target/

@@ -1,0 +1,9 @@
+{
+  "author_repository": "https://github.com/LetsVerify/demo_v2",
+  "bbs_math_sol_sha256": "68e311ec9ccc7542f2f3aa5b975baad66b1e979a05088945671281ad1477e6d4",
+  "bbs_verifier_sol_sha256": "bdadd310771f86238cdd913100a3f65bff701c58fe5893631f27abef3e5278c7",
+  "commit": "2af179dc02692c188c51125a3a6d98cf8f67faef",
+  "issuer_verifier_script_sha256": "3b08bcc2fba95d23a94e0fe66c07fcfac1d64a43ff45880bb35058aeff9030ea",
+  "issuer_verifier_sol_sha256": "209d8ca493a5cb92e2993e6884015061e0e1ab0d6537dbbc68789a2e40093914",
+  "tree": "24e8f8377199792af57b5d65204e25df9ad44e3e"
+}

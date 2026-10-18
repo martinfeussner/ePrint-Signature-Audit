@@ -1,0 +1,16 @@
+[package]
+name = "cube-exp0001-verifier"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+ark-bn254 = { version = "=0.4.0", features = ["curve"] }
+ark-ec = "=0.4.2"
+ark-ff = "=0.4.2"
+sha3 = "=0.8.2"
+
+[profile.release]
+codegen-units = 1
+lto = false
+panic = "abort"

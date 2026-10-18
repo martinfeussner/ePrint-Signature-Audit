@@ -1,0 +1,42 @@
+{
+  "all_rows_pass": true,
+  "attack": {
+    "signing_queries": 0
+  },
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "candidate accepts": true,
+        "candidate accepts changed context": true,
+        "candidate accepts changed messages": true,
+        "honest proof accepts": true,
+        "honest proof rejects changed message": true,
+        "identity A mutation rejects": true,
+        "identity B mutation rejects": true,
+        "identity U mutation rejects": true,
+        "zero signing queries": true,
+        "zero-response s mutation rejects": true
+      },
+      "message_count": 5,
+      "parameter_row": "CUBE-BN254-SOURCE-FIVE-WORD"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "candidate accepts": true,
+        "candidate accepts changed context": true,
+        "candidate accepts changed messages": true,
+        "honest proof accepts": true,
+        "honest proof rejects changed message": true,
+        "identity A mutation rejects": true,
+        "identity B mutation rejects": true,
+        "identity U mutation rejects": true,
+        "zero signing queries": true,
+        "zero-response s mutation rejects": true
+      },
+      "message_count": 7,
+      "parameter_row": "CUBE-BN254-PAPER-COMPLETE-SEVEN-WORD"
+    }
+  ]
+}
