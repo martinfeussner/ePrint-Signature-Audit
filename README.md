@@ -584,23 +584,44 @@ a located signing consequence for this profile; it makes no broad first-attack
 claim.
 
 [EagleSignV3](attacks/eaglesignv3/) (ePrint 2024/1234, current second
-revision) leaks centered-modulus wrap labels through public `r` at the exact
-paper-level Ring-L2 row
-`(k,l,n,q,tau,eta,beta,gamma1,gamma2)=(1,1,1024,59393,16,1,16,16384,16384)`.
-The labels give sparse threshold inequalities in ternary `D`; solving them
-recovers `D` and, when public `T` is a ring unit, the equivalent signing key
-`G=T^-1(A+D)` and a fresh-message signature. Unit `T` is publicly testable and
-has estimated probability about 98.29% for this row. Both counted one-key
-trials succeeded: the primary and prospectively sealed independent runs each
-used every one of 40,000 outputs returned by the printed Algorithm 4,
-including respectively 1,767 and 1,727 outputs rejected by the ordinary
-verifier. The result is paper-level because no exact V3 source, canonical wire
-encoding, or known-answer vector was located; the later package replay is
-supplemental validation and is not a third trial.
+revision) leaks centered-modulus wrap labels through public `r` at the
+paper-level Ring-L2 row because `q=59393 < 4*gamma2=65536`. The labels yield
+sparse ternary constraints that recover `D`; when public `T` is a unit, a
+publicly testable condition estimated for 98.29% of keys, they also give the
+equivalent key `G=T^-1(A+D)` and fresh signing. Both counted one-key trials
+used all 40,000 outputs returned by Algorithm 4, including outputs rejected by
+the ordinary verifier, and each produced an accepted fresh-message signature;
+the independent pipeline took 296.09 seconds and 221,272 KiB on one worker.
+The claim is paper-level because no exact V3 source, canonical codec, or
+known-answer vector was located. Earlier EagleSign V1/V2 attacks use different
+response relations; no prior public exact-V3 attack was located through 15
+October 2026, and no technique-novelty or absolute-priority claim is made.
 
-No prior public substantive attack against EagleSignV3 (IACR ePrint
-2024/1234) was located in the searches performed as of 15 October 2026.
+[DualMS 2.0](attacks/dualms-2/) (ePrint 2026/1941, retained current body)
+permits a public-key-only fresh-message forgery because the verifier hint can
+absorb its rounded reconstruction: choose `w`, query
+`c=Hsig(w,message,aggpk)`, set `z=r=rbar=0`, and choose `h` so verification
+reconstructs `w`. The primary and independent implementations accepted
+forgeries with zero signing queries at both advertised rounded Table-6 rows.
+The independent run needed four `Hsig` queries for `n=32` and one for
+`n=1024`, took 28.16 seconds, and used 252,432 KiB on one worker. Exact moduli
+come from the paper-linked artifact; no author-wire or source-native
+acceptance is claimed. No prior public exact-target attack was located through
+16 October 2026; the package credits NGCC CS `sign-07-2` as a different-scheme
+hint-absorption analogue and makes no technique-novelty claim.
 
-Pulles and Tibouchi previously broke EagleSign V1 and V2 using response statistics and ideal structure. Those schemes use different response relations, and EagleSign V2 includes an explicit centered-modulus-boundary rejection that is absent from the EagleSignV3 specification studied here. We located no earlier public disclosure applying the centered-modulus-wrap, public-commitment-label route to EagleSignV3. This is a bounded search statement; we make no absolute firstness or attack-technique novelty claim.
+[FABS](attacks/fabs/) (ePrint 2026/022, current) admits a universal
+fresh-message forgery because the literal Figure 1 KP-ABS verifier proves a
+relation with public witnesses but does not bind `A`, `B`, and `C` to an
+issued credential or the responses to valid policy reconstruction. Setting
+`A=B=g1`, `C=g2`, `beta=0`, `k=1`, and every `delta_i=0` yields a nonidentity
+transcript with one `H0` query and no key-generation or signing query. The
+primary model accepted the full 100-attribute all-AND endpoint, and an
+independent Arkworks BN254 implementation accepted both 100-attribute attack
+forms in 5/5 fixed setup checks while rejecting eight controls per check; the
+run took 3.77 seconds and 31,744 KiB on one worker. The result covers Figure 1
+KP-ABS, not SP-ABS or anonymity, and makes no exact author-backend or byte-codec
+claim. No prior public exact-target attack was located through 18 October
+2026, and no technique novelty is claimed.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

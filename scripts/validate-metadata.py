@@ -16,6 +16,7 @@ import math
 import pathlib
 import re
 import sys
+from collections import Counter
 from typing import Any
 from urllib.parse import urlsplit
 
@@ -687,6 +688,182 @@ def validate_dashboard(
             )
 
 
+def validate_readme_summary_structure(
+    catalog: list[dict[str, Any]],
+    attacks_by_identity: dict[tuple[str, str], pathlib.Path],
+    reporter: Reporter,
+) -> None:
+    """Keep both README summary sections complete and in their compact form."""
+    try:
+        contents = README.read_text(encoding="utf-8")
+    except (OSError, UnicodeError) as exc:
+        reporter.fail(f"README.md: {exc}")
+        return
+
+    audit_marker = "### Audit summaries\n"
+    verified_marker = "\n## Verified attack summaries\n"
+    footer_marker = "\nSee [methodology]"
+    if contents.count(audit_marker) != 1:
+        reporter.fail("README.md must contain exactly one Audit summaries heading")
+        return
+    if contents.count(verified_marker) != 1:
+        reporter.fail("README.md must contain exactly one Verified attack summaries heading")
+        return
+
+    before_verified, verified_and_footer = contents.split(verified_marker, 1)
+    audit_text = before_verified.split(audit_marker, 1)[1]
+    if footer_marker not in verified_and_footer:
+        reporter.fail("README.md is missing the methodology footer after attack summaries")
+        return
+    verified_text = verified_and_footer.split(footer_marker, 1)[0]
+
+    def paragraphs(section: str) -> list[str]:
+        return [part.strip() for part in re.split(r"\n[ \t]*\n", section.strip()) if part.strip()]
+
+    def check_compact_blocks(
+        blocks: list[str], section_name: str, minimum: int, maximum: int
+    ) -> None:
+        structural_line = re.compile(r"(?m)^(?:#{1,6}\s|```|>|\|\s|[-*+]\s|[0-9]{1,2}\.\s)")
+        for index, block in enumerate(blocks, 1):
+            words = len(re.findall(r"\S+", block))
+            if not minimum <= words <= maximum:
+                reporter.fail(
+                    f"README.md {section_name} paragraph {index} has {words} words; "
+                    f"expected {minimum}..{maximum}"
+                )
+            if structural_line.search(block):
+                reporter.fail(
+                    f"README.md {section_name} paragraph {index} contains a nested "
+                    "heading, list, quote, table, or code block"
+                )
+
+    audit_blocks = paragraphs(audit_text)
+    negative_entries = [
+        item for item in catalog if item.get("status") == "AUDITED_NO_PRACTICAL_ATTACK"
+    ]
+    if len(audit_blocks) != len(negative_entries):
+        reporter.fail(
+            "README.md Audit summaries must contain exactly one paragraph per "
+            f"bounded audit: found {len(audit_blocks)}, expected {len(negative_entries)}"
+        )
+    check_compact_blocks(audit_blocks, "Audit summaries", 40, 140)
+    def normalized_eprint(value: str) -> str:
+        year, number = value.split("/", 1)
+        return f"{year}/{int(number)}"
+
+    def accepted_summary_labels(item: dict[str, Any]) -> set[str]:
+        values = [str(item.get("scheme", ""))]
+        aliases = item.get("aliases")
+        if isinstance(aliases, list):
+            values.extend(str(alias) for alias in aliases)
+        labels = {value.strip() for value in values if value.strip()}
+        for value in tuple(labels):
+            for separator in (":", ","):
+                if separator in value:
+                    labels.add(value.split(separator, 1)[0].strip())
+        return labels
+
+    def label_matches(label: str, accepted: set[str]) -> bool:
+        return any(
+            label == value
+            or label.startswith(value + " ")
+            or value.startswith(label + ":")
+            or value.startswith(label + ",")
+            for value in accepted
+        )
+
+    expected_negative_identities = Counter(
+        (str(item.get("scheme")), normalized_eprint(str(item.get("eprint_id"))))
+        for item in negative_entries
+    )
+    observed_negative_identities: Counter[tuple[str, str]] = Counter()
+    audit_lead = re.compile(
+        r"^(?P<label>.+?)\s+\(ePrint\s+(?P<eprint>[0-9]{4}/[0-9]+)\b",
+        re.DOTALL,
+    )
+    for index, block in enumerate(audit_blocks, 1):
+        lead = audit_lead.match(block)
+        if lead is None:
+            reporter.fail(
+                f"README.md Audit summary {index} must begin with a scheme label "
+                "and ePrint identifier"
+            )
+            continue
+        label = " ".join(lead.group("label").split())
+        eprint_id = normalized_eprint(lead.group("eprint"))
+        candidates = [
+            item
+            for item in negative_entries
+            if normalized_eprint(str(item.get("eprint_id"))) == eprint_id
+            and label_matches(label, accepted_summary_labels(item))
+        ]
+        if len(candidates) != 1:
+            reporter.fail(
+                f"README.md Audit summary {index} label {label!r} and ePrint "
+                f"{lead.group('eprint')} match {len(candidates)} bounded-audit records"
+            )
+            continue
+        candidate = candidates[0]
+        observed_negative_identities[
+            (str(candidate.get("scheme")), normalized_eprint(str(candidate.get("eprint_id"))))
+        ] += 1
+    if observed_negative_identities != expected_negative_identities:
+        reporter.fail(
+            "README.md Audit summaries do not map one-to-one to bounded-audit "
+            f"catalog identities: found {dict(observed_negative_identities)}, "
+            f"expected {dict(expected_negative_identities)}"
+        )
+
+    verified_blocks = paragraphs(verified_text)
+    expected_dirs = {path.name for path in attacks_by_identity.values()}
+    if len(verified_blocks) != len(expected_dirs):
+        reporter.fail(
+            "README.md Verified attack summaries must contain exactly one paragraph "
+            f"per attack directory: found {len(verified_blocks)}, expected {len(expected_dirs)}"
+        )
+    check_compact_blocks(verified_blocks, "Verified attack summaries", 40, 180)
+
+    link_pattern = re.compile(r"^\[[^\]\n]+\]\(attacks/([a-z0-9-]+)/\)")
+    every_attack_link = re.compile(r"\]\(attacks/([a-z0-9-]+)/\)")
+    observed_dirs: list[str] = []
+    for index, block in enumerate(verified_blocks, 1):
+        match = link_pattern.match(block)
+        if match is None:
+            reporter.fail(
+                f"README.md Verified attack summary {index} must begin with one "
+                "attacks/<directory>/ link"
+            )
+        links = every_attack_link.findall(block)
+        if len(links) != 1:
+            reporter.fail(
+                f"README.md Verified attack summary {index} must contain exactly "
+                f"one attack-directory link; found {links}"
+            )
+        if match is not None:
+            observed_dirs.append(match.group(1))
+    if len(observed_dirs) != len(set(observed_dirs)):
+        reporter.fail("README.md Verified attack summaries repeat an attack directory")
+    if set(observed_dirs) != expected_dirs:
+        reporter.fail(
+            "README.md Verified attack summary directories differ from attacks/: "
+            f"found {sorted(set(observed_dirs))}, expected {sorted(expected_dirs)}"
+        )
+
+    expected_id_by_dir = {
+        path.name: identity[0] for identity, path in attacks_by_identity.items()
+    }
+    for index, (block, directory) in enumerate(zip(verified_blocks, observed_dirs), 1):
+        eprint_ids = re.findall(r"\bePrint\s+([0-9]{4}/[0-9]+)\b", block)
+        expected_id = expected_id_by_dir.get(directory)
+        if {normalized_eprint(value) for value in eprint_ids} != {
+            normalized_eprint(str(expected_id))
+        }:
+            reporter.fail(
+                f"README.md Verified attack summary {index} for {directory!r} must "
+                f"refer only to ePrint {expected_id}; found {eprint_ids}"
+            )
+
+
 def main() -> int:
     reporter = Reporter()
     catalog_value = load_json(CATALOG_JSON, reporter)
@@ -745,6 +922,7 @@ def main() -> int:
             )
 
     validate_dashboard(catalog, attack_records, reporter)
+    validate_readme_summary_structure(catalog, attacks_by_identity, reporter)
 
     if reporter.errors:
         print(
