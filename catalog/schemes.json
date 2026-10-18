@@ -1702,5 +1702,185 @@
     "attack_result": "Global sanitizer-key recovery with fresh-message forgery from public cross-Join masks",
     "independent_reproduction": true,
     "verification_basis": "Passed technical adjudication, independent full-parameter reproduction, final falsification review, final exact-target history gate, and independent Publication Review"
+  },
+  {
+    "scheme": "Spinel",
+    "aliases": [
+      "Spinel signature",
+      "SL_n(F_p) hashing signature"
+    ],
+    "eprint_id": "2026/221",
+    "eprint_version": "v1",
+    "eprint_date": "2026-02-12",
+    "family": "SPHINCS+-style stateless hash-based signature with an SL_4(F_p) Cayley-walk hash",
+    "authors": [
+      "Asmaa Cherkaoui",
+      "Faraz Heravi",
+      "Delaram Kahrobaei",
+      "Siamak F. Shahandashti"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-07",
+    "url": "https://eprint.iacr.org/2026/221",
+    "exclusion_basis": "Olejnik and Naskrecki, arXiv:2608.21986v1 Section 4.2, publicly give deterministic collisions and second preimages in Spinel's variable-length byte-to-trit encoding. An unchanged-signature substitution follows when H_msg uses Spinel; that signature consequence remains conditional because the paper does not separately pin down H_msg."
+  },
+  {
+    "scheme": "D-HFELL'",
+    "aliases": [
+      "Dragon HFE_LL'",
+      "Dragon HFELL'",
+      "D-HFE_LL'"
+    ],
+    "eprint_id": "2026/404",
+    "eprint_version": "v2 (2026-08-17; last of two revisions)",
+    "eprint_date": "2026-02-27",
+    "family": "Dragon HFE signature with LL' perturbations and separated hash/signature variables",
+    "authors": [
+      "Jacques Patarin",
+      "Jan Vacek",
+      "Alexandre Roullet"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2026/404",
+    "exclusion_basis": "Olejnik and Naskrecki, arXiv:2608.21986v1 Section 4.7, give substantive exact-target structural cryptanalysis that lowers claimed MinRank rows and removes the exact-one LL' hardening. No complete practical signing endpoint is reported."
+  },
+  {
+    "scheme": "VWZ tensor signature, three-dimensional rank-one construction",
+    "aliases": [
+      "Trapdoor one-way functions from tensors",
+      "Vandermonde-Weyman-Zelevinsky tensor signature",
+      "Sigma_3DB",
+      "VWZ tensor signature"
+    ],
+    "eprint_id": "2025/624",
+    "eprint_version": "v3, current revision dated 2026-08-19",
+    "eprint_date": "2025-04-07",
+    "family": "Hash-and-sign signature from rank-one three-dimensional tensor trapdoor maps",
+    "authors": [
+      "Anand Kumar Narayanan"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-14",
+    "url": "https://eprint.iacr.org/2025/624",
+    "exclusion_basis": "FIBEMATE publicly documents an O(k^3) public-key-only fresh-message forgery against the exact rank-one three-dimensional verifier and reports 36/36 accepted forgeries. The later rank-two successor is a distinct construction."
+  },
+  {
+    "scheme": "ESIGN-D",
+    "aliases": [
+      "How to repair ESIGN",
+      "NESSIE ESIGN-D",
+      "ESIGN-D-NESSIE-1536-SHA1-MGF1-E65537"
+    ],
+    "eprint_id": "2002/074",
+    "eprint_version": "final fourth revision, modified 2002-09-16",
+    "eprint_date": "2002-06-07",
+    "family": "deterministic approximate-e-th-root signature with a fixed SHA-1/MGF1-SHA1 message representative",
+    "authors": [
+      "Louis Granboulan"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-16",
+    "url": "https://eprint.iacr.org/2002/074",
+    "exclusion_basis": "Leurent and Nguyen's CRYPTO 2009 analysis publicly identifies the revised NESSIE ESIGN-D derandomization and its existential forgery from any hash collision. The exclusion covers the fixed-SHA-1 profile and makes no claim against a collision-resistant replacement hash."
+  },
+  {
+    "scheme": "GPS trusted-setup code signature",
+    "aliases": [
+      "GPS",
+      "Designing a Practical Code-based Signature Scheme from Zero-Knowledge Proofs with Trusted Setup"
+    ],
+    "eprint_id": "2021/1020",
+    "eprint_version": "current minor revision dated 2021-11-08",
+    "eprint_date": "2021-08-20",
+    "family": "code-based Fiat-Shamir signature from zero-knowledge proofs with trusted setup",
+    "authors": [
+      "Shay Gueron",
+      "Edoardo Persichetti",
+      "Paolo Santini"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-17",
+    "url": "https://eprint.iacr.org/2021/1020",
+    "exclusion_basis": "Elbro and Santini, ePrint 2025/1523, directly evaluate all four advertised GPS rows and lower every claimed 128-bit estimate. Their best displayed estimate remains above the campaign's practical 2^45 cutoff and supplies no campaign-qualifying practical endpoint."
+  },
+  {
+    "scheme": "SPHINCS-Simpira",
+    "aliases": [
+      "SPHINCS Simpira",
+      "SPHINCS-256-Simpira",
+      "SPHINCS-256 with Simpira v2"
+    ],
+    "eprint_id": "2017/645",
+    "eprint_version": "current landing marked Preprint. MINOR revision; exact revision date not exposed",
+    "eprint_date": "2017-07-05",
+    "family": "stateless hash-based SPHINCS-256 signature with full-round Simpira v2 feedforward functions",
+    "authors": [
+      "Shay Gueron",
+      "Nicky Mouha"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-17",
+    "url": "https://eprint.iacr.org/2017/645",
+    "exclusion_basis": "The public multi-target attack on SPHINCS-256 transfers because this target retains the construction and parameters while replacing only unkeyed F and H. It compromises the claimed 128-bit post-quantum profile; no full-round Simpira v2 primitive break is claimed."
+  },
+  {
+    "scheme": "RingSLIP: Ring Signatures from the Lattice Isomorphism Problem",
+    "aliases": [
+      "RingSLIP",
+      "RingSLIP HAWK-512"
+    ],
+    "eprint_id": "2026/889",
+    "eprint_version": "single displayed ePrint record; received 2026-05-06 and approved 2026-05-09; current official PDF bytes unresolved",
+    "eprint_date": "2026-05-06",
+    "family": "ring signature from the lattice isomorphism problem with HAWK-512 signing and a Fiat-Shamir membership proof",
+    "authors": [
+      "Callum London",
+      "Daniel Gardham",
+      "Constantin Catalin Dragan"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/889",
+    "exclusion_basis": "EPrint 2026/1593 gives equivalent-key recovery for the exact HAWK-512 component at about 2^108 gates, and RingSLIP's verifier gives a direct one-query fresh-message transfer. The estimate is above the practical 2^45 cutoff and the campaign ran no attack experiment."
+  },
+  {
+    "scheme": "SPRITZ: A Short PRISM-Based Threshold Signature via Zero-Knowledge Proof",
+    "aliases": [
+      "SPRITZ",
+      "Threshold PRISM",
+      "Threshold PRISM Signature Schemes via Graph-Based Threshold Access Structures"
+    ],
+    "eprint_id": "2026/945",
+    "eprint_version": "current revision dated 2026-09-28; initial May 2026 Threshold PRISM revision affected",
+    "eprint_date": "2026-05-13",
+    "family": "PRISM-based post-quantum threshold signature using sequential isogeny push-forwards and NIZK-validated partial signing in the repaired revision",
+    "authors": [
+      "Hyeonhak Kim",
+      "Won Kim",
+      "Changmin Lee"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/945",
+    "exclusion_basis": "Maino and Petit, ePrint 2026/1030 Section 6.2, recover secret signing shares from the initial Threshold PRISM revision under this ePrint identifier. The September SPRITZ revision adds countermeasures and is not claimed broken."
+  },
+  {
+    "scheme": "A Post-Quantum Accountable Sanitizable Signature Scheme Based on Unbalanced Oil and Vinegar",
+    "aliases": [
+      "UOV-San",
+      "A Post-Quantum Sanitizable Signature Scheme Based on Unbalanced Oil and Vinegar"
+    ],
+    "eprint_id": "2026/827",
+    "eprint_version": "current revision dated 2026-06-02; last of 8 revisions",
+    "eprint_date": "2026-04-28",
+    "family": "accountable sanitizable signature composed from three independent UOV public maps, including signer and sanitizer signature maps plus a trapdoor chameleon-hash map",
+    "authors": [
+      "Zhiwei Wang"
+    ],
+    "status": "KNOWN_ATTACK_EXCLUDED",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/827",
+    "exclusion_basis": "Furue and Ikematsu, ePrint 2026/298, give hidden-oil-subspace key recovery at about 2^223 gates for the exact UOV Level-V component used by UOV-San, with a direct sanitizer-signing transfer. Levels I and III are not claimed broken, and this is not a practical campaign attack."
   }
 ]

@@ -77,6 +77,15 @@ README_EXCLUSION_ORDER = (
     "ATLAS",
     "CMSS",
     "Ye temporary-key lattice signature",
+    "Spinel",
+    "D-HFELL'",
+    "VWZ tensor signature, three-dimensional rank-one construction",
+    "ESIGN-D",
+    "GPS trusted-setup code signature",
+    "SPHINCS-Simpira",
+    "RingSLIP: Ring Signatures from the Lattice Isomorphism Problem",
+    "SPRITZ: A Short PRISM-Based Threshold Signature via Zero-Knowledge Proof",
+    "A Post-Quantum Accountable Sanitizable Signature Scheme Based on Unbalanced Oil and Vinegar",
 )
 README_AUDIT_ORDER = (
     "ECLIPSE",

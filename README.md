@@ -14,8 +14,8 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 58 |
-| Known attacks excluded | 3 |
+| Schemes identified | 67 |
+| Known attacks excluded | 12 |
 | Schemes audited | 55 |
 | No practical attack found | 35 |
 | Verified and independently reproduced practical design attacks | 20 |
@@ -47,7 +47,7 @@ unreported.
 
 ## Known attack exclusions
 
-Three catalog records are excluded by prior public attacks or substantive
+Twelve catalog records are excluded by prior public attacks or substantive
 exact-target cryptanalysis:
 
 - ATLAS (ePrint 2026/2323) is the published form of MORNING-ATLAS/NGCC
@@ -65,6 +65,34 @@ exact-target cryptanalysis:
   defense against quadratic statistical attacks fails and explains the
   product-statistic mechanism. No public practical endpoint was located, but
   this substantive exact-target analysis controls the campaign's history gate.
+- Spinel (ePrint 2026/221) has public deterministic collisions and second
+  preimages in its variable-length byte-to-trit encoding. An unchanged-signature
+  substitution follows if `H_msg` uses Spinel; that consequence remains
+  conditional because the paper does not separately pin down `H_msg`.
+- D-HFELL' (ePrint 2026/404) has exact-target structural cryptanalysis that
+  lowers claimed MinRank rows and removes the exact-one LL' hardening. No
+  complete practical signing endpoint is reported.
+- VWZ tensor signature (ePrint 2025/624) has a public `O(k^3)` public-key-only
+  fresh-message forgery against its rank-one three-dimensional verifier, with
+  36/36 reported successes. The later rank-two successor is distinct.
+- ESIGN-D (ePrint 2002/074) was already identified by Leurent and Nguyen as
+  existentially forgeable from any hash collision. This exclusion covers the
+  fixed-SHA-1 profile, not a profile using a collision-resistant replacement.
+- GPS (ePrint 2021/1020) has public exact-row parameter cryptanalysis lowering
+  all four advertised 128-bit estimates. The best displayed estimate remains
+  above `2^45` and supplies no campaign-qualifying practical endpoint.
+- SPHINCS-Simpira (ePrint 2017/645) retains the SPHINCS-256 construction and
+  parameters affected by the public multi-target attack, compromising its
+  claimed 128-bit post-quantum profile. No full-round Simpira v2 break is claimed.
+- RingSLIP (ePrint 2026/889) inherits public equivalent-key recovery against its
+  exact HAWK-512 component, and its verifier gives a direct one-query
+  fresh-message transfer. The roughly `2^108` estimate is above `2^45`.
+- SPRITZ (ePrint 2026/945) descends under the same ePrint identifier from the
+  initial Threshold PRISM revision, for which public work recovers secret signing
+  shares. The September repair is not claimed broken.
+- UOV-San (ePrint 2026/827) uses the exact Level-V UOV component with public
+  hidden-oil-subspace key recovery and a direct sanitizer-signing transfer. The
+  estimate is about `2^223`; Levels I and III are not claimed broken.
 
 ## Completed audits without a practical attack
 
