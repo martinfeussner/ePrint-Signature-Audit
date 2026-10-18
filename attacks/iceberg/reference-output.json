@@ -52,7 +52,7 @@
     "queried_message_sha256": "d5d768e2b6d7f58984f547d6eefa18a696e1f8c105da3b1a7bea69e5cc5b0136"
   },
   "environment": {
-    "dependencies": "Python 3 standard library",
+    "dependencies": "Python 3.8+ standard library",
     "workers": 1
   },
   "game_accounting": {

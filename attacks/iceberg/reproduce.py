@@ -483,7 +483,7 @@ def run():
             "queried_message_sha256": sha256(queried_message).hexdigest(),
         },
         "environment": {
-            "dependencies": "Python 3 standard library",
+            "dependencies": "Python 3.8+ standard library",
             "workers": 1,
         },
         "attack": {

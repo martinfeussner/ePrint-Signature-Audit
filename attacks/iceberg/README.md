@@ -10,6 +10,10 @@
 > mass, while the attack splits one Iceberg session across several outer
 > contexts. OpenAI Codex assisted with target reconstruction, cryptanalysis,
 > implementation, experiments, review coordination, and technical writing.
+> A separately tasked AI adversarial reviewer attempted to disprove the claim
+> by checking the oracle schedule, attacker-visible inputs, source and profile
+> pins, verifier path, freshness, scope, and attribution, and returned PASS
+> with no blocking correction.
 > Independent human verification was not performed; it is optional and is not
 > a publication requirement.
 
@@ -28,7 +32,9 @@
 | Signing queries | Three: one to each honest member, all on the same message and SID |
 | Forged-message participation | Zero honest members |
 | Primary source-backed run | 0.01 seconds, 2,560 KiB peak RSS, one worker |
-| Independent reproduction | PASS; 0.92 seconds, 15,360 KiB peak RSS, one worker |
+| Independent reproduction | PASS; coordinator replay took 0.95 seconds wall (0.92 seconds user), 15,360 KiB peak RSS, one worker |
+| Execution environment | AMD EPYC Processor under KVM, Linux x86_64 |
+| Deterministic samples | Primary source-backed run 1/1; independent reproduction 1/1 |
 | Layer | Design-level formal-game weakness, exercised through the pinned author artifact |
 | Conditions | The paper's Figure 3 game, where a SID is bound to one message but the complete outer context is not bound across honest members |
 | Attack history | No previous public report of the complete Iceberg-specific attack was located in searches through 18 October 2026 |
@@ -93,7 +99,7 @@ single-underlying-call simulation.
 
 ## Reproduce
 
-The public reproduction uses Python 3's standard library only:
+The public reproduction uses Python 3.8 or later and its standard library only:
 
 ```sh
 python3 -B reproduce.py > /tmp/iceberg-result.json

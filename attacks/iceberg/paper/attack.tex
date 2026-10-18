@@ -65,8 +65,11 @@ fresh-context AI checker reimplemented the secp256k1, BIP327, BIP340, sharing,
 and extraction logic and returned PASS with negative controls. The exact
 pinned-source C diagnostic was also rerun and returned PASS. The formal-game,
 claim-boundary, and prior-art objections were reviewed separately before
-publication. Independent human verification was not performed; it is optional
-and is not a publication requirement.}}
+publication. A separately tasked AI adversarial reviewer attempted to disprove
+the claim by checking the oracle schedule, attacker-visible inputs, source and
+profile pins, verifier path, freshness, scope, and attribution, and returned
+PASS with no blocking correction. Independent human verification was not
+performed; it is optional and is not a publication requirement.}}
 
 \begin{abstract}
 Iceberg, proposed in IACR ePrint 2026/1757, lets a threshold group occupy one
@@ -96,7 +99,8 @@ An exact-source C diagnostic pinned to artifact commit
 \texttt{b2f87cb047467dd78852bc32722a5228a7167f5e} recovered the key and verified
 the fresh signature in 0.01 seconds using 2,560 KiB peak resident memory. An
 independently written standard-library Python implementation reproduced the
-result in 0.92 seconds using 15,360 KiB. Both use the ordinary BIP340 verifier,
+result in 0.95 seconds wall time (0.92 seconds user time) using 15,360 KiB.
+Both use the ordinary BIP340 verifier,
 and negative controls reject repeated contexts, two equations, omitted nonce
 parity, and raw unaggregated responses. The three-response MuSig2 solve,
 same-message context manipulation, and replicated-sharing split ingredients
@@ -387,8 +391,9 @@ public transcript, the corrupt member's shares, three honest responses, and
 the controlled cosigner secret. Fixture-wide secrets are used only for
 post-recovery assertions.
 
-The checker returned PASS in 0.92 seconds with 15,360 KiB maximum resident
-memory on one process and worker. Its JSON output matched the supplied
+The coordinator replay of the checker returned PASS in 0.95 seconds wall time
+(0.92 seconds user time) with 15,360 KiB maximum resident memory on one
+process and worker. Its JSON output matched the supplied
 independent result byte for byte. It confirmed the following negative
 controls:
 \begin{itemize}
