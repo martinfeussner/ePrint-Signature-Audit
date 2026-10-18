@@ -71,6 +71,7 @@ README_ATTACK_ORDER = (
     "iceberg",
     "bls-2p-aiso-as",
     "cube",
+    "dss-ms",
 )
 README_EXCLUSION_ORDER = (
     "ATLAS",
@@ -112,6 +113,7 @@ README_AUDIT_ORDER = (
     "smklhs: Succinct Multi key Linearly Homomorphic Signatures for Certified Statistics",
     "BRaccoon: Concurrently Secure Blind Lattice Signatures from Raccoon",
     "Practical Silent Threshold Signatures and Silent Threshold Encryption for Dynamic Committees",
+    "ARES: Online-Friendly Robust Threshold ECDSA with Amortized Costs",
 )
 README_LABEL_OVERRIDES = {
     "Yagisawa quaternion signature": {"Yagisawa's quaternion signature"},

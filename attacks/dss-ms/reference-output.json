@@ -1,0 +1,49 @@
+{
+  "attack": {
+    "classification": "public cross-Join global sanitizer-scalar recovery followed by a one-query fresh-message forgery",
+    "observed_join_events": 1,
+    "public_parameter_epochs": 2,
+    "sanitizing_queries": 0,
+    "signing_queries": 1
+  },
+  "checks": {
+    "all_sanitizers_odd": true,
+    "attacker_receives_no_hidden_sanitizer_scalar": true,
+    "attacker_receives_no_individual_sanitizer_secret": true,
+    "bls12_381_generator_has_prime_subgroup_order": true,
+    "bls12_381_generator_is_on_curve": true,
+    "exact_full_profile": true,
+    "forged_fresh_message_accepts": true,
+    "forgery_preserves_chameleon_hash": true,
+    "forgery_retains_outer_signature_R": true,
+    "forgery_retains_outer_signature_z": true,
+    "full_message_is_fresh": true,
+    "honest_signature_accepts": true,
+    "old_signature_accepts_after_join": true,
+    "pairwise_coprime_sanitizers": true,
+    "public_gcd_equals_global_sanitizer_scalar": true,
+    "recovered_scalar_matches_public_key": true,
+    "unchanged_signature_rejects_fresh_message": true,
+    "wrong_candidate_forgery_rejected": true,
+    "wrong_candidate_rejected_by_public_key": true,
+    "wrong_sanitizer_public_key_rejects": true
+  },
+  "digests": {
+    "public_mask_after_join_sha256": "0dde129d14a147e7ad3cdd1f2600ae39b63bdb656b5f2be98d3054e57929c844",
+    "public_mask_before_join_sha256": "0f9df0f72b7bee66d3d32c2c150f28891975a73abeedf9bde8ae88497a5df85b"
+  },
+  "environment": {
+    "dependencies": "python-standard-library-only",
+    "workers": 1
+  },
+  "measurements": {
+    "final_sanitizers": 3020,
+    "global_sanitizer_scalar_bits": 251,
+    "initial_sanitizers": 3000,
+    "joined_sanitizers": 20,
+    "residual_cofactor": 1
+  },
+  "profile": "DSSMS-BLS12381-SHA256-N3000-ADD20-CRT-INMEM-20260111",
+  "result": "PASS_DSS_MS_PUBLIC_CROSS_JOIN_RECOVERY_AND_FRESH_MESSAGE_FORGERY",
+  "scope": "One deterministic exact n=3000, Join(+20), BLS12-381/SHA-256 primary instance using a source-equivalent ordinary verifier"
+}

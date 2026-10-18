@@ -1639,5 +1639,68 @@
     "attack_path": "attacks/cube/",
     "independent_reproduction": true,
     "verification_basis": "Passed technical, adversarial, independent-reproduction, final-history, and publication-review gates"
+  },
+  {
+    "scheme": "ARES: Online-Friendly Robust Threshold ECDSA with Amortized Costs",
+    "aliases": [
+      "ARES",
+      "ARES+"
+    ],
+    "eprint_id": "2026/130",
+    "eprint_version": "v2 dated 2026-08-26",
+    "eprint_date": "2026-01-27",
+    "family": "robust threshold ECDSA with verifiable non-interactive multiplication and packed secret sharing",
+    "authors": [
+      "Guofeng Tang",
+      "Tian Qiu",
+      "Bowen Jiang",
+      "Haiyang Xue",
+      "Meng Hao",
+      "Guomin Yang",
+      "Robert H. Deng"
+    ],
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/130",
+    "paper_sha256": "4ad6363fc7049fc3873cba78204d57ba40f6ee0302ee4d66f2ab237c9080fa21",
+    "audit_completed_at": "2026-10-18",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / BOUNDED_PAPER_PROFILE_NEGATIVE / CONDITIONAL_INTEGER_LIFT_ENDPOINT / REOPEN_CONDITIONAL",
+    "audit_note": "The submitted recovery works under a counterfactual unreduced-integer RoutB response, but the frozen v2 paper types the response operands in Z_q and a same-appendix control confirms ordinary field semantics. Reducing modulo q removes the interval premise, so no qualifying design attack remains.",
+    "reopen_conditions": [
+      "Authoritative ARES source or a normal transcript establishes that RoutB intentionally serializes the unreduced integer response as intended design behavior rather than an isolated implementation mistake.",
+      "An authoritative clarification both mandates the integer-lift response and admits the t+ell signer subset under the claimed security model.",
+      "The recovery is extended to the advertised |S| >= 2t+ell robust set without assuming unknown honest VNIM terms.",
+      "A practical recovery and fresh-signing route survives the ordinary reduced Z_q response."
+    ]
+  },
+  {
+    "scheme": "Towards Privacy-Preserving Unmanned Aerial Vehicles Shared Logistics via Dynamic Sanitizable Signature with Multiple Sanitizers",
+    "aliases": [
+      "DSS-MS",
+      "Dynamic Sanitizable Signature with Multiple Sanitizers"
+    ],
+    "eprint_id": "2026/041",
+    "eprint_version": "current landing-visible body received and approved 2026-01-11; ordinal unresolved",
+    "eprint_date": "2026-01-11",
+    "family": "dynamic sanitizable signature with multiple sanitizers using integer CRT access masks and a BLS12-381 chameleon hash",
+    "authors": [
+      "Mingwei Zeng",
+      "Qingyang Zhang",
+      "Jie Cui",
+      "Hong Zhong",
+      "Fengqun Wang"
+    ],
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/041",
+    "source_url": "https://github.com/rookie-papers/DSS-MS",
+    "source_commit": "b994a3f46cbe5501f47f53aa2e6942cff714b53a",
+    "source_tree": "5d1b072040170d6df8bca709403d1e01d609536e",
+    "paper_sha256": "d35dcd98dc2442b6e263ef58276086832287a3f9d2f9e0131e4b0ad6c7324a20",
+    "audit_completed_at": "2026-10-18",
+    "attack_path": "attacks/dss-ms/",
+    "attack_result": "Global sanitizer-key recovery with fresh-message forgery from public cross-Join masks",
+    "independent_reproduction": true,
+    "verification_basis": "Passed technical adjudication, independent full-parameter reproduction, final falsification review, final exact-target history gate, and independent Publication Review"
   }
 ]

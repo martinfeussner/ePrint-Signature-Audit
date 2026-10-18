@@ -1,0 +1,563 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array,tabularx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{seqsplit}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={DSS-MS Unmasked: Public Cross-Join Sanitizer-Key Recovery and Fresh-Message Forgery},
+  pdfauthor={Martin Feussner},
+  pdfsubject={Cryptanalytic audit report for IACR ePrint 2026/041},
+  pdfkeywords={digital signatures, DSS-MS, sanitizable signatures, Chinese remainder theorem, common factor, GCD, key recovery, forgery}
+}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{2em}
+\Urlmuskip=0mu plus 1mu
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{DSS-MS Unmasked}
+\fancyhead[R]{18 October 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\Zq}{\mathbb{Z}_q}
+\newcommand{\KeyGen}{\mathsf{KGen}}
+\newcommand{\DJoin}{\mathsf{Join}}
+\newcommand{\Verify}{\mathsf{Verify}}
+\newcommand{\Sanitize}{\mathsf{Sanitizing}}
+\newcommand{\hash}[1]{{\ttfamily\small\seqsplit{#1}}}
+
+\title{\bfseries DSS-MS Unmasked:\\
+Public Cross-Join Sanitizer-Key Recovery and Fresh-Message Forgery}
+\author{Martin Feussner\\
+\small Selmer Center, University of Bergen\\
+\small \texttt{martin.feussner@uib.no}}
+\date{18 October 2026}
+
+\begin{document}
+\maketitle
+\noindent\fcolorbox{black!55}{black!4}{\parbox{0.94\textwidth}{
+This audit used the OpenAI model Daybreak Blue at the ultra reasoning level.
+OpenAI Codex generated and selected the paper title and deliberately chose
+``Unmasked'' as wordplay on the DSS-MS public sanitizer-key mask revealing the
+sanitizer key. OpenAI Codex performed AI-assisted paper and source
+reconstruction, cryptanalysis, implementation, experimentation, review
+coordination, and technical writing. A separately tasked AI reviewer checked
+the sealed primary evidence for internal consistency and returned
+\texttt{PASS}. A fresh-context AI agent independently reconstructed the target,
+executed eight prospectively sealed full-profile trials, and returned
+\texttt{PASS\_INDEPENDENT\_REPRODUCTION}. A separately tasked hostile
+falsification review returned \texttt{PASS\_FINAL\_FALSIFICATION\_REVIEW}, and
+the final exact-target history recheck returned
+\texttt{PASS\_FINAL\_EXACT\_TARGET\_HISTORY\_GATE}. An independent AI
+Publication Reviewer reviewed the corrected package and returned
+\texttt{PASS\_PUBLICATION\_REVIEW}.
+Independent human verification was not performed; it is optional and is not a
+publication requirement.}}
+
+\begin{abstract}
+DSS-MS, proposed in IACR ePrint 2026/041, publishes a Chinese-remainder
+sanitizer-key mask
+\(
+  S_x=A\,sk_s
+\)
+as an unreduced integer. The dynamic \(\DJoin\) procedure recomputes the CRT
+coefficient after adding sanitizers and publishes
+\(S'_x=A'\,sk_s\) under the same global sanitizer public key
+\(PK_s=sk_sP\). A passive observer therefore obtains
+\[
+  \gcd(S_x,S'_x)=sk_s\gcd(A,A').
+\]
+On the first and only precommitted exact primary instance, containing 3,000
+initial sanitizers and one ordinary addition of 20, the residual GCD was one.
+One public integer GCD recovered the 251-bit global sanitizer scalar, and the
+public equation \(sk_sP=PK_s\) validated the candidate.
+
+Given one valid signature \((R,z,s,T)\) on full message \((m_0,m)\), the
+recovered scalar permits the observer to preserve \((R,z)\), retarget the
+chameleon-hash component, and obtain a signature accepted on the distinct
+full message \((m_0,m')\). Only the sanitizable component changes. The sealed
+primary standard-library implementation used actual BLS12-381 G1 arithmetic,
+matched the pinned source's SHA-256 transcript conversion, and called a
+source-equivalent reconstruction of the ordinary verifier. Its exact run took
+34.807209 seconds and 20,480 KiB peak resident memory with one worker. Three
+attack-specific negative controls rejected.
+
+An independent implementation ran eight prospectively sealed exact profiles.
+Seven recovered exactly after one Join and forged successfully. The retained
+eighth trial had residual factor 2 after one Join and at 3,040 sanitizers; its
+cumulative public-mask GCD became exact at 3,060 sanitizers, where the forgery
+and controls passed. The full eight-trial run took 372.77 seconds and 27,136
+KiB peak resident memory with one worker. Thus one-Join recovery is practical
+but not guaranteed. The attack recovers the global sanitizer scalar rather
+than the original signer scalar, changes only the sanitizable component, and
+excludes \(\mathsf{Revoke}\), the separate range-condition correctness defect,
+and any compiled-author-binary claim. Repeated-common-factor GCD recovery is
+prior art in the PA-CRT lineage; we claim no novelty for the technique. Final
+falsification, exact-target history review, and independent Publication Review
+passed.
+\end{abstract}
+
+\section{Introduction and exact claim}
+
+Zeng, Zhang, Cui, Zhong, and Wang propose a dynamic sanitizable signature with
+multiple sanitizers (DSS-MS) for privacy-preserving shared logistics
+\cite{dssms}. A signer authenticates a message
+\(M=(m_0,m)\), where \(m_0\) is fixed and \(m\) is designated sanitizable.
+Every authorized sanitizer receives its own secret \(sk_i\), while the system
+uses one global temporary sanitizer scalar \(sk_s\). A public CRT mask lets
+each sanitizer derive \(sk_s\) by reduction modulo its own secret. The scheme
+adds and revokes sanitizers dynamically.
+
+The addition lifecycle republishes the CRT mask while keeping the same global
+scalar. This produces two public integers with a common secret factor. The
+exact claim is:
+
+\begin{quote}
+For the paper-claimed BLS12-381/SHA-256 profile with 3,000 existing
+sanitizers, a passive observer retains the public \(S_x\) values immediately
+before and after one ordinary \(\DJoin(20)\). On the precommitted primary
+instance, their GCD is exactly \(sk_s\). The observer validates this value
+against \(PK_s\), then uses one valid signature to produce an accepted
+signature on a fresh full message whose sanitizable component is distinct.
+\end{quote}
+
+The result is design-level: both the paper and pinned source use unreduced
+integer masks and reuse the scalar through \(\DJoin\). It needs no parser
+behavior, malformed point, weak curve, secret channel, attacker-selected
+enrollment, rollback, side channel, or implementation memory defect. The
+recovered value is not the original signer's Schnorr secret. It is the global
+sanitizer scalar, an equivalent signing capability for the scheme's designated
+message transformation.
+
+The primary experiment, evidence consistency review, fresh-context independent
+reproduction, final falsification review, final exact-target history recheck,
+and independent Publication Review passed. The result is classified as a
+verified practical design attack under the project charter.
+
+\paragraph{Contributions.}
+We identify the common-factor exposure across ordinary public-parameter
+epochs; prove the exact key-recovery identity and its public validation rule;
+give the fresh-message signing bridge through the scheme's own sanitization
+equations; report a precommitted full-profile execution and eight-trial
+independent reproduction with controls; state the source and verifier boundary;
+distinguish a separate correctness defect; credit the PA-CRT GCD lineage; and
+give repair directions.
+
+\section{Target, version, source, and profile}
+
+The target is the current landing-visible body of \emph{Towards
+Privacy-Preserving Unmanned Aerial Vehicles Shared Logistics via Dynamic
+Sanitizable Signature with Multiple Sanitizers}, IACR ePrint 2026/041
+\cite{dssms}. The retained 15-page PDF has SHA-256 digest
+\begin{center}
+\hash{d35dcd98dc2442b6e263ef58276086832287a3f9d2f9e0131e4b0ad6c7324a20}.
+\end{center}
+The official landing page records receipt and approval on 11 January 2026. A
+version-history endpoint was unavailable during the audit, so this report
+does not assign an unsupported revision ordinal.
+
+The paper links the authors' DSS-MS repository \cite{source}. The selected
+paper-time source commit and tree are
+\begin{center}
+\hash{b994a3f46cbe5501f47f53aa2e6942cff714b53a},\\
+\hash{5d1b072040170d6df8bca709403d1e01d609536e}.
+\end{center}
+At the retrieved head
+\hash{b48e6359a0c3dce11cc6bf8445577770418d6d27}, the relevant
+\texttt{DSS/src/DSS.cpp} remained byte-identical to its paper-time form. The
+source fixes 3,000 sanitizers and 256-bit sanitizer values. The paper evaluates
+batch additions including 20, and both paper and source accept the addition
+count as an input to \(\DJoin\). We therefore freeze profile
+\begin{center}
+\texttt{DSSMS-BLS12381-SHA256-N3000-ADD20-CRT-INMEM-20260111}.
+\end{center}
+
+The source uses BLS12-381 and SHA-256. It provides no fixed portable
+known-answer vector or normative wire format. Our endpoint is therefore a
+source-equivalent reconstruction of the ordinary equations and transcript
+conversion, not execution of a compiled author binary.
+
+\section{DSS-MS equations}
+
+\subsection{Public CRT mask}
+
+Let the sanitizer secrets \(sk_1,\ldots,sk_n\) be pairwise coprime positive
+integers. Define
+\begin{align}
+  N   &= \prod_{i=1}^{n} sk_i, &
+  N_i &= N/sk_i, \\
+  y_iN_i &\equiv 1 \pmod{sk_i}, &
+  A   &= \sum_{i=1}^{n} y_iN_i.                 \label{eq:crt}
+\end{align}
+The construction samples a global sanitizer scalar \(sk_s\in\Zq^*\), publishes
+\begin{equation}
+  S_x=A\,sk_s\quad\text{over the integers},
+  \qquad PK_s=sk_sP,                              \label{eq:mask}
+\end{equation}
+and gives sanitizer \(i\) the intended recovery rule
+\(sk_s=S_x\bmod sk_i\). Because \(A\equiv1\pmod{sk_i}\), that rule returns
+\(sk_s\bmod sk_i\). Literal recovery therefore additionally requires
+\(sk_s<sk_i\); Section~\ref{sec:limits} separates this omitted correctness
+condition from our attack.
+
+The public nature of \(S_x\) is explicit. \(\KeyGen\) returns it, the paper's
+unforgeability experiment gives it to the adversary, the deployment text says
+the logistics company publishes it, and the public parameters contain it. The
+source stores it as a GMP integer and serializes its complete hexadecimal
+representation.
+
+\subsection{Join lifecycle}
+
+Suppose an ordinary \(\DJoin\) adds \(r\) sanitizers. It forms the enlarged
+modulus set, recomputes Equation~\eqref{eq:crt} as \(A'\), and publishes
+\begin{equation}
+  S'_x=A'\,sk_s.                                    \label{eq:joined-mask}
+\end{equation}
+The named scalar remains \(sk_s\), and \(PK_s\) is not rotated. The pinned
+source corroborates the paper: \(\KeyGen\) assigns
+\texttt{pp.u\_s = keyPair.sk * u}, while \(\DJoin\) receives the same
+sanitizer scalar and assigns \texttt{pp.u\_s = sk\_san * crt.u}. Neither
+operation applies a modulus to this multiplication.
+
+\subsection{Signing and verification}
+
+Let \(P\) generate a prime-order group of order \(q\). A signature is
+\(\sigma=(R,z,s,T)\). On \(M=(m_0,m)\), the ordinary verifier computes
+\begin{align}
+  e  &= H_0(m,T), \\
+  CH &= T+sP+ePK_s,                                  \label{eq:ch}\\
+  c  &= H_1(m_0,R,CH),                               \label{eq:challenge}
+\end{align}
+and accepts exactly when
+\begin{equation}
+  zP=R+cPK,                                           \label{eq:verify}
+\end{equation}
+where \(PK\) is the original signer's public key. An authorized sanitizer
+changes \(m\) by preserving \(CH\) and hence the signer's challenge.
+
+\section{Public cross-Join key recovery}
+
+\begin{theorem}[Common-factor recovery]
+For public masks \(S_x=A\,sk_s\) and \(S'_x=A'\,sk_s\) computed over the
+integers with the same positive scalar \(sk_s\),
+\[
+  \gcd(S_x,S'_x)=sk_s\gcd(A,A').
+\]
+If \(\gcd(A,A')=1\), the GCD is exactly \(sk_s\).
+\end{theorem}
+
+\begin{proof}
+For positive integers, \(\gcd(au,av)=a\gcd(u,v)\). Substitute
+\(a=sk_s\), \(u=A\), and \(v=A'\). The coprime case follows immediately.
+\end{proof}
+
+The observer need not know any sanitizer secret or either coefficient. It
+computes \(g=\gcd(S_x,S'_x)\) directly. The public point supplies an exact
+candidate test:
+\begin{equation}
+  gP\stackrel{?}{=}PK_s.                              \label{eq:public-check}
+\end{equation}
+If a residual factor \(d=\gcd(A,A')>1\) remains, the one-Join candidate is
+\(sk_s d\) and normally fails Equation~\eqref{eq:public-check}. Further public
+epochs can reduce the common residual by taking a GCD across all retained
+masks. The primary experiment used exactly one Join and had unit residual. The
+independent experiment below measured both outcomes: seven of eight sealed
+trials had unit residual after one Join, while one retained residual required
+two more public epochs. One-Join recovery is therefore not asserted to be
+universal.
+
+\section{From the sanitizer scalar to a fresh-message forgery}
+
+\begin{theorem}[Retargeting]
+Suppose \((R,z,s,T)\) is accepted on \((m_0,m)\) under
+\((PK,PK_s)\), and an attacker knows \(sk_s\) such that
+\(PK_s=sk_sP\). For any distinct sanitizable component \(m'\) and any
+\(k\in\Zq\), define
+\begin{align}
+  T' &= CH-kP,                                        \label{eq:tprime}\\
+  e' &= H_0(m',T'), \\
+  s' &= k-e'sk_s\pmod q.                             \label{eq:sprime}
+\end{align}
+Then \((R,z,s',T')\) is accepted by the ordinary verifier on the fresh full
+message \((m_0,m')\).
+\end{theorem}
+
+\begin{proof}
+Using \(PK_s=sk_sP\) and Equations~\eqref{eq:tprime}--\eqref{eq:sprime}, the
+verifier reconstructs
+\begin{align*}
+  T'+s'P+e'PK_s
+  &= CH-kP+(k-e'sk_s)P+e'sk_sP\\
+  &= CH.
+\end{align*}
+It therefore obtains the same value in Equation~\eqref{eq:challenge}. Since
+\((R,z)\) is unchanged, the already valid Equation~\eqref{eq:verify} remains
+valid. Because \(m'\ne m\), the full message is distinct.
+\end{proof}
+
+This is the scheme's ordinary sanitization transformation performed by a
+party that received no sanitizer secret. One valid signature is required. No
+sanitizing-oracle query is used. The fresh full message changes only the field
+that DSS-MS declares sanitizable; changing \(m_0\) is outside this claim.
+
+\section{Primary full-profile reproduction}
+
+The primary experiment was sealed before execution with decimal seed
+\texttt{2026041}. The command fixed \(n=3000\), an addition of 20, 256-bit
+sanitizer draws, and 24 explicitly non-full-profile proxy trials. No seed was
+discarded or selected after observing the residual GCD.
+
+The dependency-free Python implementation generates source-shaped pairwise
+coprime sanitizer values, computes the exact unreduced CRT sums, and performs
+the public attack. Its signature layer implements affine arithmetic on actual
+BLS12-381 G1 and checks that the generator has prime order. Transcript hashing
+matches the pinned source's relevant path: minimal big-endian GMP message
+bytes, MIRACL's 49-byte compressed G1 encoding, and a 32-byte SHA-256 digest
+loaded into the high end of a zeroed 48-byte integer before reduction modulo
+\(q\).
+
+\begin{table}[ht]
+\centering
+\caption{Sealed primary exact-profile result.}
+\label{tab:primary}
+\begin{tabularx}{\textwidth}{@{}Xr@{}}
+\toprule
+Field & Result \\
+\midrule
+Initial / added / final sanitizers & 3,000 / 20 / 3,020 \\
+Old / joined product size & 763,995 / 769,080 bits \\
+Recovered public GCD size & 251 bits \\
+Residual \(\gcd(A,A')\) & 1 \\
+Recovered scalar satisfies \(gP=PK_s\) & yes \\
+Honest signature accepted before and after Join & yes \\
+Fresh full message distinct & yes \\
+Forgery preserves \((R,z)\) and reconstructs the same \(CH\) & yes \\
+Forged fresh message accepted & yes \\
+Mutation without retargeting accepted & no \\
+Wrong-scalar retargeting accepted & no \\
+Forgery under wrong \(PK_s\) accepted & no \\
+Wall time / peak resident memory / workers & 34.807209 s / 20,480 KiB / 1 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The attack function receives the two public epochs, the public keys, the
+public base message and signature, the selected fresh message, and attacker
+scalar \(k\). Its interface contains no \(sk_i\) or hidden \(sk_s\) argument.
+All tested points lie on the curve and in the prime-order subgroup. The three
+rejecting controls distinguish the result from unconditional verifier
+acceptance, an irrelevant message mutation, and key-independent retargeting.
+
+The checked-in public package offers two modes. A quick 96-sanitizer mode
+exercises the full algebraic, curve, verifier, and control path. The exact mode
+replays the deterministic 3,000-sanitizer, \(\DJoin(20)\) primary instance.
+Neither is represented as the fresh-context independent gate.
+
+\subsection{Fresh-context independent reproduction}
+
+A fresh-context agent derived a clean-room standard-library implementation
+from the frozen paper and source before inspecting the primary reproducer. Its
+plan, code, commands, and eight exact 32-byte seeds were prospectively sealed.
+Every fixed seed was run once and retained. Each trial began with 3,000
+sanitizers and an ordinary \(\DJoin(20)\). A nonunit residual was fixed in
+advance to remain a one-Join failure, with at most three further ordinary
+public epochs permitted as a separately classified cumulative-GCD test.
+
+\begin{table}[ht]
+\centering
+\caption{Fresh-context independent full-profile results.}
+\label{tab:independent}
+\begin{tabular}{@{}crlrl@{}}
+\toprule
+Trial & One-Join residual & One-Join result & Runtime (s) & Terminal result \\
+\midrule
+1 & 1 & PASS & 42.548 & PASS one Join \\
+2 & 1 & PASS & 42.080 & PASS one Join \\
+3 & 1 & PASS & 41.115 & PASS one Join \\
+4 & 1 & PASS & 41.226 & PASS one Join \\
+5 & 1 & PASS & 41.609 & PASS one Join \\
+6 & 2 & retained failure & 70.129 & PASS at 3,060 \\
+7 & 1 & PASS & 41.249 & PASS one Join \\
+8 & 1 & PASS & 41.929 & PASS one Join \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+All seven one-Join exact recoveries passed Equation~\eqref{eq:public-check},
+fresh full-message verification, message-mutation rejection, wrong-key
+rejection, honest before/after-Join checks, and curve/subgroup checks. Trial 6
+retained residual 2 at 3,020 and 3,040 sanitizers, so no forgery was attempted
+with its invalid candidate. The cumulative residual became one at 3,060;
+public-key validation, the fresh-message forgery, and all controls then passed.
+It remains a one-Join failure and a separately classified multi-epoch success.
+
+The observed one-Join exact-recovery rate is \(7/8\), an empirical result for
+fixed seeds rather than an exact probability. The complete eight-trial run,
+including the two extra epochs for trial 6, took 6 minutes 12.77 seconds and
+27,136 KiB peak resident memory with one worker. The independent manifest has
+SHA-256
+\begin{center}
+\hash{e94ba0b60d291b6ce3136e995f1459dc3fb28147de33908f63cb1c61cb4235e2}.
+\end{center}
+The independent source, result stream, report, and verdict have respective
+SHA-256 digests
+\begin{center}
+\hash{443b0444f58bf2daf4a0a5951087cf77258a844a49c2b84e2aa115cfacb69aaf},\\
+\hash{1a3cd768bcd3106db0f82edc338064faf6118ae574c2b29a6fe8c82a2e087448},\\
+\hash{f442e1f684aaf5707bf651e45d5ba2467cd8fecbf3d1b369bff8df6fa960c671},\\
+\hash{83d498952d5c88d96202ada5eb52c442ed3a68575323b732dfde76b3267477ca}.
+\end{center}
+The sealed verdict is \texttt{PASS\_INDEPENDENT\_REPRODUCTION}.
+
+\section{Scope and limitations}\label{sec:limits}
+
+The following qualifications are part of the result.
+\begin{itemize}
+  \item The primary one-Join attack passively retains two public \(S_x\)
+        epochs around one ordinary \(\DJoin(20)\). It does not choose enrolled
+        keys or access a secret delivery channel. The independent cumulative
+        variant retained further ordinary public epochs only after recording a
+        one-Join failure.
+  \item The endpoint uses one valid signature. The forged full message changes
+        only its sanitizable component, from \((m_0,m)\) to \((m_0,m')\).
+  \item The recovered value is the global sanitizer scalar \(sk_s\), not the
+        original signer scalar. It nevertheless supplies the intended
+        sanitization signing capability to an unauthorized observer.
+  \item The quantitative evidence is one precommitted exact primary instance
+        plus eight prospectively sealed independent exact trials. Seven of
+        eight independent trials recovered after one Join; the sole residual
+        trial recovered after two further public epochs. This does not prove an
+        exact success probability or a universal epoch bound. The primary
+        small proxy trials and random-integer heuristic are not full-profile
+        success-rate evidence.
+  \item Verification is a source-equivalent reconstruction of the ordinary
+        paper and pinned-source equations. The audit did not compile and run
+        the author binary and makes no normative codec claim.
+  \item The paper and source omit \(sk_s<\min_i sk_i\), so not every honest
+        sanitizer necessarily recovers the literal scalar by one reduction.
+        That separate correctness defect is excluded from the attack.
+  \item The paper and source differ on \(\mathsf{Revoke}\). Revoke is excluded;
+        the candidate uses only the paper- and source-consistent
+        \(\KeyGen\)-then-\(\DJoin\) lifecycle.
+  \item The attack-history result is a bounded search through 18 October 2026,
+        not proof of absolute priority. The final exact-target recheck passed;
+        private, removed, or unindexed disclosures still cannot be excluded.
+\end{itemize}
+
+\section{Prior method and attack history}
+
+This report makes no novelty claim for repeated-common-factor recovery by an
+integer GCD. DSS-MS directly cites PA-CRT \cite{pacrt}. Tao et al.'s B-DSPA
+work describes public CRT-related products with a reused hidden factor
+\cite{bdspa}; Kabil, Aslan, and Azer record that GCD method, analyze its
+lifecycle assumptions, and discuss flaws in parts of the preceding PA-CRT
+cryptanalysis \cite{kabil}. These works establish relevant technique ancestry.
+They do not name DSS-MS, analyze \(S_x=A\,sk_s\), recover the DSS-MS sanitizer
+scalar, or reach its ordinary signature verifier.
+
+The bounded exact-target search covered the title, acronym, ePrint identifier,
+authors, repository history and issue surfaces, corrections, errata,
+sanitizer-key recovery, Join, common factors, GCD, and forgery terms. It
+located no earlier public attack against DSS-MS as of 18 October 2026. The
+scheme is recent and bibliographic indexing can lag. We therefore claim only
+that no prior public exact-target attack was located in the recorded search.
+The final recheck returned
+\texttt{PASS\_FINAL\_EXACT\_TARGET\_HISTORY\_GATE}. It confirmed that the
+official landing and attack-relevant source were unchanged and again found no
+exact-target disclosure. The public GCD work against PA-CRT and B-DSPA remains
+credited as technique ancestry, and no technique novelty is claimed.
+
+\section{Repair direction}
+
+The public update mechanism must not emit multiple ordinary integers sharing
+the same secret scalar as a factor. One design direction is to sample an
+independent sanitizer scalar and matching public key for each epoch, bind the
+epoch and key into signatures, and give verification explicit version
+semantics. Another is to replace the public CRT mask with a conventional
+recipient-specific key-establishment mechanism so that public lifecycle
+updates do not encode one capability as a reusable common factor.
+
+A revision should also state and enforce the scalar/modulus range needed by
+the intended residue recovery, reconcile \(\DJoin\) and \(\mathsf{Revoke}\),
+and define a normative transcript and parameter-transition policy. These are
+repair directions rather than a validated patch. Any concrete revision needs
+fresh correctness, compatibility, and security analysis.
+
+\section{Conclusion}
+
+DSS-MS republishes an unreduced CRT sanitizer-key mask after adding
+sanitizers, while retaining the same global sanitizer scalar and public key.
+The two public epochs therefore expose that scalar through a standard
+common-factor GCD whenever their CRT coefficients are coprime. The one
+precommitted exact primary instance had unit residual, recovered the 251-bit
+scalar in a 34.807209-second end-to-end run, and used one valid signature to
+produce an ordinary-verifier-accepted signature on a fresh full message. The
+evidence is limited to the stated Join lifecycle, message transformation, and
+source-equivalent verifier boundary. Fresh-context independent reproduction
+passed on all eight fixed trials, with seven one-Join successes and one
+retained residual that recovered through cumulative public epochs. Final
+falsification, exact-target history review, and independent Publication Review
+also passed.
+
+\section*{Acknowledgements}
+The computations were performed on the Norwegian Research and Education Cloud (NREC), using resources provided by the University of Bergen and the University of Oslo.
+
+\begin{thebibliography}{9}
+
+\bibitem{dssms}
+M. Zeng, Q. Zhang, J. Cui, H. Zhong, and F. Wang,
+``Towards Privacy-Preserving Unmanned Aerial Vehicles Shared Logistics via
+Dynamic Sanitizable Signature with Multiple Sanitizers,''
+IACR Cryptology ePrint Archive, Report 2026/041, 2026.
+\url{https://eprint.iacr.org/2026/041}
+
+\bibitem{source}
+M. Zeng et al.,
+``DSS-MS author implementation,'' paper-time commit
+\texttt{b994a3f46cbe5501f47f53aa2e6942cff714b53a}.
+\url{https://github.com/rookie-papers/DSS-MS}
+
+\bibitem{pacrt}
+J. Zhang, J. Cui, H. Zhong, Z. Chen, and L. Liu,
+``PA-CRT: Chinese Remainder Theorem Based Conditional Privacy-Preserving
+Authentication Scheme in Vehicular Ad-Hoc Networks,''
+\emph{IEEE Transactions on Dependable and Secure Computing}, vol.~18, no.~2,
+pp.~722--735, 2021.
+\url{https://doi.org/10.1109/TDSC.2019.2904274}
+
+\bibitem{bdspa}
+Tao et al.,
+``B-DSPA: A Blockchain-Based Dynamically Scalable Privacy-Preserving
+Authentication Scheme in Vehicular Ad-Hoc Networks,''
+\emph{IEEE Internet of Things Journal}, vol.~11, no.~1, p.~1385 ff., 2024.
+\url{https://doi.org/10.1109/JIOT.2023.3289057}
+
+\bibitem{kabil}
+A. M. Kabil, H. Aslan, and M. Azer,
+``Cryptanalysis of Two Conditional Privacy Preserving Authentication Schemes
+for Vehicular Ad Hoc Networks,''
+\emph{Cryptography}, vol.~8, no.~1, article 4, 2024.
+\url{https://doi.org/10.3390/cryptography8010004}
+
+\end{thebibliography}
+
+\end{document}

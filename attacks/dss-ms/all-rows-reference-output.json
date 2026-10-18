@@ -1,0 +1,195 @@
+{
+  "all_rows_pass": true,
+  "result": "PASS_INDEPENDENT_REPRODUCTION",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3020,
+      "one_join_residual": 1,
+      "one_join_status": "PASS_ONE_JOIN",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 1",
+      "seed_hex": "01d2ee4d7ed3cde04ed71f758a74a60c6e94489875dc68022ff064fcdc275513",
+      "terminal_status": "PASS_ONE_JOIN"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3020,
+      "one_join_residual": 1,
+      "one_join_status": "PASS_ONE_JOIN",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 2",
+      "seed_hex": "4cc55c8c68abaebc98be05229c99a3c5ee206b35958047d49a11f62735cc18bd",
+      "terminal_status": "PASS_ONE_JOIN"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3020,
+      "one_join_residual": 1,
+      "one_join_status": "PASS_ONE_JOIN",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 3",
+      "seed_hex": "ee6c4c6c0f24229d627a219ffc2033780be6afaf905557cf7e8fd333eec98e45",
+      "terminal_status": "PASS_ONE_JOIN"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3020,
+      "one_join_residual": 1,
+      "one_join_status": "PASS_ONE_JOIN",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 4",
+      "seed_hex": "61f602e7b6be511cc5f4a68eeeb002ef260ff84285bc4278f2e28ca658525fb0",
+      "terminal_status": "PASS_ONE_JOIN"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3020,
+      "one_join_residual": 1,
+      "one_join_status": "PASS_ONE_JOIN",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 5",
+      "seed_hex": "2897cdf3d890ecccbd5eafa2bbe34647ece515a4493a67b24da97e60e2b98a5f",
+      "terminal_status": "PASS_ONE_JOIN"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        2,
+        2,
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3060,
+      "one_join_residual": 2,
+      "one_join_status": "FAIL_RESIDUAL_COFACTOR",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 6",
+      "seed_hex": "8a5eeb3e49a15bae04c914a77a75636d71f929717a25d8ac93a803a3e01b0fcf",
+      "terminal_status": "PASS_MULTI_EPOCH"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3020,
+      "one_join_residual": 1,
+      "one_join_status": "PASS_ONE_JOIN",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 7",
+      "seed_hex": "e78bc7bf58e8272986941981fd6ad7d6f00a4cdd62388be6d0946e38d4d3d33a",
+      "terminal_status": "PASS_ONE_JOIN"
+    },
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "all_curve_and_subgroup_checks_pass": true,
+        "all_honest_checks_pass": true,
+        "attack_interface_public_only": true,
+        "candidate_publicly_valid_before_forgery": true,
+        "fresh_full_message": true,
+        "message_mutation_rejected": true,
+        "ordinary_verifier_accepts_forgery": true,
+        "wrong_key_rejected": true
+      },
+      "cumulative_residuals": [
+        1
+      ],
+      "first_exact_recovery_sanitizer_count": 3020,
+      "one_join_residual": 1,
+      "one_join_status": "PASS_ONE_JOIN",
+      "parameter_row": "DSS-MS BLS12-381/SHA-256 n=3000 Join(+20) sealed trial 8",
+      "seed_hex": "4009135f2b26d0c272feaf410046876248d6a8dee03faba04a24eac8bce73204",
+      "terminal_status": "PASS_ONE_JOIN"
+    }
+  ],
+  "scope": "Eight prospectively sealed DSS-MS BLS12-381/SHA-256 full-profile trials at n=3000 with first Join(+20); cumulative ordinary public epochs retained for nonunit one-Join residuals",
+  "summary": {
+    "completed_trial_count": 8,
+    "invariant_or_control_failure_trials": [],
+    "multi_epoch_passes_among_one_join_residuals": 1,
+    "multi_epoch_unresolved_trials": [],
+    "one_join_passes": 7,
+    "one_join_residual_cofactor_trials": 1,
+    "pass_independent_reproduction": true,
+    "sealed_trial_count": 8
+  }
+}

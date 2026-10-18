@@ -14,11 +14,11 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 56 |
+| Schemes identified | 58 |
 | Known attacks excluded | 3 |
-| Schemes audited | 53 |
-| No practical attack found | 34 |
-| Verified and independently reproduced practical design attacks | 19 |
+| Schemes audited | 55 |
+| No practical attack found | 35 |
+| Verified and independently reproduced practical design attacks | 20 |
 
 ## Practical design attacks
 
@@ -43,6 +43,7 @@ unreported.
 | [Iceberg](attacks/iceberg/) | 2026/1757 v1 | Nested threshold MuSig2 over replicated secret sharing | Group signing-key recovery with fresh-message BIP340 forgery | Same-message context splitting and a three-response linear solve | `t=2`, `n=4`, `mu=3`, `nu=2`, secp256k1 | 3 signing queries; 0.95 s wall independent replay; 15,360 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [BLS DS2 (Definition 33)](attacks/bls-2p-aiso-as/) | 2026/1394 retained current | BLS two-party signature with direct public-key aggregation | Zero-query fresh-message forgery against Definition 33 | Rogue-key cancellation after the honest-key reveal | BLS12-381 paper-linked G1-public-key/G2-signature profile | 0 signing queries; 1.164 s checks; 102.98 s clean build-and-run; 400,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [CUBE](attacks/cube/) | 2026/920 initial/current | Partially blind BBS credential proof | Zero-query fresh-message forgery | Identity proof points and zero responses | BN254 five-word source and paper-complete profiles | 0 signing queries; 0.03 s; 2,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
+| [DSS-MS](attacks/dss-ms/) | 2026/041 current landing-visible body | Dynamic sanitizable signature with multiple sanitizers | Global sanitizer-key recovery with fresh-message forgery | Public cross-Join repeated-common-factor GCD | BLS12-381/SHA-256, `n=3000`, `Join(+20)` | 1 valid signature; 7/8 one-Join independent successes; 372.77 s, 27,136 KiB peak, 1 worker for all eight trials | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -103,6 +104,7 @@ exact-target cryptanalysis:
 | smklhs | 2026/1370 initial/current | Base Figure 4 at the claimed BLS12-381 setting, exactly two distinct honest signers, weakly adaptive predeclared queries, and the literal Figure 4 plus Figure 3 verifier; paper-static | No practical signer or accepted false/fresh aggregate; the literal challenge-scaled proof statements generically reject honest nonzero multisigner outputs |
 | BRaccoon | 2026/1084 current 2026-09-25 | Current Table-3 `Q_s=2^32` paper-static object, four-move issuance protocol, and literal Figure-5 external-message verifier; parameter-certificate source only | No practical signer, fresh-message forgery, or one-more forgery; floor-rounding proof/certificate mismatch is nonqualifying and full-query H-MLWE regression is outside the practical envelope |
 | Practical c-STS Construction 2 | 2026/1820 current | Full BLS12-381 `N=2^20`, `n=1024`, `t=512` paper profile and ordinary lifecycle | No practical signer or forgery; fixed-support algebraic endpoint fails support timing |
+| ARES | 2026/130 v2 | Paper-level `n=5,t=2,ell=1`, secp256k1/SHA-256 profile and submitted integer-lift route | No practical signer or forgery; the working conditional recovery requires an unreduced response excluded by the paper's `Z_q` semantics |
 
 ### Audit summaries
 ECLIPSE (ePrint 2026/2312 v2) remains a bounded paper-level audit. Its
@@ -411,6 +413,8 @@ sub-`2^45` signing endpoint.
 
 Practical c-STS Construction 2 (ePrint 2026/1820, current major-revision body dated 2026-09-10) completed a bounded audit of the full BLS12-381, `N=2^20`, `n=1024`, `t=512` paper profile with no practical signing compromise. A sealed full run confirmed a fixed-support affine construction accepted by the unchanged six-equation verifier on two fresh messages, but ordinary registration fixes corrupt rows before the random committee is known. The required support occurs with probability about `2^-5345.98`; the reviewed support-adaptive configuration needs 474,499 nonzero rows, about 23.88 TB of logical hints, and an estimated 5.54 four-worker years. Reopen only for an evidenced ordinary lifecycle supplying the required timing, a full support-adaptive attack within the campaign limits, or a separately reviewed parameter profile.
 
+ARES (ePrint 2026/130 v2) completed a bounded paper-level audit of the `n=5,t=2,ell=1` secp256k1/SHA-256 profile. The submitted interval route recovers the key and enables fresh ECDSA signing only if RoutB sends an unreduced integer response. The appendix instead types the response operands in `Z_q`; ordinary reduction removes the interval premise. Reopen only if source or a transcript establishes intentional integer-lift behavior; a clarification both mandates that behavior and admits the `t+ell` subset; the recovery extends to the advertised `|S|>=2t+ell` robust set without unknown honest VNIM assumptions; or a practical fresh-signing route survives the reduced response.
+
 ## Verified attack summaries
 
 [D-James](attacks/d-james/) (ePrint 2026/1650 v5) exposes an expanded
@@ -648,5 +652,7 @@ was located through 18 October 2026.
 [BLS DS2 (Definition 33)](attacks/bls-2p-aiso-as/) (ePrint 2026/1394, retained current preprint) reveals an honest BLS public key before accepting the corrupt participant's key. A zero-query attacker registers `X_E=beta*P-X_A`, making the direct-addition aggregate equal `beta*P`, and signs any fresh message as `beta*H(m)`. The unchanged paper-linked BLS12-381 ordinary verifier accepted; a sealed fresh-context reproduction passed 32/32 honest keys with all controls rejecting. The claim is limited to the direct-addition Definition 33 instantiation and expressly excludes Theorem 1, Figure 6, central honest `KeyGen`, proper DKG, the artifact's normal lifecycle, and deployments. Rogue-key cancellation is standard prior art credited to BGLS, Bellare--Neven, Boneh--Drijvers--Neven, and CFRG BLS guidance; no technique novelty is claimed, and no earlier public report of this exact-target application was located through 18 October 2026.
 
 [CUBE](attacks/cube/) (ePrint 2026/920, initial/current) omits nonidentity checks for its three proof points. Setting `A_bar`, `B_bar`, and `U` to the BN254 identity and `s=t=u_gamma=0` satisfies both ordinary verification equations for every challenge and attribute vector, yielding a zero-signing-query fresh-message Sys-EUF-CMA forgery. Primary and fresh-context Arkworks reproductions passed for the five-word source and paper-complete address/nullifier profiles, with honest and mutation controls rejecting as expected. Read-only historical simulation also passed at the author-listed Sepolia addresses; no transaction or source-to-runtime bytecode claim is made. Generic BBS nonidentity validation is prior art, no technique novelty is claimed, and no earlier public CUBE attack was located through 18 October 2026.
+
+[DSS-MS](attacks/dss-ms/) (ePrint 2026/041, current landing-visible body) publishes an unreduced integer mask `S_x=A*sk_s`, then recomputes `S'_x=A'*sk_s` after `Join` while retaining `PK_s`. A GCD of retained public epochs equals `sk_s` when `gcd(A,A')=1`, and the public key validates the candidate. With one valid signature, the recovered sanitizer scalar retargets its chameleon-hash component to a distinct `m'` while preserving `(R,z)`, producing a fresh full message accepted by the source-equivalent ordinary BLS12-381/SHA-256 verifier. The exact `n=3000`, `Join(+20)` primary run took 34.81 seconds. An independent eight-seed full-profile run recovered after one Join in 7/8 trials; the retained residual-2 trial recovered after the third Join at 3,060 sanitizers. All resulting forgeries and controls passed in 372.77 seconds and 27,136 KiB peak RSS on one worker. The result recovers sanitizer capability rather than the signer key, changes only the sanitizable component, does not guarantee one-Join recovery, and makes no compiled-author-binary claim. The GCD method has related prior art, no technique novelty is claimed, and no earlier public exact-target attack was located through 18 October 2026.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).
