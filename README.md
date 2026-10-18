@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 47 |
+| Schemes identified | 48 |
 | Known attacks excluded | 3 |
-| Schemes audited | 44 |
-| No practical attack found | 29 |
+| Schemes audited | 45 |
+| No practical attack found | 30 |
 | Verified and independently reproduced practical design attacks | 15 |
 
 ## Practical design attacks
@@ -94,6 +94,7 @@ exact-target cryptanalysis:
 | Lattice SEP | 2024/131 current major revision | Exact `LSEP-2024-131-SOURCE-M10-v1` ordinary source endpoint at commit `e0b750bdff26cc4d3cc9cf49921314bd0fa6c2e7`; fixed 320-byte binary-vector messages and source `B1'` cutoff | No practical signer or forgery; non-injective source tags are outside correct unique-tag operation, and the sampler correction remains a proof limitation without a signing consequence |
 | Aerie | 2026/2501 initial/current | Exact `AERIE-F512-V1-PER-RECORD-N32768-v0.2.0` released per-record-salt Falcon-512 aggregate verifier at 32,768 records; Aerie `v0.2.0` and pinned Akita | No practical signer or fresh-record aggregate forgery; the raw-SHAKE chosen-key alias remains type-separated and has no signing bridge |
 | Robust ECDSA Threshold Signing at Scale | 2026/2493 v1 | Exact paper profile `ROBUST-ECDSA-2026-2493-SECP256K1-SHA256-N88-T29-PAPER-v1` at `n=88,t=29`; intended agreement and ordered single-use presignatures; author benchmark excluded | No qualifying intended-design signer or forgery; the literal 30-versus-31 release mismatch and same-presignature two-view key recovery are real but nonqualifying under the stated agreement, single-use, and freshness rules |
+| Concurrently Secure Compact Blind Signatures from Module-SIS | 2026/1690 v1/current | Exact paper-static profile `MSIS-CBS-2026-1690-N1536-M4608-Q1013921281-GAMMA2.5-PAPER-v1`; full-vector verifier; linked estimator unavailable | No practical signer, fresh-message forgery, or pairwise-distinct one-more forgery; the `B>q` reduction defect and rejected-round valid signatures remain nonqualifying |
 
 ### Audit summaries
 
@@ -638,6 +639,73 @@ Reopen only if one of these conditions occurs:
 3. A concrete full-profile route obtains conflicting views, secret or equivalent signing recovery, or a genuinely fresh-message forgery despite enforced pre-release agreement and atomic single-use consumption, within 2^45 work.
 4. A different concrete full-profile proof, preprocessing, commitment, transcript, or composition defect reaches a qualifying signing endpoint within 2^45 without relying on benchmark-only fixtures or a specification omission.
 5. A material paper, source, profile, or test-vector revision, or new exact-target prior art, changes the frozen semantics, claimed boundary, or attack-history disposition.
+
+Concurrently Secure Compact Blind Signatures from Module-SIS (ePrint 2026/1690
+v1/current) completed a bounded paper-static audit of profile
+`MSIS-CBS-2026-1690-N1536-M4608-Q1013921281-GAMMA2.5-PAPER-v1`, with
+`n=1536`, conductor `m=4608`, `q=1013921281`, `gamma=2.5`, and Figure 3's
+full-vector ordinary verifier. The strict endpoint was secret or reusable
+equivalent signing recovery with fresh signing, an ordinary fresh-message
+forgery, or `k+1` ordinary-valid pairs on pairwise-distinct messages after `k`
+stateful signing instances, within `2^45` work. No such endpoint was obtained.
+
+The strongest near miss is an ordinary-valid same-message surplus. A malicious
+user can set `y=0`, so every response `sigma=(-1)^b*sigma0` satisfies the
+ordinary equation and `norm(sigma)<=beta0<beta`, even when the rejection
+mechanism labels the round a failure. The failed round can expose one valid
+signature and authorize a retry. Every candidate remains attached to the one
+message fixed by `cm`, so this does not meet Figure 1's pairwise-distinct
+one-more endpoint and does not forge a fresh message.
+
+The reduction and specification contain additional real defects. Because
+`B=2*beta+beta0>q`, literal Definition 8 `MSIS_B` is trivial via `q*e_i`.
+That vector is longer than the verifier bound, is zero in `R_q`, preserves the
+syndrome, and supplies no arbitrary-target sampler or signer. The compact
+paragraph swaps coordinate roles and omits `rho`; coherent conventions retain
+the full-vector predicate, while the literal mixture fails honest correctness.
+Figure 1 has an `i=j` quantifier typo and Figure 4 has a restart-step typo. The
+rejection proof omits an `arccosh` branch and does not explicitly transfer its
+distribution argument to the target coset and truncation. The displayed
+formulas also give `M_tilde=3.039469822339112...`, rather than at most 3, and
+`0.292*484=141.328` bits, rather than the nominal 148-bit label. None provides
+a short preimage of a fresh `H(message,rho)` target or another qualifying
+signing bridge below `2^45`.
+
+Independent closeout corrected four lane details without changing the verdict:
+if public `h` is a unit, a third coherent compact convention keeps `A=(h,1)`,
+transmits `s2`, and reconstructs
+`s1=h^{-1}(H(message,rho)-s2)`; for `y=0`, rejection ranges from
+`0.0126648734678957` to `0.0768836536133642` over `t` in `[0,0.16]`; the
+printed malicious formula gives acceptance at least
+`0.329004747028684...` and retry at most `0.670995252971316...`; and the
+omitted `arccosh` branch rejects unconditionally for `C<1`, while at `C=1`
+the strict test rejects exactly when the inner product is nonzero, with a
+measure-zero equality boundary under ideal continuous `F0`.
+
+This is a paper-static result, not a security proof. The concrete PKE, NIZK,
+hash and codec suite, sampler, trapdoor generation, precision profile, state
+API, and leakage contract are unfrozen. The linked 4open estimator still
+returns HTTP 401 `not_connected`; no artifact bytes, revision, commit, tree,
+or source hash are available. No target build, execution, benchmark, KAT, or
+experiment was authorized or performed, and no attack package or
+verified-attack count change is created.
+
+In public searches completed through 18 October 2026, we located no prior
+substantive attack against Concurrently Secure Compact Blind Signatures from
+Module-SIS, IACR ePrint 2026/1690. Related attacks on other blind signatures
+informed the audit but are not attacks on this exact target. This is a
+moderate-confidence, date-bounded history result because the paper is recent,
+the canonical PDF and version archive returned HTTP 403, the linked repository
+is inaccessible, and some public indexes were unavailable or potentially
+lagging.
+
+Reopen only if one of these conditions occurs:
+
+1. a pinned sampler, trapdoor, precision, or timing profile yields exploitable leakage below 2^45
+2. a pinned PKE, proof circuit, codec, or session API permits commitment equivocation, cross-state transfer, or reset/fork
+3. an intended concrete verifier checks less than the full reconstructed vector or omits rho
+4. a sub-2^45 hash relation or short-preimage method bridges to a fresh accepted syndrome
+5. new primary-source or implementation evidence changes the frozen profile
 
 ## Verified attack summaries
 

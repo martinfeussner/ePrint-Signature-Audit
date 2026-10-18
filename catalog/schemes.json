@@ -1178,5 +1178,71 @@
       "A different concrete full-profile proof, preprocessing, commitment, transcript, or composition defect reaches a qualifying signing endpoint within 2^45 without relying on benchmark-only fixtures or a specification omission.",
       "A material paper, source, profile, or test-vector revision, or new exact-target prior art, changes the frozen semantics, claimed boundary, or attack-history disposition."
     ]
+  },
+  {
+    "scheme": "Concurrently Secure Compact Blind Signatures from Module-SIS",
+    "aliases": [
+      "Module-SIS compact blind signatures",
+      "LatticeBlindSignature-DAA3"
+    ],
+    "eprint_id": "2026/1690",
+    "eprint_version": "initial/current PAPER-v1 inferred from official OAI datestamp 2026-08-14; official version archive unavailable",
+    "eprint_date": "2026-08-14",
+    "family": "concurrently secure compact lattice blind signature from Module-SIS with GPV/NTRU preimages and bimodal rejection sampling",
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "audit_disposition": "AUDITED_NO_PRACTICAL_ATTACK / BOUNDED_PAPER_STATIC_NEGATIVE_WITH_NONQUALIFYING_PROOF_PARAMETER_AND_SAME_MESSAGE_SURPLUS_FINDINGS / REOPEN_CONDITIONAL / PAPER_PROFILE_LIMITED",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/1690",
+    "authors": [
+      "Olivier Blazy",
+      "Lola-Baie Mallordy",
+      "Weiqiang Wen"
+    ],
+    "paper_sha256": "1775e88daa0c0397da0b1379e743b70134ae793361ba36ba8f60ec132a9bc9f8",
+    "paper_status": "PINNED CURRENT 806,450-BYTE IACR ASIA MIRROR PDF; BYTE-IDENTICAL THROUGH 2026-10-18; CANONICAL PDF AND VERSION ARCHIVE HTTP 403",
+    "source_url": "https://anonymous.4open.science/r/LatticeBlindSignature-DAA3/",
+    "source_commit": null,
+    "source_tree": null,
+    "source_status": "PAPER-LINKED PARAMETER ESTIMATOR INACCESSIBLE: HTTP 302 THEN 401 NOT_CONNECTED; NO ARTIFACT BYTES, REVISION, COMMIT, TREE, OR SOURCE HASH; NOT BUILT OR RUN",
+    "attack_history_note": "In public searches completed through 18 October 2026, no prior substantive attack against exact ePrint 2026/1690 was located. Related attacks on other blind signatures informed the audit but are not attacks on this exact target. This is a moderate-confidence bounded negative because the target is recent, the official version archive and canonical PDF returned HTTP 403, the linked repository returned HTTP 401 not_connected, and some public indexes were unavailable or potentially lagging.",
+    "audit_completed_at": "2026-10-18",
+    "selected_parameter_set": "MSIS-CBS-2026-1690-N1536-M4608-Q1013921281-GAMMA2.5-PAPER-v1: paper row n=1536, conductor m=4608, R=Z[x]/(x^1536-x^768+1), q=1013921281 with q mod 4608=1, gamma=2.5, nominal lambda=148, honest expected 1.1 rounds, malicious-user printed expected-round upper bound 3.0, and full-vector Figure 3 verification",
+    "operation_scope": "Paper-level construction with ordinary full-vector verification A*sigma=H(message,rho) mod q and norm(sigma)<=beta. The strict endpoint is secret or reusable equivalent signing recovery with fresh signing, an ordinary fresh-message forgery, or Figure 1 k+1 ordinary-valid pairs on pairwise-distinct messages after k stateful signing instances, within 2^45 work. Generic PKE E, proof system Pi, hashes, PRF, sampler, trapdoor generation, codecs, precision, state API, and leakage contract remain unfrozen.",
+    "audit_note": "No qualifying endpoint was obtained. Choosing y=0 makes every signer response sigma=(-1)^b*sigma0 satisfy the ordinary equation and norm bound even when the rejection mechanism declares failure, so a failed round can expose a valid signature and authorize a retry. Every candidate remains bound by cm to the same message, so the surplus cannot meet the pairwise-distinct one-more endpoint or forge a fresh message. Literal Definition 8 is also trivial because B=2*beta+beta0>q permits q*e_i, but that vector is longer than the verifier bound, is zero in R_q, preserves the syndrome, and supplies no arbitrary-target sampler or signer. Compact-coordinate and rho inconsistencies, rejection-proof gaps, and parameter discrepancies remain real but nonqualifying: coherent compact conventions preserve the full-vector predicate, while the literal mixture fails honest correctness; no route supplies a short preimage of a fresh H(message,rho) target below 2^45. This bounded paper-static audit is not a security proof.",
+    "nonqualifying_findings": [
+      "Literal Definition 8 MSIS_B is trivial because B=2*beta+beta0>q, but q*e_i is longer than beta, is zero in R_q, preserves the syndrome, and gives no signer or arbitrary-target sampler.",
+      "Rejected rounds can expose ordinary-valid signatures when y=0, but only for the one message fixed by cm in that stateful instance.",
+      "The compact paragraph swaps coordinate roles and omits rho; coherent repairs retain the full-vector predicate, while the literal mixture fails honest correctness.",
+      "Figure 1 has an i=j quantifier typo and Figure 4 has a restart-step typo.",
+      "The rejection proof omits an arccosh branch and does not explicitly transfer its distributional argument to the target coset and truncation.",
+      "The printed M_tilde<=3 and nominal 148-bit claims do not follow from the displayed formulas: M_tilde=3.039469822339112... and 0.292*484=141.328.",
+      "Selective-abort, privacy, and denial-of-service surfaces have no demonstrated bridge to adversarial-user signing power."
+    ],
+    "closeout_corrections": [
+      "If public h is a unit, a third coherent compact convention keeps A=(h,1), transmits s2, and reconstructs s1=h^{-1}(H(message,rho)-s2); it realizes the same full-vector predicate and has no endpoint effect.",
+      "For y=0, rejection ranges from 0.0126648734678957 to 0.0768836536133642 over t in [0,0.16], rather than always being at least about 0.0769.",
+      "The printed malicious formula gives M_tilde=3.039469822339112..., acceptance at least 0.329004747028684..., and retry at most 0.670995252971316....",
+      "For the omitted arccosh branch, C<1 gives unconditional rejection; at C=1 the strict test rejects exactly when the inner product is nonzero, with a measure-zero equality boundary under ideal continuous F0."
+    ],
+    "conformance_limitations": [
+      "The linked 4open estimator returned HTTP 401 not_connected; no estimator bytes, revision, commit, tree, artifact hash, or independent estimator reproduction exists.",
+      "Encryption E, proof system Pi, H/G/F/F0, domain separation, hash-to-ring sampling, PRF, trapdoor/sampler choice, arithmetic, KATs, and all codecs are generic or unspecified.",
+      "The compact form conflicts with the full verifier: A=(h,1) conflicts with s1=H(m)-s2*h for sigma=(s1,s2), and the reconstruction omits rho although Figure 3 verifies H(m,rho).",
+      "The 5.57-KB signature claim is not byte-exactly reproducible without a canonical encoding; the stated formula evaluates to about 5776.12 bytes or 5.64074 KiB.",
+      "PAPER-v1 is inferred because the official version archive was blocked, and the canonical PDF endpoint was also blocked."
+    ],
+    "audit_limitations": [
+      "This is a bounded paper-static negative classification, not a proof of security.",
+      "No concrete PKE, NIZK, hash/codec suite, sampler, trapdoor-generation algorithm, precision profile, state API, or leakage contract is frozen.",
+      "The linked estimator and byte-level implementation profile remain unavailable, so no target build, execution, benchmark, KAT, or experiment was authorized or performed.",
+      "The final exact-target history refresh is bounded to public searches through 2026-10-18 and cannot exclude private, deleted, unpublished, embargoed, or unindexed reports."
+    ],
+    "reopen_conditions": [
+      "a pinned sampler, trapdoor, precision, or timing profile yields exploitable leakage below 2^45",
+      "a pinned PKE, proof circuit, codec, or session API permits commitment equivocation, cross-state transfer, or reset/fork",
+      "an intended concrete verifier checks less than the full reconstructed vector or omits rho",
+      "a sub-2^45 hash relation or short-preimage method bridges to a fresh accepted syndrome",
+      "new primary-source or implementation evidence changes the frozen profile"
+    ]
   }
 ]
