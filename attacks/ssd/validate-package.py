@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the private SSD staging package with the Python standard library."""
+"""Validate the public SSD attack package with the Python standard library."""
 
 from __future__ import annotations
 
@@ -154,6 +154,28 @@ def main() -> int:
     )
     require("remain pending" not in tex.lower(), "stale pending gate in paper")
     require("remain pending" not in readme.lower(), "stale pending gate in README")
+    stale_publication_phrases = (
+        "private package",
+        "publication-ready private report",
+        "awaiting exact public import",
+        "ready for exact import",
+        "has not itself been published",
+        "public repository is not modified by this package",
+        "did not modify or publish the public repository",
+    )
+    for phrase in stale_publication_phrases:
+        require(phrase not in tex.lower(), f"stale publication wording in paper: {phrase}")
+        require(phrase not in readme.lower(), f"stale publication wording in README: {phrase}")
+    require(
+        "This public package is published in the ePrint Signature Audit repository"
+        in readme,
+        "public-package status missing from README",
+    )
+    require(
+        "These materials are published in the ePrint Signature\nAudit repository."
+        in tex,
+        "public-package status missing from paper",
+    )
 
     independent = metadata["independent_reproduction_evidence"]
     require(independent["fresh_keys"] == 5, "independent key count")

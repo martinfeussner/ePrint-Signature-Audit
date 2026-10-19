@@ -3,8 +3,8 @@
 > **Publication-review status:** primary reproduction, hostile adversarial
 > review, fresh-context independent reproduction, the final exact-target
 > attack-history recheck, and independent Publication Reviewer review passed.
-> This private package is ready for exact import into the public repository;
-> it has not itself been published.
+> This public package is published in the ePrint Signature Audit repository
+> and classified `VERIFIED_ATTACK`.
 >
 > **AI disclosure.** This audit used the OpenAI model Daybreak Blue at the
 > ultra reasoning level. OpenAI Codex generated and selected this title and
@@ -15,7 +15,7 @@
 > fresh-context AI agent independently reproduced the attack on five new
 > full-size keys. Independent human verification was not required.
 
-This publication-ready private report records a public-key-only, zero-signing-query
+This public report records a public-key-only, zero-signing-query
 existential fresh-message forgery against the full standard SSD1760 parameter
 set in Abdelhaliem Babiker's [*Digital Signature from Syndrome Decoding
 Problem*](https://eprint.iacr.org/2022/1698), IACR ePrint 2022/1698.
@@ -26,7 +26,7 @@ public implementation is documented in
 
 | Field | Result |
 |---|---|
-| Publication status | `VERIFIED_ATTACK`; all required technical, history, reproduction, and publication-review gates passed; awaiting exact public import |
+| Publication status | `VERIFIED_ATTACK`; published with all required technical, history, reproduction, and publication-review gates passed |
 | Scheme | Signature from Syndrome Decoding (SSD), standard mode |
 | Target | IACR ePrint 2022/1698; pinned 14-page PDF SHA-256 `619903383e40bed6320d1fc0a17c61553073d11545eb12302cafe6a84cfbd80e` |
 | Target author | Abdelhaliem Babiker |
