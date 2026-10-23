@@ -123,6 +123,7 @@ README_AUDIT_ORDER = (
     "BRaccoon: Concurrently Secure Blind Lattice Signatures from Raccoon",
     "Practical Silent Threshold Signatures and Silent Threshold Encryption for Dynamic Committees",
     "ARES: Online-Friendly Robust Threshold ECDSA with Amortized Costs",
+    "Wombat: Post-Quantum Blind Signature from Standard Group Action Assumptions and More",
 )
 README_LABEL_OVERRIDES = {
     "Yagisawa quaternion signature": {"Yagisawa's quaternion signature"},

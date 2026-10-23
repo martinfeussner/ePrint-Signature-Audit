@@ -1882,5 +1882,25 @@
     "attack_history_checked_at": "2026-10-18",
     "url": "https://eprint.iacr.org/2026/827",
     "exclusion_basis": "Furue and Ikematsu, ePrint 2026/298, give hidden-oil-subspace key recovery at about 2^223 gates for the exact UOV Level-V component used by UOV-San, with a direct sanitizer-signing transfer. Levels I and III are not claimed broken, and this is not a practical campaign attack."
+  },
+  {
+    "scheme": "Wombat: Post-Quantum Blind Signature from Standard Group Action Assumptions and More",
+    "aliases": [
+      "Wombat",
+      "Wombat-LESS"
+    ],
+    "eprint_id": "2026/928",
+    "eprint_version": "preserved 37-page body, byte-identical to the archived official ePrint PDF at 2026-05-18T04:25:07Z; live ordinal and current-byte identity unresolved",
+    "eprint_date": "2026-05-11",
+    "family": "concurrently secure post-quantum blind signature from the LESS linear-code-equivalence group action",
+    "authors": [
+      "Lucjan Hanzlik",
+      "Yi-Fu Lai",
+      "Eugenio Paracucchi",
+      "Edoardo Persichetti"
+    ],
+    "status": "AUDITED_NO_PRACTICAL_ATTACK",
+    "attack_history_checked_at": "2026-10-18",
+    "url": "https://eprint.iacr.org/2026/928"
   }
 ]

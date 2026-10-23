@@ -14,10 +14,10 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 67 |
+| Schemes identified | 68 |
 | Known attacks excluded | 12 |
-| Schemes audited | 55 |
-| No practical attack found | 35 |
+| Schemes audited | 56 |
+| No practical attack found | 36 |
 | Verified and independently reproduced practical design attacks | 20 |
 
 ## Practical design attacks
@@ -133,6 +133,7 @@ exact-target cryptanalysis:
 | BRaccoon | 2026/1084 current 2026-09-25 | Current Table-3 `Q_s=2^32` paper-static object, four-move issuance protocol, and literal Figure-5 external-message verifier; parameter-certificate source only | No practical signer, fresh-message forgery, or one-more forgery; floor-rounding proof/certificate mismatch is nonqualifying and full-query H-MLWE regression is outside the practical envelope |
 | Practical c-STS Construction 2 | 2026/1820 current | Full BLS12-381 `N=2^20`, `n=1024`, `t=512` paper profile and ordinary lifecycle | No practical signer or forgery; fixed-support algebraic endpoint fails support timing |
 | ARES | 2026/130 v2 | Paper-level `n=5,t=2,ell=1`, secp256k1/SHA-256 profile and submitted integer-lift route | No practical signer or forgery; the working conditional recovery requires an unreduced response excluded by the paper's `Z_q` semantics |
+| Wombat | 2026/928 preserved 37-page body | Intended Wombat-LESS `(70,70)`, `alpha=1` and literal `(49,147)`, `alpha=3` control; explicit-`z` verifier; paper-static | No practical signer, fresh-message forgery, or one-more forgery within `2^45`; no Wombat source or KAT located |
 
 ### Audit summaries
 ECLIPSE (ePrint 2026/2312 v2) remains a bounded paper-level audit. Its
@@ -442,6 +443,8 @@ sub-`2^45` signing endpoint.
 Practical c-STS Construction 2 (ePrint 2026/1820, current major-revision body dated 2026-09-10) completed a bounded audit of the full BLS12-381, `N=2^20`, `n=1024`, `t=512` paper profile with no practical signing compromise. A sealed full run confirmed a fixed-support affine construction accepted by the unchanged six-equation verifier on two fresh messages, but ordinary registration fixes corrupt rows before the random committee is known. The required support occurs with probability about `2^-5345.98`; the reviewed support-adaptive configuration needs 474,499 nonzero rows, about 23.88 TB of logical hints, and an estimated 5.54 four-worker years. Reopen only for an evidenced ordinary lifecycle supplying the required timing, a full support-adaptive attack within the campaign limits, or a separately reviewed parameter profile.
 
 ARES (ePrint 2026/130 v2) completed a bounded paper-level audit of the `n=5,t=2,ell=1` secp256k1/SHA-256 profile. The submitted interval route recovers the key and enables fresh ECDSA signing only if RoutB sends an unreduced integer response. The appendix instead types the response operands in `Z_q`; ordinary reduction removes the interval premise. Reopen only if source or a transcript establishes intentional integer-lift behavior; a clarification both mandates that behavior and admits the `t+ell` subset; the recovery extends to the advertised `|S|>=2t+ell` robust set without unknown honest VNIM assumptions; or a practical fresh-signing route survives the reduced response.
+
+Wombat (ePrint 2026/928, preserved 37-page body) completed a bounded paper-static audit of the explicit-`z` verifier at the intended Wombat-LESS `(70,70)`, `alpha=1` row, with the literal `(49,147)`, `alpha=3` row as a control. No practical signer, fresh-message forgery, or one-more forgery was found within `2^45` work. The closest deliberately optimistic concurrency estimate remained about `2^49.18`; verifier-algebra, commitment-reuse, key-mosaic, and public-input LESS routes were higher or lacked a complete signing bridge. The primary row falls outside the theorem's stated `alpha>=2` premise, while printed canonicalization, action-order, and notation issues remain nonqualifying. No Wombat source or KAT was located. Reopen for changed authoritative semantics, a complete qualifying route within `2^45`, or new exact-target prior art.
 
 ## Verified attack summaries
 
