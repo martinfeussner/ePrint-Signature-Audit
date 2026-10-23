@@ -14,11 +14,11 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 68 |
+| Schemes identified | 69 |
 | Known attacks excluded | 12 |
-| Schemes audited | 56 |
+| Schemes audited | 57 |
 | No practical attack found | 36 |
-| Verified and independently reproduced practical design attacks | 20 |
+| Verified and independently reproduced practical design attacks | 21 |
 
 ## Practical design attacks
 
@@ -44,6 +44,7 @@ unreported.
 | [BLS DS2 (Definition 33)](attacks/bls-2p-aiso-as/) | 2026/1394 retained current | BLS two-party signature with direct public-key aggregation | Zero-query fresh-message forgery against Definition 33 | Rogue-key cancellation after the honest-key reveal | BLS12-381 paper-linked G1-public-key/G2-signature profile | 0 signing queries; 1.164 s checks; 102.98 s clean build-and-run; 400,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [CUBE](attacks/cube/) | 2026/920 initial/current | Partially blind BBS credential proof | Zero-query fresh-message forgery | Identity proof points and zero responses | BN254 five-word source and paper-complete profiles | 0 signing queries; 0.03 s; 2,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [DSS-MS](attacks/dss-ms/) | 2026/041 current landing-visible body | Dynamic sanitizable signature with multiple sanitizers | Global sanitizer-key recovery with fresh-message forgery | Public cross-Join repeated-common-factor GCD | BLS12-381/SHA-256, `n=3000`, `Join(+20)` | 1 valid signature; 7/8 one-Join independent successes; 372.77 s, 27,136 KiB peak, 1 worker for all eight trials | Verified; independently AI-reproduced |
+| [Constant-Size LRS](attacks/constant-size-lrs/) | 2025/1174 rev. 2 | Pairing-based linkable ring signature with KZG-backed SMA | Zero-signing-query fresh-message false-membership forgery | Orient 254 honest key pairs after the base challenge to cancel the missing SRS coefficient | BN254, BabyJubJub/MiMC91, `n=m=1024` | 63.85 s Python paper-model replay; 24,576 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -685,5 +686,7 @@ was located through 18 October 2026.
 [CUBE](attacks/cube/) (ePrint 2026/920, initial/current) omits nonidentity checks for its three proof points. Setting `A_bar`, `B_bar`, and `U` to the BN254 identity and `s=t=u_gamma=0` satisfies both ordinary verification equations for every challenge and attribute vector, yielding a zero-signing-query fresh-message Sys-EUF-CMA forgery. Primary and fresh-context Arkworks reproductions passed for the five-word source and paper-complete address/nullifier profiles, with honest and mutation controls rejecting as expected. Read-only historical simulation also passed at the author-listed Sepolia addresses; no transaction or source-to-runtime bytecode claim is made. Generic BBS nonidentity validation is prior art, no technique novelty is claimed, and no earlier public CUBE attack was located through 18 October 2026.
 
 [DSS-MS](attacks/dss-ms/) (ePrint 2026/041, current landing-visible body) publishes an unreduced integer mask `S_x=A*sk_s`, then recomputes `S'_x=A'*sk_s` after `Join` while retaining `PK_s`. A GCD of retained public epochs equals `sk_s` when `gcd(A,A')=1`, and the public key validates the candidate. With one valid signature, the recovered sanitizer scalar retargets its chameleon-hash component to a distinct `m'` while preserving `(R,z)`, producing a fresh full message accepted by the source-equivalent ordinary BLS12-381/SHA-256 verifier. The exact `n=3000`, `Join(+20)` primary run took 34.81 seconds. An independent eight-seed full-profile run recovered after one Join in 7/8 trials; the retained residual-2 trial recovered after the third Join at 3,060 sanitizers. All resulting forgeries and controls passed in 372.77 seconds and 27,136 KiB peak RSS on one worker. The result recovers sanitizer capability rather than the signer key, changes only the sanitizable component, does not guarantee one-Join recovery, and makes no compiled-author-binary claim. The GCD method has related prior art, no technique novelty is claimed, and no earlier public exact-target attack was located through 18 October 2026.
+
+[Constant-Size LRS](attacks/constant-size-lrs/) (ePrint 2025/1174 revision 2) omits the ordered ring from its base SMA Fiat--Shamir challenges. At the full BN254 `n=m=1024` paper profile, post-challenge orientation of 254 honest KGO key pairs spans every field residue and cancels the sole unavailable SRS coefficient, yielding a zero-signing-query fresh-message false-membership forgery while the attacker key remains outside the ring. The deterministic Python paper model executed SMA Equation 15 and KZG Equation 17 in 63.85 seconds with 24,576 KiB peak RSS on one worker; ccGro16 and CPlink are correctness-based honest-witness composition, not emitted proof objects or a byte-level complete author-verifier run. No complete author LRS verifier, codec, or KAT was located. No prior public substantive attack against ePrint 2025/1174 revision 2 was located in the searches performed through 2026-10-23. The independent publication-package review returned GO, and the result is classified as `VERIFIED_ATTACK`.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

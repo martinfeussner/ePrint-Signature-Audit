@@ -1,0 +1,43 @@
+{
+  "all_rows_pass": true,
+  "attack": {
+    "random_oracle_queries": "ordinary Fiat--Shamir queries; no grinding",
+    "signing_queries": 0
+  },
+  "digests": {
+    "independent_reproduction_manifest_sha256": "d4e595f593b0df32bf4cd8d122684be5023ff0795c10b5904ff3fbcadd6db883",
+    "mimc_source_sha256": "511bf6471eadfc7c4c17a96820bb6902f2262acfad7d285421d428db3b3c71c8",
+    "paper_level_core_sha256": "1d5425eaa0b6b972305a68a2af37fddd966b94e8dc1486127d5a3ea0249902d3",
+    "public_evidence_sha256": "465e1c4273312f9a4937d3d08b12ca9e09e2117aebe1e8e4d5146a33f939e0a4",
+    "target_paper_sha256": "4badb60ab91e825303575acea02ddad0d8bc7bc9fe883aef4dc694323a56d2d6",
+    "validator_sha256": "8789fde7b1fe8556b706bfacd5c988058c5067a3e243d5c7308f7c02e6683d93"
+  },
+  "environment": {
+    "dependencies": "Python 3 standard library",
+    "workers": 1
+  },
+  "evidence_origin": "independently reproduced retained public evidence, revalidated locally",
+  "implementation_scope": "Exact paper-level SMA Equation 15 and KZG Equation 17 execution; ccGro16 and CPlink are correctness-based honest-witness composition, not emitted proof objects or a complete author-verifier byte-level run.",
+  "result": "FULL_CONSTANT_SIZE_LRS_PAPER_PROFILE_REPLAY_PASS",
+  "results": [
+    {
+      "all_expected_checks_pass": true,
+      "checks": {
+        "accepted_missing_coefficient_is_zero": true,
+        "all_1024_curve_and_mimc_mappings_independently_validated": true,
+        "attacker_key_is_absent_from_ring": true,
+        "ccgro16_honest_witness_relation_holds": true,
+        "cplink_honest_common_opening_holds": true,
+        "exactly_254_uncorrupted_nonzero_supports": true,
+        "fixed_order_pair_flip_and_changed_message_controls_reject": true,
+        "full_n_equals_m_equals_1024_profile": true,
+        "kzg_equation_17_executed_and_accepted": true,
+        "paper_level_composition_certificate_accepts": true,
+        "sma_equation_15_executed_and_accepted": true,
+        "zero_signing_oracle_queries": true
+      },
+      "parameter_row": "BN254 / BabyJubJub-MiMC91 / n=m=1024",
+      "profile_id": "eprint-2025-1174-v2-bn254-babyjubjub-mimc91-n1024-m1024"
+    }
+  ]
+}

@@ -1902,5 +1902,28 @@
     "status": "AUDITED_NO_PRACTICAL_ATTACK",
     "attack_history_checked_at": "2026-10-18",
     "url": "https://eprint.iacr.org/2026/928"
+  },
+  {
+    "scheme": "Efficient Constant-Size Linkable Ring Signatures for Ad-Hoc Rings via Pairing-Based Set Membership Arguments",
+    "aliases": [
+      "Constant-Size LRS",
+      "lrs-v2",
+      "lrs_se"
+    ],
+    "eprint_id": "2025/1174",
+    "eprint_version": "revision 2 dated 2025-11-24",
+    "eprint_date": "2025-06-20",
+    "family": "pairing-based scoped linkable ring signature with ccGro16, CPlink, and optimized KZG-backed set membership",
+    "authors": [
+      "Min Xie",
+      "Zhengzhou Tu",
+      "Man Ho Au",
+      "Junbin Fang",
+      "Xuan Wang",
+      "Zoe Lin Jiang"
+    ],
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-23",
+    "url": "https://eprint.iacr.org/2025/1174"
   }
 ]

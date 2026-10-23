@@ -1,0 +1,575 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs,array,tabularx}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\geometry{margin=1in}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue!55!black,
+  citecolor=blue!55!black,
+  urlcolor=blue!55!black,
+  pdftitle={Constantly Out of Order: A Zero-Query Ring-Permutation Forgery against Constant-Size LRS},
+  pdfauthor={Martin Feussner},
+  pdfsubject={Cryptanalytic audit report for IACR ePrint 2025/1174 revision 2},
+  pdfkeywords={ring signatures, set membership, Fiat--Shamir, KZG, BN254, forgery}
+}
+\setlist{nosep,leftmargin=*}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0.25em}
+\setlength{\emergencystretch}{2em}
+\Urlmuskip=0mu plus 1mu
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Constantly Out of Order}
+\fancyhead[R]{23 October 2026}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newcommand{\F}{\mathbb{F}_q}
+\newcommand{\Zq}{\mathbb{Z}_q}
+\newcommand{\Verify}{\mathsf{Verify}}
+\newcommand{\KGO}{\mathsf{KGO}}
+\newcommand{\SMA}{\mathsf{SMA}}
+\newcommand{\RO}{\mathcal{H}}
+
+\title{\bfseries Constantly Out of Order:\\
+A Zero-Query Ring-Permutation Forgery against Constant-Size LRS}
+\author{Martin Feussner\\
+\small Selmer Center, University of Bergen\\
+\small \texttt{martin.feussner@uib.no}}
+\date{23 October 2026}
+
+\begin{document}
+\maketitle
+
+\noindent\fcolorbox{black!55}{black!4}{\parbox{0.94\textwidth}{
+\textbf{AI provenance and review status.}\ 
+This audit used the OpenAI model Daybreak Blue at the ultra reasoning level.
+OpenAI Codex generated and selected this paper's title and the
+scheme-specific ``Constantly Out of Order'' wordplay. OpenAI Codex performed
+AI-assisted target reconstruction, attack-history searching, cryptanalysis,
+implementation, experiment coordination, and technical writing. A separate
+AI paper/profile/algebra/security-model review independently rederived the
+attack and passed its gate. A fresh-context AI reproduction executed the
+frozen full profile twice and independently validated the evidence. A
+separately tasked AI adversarial reviewer returned GO with all ten binding
+qualifications preserved. The final exact-target history recheck and an
+independent AI publication-package review passed. The result is classified
+as \texttt{VERIFIED\_ATTACK}.
+Independent human verification has not been performed. It is optional, and
+there is no human-verification requirement.}}
+
+\begin{abstract}
+We analyze revision~2 of \emph{Efficient Constant-Size Linkable Ring
+Signatures for Ad-Hoc Rings via Pairing-Based Set Membership Arguments},
+IACR ePrint 2025/1174. Here ``zero-query'' means zero signing-oracle queries;
+the construction still makes the ordinary Fiat--Shamir random-oracle
+queries. The optimized set-membership argument derives its base challenges
+from the message tag and commitments but omits the ordered ring
+$\Phi=(\phi_1,\ldots,\phi_n)$. We exploit that omission at the authors'
+full BN254 evaluation profile, $n=m=1024$.
+
+Before the aggregate challenge, an attacker pairs 508 honest KGO public-key
+hashes into 254 unordered pairs and fixes one coefficient per pair as
+$2^j/(a_j-c_j)$. After the challenge, orienting pair $j$ changes the weighted
+membership residue by exactly $-2^j$. Since the BN254 scalar modulus is less
+than $2^{254}$, the 254 orientations span every required field residue. The
+attacker thereby cancels the sole coefficient whose SRS power is unavailable,
+constructs the SMA proof from public powers, and computes the later
+ring-bound KZG opening honestly. A separately generated valid secret outside
+the ring supplies honest witnesses for ccGro16 and CPlink. The final ring is a
+permutation of 1,024 distinct honest KGO outputs and does not contain the
+attacker's key.
+
+A prospectively sealed standard-library implementation executed the exact
+SMA Equation~15 and KZG Equation~17 polynomial identities at the full paper
+profile. The deterministic Python paper model, not an end-to-end author
+implementation, completed in 63.85 seconds using 24,576~KiB peak RSS on one
+worker; a hostile \texttt{python -O} replay completed in 64.27 seconds using
+28,220~KiB. Both emitted byte-identical evidence. A separate validator checked
+all 1,024 BabyJubJub curve equations and MiMC91 hashes plus the pair-swap
+arithmetic. Fixed-order, one-pair-flip, and changed-message controls rejected.
+The experiment does not emit concrete
+ccGro16 or CPlink proofs: it composes their honest-witness relations by
+correctness. No complete author LRS verifier, outer codec, or known-answer
+test was located in the published artifact, so we make no byte-level
+author-verifier claim. No secret-key recovery is claimed.
+\end{abstract}
+
+\section{Introduction}
+
+Xie, Tu, Au, Fang, Wang, and Jiang propose a constant-size scoped linkable
+ring signature for ad-hoc rings~\cite{lrs}. Its ordinary verification is a
+conjunction of three proof systems. An optimized pairing-based set-membership
+argument (SMA) is intended to show that a committed public-key hash belongs to
+the ring; ccGro16 shows correct public-key and link-tag computation; and
+CPlink ties the committed values together. The paper's evaluated BN254
+profile uses BabyJubJub public keys, a two-input 91-round MiMC7 hash, and rings
+of up to 1,024 members. The paper describes this row as 128-bit and reports a
+687-byte algebraic signature. We use ``authors' claimed 128-bit row'' without
+independently endorsing that contemporary security estimate.
+
+The attack is a statement-binding failure in the optimized SMA transcript.
+The aggregation challenge is fixed before the ordered ring is hashed. Its
+soundness analysis treats every missing-degree relation error as fixed at
+that time, but the membership error still depends on the ring. An adversary
+can therefore retain 254 independent pair orientations until after seeing
+the challenge and use them as a complete binary basis for the BN254 scalar
+field. This is not a collision search, subset-sum search, powers-of-tau
+attack, or malformed-key attack.
+
+\paragraph{Contribution.}
+We derive the exact unavailable-degree coefficient in Equation~15, give a
+deterministic full-profile pair-orientation algorithm, prove that it yields a
+false-membership signature under the paper semantics, connect the result to
+the authors' unforgeability game, and report a prospectively sealed
+full-parameter execution with independently checked controls. We do not
+claim novelty for the general requirement that Fiat--Shamir challenges bind
+their complete statement~\cite{fiatshamir}, nor for polynomial commitments
+or missing-power aggregation~\cite{kzg}. The contribution is the concrete
+attack on this scheme and profile.
+
+\paragraph{Claim boundary.}
+The positive execution is exact for the SMA Equation~15 and KZG Equation~17
+algebra. The other two conjuncts use ordinary honest witnesses and are
+composed by completeness; no concrete ccGro16 or CPlink proof bytes are
+emitted. The published source is a partial benchmark and reference artifact,
+not a complete external LRS verifier. Our attack is therefore a paper-level
+design result, not a wire-format or author-binary conformance claim.
+
+\section{Target and frozen profile}
+
+The normative target is ePrint 2025/1174, revision~2 dated 24 November
+2025~\cite{lrs}. The retained PDF has SHA-256 digest
+\begin{center}
+\small\ttfamily
+4badb60ab91e825303575acea02ddad0d8bc7bc9fe883aef4dc694323a56d2d6.
+\end{center}
+The paper is the full version of an ACM CCS 2025 publication. The frozen row
+is
+\begin{center}
+\small\ttfamily
+eprint-2025-1174-v2-bn254-babyjubjub-mimc91-n1024-m1024.
+\end{center}
+It fixes the BN254 scalar field, the paper's BabyJubJub public-key map,
+two-input MultiMiMC7 with 91 rounds, $n=m=1024$, ccGro16, CPlink, and the
+optimized KZG-backed SMA.
+
+The scalar modulus is
+\begin{equation}\label{eq:q}
+\begin{split}
+q={}&21888242871839275222246405745257275088548364400416034343698204186575808495617\\
+ &<2^{254}.
+\end{split}
+\end{equation}
+The ring $\Phi=(\phi_1,\ldots,\phi_m)$ is ordered. Each $\phi_i$ is the hash
+of a public key produced through the same public-key mapping. The security
+game permits the adversary to select an ad-hoc ring from KGO outputs and does
+not prescribe a canonical ring order before proof commitments.
+
+\section{The optimized SMA relation}
+
+We work in exponents over $\F$. Let $X$ be a formal variable representing
+the powers-of-tau point and let the outside attacker key hash be
+$\phi_\star$. For commitment randomness $r,r_b,r_s$, define
+\begin{align}
+A(X)&=r+\phi_\star X,\label{eq:A}\\
+B(X)&=r_b+\sum_{i=1}^{n}b_iX^i,\label{eq:B}\\
+S(X)&=r_s+\sum_{i=1}^{n}s_i b_iX^{n+1-i}.\label{eq:S}
+\end{align}
+The attacker forms $S$ in the honest way from $s_i b_i$, even though the
+chosen $b_i$ are not bits.
+
+For $m=n$, the public polynomials entering Equation~15 are
+\begin{align}
+P_h(X)&=\sum_{i=1}^{n}
+ \bigl[\delta_o+(\delta_{eq}t_i-\delta_b)s_i
+       +\delta_\phi\phi_i\bigr]X^{n+1-i},\label{eq:ph}\\
+P_u(X)&=\delta_\phi X^n-\delta_{d2}X^{n-1}
+ -\sum_{i=2}^{n}\delta_{d1}u_iX^{n+1-i},\label{eq:pu}\\
+P_t(X)&=\sum_{i=1}^{n}\delta_{eq}t_iX^i.\label{eq:pt}
+\end{align}
+The required G1 proof exponent is
+\begin{equation}\label{eq:F}
+F(X)=B(X)\bigl[\delta_bS(X)+P_h(X)\bigr]
+     -A(X)P_u(X)-S(X)P_t(X)-\delta_oX^{n+1}.
+\end{equation}
+Its degree is at most $2n$. The public G1 SRS contains every needed power in
+that range except $X^{n+1}$. Consequently a prover using only the public SRS
+can form the proof exactly when the coefficient at degree $n+1$ is zero.
+
+\subsection{The sole unavailable coefficient}
+
+Collecting degree $n+1$ in Equation~\eqref{eq:F} gives
+\begin{align}
+[X^{n+1}]F
+={}&\delta_b\sum_i s_i b_i^2
+ +\sum_i b_i\bigl[\delta_o+(\delta_{eq}t_i-\delta_b)s_i
+                         +\delta_\phi\phi_i\bigr]\notag\\
+&-\delta_{eq}\sum_i s_i b_i t_i
+ -\delta_\phi\phi_\star-\delta_o.\label{eq:expanded}
+\end{align}
+The two $\delta_{eq}$ terms cancel exactly because $S$ in
+Equation~\eqref{eq:S} is formed honestly. Thus
+\begin{equation}\label{eq:missing}
+E=[X^{n+1}]F
+=\delta_b\sum_i s_i b_i(b_i-1)
+ +\delta_o\left(\sum_i b_i-1\right)
+ +\delta_\phi\left(\sum_i b_i\phi_i-\phi_\star\right).
+\end{equation}
+The three summands are respectively the binary, one-hot, and membership
+errors aggregated by the verifier.
+
+\subsection{Where statement binding is lost}
+
+The base oracles $H_s$, $H_t$, $H_u$, and $H_{agg}$ absorb the message tag
+and the relevant commitments, but not the ordered ring $\Phi$. The paper's
+message-binding remark adds the message tag to these inputs and does not add
+the ring. Therefore $A$, $B$, $S$, every $s_i$, and all six aggregation
+coefficients can be fixed while pair orientations inside $\Phi$ remain open.
+
+The outsourced KZG point is sampled later. Its transcript includes the final
+ring and the commitments to $P_h$, $P_u$, and $P_t$. This later binding is
+useful for a control, but it cannot retroactively make the membership error in
+Equation~\eqref{eq:missing} fixed before $H_{agg}$.
+
+\section{Adaptive ring-permutation attack}
+
+The adversary generates a valid key $(sk_\star,\phi_\star)$ and obtains a
+pool of 1,024 distinct honest KGO public-key hashes not containing
+$\phi_\star$. Choose 254 disjoint unordered pairs
+\[
+(a_j,c_j),\qquad 0\leq j<254,
+\]
+using 508 pool entries. The other 516 entries occupy zero-coefficient
+positions. Initially place $a_j$ in the first position of pair $j$ and $c_j$
+in the second. Before querying the aggregate oracle, set
+\begin{equation}\label{eq:bpair}
+b_{2j+1}=\frac{2^j}{a_j-c_j},\qquad b_{2j+2}=0.
+\end{equation}
+All denominators are public and nonzero; the negligible event of equal hashes
+inside a selected pair is detectable and handled by replacing that pair with
+another honest KGO output.
+
+Swapping the two entries of pair $j$ changes its contribution to the weighted
+membership sum by
+\begin{equation}\label{eq:swap}
+\frac{2^j c_j}{a_j-c_j}-\frac{2^j a_j}{a_j-c_j}=-2^j.
+\end{equation}
+After deriving $\delta$, define the already fixed errors
+\begin{equation}
+E_b=\sum_i s_i b_i(b_i-1),\qquad E_o=\sum_i b_i-1,
+\end{equation}
+and, provided $\delta_\phi\neq0$, the target weighted value
+\begin{equation}\label{eq:W}
+W=\phi_\star-\frac{\delta_bE_b+\delta_oE_o}{\delta_\phi}.
+\end{equation}
+Let
+\begin{equation}
+B_0=\sum_{j=0}^{253}\frac{2^j a_j}{a_j-c_j},
+\qquad D=(B_0-W)\bmod q,\qquad 0\leq D<q.
+\end{equation}
+By Equation~\eqref{eq:q}, $D$ has a 254-bit expansion
+\[
+D=\sum_{j=0}^{253}\epsilon_j2^j,qquad\epsilon_j\in\{0,1\}.
+\]
+Swap pair $j$ exactly when $\epsilon_j=1$. Equation~\eqref{eq:swap} then
+gives
+\begin{equation}\label{eq:weighted}
+\sum_i b_i\phi_i=B_0-\sum_j\epsilon_j2^j=B_0-D=W\pmod q.
+\end{equation}
+Substitution of Equation~\eqref{eq:weighted} into
+Equation~\eqref{eq:missing} yields $E=0$ exactly.
+
+\subsection{Complete attack chronology}
+
+The following order respects every hash dependency in revision~2.
+\begin{enumerate}
+  \item Generate the outside key, fix the fresh message and scope, choose
+        $r$, and form the commitment represented by $A(X)$.
+  \item Fix the unordered KGO pair pool, every $b_i$, and $r_b$, then form
+        the commitment represented by $B(X)$. Only pair orientation remains
+        open.
+  \item Query $H_s$, choose $r_s$, form the honest $S(X)$, and query
+        $H_t$, the $H_u$ oracles, and $H_{agg}$.
+  \item Compute $D$ and orient all 254 pairs from its bits. This changes no
+        input to a base oracle.
+  \item Expand Equation~\eqref{eq:F}. Because its sole unavailable
+        coefficient is zero, form the SMA proof from public SRS powers.
+  \item Compute $P_h,P_u,P_t$ from the final ring and produce the later KZG
+        commitments and quotient opening honestly for that ring.
+  \item Use $sk_\star$ and the known commitment randomness with the honest
+        ccGro16 and CPlink provers. These components are not forged.
+\end{enumerate}
+If $\delta_\phi=0$, which occurs with probability $1/q$ in the random-oracle
+model, discard the transcript and begin another. The retained deterministic
+row has $\delta_\phi\neq0$.
+
+\section{Correctness and signing consequence}
+
+\begin{theorem}\label{thm:forge}
+Under correctness of ccGro16 and CPlink, the algorithm above produces a
+paper-level revision-2 LRS signature on an attacker-chosen fresh message for a
+ring of 1,024 honest KGO outputs, although the attacker's public-key hash is
+not in the ring. It makes no signing-oracle query and succeeds except for the
+$1/q$ event $\delta_\phi=0$.
+\end{theorem}
+
+\begin{proof}
+Every ring entry is an unchanged honest KGO output; the algorithm only
+permutes entries inside fixed pairs. Equation~\eqref{eq:weighted} makes the
+coefficient in Equation~\eqref{eq:missing} zero, so every nonzero coefficient
+of $F$ is supported by a published SRS power and Equation~15 holds. The later
+KZG commitments and opening are computed from the final ring, so Equation~17
+holds by polynomial-commitment correctness. The outside valid secret satisfies
+the ccGro16 public-key/link-tag relation, and the same committed
+$\phi_\star$ with known randomness satisfies the CPlink common-opening
+relation. Correctness supplies accepting proofs for those honest statements.
+Their conjunction therefore satisfies the paper verifier. The ring pool was
+chosen disjoint from $\phi_\star$, so the accepted membership statement is
+false. The message was fixed without a signing-oracle query and is fresh.
+\end{proof}
+
+This meets the paper's unforgeability-game boundary: the adversary chooses an
+ad-hoc ring from honest KGO outputs, corrupts no ring key, requests no
+signature, and outputs an accepted signature under a ring for which it knows
+no signing key. Owning a valid key outside that ring does not authorize the
+signature. Algebraically, the same construction can also produce two accepted
+signatures at one scope from two outside secrets with distinct link tags,
+yielding the paper's scoped-linkability consequence. That two-signature
+extension was not separately executed; the experiment executed one fresh
+false-membership forgery, which is the primary classification.
+
+\section{Cost and full-parameter instantiation}
+
+Beyond ordinary proof generation, the attack performs $O(n)$ field
+operations, 254 public inversions (which may be batch-inverted), a 254-bit
+decomposition, and a permutation of 1,024 public ring entries. It performs no
+exponential search and no Fiat--Shamir grinding. The malicious SMA proof uses
+the same public-SRS multiexponentiation scale as honest full-profile proof
+generation.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Item & Frozen value \\
+\midrule
+Field & BN254 scalar field in Equation~\eqref{eq:q} \\
+Public-key mapping & BabyJubJub followed by two-input MultiMiMC7, 91 rounds \\
+Ring/profile & $n=m=1024$ \\
+Pair controls & 254 pairs, 508 honest KGO keys; 516 padding positions \\
+Nonzero $b_i$ & Exactly 254, all on honest uncorrupted KGO outputs \\
+Signing queries & 0 \\
+Setup knowledge & Public SRS only; no powers-of-tau trapdoor \\
+Forged component & Optimized SMA membership statement \\
+Honest components & ccGro16 public-key/link relation and CPlink common opening \\
+\bottomrule
+\end{tabularx}
+\caption{Full paper profile and attacker boundary.}
+\end{table}
+
+\section{Reproduction and results}
+
+The experiment was prospectively sealed before execution. Its seed, message,
+scope, KGO derivation, pair allocation, exceptional-event rule, and controls
+were fixed. The implementation uses Python's standard library. It recomputes
+all 1,024 KGO outputs using the pinned author-source MiMC constants and models
+SMA/KZG group elements as formal public-SRS coefficient vectors. Exact
+coefficient identities are stronger than equality at one hidden setup point
+for the positive row, while making the missing power explicit.
+
+The host reported an AMD EPYC Processor under KVM with 64 virtual CPUs
+available. Each recorded replay was deliberately fixed to one Python worker
+and one thread; the available virtual-CPU count is not a worker count.
+
+An independent execution ran the frozen program normally and again under
+\texttt{python -O}; the second run ensures success does not depend on removed
+assertions. The full replay regenerated all 1,024 public points from the
+prospectively fixed scalar stream and recomputed the complete transcript. A
+separately written validator does not import the attack program. It checks the
+evidence schema, every public position, all BabyJubJub curve equations, all
+1,024 MiMC91 key hashes, public-key distinctness, coefficient formulas,
+residue bits, attacker-key absence, and positive/control predicate records.
+By itself, that validator does not derive the public points from committed KGO
+scalars, validate the attacker point, or independently recompute the complete
+verifier transcript; those checks come from source inspection and the full
+deterministic rerun.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lrrrl@{}}
+\toprule
+Run & Wall time & Peak RSS & Workers & Verdict \\
+\midrule
+Ordinary independent replay & 63.85 s & 24,576 KiB & 1 & PASS \\
+\texttt{python -O} hostile replay & 64.27 s & 28,220 KiB & 1 & PASS \\
+Independent evidence validator & -- & -- & 1 & PASS for both \\
+\bottomrule
+\end{tabular}
+\caption{Sealed full-row deterministic Python paper-model reproduction. The
+times are not end-to-end author-implementation signing or verification costs.}
+\end{table}
+
+Both runs emitted the same evidence bytes, with SHA-256
+\begin{center}
+\small\ttfamily
+465e1c4273312f9a4937d3d08b12ca9e09e2117aebe1e8e4d5146a33f939e0a4.
+\end{center}
+The evidence records 1,024 distinct ring hashes, exactly 254 nonzero
+coefficients, 126 selected swaps in this deterministic row, absence of
+$\phi_\star$, and an accepted missing coefficient of zero.
+
+\subsection{Positive and negative controls}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabularx}{\textwidth}{@{}lcccX@{}}
+\toprule
+Case & Eq.~15 & Eq.~17 & Composition & Interpretation \\
+\midrule
+Adaptive final ring & PASS & PASS & PASS & Missing coefficient is zero \\
+Fixed pre-challenge order & FAIL & PASS & FAIL & Nonzero unavailable coefficient \\
+Flip pair 0 after proof & PASS & FAIL & FAIL & Later KZG ring binding detects change \\
+Changed message & FAIL & FAIL & FAIL & Message-tagged transcript changes \\
+\bottomrule
+\end{tabularx}
+\caption{Full-profile checks. The composition column is a paper-level
+certificate, not a complete byte-level author-verifier execution.}
+\end{table}
+
+In every row the outside key continues to satisfy the honest ccGro16 relation
+and the common opening continues to satisfy CPlink. The failures isolate the
+SMA transcript behavior rather than relying on those two components.
+
+\subsection{Exact implementation boundary}
+
+The program executes the SMA Equation~15 polynomial identity and the KZG
+Equation~17 quotient identity at the full paper profile. It checks the exact
+ccGro16 witness relation and CPlink common opening used by the attacker, but
+does not instantiate those relations as concrete group proof objects. Its
+internal \texttt{ordinary\_accept} flag is therefore a composition
+certificate under completeness, not an observation from a complete author
+LRS verifier.
+
+The author repository contains a partial benchmark/reference implementation.
+No complete external KeyGen/Sign/Verify/Link API, complete ordinary LRS
+verifier, outer 687-byte codec, or author known-answer test was located in the
+published artifact. Consequently, no complete author-verifier byte string was
+available against which to make a stronger claim. The paper semantics remain
+the normative target.
+
+\section{Limitations and repair direction}
+
+\paragraph{Ring-order lifecycle.}
+The attack needs freedom to choose the final order of an otherwise fixed
+multiset after the base commitments. That freedom is present in the paper's
+ad-hoc-ring API and security game. An application that externally fixes,
+canonically orders, and authenticates the ring before all proof commitments
+could block this exact route; revision~2 does not specify such a lifecycle.
+
+\paragraph{Paper/source scalar mismatch.}
+The paper samples $sk$ from the full BN254 scalar field, while the available
+cc circuit decomposes 253 bits. The deterministic outside secret used in the
+experiment is below $2^{253}$ and so lies in the circuit's domain. This does
+not resolve the broader mismatch and is another reason not to claim complete
+source conformance.
+
+\paragraph{Repair.}
+Every Fiat--Shamir oracle that determines the aggregate SMA relation should
+bind the complete ordered ring statement before any proof value can be
+adapted. If a deployment instead relies on canonical ordering, the canonical
+encoding and its authentication must be normative and included in the
+transcript. Either change requires a new security proof, parameter review,
+codec definition, and interoperability tests. We do not validate a drop-in
+patch.
+
+\section{Attack history and related technique}
+
+No prior public substantive attack against ePrint 2025/1174 revision 2 was
+located in the searches performed through 2026-10-23. Those searches covered the exact title,
+identifier, DOI, aliases, authors, repository history, citations, forums,
+talks, related ring-signature work, and attack terminology. This is a dated,
+bounded negative result; it cannot exclude private, deleted, unpublished, or
+unindexed work. Work on other ring signatures does not establish an attack on
+this target.
+
+The general lesson is classical: a Fiat--Shamir challenge must bind the full
+statement whose errors it aggregates~\cite{fiatshamir}. Likewise, KZG
+commitments and missing-power techniques are established tools~\cite{kzg}.
+We make no claim that adaptive statement selection, binary residue control,
+or polynomial commitment algebra is new in general. The result identifies
+their concrete interaction with the revision-2 Constant-Size LRS transcript.
+
+\section{Public reproduction package}
+
+From \texttt{attacks/constant-size-lrs/}, the quick retained-evidence check is
+\begin{verbatim}
+python3 -B reproduce.py --reference
+python3 -B reproduce-all-rows.py --reference
+\end{verbatim}
+and the fresh full-row replay is
+\begin{verbatim}
+python3 -B reproduce.py
+./reproducer/reproduce.sh --full
+\end{verbatim}
+The package uses no third-party Python dependency. It pins the target PDF,
+author-source commit, upstream MiMC source hash, public evidence, direct
+entrypoints, expected reference outputs, and the independent validator. Raw
+public evidence reveals no ring secret.
+
+\section{Review state}
+
+The paper/profile/algebra/security-model review, fresh-context independent
+reproduction, separate adversarial-result review with all ten binding
+qualifications preserved, final exact-target attack-history recheck, and
+independent AI publication-package review passed. This result is classified
+as \texttt{VERIFIED\_ATTACK}. Independent human verification has not been
+performed; it is optional and is not a gate or requirement.
+
+\section*{Acknowledgements}
+The computations were performed on the Norwegian Research and Education Cloud (NREC), using resources provided by the University of Bergen and the University of Oslo.
+
+\begin{thebibliography}{9}
+
+\bibitem{lrs}
+M. Xie, Z. Tu, M. H. Au, J. Fang, X. Wang, and Z. L. Jiang.
+\newblock Efficient Constant-Size Linkable Ring Signatures for Ad-Hoc Rings
+via Pairing-Based Set Membership Arguments.
+\newblock IACR Cryptology ePrint Archive, Report 2025/1174, revision 2, 2025.
+\newblock \url{https://eprint.iacr.org/2025/1174}.
+
+\bibitem{fiatshamir}
+A. Fiat and A. Shamir.
+\newblock How to Prove Yourself: Practical Solutions to Identification and
+Signature Problems.
+\newblock In \emph{CRYPTO 1986}, LNCS 263, pages 186--194, 1987.
+
+\bibitem{kzg}
+A. Kate, G. M. Zaverucha, and I. Goldberg.
+\newblock Constant-Size Commitments to Polynomials and Their Applications.
+\newblock In \emph{ASIACRYPT 2010}, LNCS 6477, pages 177--194, 2010.
+
+\bibitem{groth16}
+J. Groth.
+\newblock On the Size of Pairing-Based Non-interactive Arguments.
+\newblock In \emph{EUROCRYPT 2016}, LNCS 9666, pages 305--326, 2016.
+
+\end{thebibliography}
+
+\end{document}
