@@ -14,11 +14,11 @@ unreported.
 
 | Metric | Count |
 |---|---:|
-| Schemes identified | 69 |
+| Schemes identified | 70 |
 | Known attacks excluded | 12 |
-| Schemes audited | 57 |
+| Schemes audited | 58 |
 | No practical attack found | 36 |
-| Verified and independently reproduced practical design attacks | 21 |
+| Verified and independently reproduced practical design attacks | 22 |
 
 ## Practical design attacks
 
@@ -45,6 +45,7 @@ unreported.
 | [CUBE](attacks/cube/) | 2026/920 initial/current | Partially blind BBS credential proof | Zero-query fresh-message forgery | Identity proof points and zero responses | BN254 five-word source and paper-complete profiles | 0 signing queries; 0.03 s; 2,048 KiB peak, 1 worker | Verified; independently AI-reproduced |
 | [DSS-MS](attacks/dss-ms/) | 2026/041 current landing-visible body | Dynamic sanitizable signature with multiple sanitizers | Global sanitizer-key recovery with fresh-message forgery | Public cross-Join repeated-common-factor GCD | BLS12-381/SHA-256, `n=3000`, `Join(+20)` | 1 valid signature; 7/8 one-Join independent successes; 372.77 s, 27,136 KiB peak, 1 worker for all eight trials | Verified; independently AI-reproduced |
 | [Constant-Size LRS](attacks/constant-size-lrs/) | 2025/1174 rev. 2 | Pairing-based linkable ring signature with KZG-backed SMA | Zero-signing-query fresh-message false-membership forgery | Orient 254 honest key pairs after the base challenge to cancel the missing SRS coefficient | BN254, BabyJubJub/MiMC91, `n=m=1024` | 63.85 s Python paper-model replay; 24,576 KiB peak, 1 worker | Verified; independently AI-reproduced |
+| [Sphinx-in-the-Head](attacks/sphinx-in-the-head/) | 2024/649 current frozen PDF | Fully dynamic group signature from symmetric primitives | One-query fresh-message non-frameability forgery | Zero-extension retargeting across the unframed message/randomizer boundary | TEST2 `n=255`, `q=1024`, `h=1`, Algorithm-2 zero padding | 0.015 s typed-model replay; 21,504 KiB peak, 1 worker | Verified; independently AI-reproduced |
 
 ## Known attack exclusions
 
@@ -688,5 +689,7 @@ was located through 18 October 2026.
 [DSS-MS](attacks/dss-ms/) (ePrint 2026/041, current landing-visible body) publishes an unreduced integer mask `S_x=A*sk_s`, then recomputes `S'_x=A'*sk_s` after `Join` while retaining `PK_s`. A GCD of retained public epochs equals `sk_s` when `gcd(A,A')=1`, and the public key validates the candidate. With one valid signature, the recovered sanitizer scalar retargets its chameleon-hash component to a distinct `m'` while preserving `(R,z)`, producing a fresh full message accepted by the source-equivalent ordinary BLS12-381/SHA-256 verifier. The exact `n=3000`, `Join(+20)` primary run took 34.81 seconds. An independent eight-seed full-profile run recovered after one Join in 7/8 trials; the retained residual-2 trial recovered after the third Join at 3,060 sanitizers. All resulting forgeries and controls passed in 372.77 seconds and 27,136 KiB peak RSS on one worker. The result recovers sanitizer capability rather than the signer key, changes only the sanitizable component, does not guarantee one-Join recovery, and makes no compiled-author-binary claim. The GCD method has related prior art, no technique novelty is claimed, and no earlier public exact-target attack was located through 18 October 2026.
 
 [Constant-Size LRS](attacks/constant-size-lrs/) (ePrint 2025/1174 revision 2) omits the ordered ring from its base SMA Fiat--Shamir challenges. At the full BN254 `n=m=1024` paper profile, post-challenge orientation of 254 honest KGO key pairs spans every field residue and cancels the sole unavailable SRS coefficient, yielding a zero-signing-query fresh-message false-membership forgery while the attacker key remains outside the ring. The deterministic Python paper model executed SMA Equation 15 and KZG Equation 17 in 63.85 seconds with 24,576 KiB peak RSS on one worker; ccGro16 and CPlink are correctness-based honest-witness composition, not emitted proof objects or a byte-level complete author-verifier run. No complete author LRS verifier, codec, or KAT was located. No prior public substantive attack against ePrint 2025/1174 revision 2 was located in the searches performed through 2026-10-23. The independent publication-package review returned GO, and the result is classified as `VERIFIED_ATTACK`.
+
+[Sphinx-in-the-Head](attacks/sphinx-in-the-head/) (ePrint 2024/649, current 66-page PDF frozen by SHA-256) computes `sid=H1(msg||str)` and proves only the resulting typed statement. From one signature `(u,stt,com,pi_G)` on the empty bit string, Appendix E.2 permits the fresh 255-bit message `u` with signature `(0^255,stt,com,pi_G)` because `H1(u)=H1(u||0^255)`. Ordinary typed-paper `GVf` accepts, while `TraceU` and `TVf` attribute the forgery to the honest member, winning Figure 8 at `tau=0`. A fresh-context full-dimension idealized model passed one deterministic trial in 0.015 seconds with 21,504 KiB peak RSS and all eight controls rejecting. The official HBGS source is component-only and defines no outer mapping, codec, full verifier, or relevant KAT; no source-byte, deployed-verifier, or real LowMC/M-FORS/MPCitH claim is made. No prior public substantive exact-target attack was located as of 2026-10-24. Independent exact-byte publication review returned GO, and the result is `VERIFIED_ATTACK`.
 
 See [methodology](METHODOLOGY.md), [attack-history methodology](docs/attack-history-methodology.md), [publication policy](docs/publication-policy.md), [reproducibility](REPRODUCIBILITY.md), and [AI disclosure](AI_DISCLOSURE.md).

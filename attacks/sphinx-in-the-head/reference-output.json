@@ -1,0 +1,26 @@
+{
+  "attack": {
+    "query_message": "epsilon (0-bit string)",
+    "signing_queries": 1
+  },
+  "checks": {
+    "appendix_e2_zero_extension_identity": true,
+    "exact_test2_profile": true,
+    "figure8_nonframe_endpoint": true,
+    "fresh_message": true,
+    "ordinary_gvf_accepts": true,
+    "retained_evidence_validated": true,
+    "traceu_returns_honest_identity": true,
+    "tvf_accepts": true
+  },
+  "digests": {
+    "independent_reproducer_sha256": "3b3b62d9018b28cda7a279fd2145697421f5b132a5d3728d6c99daf2178ee863",
+    "retained_evidence_sha256": "f4b829edf9f822a8f44fbbf94108416a603571e7305d2e5bc1671e484995cfcd",
+    "target_paper_sha256": "67581ad5d1ae2455573cdb9b043344d91ca04788797318a7906ed500380a9881"
+  },
+  "environment": {
+    "runtime_scope": "source-independent idealized typed-paper model",
+    "workers": 1
+  },
+  "result": "PASS / independently reproduced typed-paper forgery"
+}

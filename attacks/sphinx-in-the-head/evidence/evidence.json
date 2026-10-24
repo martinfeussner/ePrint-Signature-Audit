@@ -1,0 +1,219 @@
+{
+  "aggregate_oracle_ledger": {
+    "AddHU": 1,
+    "GSigHU": 1,
+    "TraceU": 1,
+    "counterfactual_signatures_not_counted_as_game_queries": 1,
+    "per_trial_GSigHU_message": "epsilon",
+    "per_trial_TraceU_list": "RL_0",
+    "per_trial_required_counts": {
+      "AddHU": 1,
+      "GSigHU": 1,
+      "TraceU": 1
+    }
+  },
+  "all_trials_pass": true,
+  "artifact_type": "independent_typed_paper_reproduction_evidence",
+  "candidate_id": "sphinx-independent-typed-paper-v2",
+  "claim_scope": {
+    "author_byte_conformance": false,
+    "full_parameter_profile": true,
+    "ideal_credential_and_proof_abstraction": true,
+    "official_source_reproduction": false,
+    "primary_endpoint": "Figure 8 ExpNon-Frame with tau=0",
+    "real_LowMC": false,
+    "real_MFORS": false,
+    "real_MPCitH": false,
+    "source_independent_typed_paper_model": true
+  },
+  "development_seal_status": "prospectively sealed before first execution",
+  "execution": {
+    "finished_utc": "2026-10-24T09:00:01.183342+00:00",
+    "machine": {
+      "collection_method": "direct non-spawning sys/os primitives",
+      "logical_cpu_count": 64,
+      "os_name": "posix",
+      "os_uname": {
+        "machine": "x86_64",
+        "nodename": "magma",
+        "release": "6.8.0-146-generic",
+        "sysname": "Linux",
+        "version": "#146-Ubuntu SMP PREEMPT_DYNAMIC Thu Sep  3 16:12:30 UTC 2026"
+      },
+      "python_cache_tag": "cpython-312",
+      "python_implementation": "cpython",
+      "python_releaselevel": "final",
+      "python_serial": 0,
+      "python_version": "3.12.3",
+      "sys_platform": "linux"
+    },
+    "peak_ram": {
+      "unit": "KiB on Linux; bytes on macOS",
+      "value": 21504
+    },
+    "runtime_seconds": 0.01501373597420752,
+    "started_utc": "2026-10-24T09:00:01.168343+00:00",
+    "successes": 1,
+    "trials": 1,
+    "workers": 1
+  },
+  "implementation_sha256": "3b3b62d9018b28cda7a279fd2145697421f5b132a5d3728d6c99daf2178ee863",
+  "paper": {
+    "eprint": "2024/649",
+    "sha256": "67581ad5d1ae2455573cdb9b043344d91ca04788797318a7906ed500380a9881",
+    "title": "Sphinx-in-the-Head: Group Signatures from Symmetric Primitives"
+  },
+  "profile": {
+    "NR": 1120,
+    "NU": 70,
+    "claimed_quantum_security_bits": 128,
+    "d": 16,
+    "gp": [
+      255,
+      1024,
+      1,
+      16,
+      70
+    ],
+    "h": 1,
+    "k": 70,
+    "mfors_base_tree_count": 70,
+    "mfors_base_tree_logical_leaves_each": 65536,
+    "mfors_public_key_bits_d_times_k": 1120,
+    "mpc_parties": 16,
+    "n": 255,
+    "partial_path_repetitions": 16,
+    "profile_id": "SITH-2024-649-HBGS-TEST2-N255-Q1024-H1-D16-K70-NR1120-NU70-Q128-G2P10-PAPER-ALG2-ZEROPAD",
+    "q": 1024,
+    "top_tree_capacity": 128,
+    "top_tree_height": 7,
+    "top_tree_zero_leaves": 58
+  },
+  "schema_version": "1.0",
+  "trials": [
+    {
+      "algorithm2_padding": {
+        "all_primary_top_tree_builds_exact": true,
+        "appendix_E5_node_lifting_used": false,
+        "build_count": 2,
+        "builds": [
+          {
+            "algorithm": "Appendix-B Algorithm-2 zero padding",
+            "appended_zero_leaf_count": 58,
+            "capacity": 128,
+            "height": 7,
+            "initial_leaf_count": 70,
+            "lifted_node_count": 0,
+            "root_width_bits": 1120,
+            "zero_leaf_width_bits": 255
+          },
+          {
+            "algorithm": "Appendix-B Algorithm-2 zero padding",
+            "appended_zero_leaf_count": 58,
+            "capacity": 128,
+            "height": 7,
+            "initial_leaf_count": 70,
+            "lifted_node_count": 0,
+            "root_width_bits": 1120,
+            "zero_leaf_width_bits": 255
+          }
+        ]
+      },
+      "controls": {
+        "changed_statement_proof_reuse_rejected": true,
+        "framed_domain_separated_H1_counterfactual_rejected": true,
+        "nonzero_replacement_str_rejected": true,
+        "public_credential_synthesis_rejected": true,
+        "public_only_zero_query_signature_construction_rejected": true,
+        "public_proof_synthesis_rejected": true,
+        "revocation_rejected": true,
+        "signature_field_mutation_rejected": true
+      },
+      "credential_and_proof_boundary": {
+        "attacker_view_top_level_fields": [
+          "credential_model",
+          "gid",
+          "gp",
+          "profile_id",
+          "proof_model",
+          "root_public_key",
+          "sid_policy"
+        ],
+        "credential_issuance_controlled": true,
+        "deterministic_seed_option": false,
+        "join_view_top_level_fields": [
+          "accepted",
+          "credential_status",
+          "member_id"
+        ],
+        "member_or_authority_secret_fields_in_attacker_view": [],
+        "proof_generation_requires_member_witness_and_issued_credential": true,
+        "public_recomputation_interface_present": false,
+        "raw_secret_values_written_to_evidence": false,
+        "runtime_secret_source": "Python secrets module / operating-system CSPRNG"
+      },
+      "figure8_endpoint": {
+        "Figure_8_returns_1": true,
+        "GVf_msg_star_sigma_star_RL0": true,
+        "RL_tau": "RL_0",
+        "TVf_id_h_pi_t_star_sigma_star_msg_star": true,
+        "TraceU_GVf_gate_accepts": true,
+        "TraceU_returns_id_h": true,
+        "exact_pair_msg_star_sigma_star_absent_from_S": true,
+        "message_fresh_despite_not_required_by_exact_pair_game": true,
+        "message_fresh_even_if_u_is_zero": true,
+        "tau": 0
+      },
+      "framed_counterfactual_detail": {
+        "control_passes": true,
+        "figure8_GSigHU_queries": 0,
+        "ordinary_direct_signature_generations": 1,
+        "original_and_transformed_sid_differ": true,
+        "original_signature_accepts": true,
+        "policy": "counterfactual-length-framed-domain-separated-H1(msg,str)",
+        "separate_control_world": true,
+        "transformed_signature_rejected": true
+      },
+      "oracle_ledger": {
+        "AddHU": 1,
+        "GSigHU": 1,
+        "GSigHU_query_message": "epsilon (0-bit string)",
+        "TraceU": 1,
+        "TraceU_revocation_epoch": 0,
+        "honest_log_exact_pair_count": 1
+      },
+      "ordinary_api": {
+        "GSig_and_GVf_share_sid_policy": "paper-unframed-H1(msg||str)",
+        "attack_only_verifier_branch": false,
+        "original_signature_accepts": true,
+        "str_sampler_conditions_away_zero": false
+      },
+      "profile_id": "SITH-2024-649-HBGS-TEST2-N255-Q1024-H1-D16-K70-NR1120-NU70-Q128-G2P10-PAPER-ALG2-ZEROPAD",
+      "public_fingerprints_sha256": {
+        "original_signature": "c9601198372377589255e4e5f2077b3d39c815cea989c1754b499a87199937e4",
+        "root_public_key": "6a5307402922dbd21b10f8fec62dde6b653b06f8f4bc8a652f3951c5b987aea4",
+        "transformed_signature": "477595d58b33ac389decc08ef57b39612d0dccf78036d8feebd2eb9d9b112558"
+      },
+      "runtime_seconds": 0.014940728200599551,
+      "success": true,
+      "transformation": {
+        "H1_epsilon_concat_u_equals_H1_u": true,
+        "H1_u_equals_H1_u_concat_zero255": true,
+        "fresh_msg_star_equals_u": true,
+        "fresh_msg_star_width_bits": 255,
+        "original_and_transformed_sid_equal": true,
+        "replacement_str_star": "0^255",
+        "replacement_str_star_is_zero": true,
+        "retained_fields": {
+          "commitment_com": true,
+          "group_proof_pi_G": true,
+          "tracing_token_stt": true
+        },
+        "returned_str_is_zero": false,
+        "returned_str_name": "u",
+        "returned_str_width_bits": 255
+      },
+      "trial": 1
+    }
+  ]
+}

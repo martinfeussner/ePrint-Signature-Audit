@@ -1,0 +1,10 @@
+========================================
+RETAINED EVIDENCE VALIDATION: PASS
+Profile: SITH-2024-649-HBGS-TEST2-N255-Q1024-H1-D16-K70-NR1120-NU70-Q128-G2P10-PAPER-ALG2-ZEROPAD
+Result: one-query fresh-message typed-paper forgery
+Ordinary GVf: ACCEPTED
+TraceU / TVf honest-member attribution: ACCEPTED
+Evidence SHA-256: f4b829edf9f822a8f44fbbf94108416a603571e7305d2e5bc1671e484995cfcd
+Assertions: 132/132
+Attack execution: NOT RUN by this validator
+========================================

@@ -1925,5 +1925,26 @@
     "status": "VERIFIED_ATTACK",
     "attack_history_checked_at": "2026-10-23",
     "url": "https://eprint.iacr.org/2025/1174"
+  },
+  {
+    "scheme": "Sphinx-in-the-Head: Group Signatures from Symmetric Primitives",
+    "aliases": [
+      "Sphinx-in-the-Head",
+      "SITH",
+      "HBGS"
+    ],
+    "eprint_id": "2024/649",
+    "eprint_version": "current official 66-page PDF frozen by SHA-256; revision ordinal unresolved",
+    "eprint_date": "2024-04-28",
+    "family": "fully dynamic group signature from symmetric primitives with LowMC/Davies-Meyer hashing",
+    "authors": [
+      "Liqun Chen",
+      "Changyu Dong",
+      "Christopher J. P. Newton",
+      "Yalan Wang"
+    ],
+    "status": "VERIFIED_ATTACK",
+    "attack_history_checked_at": "2026-10-24",
+    "url": "https://eprint.iacr.org/2024/649"
   }
 ]
